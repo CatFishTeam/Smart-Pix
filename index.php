@@ -1,2 +1,3 @@
 <?php
-phpinfo();
+// phpinfo();
+echo 'Ceci a valeur de test final !';
