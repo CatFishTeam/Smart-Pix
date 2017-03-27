@@ -49,3 +49,30 @@
     .col-5{ width: 100%;    }
     .col-6{ width: 100%;    }
 }
+
+/* Header */
+
+header {
+    height: 70px;
+    line-height: 70px;
+}
+
+header input {
+    border: none;
+    width: 60%;
+    height: 30px;
+    font-size: 20px;
+}
+
+header input:focus {
+    outline: none;
+    border-bottom: 1px solid lightgray;
+}
+
+header i {
+    margin: 0 0 0 50px;
+}
+
+header select {
+    border-radius: 5px;
+}

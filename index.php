@@ -4,7 +4,7 @@
     <head>
         <title>Bienvenue sur Smart-Pix</title>
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <link rel="stylesheet" href="/public/css/style.css" />
+        <link rel="stylesheet" href="public/css/style.css" />
         <style>
             img{
                 max-width: 100%;
@@ -53,14 +53,22 @@
     </head>
     <body>
         <header>
-            <img src="/public/image/logo.png" alt="Smart-Pix Logo" class="logo"/>
-            <nav>
-                <i class="fa fa-search" aria-hidden="true"></i>
-                <input type="text" placeholder="Recherche par photo, catégorie, artiste..."/>
-                <select>
-                    <option>Connexion / Inscription</option>
-                </select>
-            </nav>
+            <div class="container">
+                <div class="row">
+                    <section class="col-5">
+                        <img src="public/image/logo.png" alt="Smart-Pix Logo" class="logo"/>
+                        <nav>
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            <input type="text" placeholder="Recherche par photo, catégorie, artiste..."/>
+                        </nav>
+                    </section>
+                    <section>
+                        <select class="col-1">
+                            <option>Connexion / Inscription</option>
+                        </select>
+                    </section>
+                </div>
+            </div>
         </header>
         <div class="container">
             <div class="row">
