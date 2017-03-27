@@ -5,73 +5,20 @@
         <title>Bienvenue sur Smart-Pix</title>
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="public/css/style.css" />
-        <style>
-            img{
-                max-width: 100%;
-            }
-            .logo {
-                float: left;
-                width: 80px;
-            }
-            .box{
-                border: 1px solid grey;
-                margin: 10px;
-                padding: 5px;
-            }
-            .box:nth-of-type(1){
-                text-align: center;
-            }
-            .box h3{
-                background-color: #2089e6;
-                margin: -5px;
-                margin-bottom: 5px;
-                padding-left: 10px;
-                color: #fff;
-            }
-            .box ul{
-                list-style: none;
-                width: 100%;
-                padding: 0;
-                margin: -6px;
-            }
-            .box ul li{
-                border: 1px solid gray;
-                padding-left: 10px;
-                padding-top: 5px;
-                width: 100%;
-            }
-            .button{
-                text-align: center;
-                border: 1px solid grey;
-                width: 40%;
-                border-radius: 10px;
-                background-color: azure;
-                margin: auto;
-                cursor: pointer;
-            }
-            @media (max-width: 800px){
-                .col-2 {
-                    width: 100%;
-                }
-            }
-            footer{
-                text-align: center;
-            }
-        </style>
     </head>
     <body>
         <header>
             <div class="container">
                 <div class="row">
-                    <section class="col-5">
+                    <section class="col-4">
                         <img src="public/image/logo.png" alt="Smart-Pix Logo" class="logo"/>
                         <nav>
                             <i class="fa fa-search" aria-hidden="true"></i>
                             <input type="text" placeholder="Recherche par photo, catégorie, artiste..."/>
                         </nav>
                     </section>
-                    <section>
-                        <select class="col-1">
+                    <section class="col-2">
+                        <select>
                             <option>Connexion / Inscription</option>
                         </select>
                     </section>
@@ -96,15 +43,15 @@
                         <h3>Catégories</h3>
                         <ul>
                             <li>Nature
-                                <li>Urbain
-                                    <li>Animaux
-                                        <li>Mode
-                                            <li>Arts
-                                                <li>Architecture
-                                                    <li>...
-                                                    </ul>
-                                                </div>
-                                            </aside>
+                            <li>Urbain
+                            <li>Animaux
+                            <li>Mode
+                            <li>Arts
+                            <li>Architecture
+                            <li>...
+                        </ul>
+                    </div>
+                </aside>
             </div>
         </div>
         <footer>
