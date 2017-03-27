@@ -81,7 +81,7 @@
         <div class="container">
             <div class="row">
                 <section class="col-4">
-                    <img src="/public/image/background.png" />
+                    <img src="public/image/background.png" />
                     <div class="button">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
                         Voir plus d'images
