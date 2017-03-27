@@ -12,17 +12,45 @@
                 float: left;
                 width: 80px;
             }
-            .box {
+            .box{
                 border: 1px solid grey;
                 margin: 10px;
                 padding: 5px;
             }
             .box h3{
-                
+                background-color: #2089e6;
+                margin: -5px;
+                margin-bottom: 5px;
+                padding-left: 10px;
+                color: #fff;
+            }
+            .box ul{
+                list-style: none;
+                width: 100%;
+                padding: 0;
+                margin: -6px;
+            }
+            .box ul li{
+                border: 1px solid gray;
+                padding-left: 10px;
+                padding-top: 5px;
+                width: 100%;
+            }
+            .button{
+                text-align: center;
+                border: 1px solid grey;
+                width: 40%;
+                border-radius: 10px;
+                background-color: azure;
+                margin: auto;
+                cursor: pointer;
+            }
+            footer{
+                text-align: center;
             }
         </style>
     </head>
-    <body class="container">
+    <body>
         <header>
             <img src="/public/image/logo.png" alt="Smart-Pix Logo" class="logo"/>
             <nav>
@@ -33,50 +61,54 @@
                 </select>
             </nav>
         </header>
-        <section class="col-4">
-            <img src="http://placehold.it/250x120" />
-            <img src="http://placehold.it/250x120" />
-            <img src="http://placehold.it/250x120" />
-            <img src="http://placehold.it/250x120" />
-            <img src="http://placehold.it/250x120" />
-            <img src="http://placehold.it/250x120" />
-            <img src="http://placehold.it/250x120" />
-            <img src="http://placehold.it/250x120" />
-            <img src="http://placehold.it/250x120" />
-            <img src="http://placehold.it/250x120" />
-            <img src="http://placehold.it/250x120" />
-            <img src="http://placehold.it/250x120" />
-            <img src="http://placehold.it/250x120" />
-            <img src="http://placehold.it/250x120" />
-            <img src="http://placehold.it/250x120" />
-            <img src="http://placehold.it/250x120" />
-            <img src="http://placehold.it/250x120" />
-            <img src="http://placehold.it/250x120" />
-            <div class="button">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                Voir plus d'image
+        <div class="container">
+            <div class="row">
+                <section class="col-4">
+                    <img src="http://placehold.it/250x120" />
+                    <img src="http://placehold.it/250x120" />
+                    <img src="http://placehold.it/250x120" />
+                    <img src="http://placehold.it/250x120" />
+                    <img src="http://placehold.it/250x120" />
+                    <img src="http://placehold.it/250x120" />
+                    <img src="http://placehold.it/250x120" />
+                    <img src="http://placehold.it/250x120" />
+                    <img src="http://placehold.it/250x120" />
+                    <img src="http://placehold.it/250x120" />
+                    <img src="http://placehold.it/250x120" />
+                    <img src="http://placehold.it/250x120" />
+                    <img src="http://placehold.it/250x120" />
+                    <img src="http://placehold.it/250x120" />
+                    <img src="http://placehold.it/250x120" />
+                    <img src="http://placehold.it/250x120" />
+                    <img src="http://placehold.it/250x120" />
+                    <img src="http://placehold.it/250x120" />
+                    <div class="button">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        Voir plus d'images
+                    </div>
+                </section>
+                <aside class="col-2">
+                    <div class="box">
+                        <h3>Photo du jour</h3>
+                        <img src="http://placehold.it/250x120" />
+                    </div>
+                    <div class="box">
+                        <h3>Catégories</h3>
+                        <ul>
+                            <li>Nature
+                                <li>Urbain
+                                    <li>Animaux
+                                        <li>Mode
+                                            <li>Arts
+                                                <li>Architecture
+                                                    <li>...
+                                                    </ul>
+                                                </div>
+                                            </aside>
             </div>
-        </section>
-        <aside class="col-2">
-            <div class="box">
-                <h3>Photo du jour</h3>
-                <img src="http://placehold.it/250x120" />
-            </div>
-            <div class="box">
-                <h3>Catégories</h3>
-                <ul>
-                    <li>Nature
-                    <li>Urbain
-                    <li>Animaux
-                    <li>Mode
-                    <li>Arts
-                    <li>Architecture
-                    <li>...
-                </ul>
-            </div>
-        </aside>
+        </div>
         <footer>
-            Ceci est un footer
+            Smart-Pix © - 2017
         </footer>
     </body>
 </html>
