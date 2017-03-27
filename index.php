@@ -18,6 +18,9 @@
                 margin: 10px;
                 padding: 5px;
             }
+            .box:nth-of-type(1){
+                text-align: center;
+            }
             .box h3{
                 background-color: #2089e6;
                 margin: -5px;
@@ -46,6 +49,11 @@
                 margin: auto;
                 cursor: pointer;
             }
+            @media (max-width: 800px){
+                .col-2 {
+                    width: 100%;
+                }
+            }
             footer{
                 text-align: center;
             }
@@ -73,24 +81,7 @@
         <div class="container">
             <div class="row">
                 <section class="col-4">
-                    <img src="http://placehold.it/250x120" />
-                    <img src="http://placehold.it/250x120" />
-                    <img src="http://placehold.it/250x120" />
-                    <img src="http://placehold.it/250x120" />
-                    <img src="http://placehold.it/250x120" />
-                    <img src="http://placehold.it/250x120" />
-                    <img src="http://placehold.it/250x120" />
-                    <img src="http://placehold.it/250x120" />
-                    <img src="http://placehold.it/250x120" />
-                    <img src="http://placehold.it/250x120" />
-                    <img src="http://placehold.it/250x120" />
-                    <img src="http://placehold.it/250x120" />
-                    <img src="http://placehold.it/250x120" />
-                    <img src="http://placehold.it/250x120" />
-                    <img src="http://placehold.it/250x120" />
-                    <img src="http://placehold.it/250x120" />
-                    <img src="http://placehold.it/250x120" />
-                    <img src="http://placehold.it/250x120" />
+                    <img src="/public/image/background.png" />
                     <div class="button">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
                         Voir plus d'images
