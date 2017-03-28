@@ -138,7 +138,7 @@ select{
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  height: 100vw;
+  width: 60vw;
   max-height: 800px;
   font-size: 0;
 }
