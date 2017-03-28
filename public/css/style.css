@@ -111,6 +111,10 @@ img{
     padding-top: 5px;
     width: 100%;
 }
+.box ul li:hover{
+    background-color: aliceblue;
+    cursor: pointer;
+}
 .button{
     text-align: center;
     border: 1px solid grey;
