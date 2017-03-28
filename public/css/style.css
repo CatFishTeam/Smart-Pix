@@ -145,7 +145,7 @@ select{
   font-size: 0;
 }
 #masonry img {
-  width: 33.3%;
+  width: 30.3%;
   transition: .8s opacity;
   margin: 5px;
 }

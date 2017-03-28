@@ -5,6 +5,7 @@
         <title>Bienvenue sur Smart-Pix</title>
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="public/css/style.css" />
+        <link rel="shortcut icon" type="image/ico" href="/public/image/logo.ico"/>
     </head>
     <body>
         <header>
@@ -46,7 +47,7 @@
                 <aside class="col-2">
                     <div class="box">
                         <h3>Photo du jour</h3>
-                        <img src="http://placehold.it/250x120" />
+                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/7.jpg">
                     </div>
                     <div class="box">
                         <h3>Catégories</h3>
