@@ -86,13 +86,13 @@ img{
 }
 .box:nth-of-type(1){
     text-align: center;
+    margin-bottom: 20px;
 }
 .box h3{
     background-color: #2089e6;
     padding-left: 10px;
     color: #fff;
     margin: 0;
-    margin-bottom: 20px;
 }
 .box ul{
     list-style: none;
