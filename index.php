@@ -29,6 +29,7 @@
         <div class="container">
             <div class="row">
                 <section class="col-4">
+
                     <div id="masonry">
                         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/7.jpg">
                         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/1.jpg">
@@ -39,6 +40,7 @@
                         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/8.jpg">
                         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/9.jpg">
                     </div>
+
                     <div class="button">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
                         Voir plus d'images
