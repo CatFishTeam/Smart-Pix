@@ -78,8 +78,4 @@ class Routing{
     public function page404(){
         die("Page 404");
     }
-
-    // echo "<pre>";
-    // print_r($_SERVER);
-
 }

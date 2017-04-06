@@ -2,7 +2,7 @@
 Official Smart-Pix Website
 
 
-## TODO
+## TODO :
 **Serveur : **
 - Git push automatique
 - Clef SSh
@@ -24,3 +24,5 @@ Official Smart-Pix Website
 - Javascript Gride
 - Boostrap Grid mieux gérée
 - Intégration Sass
+- Intégrer CKEDITOR
+- Trouver système de Graph
