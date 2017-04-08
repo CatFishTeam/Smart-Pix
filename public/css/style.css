@@ -135,17 +135,28 @@ select{
 
 /* Style CSS */
 #masonry {
-  display: flex;
+  /*display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   width: 60vw;
-  max-height: 800px;
+  max-height: 800px;*/
   font-size: 0;
+  line-height: 0;
+
+  -webkit-column-count: 3;
+  -webkit-column-gap:   5px;
+  -moz-column-count:    3;
+  -moz-column-gap:      5px;
+  column-count:         3;
+  column-gap:           5px;
 }
 #masonry img {
-  width: 30.3%;
-  transition: .8s opacity;
-  margin: 5px;
+
+    margin: 3px 0;
+    transition: .8s opacity;
+
+    width: 100%;
+    height: auto;
 }
 
 #masonry:hover img { opacity: 0.3; }
