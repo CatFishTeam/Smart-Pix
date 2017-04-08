@@ -1,4 +1,68 @@
-//Grid layout (6 col)
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*Grid layout (6 col)*/
+h1,h2,h3,h4,h5,h6{
+    font-family: 'Montserrat', sans-serif;
+}
+
+body{
+    background-color: #ecf0f1;
+    margin: 0;
+}
+
+header{
+    height: 90px;
+    line-height: 70px;
+    background: #fff;
+}
+
 .container{
     width: 100%;
     max-width: 1200px;
@@ -52,11 +116,6 @@
 
 /* Header */
 
-header {
-    height: 70px;
-    line-height: 70px;
-}
-
 header input {
     border: none;
     width: 60%;
@@ -89,10 +148,13 @@ img{
     margin-bottom: 20px;
 }
 .box h3{
-    background-color: #2089e6;
+    background-color: #fff;
     padding-left: 10px;
-    color: #fff;
+    padding: 10px;
+    color: #000;
     margin: 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 .box ul{
     list-style: none;
@@ -114,10 +176,12 @@ img{
     border: 1px solid grey;
     width: 40%;
     border-radius: 10px;
-    background-color: azure;
+    background-color: #fff;
     margin: auto;
     cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
 }
+
 @media (max-width: 800px){
     .col-2 {
         width: 100%;

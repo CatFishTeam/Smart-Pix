@@ -21,8 +21,9 @@ class BaseSql{
             $this->columns = array_diff_key($varObject, $varParent);
     }
 
-    public function save(){
+    public function save() {
         if ($this->id == -1) {
+
             unset($this->columns['id']);
             $sqlCol = null;
             $sqlKey = null;
@@ -33,47 +34,49 @@ class BaseSql{
             }
             $sqlCol = trim($sqlCol, ",");
             $sqlKey = trim($sqlKey, ",");
-            // var_dump($data);
             $req = $this->db->prepare("INSERT INTO ".$this->table." (".$sqlCol.") VALUES (".$sqlKey.");");
             $req->execute($data);
+            echo "insert";
+
+        } else {
+
+            $sqlQuery = null;
+            foreach ($this->columns as $columns => $value) {
+                $data[$columns] = $this->$columns;
+                $sqlQuery .= $columns . " = :" . $columns . ", ";
+            }
+            $sqlQuery = trim($sqlQuery, ", ");
+            $req = $this->db->prepare("UPDATE ".$this->table." SET ".$sqlQuery." WHERE id = :id;");
+            $req->execute($data);
+            echo "update";
+
         }
-        // }else{
-        //     foreach($this->columns as $columns => $value){
-        //         $data[$columns] = $this->$columns;
-        //         $sqlQuery[] = $colums."=:".$columns;
-        //     }
-        //     $query = $this->db->prepare("UPDATE ".$this->table." SET ".implode(",", $sqlQuery)." WHERE id=:id");
-        //     $query->execute($data);
-        //     // var_dump($data);
-        //     // // $query = $this->prepare("UPDATE ".$this->table." SET ");
-        // }
     }
 
 
-    // Fonction populate : Récupère un tableau (impossibilité d'avoir plusieurs correspondances (cas à gérer) -> retourner l'erreur Objet vide car contrainte d'unicité pas good)
-    // $user->populate(["id"=>31]);
-    // echo $user->getEmail();
+    public function populate( $search = [] ){
+        //Requete SQL
+        //Vérification
+        //Alimentation de l'Objet
+        $query = $this->getOneBy($search, true);
+        //PDO::FETCH_PROPS_LATE : appeler le constructor apres l'alimentation de l'objet
+        $query->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $this->table);
+        $object = $query->fetch();
+        return $object;
 
-    // Crée getOneBy() aussi
+    }
 
-
-    public function populate($condition = ["id"=>3]){
-        //Va chercher dans la table $this->table
-        // • Cherche une correspondance avec le modele.
-        // •
-        strtolower(get_class($this));
-        $req = $this->db->prepare("SHOW TABLE");
-        $res = $req->execute();
-        $req->errorInfo();
-
-
-        
-        foreach ($res as $key => $value) {
-            if(strtolower(get_class($this)) == $value){
-                echo 'Yolo';
-            }
+    public function getOneBy($search = [], $returnQuery = false){
+        foreach($search as $key => $value){
+            $where[] = $key.'=:'.$key;
         }
+        $query = $this->db->prepare("SELECT * FROM ".$this->table." WHERE ".implode(" AND ", $where));
 
+        $query->execute($search);
 
+        if($returnQuery){
+            return $query;
+        }
+        return $query->fetch(PDO::FETCH_ASSOC);
     }
 }
