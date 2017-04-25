@@ -1,0 +1,17 @@
+#navigator {
+  width: 30%;
+  height: 100vh; }
+  #navigator ul {
+    height: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+    #navigator ul li {
+      flex: auto;
+      align-self: center;
+      width: 100%;
+      background: grey;
+      border: 1px solid; }
+
+/*# sourceMappingURL=admin.css.map */
