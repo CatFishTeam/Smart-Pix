@@ -1,0 +1,19 @@
+//Commande pour lancer sass : sass -w sass:css (dans public)
+#navigator{
+    width: 30%;
+    height: 100vh;
+    ul{
+        height: 100%;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        li{
+            flex: auto;
+            align-self: center;
+            width: 100%;
+            background: grey;
+            border: 1px solid;
+        }
+    }
+}
