@@ -199,11 +199,6 @@ select{
 
 /* Style CSS */
 #masonry {
-  /*display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  width: 60vw;
-  max-height: 800px;*/
   font-size: 0;
   line-height: 0;
 
@@ -212,7 +207,7 @@ select{
   -moz-column-count:    3;
   -moz-column-gap:      5px;
   column-count:         3;
-  column-gap:           5px;
+  column-gap:           it5px;
 }
 #masonry img {
 

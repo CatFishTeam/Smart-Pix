@@ -10,8 +10,13 @@ class View{
     }
 
     public function setView($view){
-        if(file_exists("views/".$view.".view.php")){
-            $this->view = $view;
+        if(file_exists("views/".str_replace('.','/',$view).".view.php")){
+            if(strpos($view,'.') !== false){
+                //To have folder
+                $this->view = str_replace('.','/',$view);
+            } else {
+                $this->view = $view;
+            }
         } else {
             Helpers::log("La view ".$view." n'existe pas.");
             die("La vue n'existe pas");

@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Europe/Paris'); //To remove later ?
 define("DS", DIRECTORY_SEPARATOR);
 define("PATH_RELATIVE", "/Smart-Pix/");
 define("PATH_RELATIVE_PATTERN", "\/Smart-Pix\/");
