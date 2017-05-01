@@ -125,6 +125,11 @@ Tuesday 28th of March 2017 05:16:32 PM ===> Le controller AssetsController n'exi
 
 Tuesday 28th of March 2017 05:16:32 PM ===> Le controller AssetsController n'existe pas
 
+<<<<<<< HEAD
+Tuesday 28th of March 2017 05:17:48 PM ===> Le controller Smart-PixController n'existe pas
+
+Tuesday 28th of March 2017 05:17:51 PM ===> Le controller Smart-PixController n'existe pas
+=======
 Tuesday 25th of April 2017 09:06:35 PM ===> Le controller AdminController n'existe pas
 
 Tuesday 25th of April 2017 09:06:35 PM ===> Le controller Favicon.icoController n'existe pas
@@ -232,6 +237,21 @@ Thursday 27th of April 2017 09:09:53 PM ===> Le controller Favicon.icoController
 Monday 1st of May 2017 10:32:16 PM ===> Le controller Favicon.icoController n'existe pas
 
 Monday 1st of May 2017 10:32:16 PM ===> Le controller Favicon.icoController n'existe pas
+>>>>>>> bd5634866574fd9acf014a12f1a6c56c92169b8a
+
+Monday 1st of May 2017 11:27:36 PM ===> Le controller TestController n'existe pas
+
+Monday 1st of May 2017 11:28:00 PM ===> La méthode publicAction n'éxiste pas dans UserController
+
+Monday 1st of May 2017 11:28:00 PM ===> La méthode publicAction n'éxiste pas dans UserController
+
+Monday 1st of May 2017 11:28:10 PM ===> La méthode publicAction n'éxiste pas dans UserController
+
+Monday 1st of May 2017 11:28:23 PM ===> La méthode publicAction n'éxiste pas dans UserController
+
+Monday 1st of May 2017 11:28:23 PM ===> La méthode publicAction n'éxiste pas dans UserController
+
+Monday 1st of May 2017 11:28:25 PM ===> La méthode publicAction n'éxiste pas dans UserController
 
 Monday 1st of May 2017 11:07:57 PM ===> La view admin.index n'existe pas.
 
