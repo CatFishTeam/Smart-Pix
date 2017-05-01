@@ -23,8 +23,7 @@
             </ul>
         </nav>
         <div id="page">
-
+            <?php include $this->view.".view.php"; ?>
         </div>
-        <?php include $this->view.".view.php"; ?>
     </body>
 </html>

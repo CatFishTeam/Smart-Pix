@@ -378,6 +378,7 @@ body {
   position: relative; }
 
 #navigator {
+  display: inline-block;
   width: 20%;
   height: 100vh; }
   #navigator ul {
@@ -395,5 +396,8 @@ body {
       background: #2c3e50;
       color: #fff;
       border: 1px solid; }
+
+#page {
+  display: inline-block; }
 
 /*# sourceMappingURL=admin.css.map */

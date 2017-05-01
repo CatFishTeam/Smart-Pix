@@ -440,6 +440,7 @@ body{
 }
 
 #navigator{
+    display: inline-block;
     width: 20%;
     height: 100vh;
     ul{
@@ -458,12 +459,13 @@ body{
             color: #fff;
             border: 1px solid;
             a{
-              
+
             }
         }
     }
 }
 
 #page{
-
+    display: inline-block;
+    
 }
