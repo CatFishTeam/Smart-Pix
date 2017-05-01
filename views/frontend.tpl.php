@@ -8,28 +8,28 @@
         <!-- FONT A CHANGER -->
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     </head>
-    <header>
-        <div class="container">
-            <div class="row">
-                <section class="col-4">
-                    <img src="public/image/logo.png" alt="Smart-Pix Logo" class="logo"/>
-                    <nav>
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                        <input type="text" placeholder="Recherche par photo, catégorie, artiste..."/>
-                    </nav>
-                </section>
-                <section class="col-2">
-                    <select>
-                        <option>Connexion / Inscription</option>
-                    </select>
-                </section>
-            </div>
-        </div>
-    </header>
     <body>
+        <header>
+            <div class="container">
+                <div class="row">
+                    <section class="col-4">
+                        <img src="public/image/logo.png" alt="Smart-Pix Logo" class="logo"/>
+                        <nav>
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            <input type="text" placeholder="Recherche par photo, catégorie, artiste..."/>
+                        </nav>
+                    </section>
+                    <section class="col-2">
+                        <select>
+                            <option>Connexion / Inscription</option>
+                        </select>
+                    </section>
+                </div>
+            </div>
+        </header>
         <?php include $this->view.".view.php"; ?>
+        <footer>
+            Smart-Pix © - 2017
+        </footer>
     </body>
-    <footer>
-        Smart-Pix © - 2017
-    </footer>
 </html>

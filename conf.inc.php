@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Europe/Paris'); //To remove later ?
 define("DS", DIRECTORY_SEPARATOR);
 define("PATH_RELATIVE", "/Yves_Skrzypczyk/Projet_PHP_IW1/");
 define("PATH_RELATIVE_PATTERN", "\/Yves_Skrzypczyk\/Projet_PHP_IW1\/");
