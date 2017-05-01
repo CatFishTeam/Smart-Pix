@@ -3,7 +3,7 @@
 	RewriteEngine on
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteRule ^(.*)$ /Yves_Skrzypczyk/Projet_PHP_IW1/index.php?path=$1 [L]
+	RewriteRule ^(.*)$ /Smart-Pix/index.php?path=$1 [L]
 </IfModule>
 
 # Basic compression

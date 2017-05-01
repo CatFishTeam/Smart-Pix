@@ -239,3 +239,17 @@ Monday 1st of May 2017 10:32:16 PM ===> Le controller Favicon.icoController n'ex
 Monday 1st of May 2017 10:32:16 PM ===> Le controller Favicon.icoController n'existe pas
 >>>>>>> bd5634866574fd9acf014a12f1a6c56c92169b8a
 
+Monday 1st of May 2017 11:27:36 PM ===> Le controller TestController n'existe pas
+
+Monday 1st of May 2017 11:28:00 PM ===> La méthode publicAction n'éxiste pas dans UserController
+
+Monday 1st of May 2017 11:28:00 PM ===> La méthode publicAction n'éxiste pas dans UserController
+
+Monday 1st of May 2017 11:28:10 PM ===> La méthode publicAction n'éxiste pas dans UserController
+
+Monday 1st of May 2017 11:28:23 PM ===> La méthode publicAction n'éxiste pas dans UserController
+
+Monday 1st of May 2017 11:28:23 PM ===> La méthode publicAction n'éxiste pas dans UserController
+
+Monday 1st of May 2017 11:28:25 PM ===> La méthode publicAction n'éxiste pas dans UserController
+
