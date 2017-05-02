@@ -3,6 +3,7 @@ class Album extends BaseSql{
 
     protected $id = -1;
     protected $title;
+    protected $description;
     protected $background;
     protected $disposition;
     protected $is_presentation;
@@ -10,6 +11,10 @@ class Album extends BaseSql{
     protected $created_at;
     protected $updated_at;
     protected $user_id;
+
+    public function __construct(){
+        
+    }
 
     /**
      * Get the value of Id

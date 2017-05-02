@@ -7,6 +7,11 @@ class Comment extends BaseSql{
     protected $updated_at;
     protected $picture_id; //Rajouter User / Alubm ?
 
+    //TODO voir user
+    // • Récupérer les comments liés à un user (détenteur)
+    public function __construct(){
+
+    }
 
     /**
      * Get the value of Id

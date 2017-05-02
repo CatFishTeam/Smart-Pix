@@ -15,7 +15,7 @@ class BaseSql{
             //Récupérer le nom de la table dynamiquement
             $this->table = strtolower(get_class($this));
 
-            // //Récupérer le nom des colonnesde la table dynamiquement
+            //Récupérer le nom des colonnesde la table dynamiquement
             $varObject = get_class_vars($this->table);
             $varParent = get_class_vars(get_parent_class($this));
             $this->columns = array_diff_key($varObject, $varParent);

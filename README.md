@@ -26,3 +26,6 @@ Official Smart-Pix Website
 - Intégration Sass
 - Intégrer CKEDITOR
 - Trouver système de Graph
+
+**V2**
+- Migration ???
