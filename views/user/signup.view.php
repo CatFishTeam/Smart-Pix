@@ -17,21 +17,25 @@ $config = array(
         "username" => [
             "type" => "text",
             "placeholder" => "Votre pseudo",
+            "value" => null,
             "required" => true
         ],
         "email" => [
             "type" => "email",
             "placeholder" => "Votre email",
+            "value" => null,
             "required" => true
         ],
         "pwd" => [
             "type" => "password",
             "placeholder" => "Votre mot de passe",
+            "value" => null,
             "required" => true
         ],
         "confpwd" => [
             "type" => "password",
             "placeholder" => "Confirmation du mot de passe",
+            "value" => null,
             "required" => true
         ],
     ]
