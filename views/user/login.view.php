@@ -17,11 +17,13 @@ $config = array(
         "username" => [
             "type" => "text",
             "placeholder" => "Votre pseudo",
+            "value" => null,
             "required" => 0
         ],
         "pwd" => [
             "type" => "password",
             "placeholder" => "Votre mot de passe",
+            "value" => null,
             "required" => 0
         ]
     ]
