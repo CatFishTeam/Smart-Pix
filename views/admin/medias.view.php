@@ -11,6 +11,7 @@
 
 <form method="post" id="fileinfo" name="fileinfo" onsubmit="return submitForm();">
     <label>Select a file:</label><br>
+    <input type="file" name="file">
     Title : <input type="text" name="title">
     Description : <textarea name="description"></textarea>
     <input type="submit" value="Upload" />
@@ -18,9 +19,6 @@
 <div id="output"></div>
 
 <script type="text/javascript">
-$('form').on('submit',function(){
-
-});
      function submitForm() {
          var fd = new FormData(document.getElementById("fileinfo"));
          $.ajax({
