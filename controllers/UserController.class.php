@@ -3,7 +3,14 @@
 class UserController {
 
     public function indexAction() {
-        $v = new View('user.index', 'frontend');
+        if ($_SESSION) {
+            $user = new User();
+            $user = $user->populate(array('username' => $_SESSION['username']));
+            $v = new View('user.index', 'frontend');
+            $v->assign('user', $user);
+        } else {
+            $v = new View('index', 'frontend');
+        }
     }
 
     public function signupAction() {
@@ -29,6 +36,17 @@ class UserController {
                 $user->setIsDeleted(0);
                 $user->save();
                 echo "<div class='flash flash-success'>Inscription terminée !</div>";
+                // Envoi du mail :
+                $to = $email; // this is your Email address
+                $from = "admin@smart-pix.fr"; // this is the sender's Email address
+                $subject = "Votre inscription sur Smart-Pix !";
+                $message = "Bonjour ".$username.
+                    "<br><br>Votre identifiant : ".$username.
+                    "<br>Votre mot de passe : vous seul le connaissez !
+                    <br><br>Cordialement,<br>L'équipe Smart-Pix"
+                ;
+                $headers = "From:" . $from;
+                mail($to,$subject,$message,$headers);
             } else {
                 echo "<div class='flash flash-warning'>Les mots de passe sont différents</div>";
             }
