@@ -37,7 +37,6 @@ class BaseSql{
             try {
                 $req = $this->db->prepare("INSERT INTO ".$this->table." (".$sqlCol.") VALUES (".$sqlKey.");");
                 $req->execute($data);
-                echo "<div class='flash flash-success'>Inscription terminée !</div>";
             } catch (Exception $e) {
                 die($e->getMessage());
             }

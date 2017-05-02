@@ -28,6 +28,7 @@ class UserController {
                 $user->setPermission(1);
                 $user->setIsDeleted(0);
                 $user->save();
+                echo "<div class='flash flash-success'>Inscription terminée !</div>";
             } else {
                 echo "<div class='flash flash-warning'>Les mots de passe sont différents</div>";
             }
