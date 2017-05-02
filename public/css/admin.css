@@ -414,7 +414,9 @@ body {
         bottom: 0;
         width: 100%;
         color: #fff;
-        text-decoration: none; }
+        text-decoration: none;
+        line-height: 100px;
+        font-size: 25px; }
 
 #page {
   display: inline-block;
