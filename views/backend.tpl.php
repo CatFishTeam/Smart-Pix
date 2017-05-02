@@ -7,23 +7,27 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="/public/css/admin.css" />
     </head>
-    <body class="relative">
-        <header>
-
-        </header>
-        <nav id="navigator">
-            <ul>
-                <li><i class="fa fa-home" aria-hidden="true"></i>Acceuil
-                <li><i class="fa fa-user" aria-hidden="true"></i>Profil
-                <li><i class="fa fa-bar-chart" aria-hidden="true"></i>Stats
-                <li><i class="fa fa-file-text" aria-hidden="true"></i>Pages
-                <li><i class="fa fa-file-image-o" aria-hidden="true"></i>Medias
-                <li><i class="fa fa-commenting" aria-hidden="true"></i>Commentaires
-                <li><i class="fa fa-cogs" aria-hidden="true"></i>Reglages
-            </ul>
-        </nav>
-        <div id="page">
-            <?php include $this->view.".view.php"; ?>
+    <body>
+        <div class="flexContainer">
+            <header id="topBack">
+                Ceci est notre header
+            </header>
+        </div>
+        <div class="flexContainer">
+            <nav id="navigator">
+                <ul>
+                    <li><a href="/admin"><i class="fa fa-home" aria-hidden="true"></i>Acceuil</a>
+                    <li><a href="/admin/profil"><i class="fa fa-user" aria-hidden="true"></i>Profil</a>
+                    <li><a href="/admin/stats"><i class="fa fa-bar-chart" aria-hidden="true"></i>Stats</a>
+                    <li><a href="/admin/pages"><i class="fa fa-file-text" aria-hidden="true"></i>Pages</a>
+                    <li><a href="/admin/medias"><i class="fa fa-file-image-o" aria-hidden="true"></i>Medias</a>
+                    <li><a href="/admin/comments"><i class="fa fa-commenting" aria-hidden="true"></i>Commentaires</a>
+                    <li><a href="/admin/settings"><i class="fa fa-cogs" aria-hidden="true"></i>Reglages</a>
+                </ul>
+            </nav>
+            <div id="page">
+                <?php include $this->view.".view.php"; ?>
+            </div>
         </div>
     </body>
 </html>

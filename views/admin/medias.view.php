@@ -1,6 +1,6 @@
 <h1>On affiche : </h1>
 <ul>
-    <li>
+    <li>Ajouter un media et éditer
     <li>
     <li>
     <li>

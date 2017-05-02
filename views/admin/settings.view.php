@@ -1,6 +1,6 @@
 <h1>On affiche : </h1>
 <ul>
-    <li>
+    <li>Possibilité de modifier son profil
     <li>
     <li>
     <li>

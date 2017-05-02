@@ -255,3 +255,5 @@ Monday 1st of May 2017 11:28:25 PM ===> La méthode publicAction n'éxiste pas d
 
 Monday 1st of May 2017 11:07:57 PM ===> La view admin.index n'existe pas.
 
+Tuesday 2nd of May 2017 10:50:04 AM ===> La méthode statsAction n'éxiste pas dans AdminController
+

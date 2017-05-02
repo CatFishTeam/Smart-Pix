@@ -1,6 +1,6 @@
 <h1>On affiche : </h1>
 <ul>
-    <li>
+    <li>Chart JS
     <li>
     <li>
     <li>
