@@ -3,8 +3,7 @@ class AdminController{
     public function indexAction(){
         $v = new View('admin.index','backend');
 
-        $yolo = "Test";
-        $v->assign($yolo);
+        $v->assign("test","yolo");
     }
 
     public function profilAction(){
@@ -13,6 +12,7 @@ class AdminController{
 
     public function pagesAction(){
         $v = new View('admin.pages','backend');
+        $v->assign("specificHeader","<script src=\"hgfjhgjlkhvk\"></script>");
     }
 
     public function mediasAction(){

@@ -6,6 +6,8 @@
         <meta name="description" content="description de ma page" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="/public/css/admin.css" />
+        <!-- Pour afficher le css et js specific a certaines pages -->
+        <?php echo (isset($specificHeader) ? $specificHeader : '') ?>
     </head>
     <body>
         <div class="flexContainer">

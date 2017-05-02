@@ -405,7 +405,6 @@ body {
       text-align: center;
       width: 100%;
       background: #2c3e50;
-      color: #fff;
       border: 1px solid;
       position: relative; }
       #navigator ul li a {
@@ -413,7 +412,9 @@ body {
         top: 0;
         left: 0;
         bottom: 0;
-        width: 100%; }
+        width: 100%;
+        color: #fff;
+        text-decoration: none; }
 
 #page {
   display: inline-block;

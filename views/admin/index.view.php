@@ -1,2 +1,1 @@
-test
-<?php include($yolo) ?>
+<?php echo (isset($test) ?  $test : 'yala') ?>

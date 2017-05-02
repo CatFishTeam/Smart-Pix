@@ -469,7 +469,6 @@ body{
             text-align: center;
             width: 100%;
             background: #2c3e50;
-            color: #fff;
             border: 1px solid;
             position: relative;
             a{
@@ -478,6 +477,8 @@ body{
               left: 0;
               bottom: 0;
               width: 100%;
+              color: #fff;
+              text-decoration: none;
             }
         }
     }
