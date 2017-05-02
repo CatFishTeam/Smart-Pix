@@ -1,5 +1,8 @@
 <?php
 class AdminController{
+    //Construct middleware être connecté !!
+
+    //RENAME SHOW PAGE CONTROLLER ?
     public function indexAction(){
         $v = new View('admin.index','backend');
 
@@ -17,6 +20,18 @@ class AdminController{
 
     public function mediasAction(){
         $v = new View('admin.medias','backend');
+    }
+
+    public function mediaUploadAction(){
+        var_dump($_FILES);
+        // var_dump($_POST);
+        //TODO Taille du fichier ?
+        $file = is_uploaded_file($_FILES["file"]["tmp_name"]);
+        if(!$file){
+            echo "Problème lors du transfert";
+        } else {
+
+        }
     }
 
     public function settingsAction(){
