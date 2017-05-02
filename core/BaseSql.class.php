@@ -6,11 +6,11 @@ class BaseSql{
     private $columns = [];
 
     public function __construct(){
-            try {
-                $this->db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME.";port=".DB_PORT,DB_USER,DB_PWD);
-            } catch (Exception $e) {
-                die("Erreur SQL : ".$e->getMessage());
-            }
+        try {
+            $this->db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PWD);
+        } catch(Exception $e) {
+            die("Erreur SQL : ".$e->getMessage());
+        }
 
             //Récupérer le nom de la table dynamiquement
             $this->table = strtolower(get_class($this));
@@ -34,10 +34,13 @@ class BaseSql{
             }
             $sqlCol = trim($sqlCol, ",");
             $sqlKey = trim($sqlKey, ",");
-            $req = $this->db->prepare("INSERT INTO ".$this->table." (".$sqlCol.") VALUES (".$sqlKey.");");
-            $req->execute($data);
-            echo "insert";
-
+            try {
+                $req = $this->db->prepare("INSERT INTO ".$this->table." (".$sqlCol.") VALUES (".$sqlKey.");");
+                $req->execute($data);
+                echo "<div class='flash flash-success'>Inscription terminée !</div>";
+            } catch (Exception $e) {
+                die($e->getMessage());
+            }
         } else {
 
             $sqlQuery = null;

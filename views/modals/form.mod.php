@@ -4,14 +4,18 @@
     action="<?php echo $config["options"]["action"];?>">
 
 
-    <?php foreach ($config["struc"] as $name => $attributs):?>
-        <?php if($attributs["type"]=="email"):?>
-            <input type="<?php echo $attributs["type"];?>"
+    <?php foreach ($config["struc"] as $name => $attribute):?>
+        <?php if(
+            $attribute['type'] == "email" ||
+            $attribute['type'] == "password" ||
+            $attribute['type'] == "text"
+        ):?>
+            <input type="<?php echo $attribute["type"];?>"
                    name="<?php echo $name?>"
-                   placeholder="<?php echo $attributs["placeholder"];?>"
-                   <?php echo (isset($attributs["required"])) ? "required='required'" : ""?>
+                   placeholder="<?php echo $attribute["placeholder"];?>"
+                   <?php echo (isset($attribute["required"]) && $attribute["required"]) ? "required='required'" : ""?>>
         <?php endif;?>
     <?php endforeach;?>
 
-    <button type="submit"><?php echo $config["options"]["submit"]; ?></button>
+    <input type="submit" value="<?php echo $config["options"]["submit"]; ?>">
 </form>

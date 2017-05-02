@@ -13,21 +13,25 @@
             <div class="container">
                 <div class="row">
                     <section class="col-4">
-                        <img src="<?php echo PATH_RELATIVE; ?>public/image/logo.png" alt="Smart-Pix Logo" class="logo"/>
+                        <a href="<?php echo PATH_RELATIVE; ?>"><img src="<?php echo PATH_RELATIVE; ?>public/image/logo.png" alt="Smart-Pix Logo" class="logo"/></a>
                         <nav>
                             <i class="fa fa-search" aria-hidden="true"></i>
                             <input type="text" placeholder="Recherche par photo, catégorie, artiste..."/>
                         </nav>
                     </section>
-                    <section class="col-2">
-                        <select>
-                            <option>Connexion / Inscription</option>
-                        </select>
-                    </section>
+
+                    <?php if(!isset($_SESSION['username'])): ?>
+                        <a href="<?php echo PATH_RELATIVE; ?>user/login" class="btn-login">Connexion</a> <a href="<?php echo PATH_RELATIVE; ?>user/signup" class="btn-signup">Inscription</a>
+                    <?php else: ?>
+                        <p>Bonjour <?php echo $_SESSION['username']; ?> <a href="<?php echo PATH_RELATIVE; ?>user/logout" class="btn-login">Déconnexion</a></p>
+                    <?php endif; ?>
                 </div>
             </div>
         </header>
-        <?php include $this->view.".view.php"; ?>
+        <section class="body-container">
+            <?php include $this->view.".view.php"; ?>
+        </section>
+
         <footer>
             Smart-Pix © - 2017
         </footer>
