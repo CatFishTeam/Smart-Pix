@@ -53,6 +53,8 @@ table {
 
 h1, h2, h3, h4, h5, h6, p {
   font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  margin: 20px 0;
 }
 
 body {
@@ -149,9 +151,6 @@ header {
       border-bottom: 1px solid lightgray;
     }
   }
-  i {
-    margin: 0 0 0 50px;
-  }
   select {
     border-radius: 5px;
   }
@@ -164,6 +163,7 @@ img {
 .logo {
   float: left;
   width: 80px;
+  margin-right: 50px;
 }
 
 .box {

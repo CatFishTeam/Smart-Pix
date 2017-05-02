@@ -23,7 +23,7 @@
                     <?php if(!isset($_SESSION['username'])): ?>
                         <a href="<?php echo PATH_RELATIVE; ?>user/login" class="btn-login">Connexion</a> <a href="<?php echo PATH_RELATIVE; ?>user/signup" class="btn-signup">Inscription</a>
                     <?php else: ?>
-                        <p>Bonjour <?php echo $_SESSION['username']; ?> <a href="<?php echo PATH_RELATIVE; ?>user/logout" class="btn-login">Déconnexion</a></p>
+                        <a href="<?php echo PATH_RELATIVE; ?>user" class="btn-login"><i class="fa fa-user" aria-hidden="true"></i> <?php echo $_SESSION['username']; ?></a> <a href="<?php echo PATH_RELATIVE; ?>user/logout" class="btn-login">Déconnexion</a></p>
                     <?php endif; ?>
                 </div>
             </div>

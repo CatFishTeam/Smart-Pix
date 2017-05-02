@@ -8,11 +8,13 @@
         <?php if(
             $attribute['type'] == "email" ||
             $attribute['type'] == "password" ||
-            $attribute['type'] == "text"
+            $attribute['type'] == "text" ||
+            $attribute['type'] == "file"
         ):?>
             <input type="<?php echo $attribute["type"];?>"
                    name="<?php echo $name?>"
                    placeholder="<?php echo $attribute["placeholder"];?>"
+                   value="<?php echo $attribute["value"];?>"
                    <?php echo (isset($attribute["required"]) && $attribute["required"]) ? "required='required'" : ""?>>
         <?php endif;?>
     <?php endforeach;?>
