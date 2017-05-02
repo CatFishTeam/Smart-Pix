@@ -15,7 +15,7 @@ class BaseSql{
             //Récupérer le nom de la table dynamiquement
             $this->table = strtolower(get_class($this));
 
-            // //Récupérer le nom des colonnesde la table dynamiquement
+            //Récupérer le nom des colonnesde la table dynamiquement
             $varObject = get_class_vars($this->table);
             $varParent = get_class_vars(get_parent_class($this));
             $this->columns = array_diff_key($varObject, $varParent);
@@ -37,7 +37,6 @@ class BaseSql{
             try {
                 $req = $this->db->prepare("INSERT INTO ".$this->table." (".$sqlCol.") VALUES (".$sqlKey.");");
                 $req->execute($data);
-                echo "<div class='flash flash-success'>Inscription terminée !</div>";
             } catch (Exception $e) {
                 die($e->getMessage());
             }

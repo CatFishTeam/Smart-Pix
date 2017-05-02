@@ -11,11 +11,11 @@ class AdminController{
 
     public function profilAction(){
         $v = new View('admin.profil','backend');
+        $v->assign("specificHeader","<script src=\"https://cdn.ckeditor.com/4.6.2/standard/ckeditor.js\"></script>");
     }
 
     public function pagesAction(){
         $v = new View('admin.pages','backend');
-        $v->assign("specificHeader","<script src=\"hgfjhgjlkhvk\"></script>");
     }
 
     public function mediasAction(){

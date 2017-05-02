@@ -11,9 +11,8 @@
 
 <form method="post" id="fileinfo" name="fileinfo" onsubmit="return submitForm();">
     <label>Select a file:</label><br>
-    <input type="text" name="">
-    Description : <textarea name="description">
-    <input type="file" name="file" required />
+    Title : <input type="text" name="title">
+    Description : <textarea name="description"></textarea>
     <input type="submit" value="Upload" />
 </form>
 <div id="output"></div>

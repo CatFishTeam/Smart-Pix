@@ -6,6 +6,7 @@ class UserController {
         $v = new View('user.index', 'frontend');
     }
 
+    //TODO : Modifier pour qu'on utilise le constructeur de User (qu'il faut surement modifier un peu).
     public function signupAction() {
         // Si le formulaire a été envoyé :
         if ($_POST) {
