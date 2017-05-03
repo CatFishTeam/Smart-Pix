@@ -3,10 +3,8 @@
     <li>Ajouter un media et éditer
     <li>Listing des medias + afficher miniature
     <li>Media on host : Miniature + Taille original
-    <li>UTILISER MODEL POUR L'IMPORE
     <li>Limiter taille upload ou automatiquement redimenssioner ?
     <li>Rendre payant une fois un certain espace de stockage atteint ou proposer un autre système (compression image etc..)
-    <li>IE9 Upload File Ajax ??
 </ul>
 
 <form method="post" id="fileinfo" name="fileinfo" onsubmit="return submitForm();">

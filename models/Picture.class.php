@@ -12,13 +12,14 @@ class Picture extends BaseSql{
     protected $updated_at;
 
     //TODO : on connect set USER_ID = USER_ID
-    public function __construct($id='DEFAULT',$album_id='null',$user_id=1,$title=null,$description=null,$url=null,$is_visible=0,$created_at='DEFAULT',$updated_at='DEFAULT'){
+    //If created in an album get album_id
+    public function __construct($id='DEFAULT', $album_id=null, $user_id=1, $title=null,$description=null, $url=null, $is_visible=0, $created_at='DEFAULT', $updated_at='DEFAULT'){
         parent::__construct();
+        // $this->setAlbumId();
         $this->setTitle($title);
         $this->setDescription($description);
         $this->setUrl();
     }
-
 
     /**
      * Get the value of Id

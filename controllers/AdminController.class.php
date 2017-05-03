@@ -24,19 +24,15 @@ class AdminController{
 
     //Media Controller ou Ajax Controller ou Ici ?
     public function mediaUploadAction(){
-        var_dump($_FILES);
-        echo '<br />';
-        var_dump($_POST);
         //TODO Taille du fichier ?
         $file = is_uploaded_file($_FILES["file"]["tmp_name"]);
         if(!$file){
             echo "Problème lors du transfert";
         } else {
             $picture = new Picture();
-            $title = $_POST['title'];
-            $description = $_POST['description'];
-            $picture->setTitle($title);
-            $picture->setDescription($description);
+            $picture->setTitle($_POST['title']);
+            $picture->setDescription($_POST['description']);
+            $picture->setIsVisible(0);
             $picture->save();
         }
     }

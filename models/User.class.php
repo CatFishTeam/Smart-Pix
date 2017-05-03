@@ -157,7 +157,6 @@ class User extends BaseSql{
     public function setPassword($password)
     {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
-
         return $this;
     }
 

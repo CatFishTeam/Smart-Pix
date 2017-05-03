@@ -46,13 +46,13 @@ class UserController {
                 if (!isset($_SESSION)) session_start();
                 $_SESSION['username'] = $username;
                 // $_SESSION['user_id'] = $username;
-                var_dump($user);
+                // var_dump($user);
                 echo "<div class='flash flash-success'>Vous êtes connecté !</div>";
             } else {
                 echo "<div class='flash flash-warning'>Erreur lors de la connexion</div>";
             }
         }
-        $v = new View('user.login', 'frontend');
+        // $v = new View('user.login', 'frontend');
     }
 
     public function logoutAction() {

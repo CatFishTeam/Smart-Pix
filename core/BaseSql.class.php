@@ -5,6 +5,8 @@ class BaseSql{
     private $table;
     private $columns = [];
 
+    //TODO Save error display (log or return)
+
     public function __construct(){
         try {
             $this->db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PWD);
@@ -23,7 +25,6 @@ class BaseSql{
 
     public function save() {
         if ($this->id == -1) {
-
             unset($this->columns['id']);
             $sqlCol = null;
             $sqlKey = null;
