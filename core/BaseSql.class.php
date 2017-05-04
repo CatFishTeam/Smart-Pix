@@ -66,7 +66,6 @@ class BaseSql{
         $query->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $this->table);
         $object = $query->fetch();
         return $object;
-
     }
 
     public function getOneBy($search = [], $returnQuery = false){
@@ -81,6 +80,46 @@ class BaseSql{
             return $query;
         }
         return $query->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /*
+     * Appeler getAllBy() dans un contrôleur :
+     * $users = array();
+       $user = new User();
+       foreach ($user->getAllBy() as $oneUser) {
+           array_push($users, $oneUser);
+       }
+       $v = new View();
+       $v->assign('users', $users);
+     * ----------------------------
+     * Se servir de l'array $users dans une vue :
+     * foreach ($users as $user) {
+            if ($user['username'] == "toto") {
+                $theUser = $user;
+                break;
+            }
+        }
+        echo $theUser['email'];
+     *
+     */
+    public function getAllBy($search = [], $returnQuery = false){
+        if (empty($search)) {
+            $query = $this->db->prepare("SELECT * FROM ".$this->table);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            foreach($search as $key => $value){
+                $where[] = $key.'=:'.$key;
+            }
+            $query = $this->db->prepare("SELECT * FROM ".$this->table." WHERE ".implode(" AND ", $where));
+
+            $query->execute($search);
+
+            if($returnQuery){
+                return $query;
+            }
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
     }
 
     //Clean for every slug/url

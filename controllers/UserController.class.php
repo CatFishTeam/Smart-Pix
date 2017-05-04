@@ -71,7 +71,7 @@ class UserController {
                 echo "<div class='flash flash-warning'>Erreur lors de la connexion</div>";
             }
         }
-        // $v = new View('user.login', 'frontend');
+         $v = new View('user.login', 'frontend');
     }
 
     public function logoutAction() {
