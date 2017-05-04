@@ -47,15 +47,28 @@ class AdminController{
             $picture->save();
 
             //Upload
+            //TODO Check for format (actually change it to jpg)
             $uploaddir = PATH_ABSOLUT.'/public/cdn/images/';
-            $uploadfile = $uploaddir . $picture->getUrl().'jpg';
+            $uploadfile = $uploaddir . $picture->getUrl().'.jpg';
             if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
             } else {
                 Helpers::log(print_r($_FILES));
             }
 
             //Thumbnail
-            // $picture->generateThumbnail()
+            //TODO crop et ne pas tasser l'image
+            //TODO remove extension from thumb
+            try {
+                $picture->generateThumbnail($uploadfile, 100, 100);
+                echo '<img src="'.$uploadfile.'_thumb.jpg" />';
+            }
+            catch (ImagickException $e) {
+                echo $e->getMessage();
+            }
+            catch (Exception $e) {
+                echo $e->getMessage();
+            }
+
         }
 
     }

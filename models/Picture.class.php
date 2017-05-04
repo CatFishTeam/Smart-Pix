@@ -233,6 +233,10 @@ class Picture extends BaseSql{
         return $this;
     }
 
+    public function getThumbs(){
+
+    }
+
     /**
      *
      * Generate Thumbnail using Imagick class
@@ -245,34 +249,27 @@ class Picture extends BaseSql{
      * @throws Exception
      * @throws ImagickException
      */
-    // public function generateThumbnail($img, $width, $height, $quality = 90)
-    // {
-    //     if (is_file($img)) {
-    //         $imagick = new Imagick(realpath($img));
-    //         $imagick->setImageFormat('jpeg');
-    //         $imagick->setImageCompression(Imagick::COMPRESSION_JPEG);
-    //         $imagick->setImageCompressionQuality($quality);
-    //         $imagick->thumbnailImage($width, $height, false, false);
-    //         $filename_no_ext = reset(explode('.', $img));
-    //         if (file_put_contents($filename_no_ext . '_thumb' . '.jpg', $imagick) === false) {
-    //             throw new Exception("Could not put contents.");
-    //         }
-    //         return true;
-    //     }
-    //     else {
-    //         throw new Exception("No valid image provided with {$img}.");
-    //     }
-    // }
-    //
-    // // example usage
-    // try {
-    //     generateThumbnail('test.jpg', 100, 50, 65);
-    // }
-    // catch (ImagickException $e) {
-    //     echo $e->getMessage();
-    // }
-    // catch (Exception $e) {
-    //     echo $e->getMessage();
-    // }
+    public function generateThumbnail($img, $width, $height, $quality = 90)
+    {
+        //TODO CHECK CE BORDEL !
+        if (is_file($img)) {
+            $imagick = new Imagick(realpath($img));
+            $imagick->setImageFormat('jpeg');
+            $imagick->setImageCompression(Imagick::COMPRESSION_JPEG);
+            $imagick->setImageCompressionQuality($quality);
+            $imagick->thumbnailImage($width, $height, false, false);
+            $filename_no_ext = reset(explode('.', $img));
+            $filename = $filename_no_ext.'_thumb.jpg';
+            if (file_put_contents($filename, $imagick) === false) {
+                throw new Exception("Could not put contents.");
+            }
+            return $filename;
+        }
+        else {
+            throw new Exception("No valid image provided with {$img}.");
+        }
+    }
+
+
 
 }

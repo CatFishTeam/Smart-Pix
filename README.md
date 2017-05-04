@@ -5,6 +5,7 @@ Official Smart-Pix Website
 **Serveur :**
 - Clef SSh
 - Gestion Zip
+- Installer Imagick
 
 **Back Admin**
 - CRUD (Modération)
