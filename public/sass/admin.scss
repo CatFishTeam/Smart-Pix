@@ -1,5 +1,10 @@
 //Commande pour lancer sass : sass -w sass:css (dans public)
 
+/************************
+ ~~~~~ Page Media - X
+************************/
+
+
 /*! normalize.css v6.0.0 | MIT License | github.com/necolas/normalize.css */
 
 /* Document
@@ -489,4 +494,36 @@ body{
 #page{
     display: inline-block;
     width: 80%;
+}
+
+/* ~~~ Page Media - X ~~~ */
+.imageContainer {
+    width: 20%;
+    float: left;
+    margin: 10px;
+    overflow: hidden;
+    &:hover{
+          transform: scale(1.01);
+    }
+    a{
+      width: 100%;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+    }
+    button{
+      display: none;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      background: red;
+      color: beige;
+      cursor: pointer;
+      &:hover{
+            background: #d41131;
+      }
+    }
+    &:hover button{
+      display: block;
+    }
 }

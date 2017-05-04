@@ -16,6 +16,7 @@
         <?php echo (isset($specificHeader) ? $specificHeader : '') ?>
     </head>
     <body>
+        <noscript><strong>Attention !</strong> Ce site à besoin de Javascript pour fonctionner et il ne semble pas activé sur votre navigateur.</noscript>
         <div class="flexContainer">
             <header id="topBack">
                 Ceci est notre header
