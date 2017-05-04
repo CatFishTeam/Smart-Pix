@@ -1,3 +1,6 @@
+/************************
+ ~~~~~ Page Media - X
+************************/
 /*! normalize.css v6.0.0 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -421,5 +424,31 @@ body {
 #page {
   display: inline-block;
   width: 80%; }
+
+/* ~~~ Page Media - X ~~~ */
+.imageContainer {
+  width: 20%;
+  float: left;
+  margin: 10px;
+  overflow: hidden; }
+  .imageContainer:hover {
+    transform: scale(1.01); }
+  .imageContainer a {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0; }
+  .imageContainer button {
+    display: none;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background: red;
+    color: beige;
+    cursor: pointer; }
+    .imageContainer button:hover {
+      background: #d41131; }
+  .imageContainer:hover button {
+    display: block; }
 
 /*# sourceMappingURL=admin.css.map */

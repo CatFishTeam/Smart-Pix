@@ -5,7 +5,6 @@ class AdminController{
     //RENAME SHOW PAGE CONTROLLER ?
     public function indexAction(){
         $v = new View('admin.index','backend');
-
         $v->assign("test","yolo");
     }
 
@@ -19,8 +18,12 @@ class AdminController{
     }
 
     public function mediasAction(){
-        Picture::getAllMedia();
+        $pictures = new Picture();
+        $pictures = $pictures->getAllBy();
         $v = new View('admin.medias','backend');
+        $v->assign('pictures',$pictures);
+
+        // var_dump($pictures);
     }
 
     //Media Controller ou Ajax Controller ou Ici ?
@@ -86,7 +89,7 @@ class AdminController{
                 $response = json_encode(array(
                     'type'=>'succes',
                     'msg'=>'L\'image a bien été enregistrée',
-                    'img'=>$upload_thumb_dir.$picture->getUrl()
+                    'img'=>"".$upload_thumb_dir.$picture->getUrl().""
                 ));
             }
         }

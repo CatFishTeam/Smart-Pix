@@ -1,7 +1,8 @@
 <h1>On affiche : </h1>
 <ul>
     <li>Editer un media
-    <li>Listing des medias + afficher miniature
+    <li>Delete de la petite croix
+    <li>Delete de la petite croix
     <li>Informer utilisateur sur la taille restante disponible pour celui-ci
     <li>-> Rendre payant une fois un certain espace de stockage atteint ou proposer un autre système (compression image etc..)
 </ul>
@@ -13,7 +14,15 @@
     Description : <textarea name="description"></textarea>
     <input type="submit" value="Upload" />
 </form>
-<div id='output'></div>
+<div id='output'>
+    <?php foreach($pictures as $picture): ?>
+        <div class="imageContainer relative">
+            <a href="#"></a>
+            <button><i class="fa fa-times" aria-hidden="true"></i></button>
+            <img src="/public/cdn/images/thumbnails/<?php echo $picture['url'] ?>" alt="<?php echo $picture['title'] ?>">
+        </div>
+    <?php endforeach ?>
+</div>
 <div id="server-response"><!-- Json response from server --></div>
 
 <!-- <h1>Ajax Image Upload with PHP ImageMagick</h1>
@@ -53,7 +62,8 @@
            processData: false,  // tell jQuery not to process the data
            contentType: false   // tell jQuery not to set contentType
          }).done(function( data ) {
-            console.log(data);
+             data = JSON.parse(data);
+             $('#output').prepend('<div class="imageContainer relative"><a href="#"></a><button><i class="fa fa-times" aria-hidden="true"></i></button><img src='+data.img+' /></div>');
          });
          return false;
      }

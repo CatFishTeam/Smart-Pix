@@ -263,7 +263,14 @@ class Picture extends BaseSql{
      *
      */
     public static function getThumbs(){
-        
+        var_dump(parent::select('*'));
+        // try{
+        //     $req = $db->prepare("SELECT * FROM picture WHERE user_id = 1");
+        //     $req->execute();
+        // } catch (Exception $e) {
+        //     die($e->getMessage());
+        // }
+
     }
 
 

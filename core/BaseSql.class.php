@@ -70,24 +70,39 @@ class BaseSql{
     }
 
     public function getOneBy($search = [], $returnQuery = false){
+
         foreach($search as $key => $value){
             $where[] = $key.'=:'.$key;
         }
         $query = $this->db->prepare("SELECT * FROM ".$this->table." WHERE ".implode(" AND ", $where));
-
         $query->execute($search);
-
         if($returnQuery){
             return $query;
         }
         return $query->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getAllBy($search = [], $returnQuery = false){
+        if ($search == []) {
+            $query = $this->db->prepare("SELECT * FROM ".$this->table);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            foreach($search as $key => $value){
+                $where[] = $key.'=:'.$key;
+            }
+            $query = $this->db->prepare("SELECT * FROM ".$this->table." WHERE ".implode(" AND ", $where));
+            $query->execute($search);
+            if($returnQuery){
+                return $query;
+            }
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+
     //Clean for every slug/url
     public function clean($string) {
-       $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
-       $string = preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
-
-       return preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
+       $string = preg_replace('/[^A-Za-z0-9\-]+/', '', $string); // Removes special chars.
+       return $string; // Replaces multiple hyphens with single one.
     }
 }
