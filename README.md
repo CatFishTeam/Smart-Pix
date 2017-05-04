@@ -2,7 +2,11 @@
 Official Smart-Pix Website
 
 ## TODO :
-**Serveur :**
+**Global**
+ - Gestionnaire d'erreur/succes (retour json etc)
+ - Ajouter un détecteur d'erreur SQL (tester save etc...)
+
+**Serveur**
 - Clef SSh
 - Gestion Zip
 - Installer Imagick
@@ -19,10 +23,8 @@ Official Smart-Pix Website
  - Gestion Album
 
 **Front**
-- Javascript Gride
+- Massonry Grid
 - Boostrap Grid mieux gérée
-- Intégration Sass
-- Intégrer CKEDITOR
 - Trouver système de Graph
 
 **V2**

@@ -19,58 +19,78 @@ class AdminController{
     }
 
     public function mediasAction(){
+        Picture::getAllMedia();
         $v = new View('admin.medias','backend');
     }
 
     //Media Controller ou Ajax Controller ou Ici ?
     public function mediaUploadAction(){
-        //TODO Taille du fichier ?
-        // • USER ID
-        // • Check présence du titre
-        $file = is_uploaded_file($_FILES["file"]["tmp_name"]);
-        if(!$file){
-            echo "Problème lors du transfert";
-        } else {
+        $upload_dir = '/public/cdn/images/';
+        $upload_thumb_dir = '/public/cdn/images/thumbnails/';
+
+        //If it is Ajax Request
+        if(isset($_POST) && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+            //If File not empty
+            if(!isset($_FILES['file']) || !is_uploaded_file($_FILES['file']['tmp_name'])){
+                $response = json_encode(array(
+                    'type'=>'error',
+                    'msg'=>'Le fichier image n\'as pas été fournis !'
+                ));
+                die($response);
+            }
+
+            //Check le type de l'image
+            //TODO conversion pour thumbnail | faire test avec gif etc?
+            $img_size = getimagesize($_FILES['file']['tmp_name']);
+            if($img_size){
+                $img_type = $img_size['mime'];
+            }else{
+                $response = json_encode(array(
+                    'type'=>'error',
+                    'msg'=>'Le fichier n\'est pas au bon format !'
+                ));
+                die($response);
+            }
+
+            $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+
+            //Stockage de l'image en base
+            //TODO User_id
+            //TODO rajouter test de sauvegarde en bdd
             $picture = new Picture();
             $now = new DateTime("now");
             $nowStr = $now->format("Y-m-d H:i:s");
-
             //Il faudrait donc tous les champs ici ?
             $picture->setAlbumId(null);
             $picture->setUserId(1);
             $picture->setTitle($_POST['title']);
             $picture->setDescription($_POST['description']);
-            $picture->setUrl();
+            $picture->setUrl($ext);
+            $picture->setWeight($_FILES['file']['size']);
             $picture->setIsVisible(0);
             $picture->setCreatedAt($nowStr);
             $picture->setUpdatedAt($nowStr);
             $picture->save();
 
-            //Upload
-            //TODO Check for format (actually change it to jpg)
-            $uploaddir = PATH_ABSOLUT.'/public/cdn/images/';
-            $uploadfile = $uploaddir . $picture->getUrl().'.jpg';
-            if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
-            } else {
-                Helpers::log(print_r($_FILES));
-            }
+            //On crée l'image
+            $image = new Imagick($_FILES['file']['tmp_name']);
+            $results = $image->writeImages(PATH_ABSOLUT.$picture->getUrl(), true);
 
-            //Thumbnail
-            //TODO crop et ne pas tasser l'image
-            //TODO remove extension from thumb
-            try {
-                $picture->generateThumbnail($uploadfile, 100, 100);
-                echo '<img src="'.$uploadfile.'_thumb.jpg" />';
-            }
-            catch (ImagickException $e) {
-                echo $e->getMessage();
-            }
-            catch (Exception $e) {
-                echo $e->getMessage();
-            }
+            //On crée la miniature
+            //TODO Si possible ? Eviter la répétition ici ?
+            $thumb = new Imagick($_FILES['file']['tmp_name']);
+            $thumb->cropThumbnailImage(200, 200);
+            $thumb->writeImages(PATH_ABSOLUT.$upload_thumb_dir.$picture->getUrl(), true);
 
+            if($results){
+                $response = json_encode(array(
+                    'type'=>'succes',
+                    'msg'=>'L\'image a bien été enregistrée',
+                    'img'=>$upload_thumb_dir.$picture->getUrl()
+                ));
+            }
         }
-
+        die($response);
     }
 
     public function settingsAction(){

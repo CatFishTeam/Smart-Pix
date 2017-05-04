@@ -7,6 +7,7 @@ class Picture extends BaseSql{
     protected $title;
     protected $description;
     protected $url;
+    protected $weight;
     protected $is_visible;
     protected $created_at;
     protected $updated_at;
@@ -14,7 +15,7 @@ class Picture extends BaseSql{
     //TODO : on connect set USER_ID = USER_ID
     // • Check longueur du titre (< 250 + charctère spéciaux + html tag)
     // • If created in an album get album_id
-    public function __construct($id='DEFAULT', $album_id=null, $user_id=1, $title=null,$description=null, $url=null, $is_visible='DEFAULT', $created_at='DEFAULT', $updated_at='DEFAULT'){
+    public function __construct($id='DEFAULT', $album_id=null, $user_id=1, $title=null,$description=null, $url=null, $weight=null, $is_visible='DEFAULT', $created_at='DEFAULT', $updated_at='DEFAULT'){
         parent::__construct(); //Nécessaire
     }
 
@@ -43,6 +44,16 @@ class Picture extends BaseSql{
     }
 
     /**
+     * Get the value of Album Id
+     *
+     * @return mixed
+     */
+    public function getAlbumId()
+    {
+        return $this->album_id;
+    }
+
+    /**
      * Set the value of AlbumId
      *
      * @param mixed album_id
@@ -54,6 +65,16 @@ class Picture extends BaseSql{
         $this->album_id = $album_id;
 
         return $this;
+    }
+
+    /**
+     * Get the value of User Id
+     *
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
     }
 
     /**
@@ -159,30 +180,34 @@ class Picture extends BaseSql{
      *
      * @return self
      */
-    public function setUrl()
+    public function setUrl($ext)
     {
-        $this->url = parent::clean($this->title.'_'.$this->id);
+        $this->url = parent::clean($this->title).'_'.uniqid().'.'.$ext;
         return $this;
     }
 
     /**
-     * Get the value of Album Id
+     * Get the value of Weight
      *
      * @return mixed
      */
-    public function getAlbumId()
+    public function getWeight()
     {
-        return $this->album_id;
+        return $this->weight;
     }
 
     /**
-     * Get the value of User Id
+     * Set the value of Weight
      *
-     * @return mixed
+     * @param mixed weight
+     *
+     * @return self
      */
-    public function getUserId()
+    public function setWeight($weight)
     {
-        return $this->user_id;
+        $this->weight = $weight;
+
+        return $this;
     }
 
     /**
@@ -233,43 +258,13 @@ class Picture extends BaseSql{
         return $this;
     }
 
-    public function getThumbs(){
-
-    }
-
     /**
+     * Return list array of thumbnail of the user
      *
-     * Generate Thumbnail using Imagick class
-     *
-     * @param string $img
-     * @param string $width
-     * @param string $height
-     * @param int $quality
-     * @return boolean on true
-     * @throws Exception
-     * @throws ImagickException
      */
-    public function generateThumbnail($img, $width, $height, $quality = 90)
-    {
-        //TODO CHECK CE BORDEL !
-        if (is_file($img)) {
-            $imagick = new Imagick(realpath($img));
-            $imagick->setImageFormat('jpeg');
-            $imagick->setImageCompression(Imagick::COMPRESSION_JPEG);
-            $imagick->setImageCompressionQuality($quality);
-            $imagick->thumbnailImage($width, $height, false, false);
-            $filename_no_ext = reset(explode('.', $img));
-            $filename = $filename_no_ext.'_thumb.jpg';
-            if (file_put_contents($filename, $imagick) === false) {
-                throw new Exception("Could not put contents.");
-            }
-            return $filename;
-        }
-        else {
-            throw new Exception("No valid image provided with {$img}.");
-        }
+    public static function getThumbs(){
+        
     }
-
 
 
 }

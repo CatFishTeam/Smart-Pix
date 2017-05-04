@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2017-05-02 15:15:54.595
+-- Last modification date: 2017-05-04 11:33:53.678
 
 -- tables
 -- Table: album
@@ -32,6 +32,7 @@ CREATE TABLE comment (
     picture_id int NOT NULL,
     users_id int NOT NULL,
     content text NOT NULL,
+    is_archived tinyint NOT NULL,
     created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT comment_pk PRIMARY KEY (id)
@@ -51,12 +52,13 @@ CREATE TABLE email (
 -- Table: picture
 CREATE TABLE picture (
     id int NOT NULL AUTO_INCREMENT,
-    albums_id int NOT NULL,
-    users_id int NOT NULL,
+    user_id int NOT NULL,
+    album_id int NULL,
     title varchar(100) NOT NULL,
-    description text NOT NULL,
+    description text NULL,
     url text NOT NULL,
-    is_visible int NOT NULL,
+    weight int NOT NULL,
+    is_visible tinyint NOT NULL DEFAULT 0,
     created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT picture_pk PRIMARY KEY (id)
@@ -136,7 +138,7 @@ ALTER TABLE comment ADD CONSTRAINT Comments_Pictures FOREIGN KEY Comments_Pictur
     REFERENCES picture (id);
 
 -- Reference: Pictures_Albums (table: picture)
-ALTER TABLE picture ADD CONSTRAINT Pictures_Albums FOREIGN KEY Pictures_Albums (albums_id)
+ALTER TABLE picture ADD CONSTRAINT Pictures_Albums FOREIGN KEY Pictures_Albums (album_id)
     REFERENCES album (id);
 
 -- Reference: Pictures_Cart_Pictures (table: picture_cart)
@@ -144,7 +146,7 @@ ALTER TABLE picture_cart ADD CONSTRAINT Pictures_Cart_Pictures FOREIGN KEY Pictu
     REFERENCES picture (id);
 
 -- Reference: Pictures_Users (table: picture)
-ALTER TABLE picture ADD CONSTRAINT Pictures_Users FOREIGN KEY Pictures_Users (users_id)
+ALTER TABLE picture ADD CONSTRAINT Pictures_Users FOREIGN KEY Pictures_Users (user_id)
     REFERENCES user (id);
 
 -- Reference: Stats_Albums (table: stat)
