@@ -1,10 +1,8 @@
 # Smart-Pix
 Official Smart-Pix Website
 
-
 ## TODO :
-**Serveur : **
-- Git push automatique
+**Serveur :**
 - Clef SSh
 - Gestion Zip
 
@@ -15,10 +13,9 @@ Official Smart-Pix Website
     - Gestion Album
 
 **Back User**
-- CRUD
-    - Gestion Photo
-    - Gestion Comment
-    - Gestion Album
+ - Gestion Photo
+ - Gestion Comment
+ - Gestion Album
 
 **Front**
 - Javascript Gride
@@ -28,4 +25,5 @@ Official Smart-Pix Website
 - Trouver système de Graph
 
 **V2**
+- Clean Controller (Getter Setter...)
 - Migration ???

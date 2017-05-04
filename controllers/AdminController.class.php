@@ -25,16 +25,39 @@ class AdminController{
     //Media Controller ou Ajax Controller ou Ici ?
     public function mediaUploadAction(){
         //TODO Taille du fichier ?
+        // • USER ID
+        // • Check présence du titre
         $file = is_uploaded_file($_FILES["file"]["tmp_name"]);
         if(!$file){
             echo "Problème lors du transfert";
         } else {
             $picture = new Picture();
+            $now = new DateTime("now");
+            $nowStr = $now->format("Y-m-d H:i:s");
+
+            //Il faudrait donc tous les champs ici ?
+            $picture->setAlbumId(null);
+            $picture->setUserId(1);
             $picture->setTitle($_POST['title']);
             $picture->setDescription($_POST['description']);
+            $picture->setUrl();
             $picture->setIsVisible(0);
+            $picture->setCreatedAt($nowStr);
+            $picture->setUpdatedAt($nowStr);
             $picture->save();
+
+            //Upload
+            $uploaddir = PATH_ABSOLUT.'/public/cdn/images/';
+            $uploadfile = $uploaddir . $picture->getUrl().'jpg';
+            if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
+            } else {
+                Helpers::log(print_r($_FILES));
+            }
+
+            //Thumbnail
+            // $picture->generateThumbnail()
         }
+
     }
 
     public function settingsAction(){
