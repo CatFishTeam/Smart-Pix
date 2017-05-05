@@ -77,7 +77,7 @@ class AdminController{
 
             //On crée l'image
             $image = new Imagick($_FILES['file']['tmp_name']);
-            $results = $image->writeImages(PATH_ABSOLUT.$picture->getUrl(), true);
+            $results = $image->writeImages(PATH_ABSOLUT.$upload_dir.$picture->getUrl(), true);
 
             //On crée la miniature
             //TODO Si possible ? Eviter la répétition ici ?
@@ -89,11 +89,31 @@ class AdminController{
                 $response = json_encode(array(
                     'type'=>'succes',
                     'msg'=>'L\'image a bien été enregistrée',
-                    'img'=>"".$upload_thumb_dir.$picture->getUrl().""
+                    'img'=>$picture->getUrl()
                 ));
             }
         }
         die($response);
+    }
+
+    //TODO Répétiion de upload_dir et upload_dir thumb (changer de controller pour ca)
+    public function mediaDeleteAction(){
+        $upload_dir = '/public/cdn/images/';
+        $upload_thumb_dir = '/public/cdn/images/thumbnails/';
+
+        $picture = new Picture();
+        $delete = $picture->deleteOneBy(array('url'=>$_POST['url']));
+
+        unlink(PATH_ABSOLUT.$upload_dir.$_POST['url']);
+        unlink(PATH_ABSOLUT.$upload_thumb_dir.$_POST['url']);
+
+        if($delete){
+            $response = json_encode(array(
+                'type'=>'succes',
+                'msg'=>'L\'image a bien été supprimée'
+            ));
+            die($response);
+        }
     }
 
     public function settingsAction(){

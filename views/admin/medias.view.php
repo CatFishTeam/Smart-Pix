@@ -1,9 +1,9 @@
 <h1>On affiche : </h1>
 <ul>
     <li>Editer un media
-    <li>Delete de la petite croix
-    <li>Delete de la petite croix
-    <li>Informer utilisateur sur la taille restante disponible pour celui-ci
+    <li>
+    <li>Check sur le title if empty prevent send
+    <li>Informer utilisateur sur la taille restante disponible pour celui-ci (mettre a jour si l'on retire etc)
     <li>-> Rendre payant une fois un certain espace de stockage atteint ou proposer un autre système (compression image etc..)
 </ul>
 
@@ -18,7 +18,7 @@
     <?php foreach($pictures as $picture): ?>
         <div class="imageContainer relative">
             <a href="#"></a>
-            <button><i class="fa fa-times" aria-hidden="true"></i></button>
+            <button class="delete" data-url="<?php echo $picture['url'] ?>"><i class="fa fa-times" aria-hidden="true"></i></button>
             <img src="/public/cdn/images/thumbnails/<?php echo $picture['url'] ?>" alt="<?php echo $picture['title'] ?>">
         </div>
     <?php endforeach ?>
@@ -35,6 +35,22 @@
 
 
 <script type="text/javascript">
+$(document).on('click','.delete',function(){
+    var _ = $(this);
+    var url = _.data('url');
+    $.ajax({
+      url: "/admin/mediaDelete",
+      type: "POST",
+      dataType: 'json',
+      data: { url: url }
+    }).done(function( data ) {
+        console.log(data.msg);
+        _.parent().fadeOut(300, function() {
+            _.parent().remove();
+        })
+    });
+})
+
 //TODO voir file API !
 
 // $(".upload-click").click(function(e){
@@ -63,7 +79,8 @@
            contentType: false   // tell jQuery not to set contentType
          }).done(function( data ) {
              data = JSON.parse(data);
-             $('#output').prepend('<div class="imageContainer relative"><a href="#"></a><button><i class="fa fa-times" aria-hidden="true"></i></button><img src='+data.img+' /></div>');
+             console.log(data.msg);
+             $('#output').prepend('<div class="imageContainer relative"><a href="#"></a><button class="delete" data-url="'+data.img+'"><i class="fa fa-times" aria-hidden="true"></i></button><img src="/public/cdn/images/thumbnails/'+data.img+'" /></div>');
          });
          return false;
      }

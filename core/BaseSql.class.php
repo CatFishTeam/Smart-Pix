@@ -122,6 +122,20 @@ class BaseSql{
         }
     }
 
+    public function deleteOneBy($search = [], $returnQuery = false){
+        foreach($search as $key => $value){
+            $where[] = $key.'=:'.$key;
+        }
+        $query = $this->db->prepare("DELETE FROM ".$this->table." WHERE ".implode(" AND ", $where));
+
+        $query->execute($search);
+
+        if($returnQuery){
+            return $query;
+        }
+        return true;
+    }
+
     //Clean for every slug/url
     public function clean($string) {
        $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.

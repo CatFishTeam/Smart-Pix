@@ -427,8 +427,8 @@ body {
 
 /* ~~~ Page Media - X ~~~ */
 .imageContainer {
+  display: inline-block;
   width: 20%;
-  float: left;
   margin: 10px;
   overflow: hidden; }
   .imageContainer:hover {
