@@ -2,8 +2,7 @@
 <ul>
     <li>Editer un media
     <li>Check sur le title en ajax ?
-    <li>Informer utilisateur sur la taille restante disponible pour celui-ci (mettre a jour si l'on retire etc)
-    <li>-> Rendre payant une fois un certain espace de stockage atteint ou proposer un autre système (compression image etc..)
+    <li>Mettre en place ce bordel !
 </ul>
 
 <form method="post" id="fileinfo" name="fileinfo">
