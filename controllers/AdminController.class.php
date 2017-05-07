@@ -22,8 +22,6 @@ class AdminController{
         $pictures = $pictures->getAllBy();
         $v = new View('admin.medias','backend');
         $v->assign('pictures',$pictures);
-
-        // var_dump($pictures);
     }
 
     //Media Controller ou Ajax Controller ou Ici ?
@@ -104,6 +102,7 @@ class AdminController{
         $picture = new Picture();
         $delete = $picture->deleteOneBy(array('url'=>$_POST['url']));
 
+        //Détruit les fichiers
         unlink(PATH_ABSOLUT.$upload_dir.$_POST['url']);
         unlink(PATH_ABSOLUT.$upload_thumb_dir.$_POST['url']);
 
