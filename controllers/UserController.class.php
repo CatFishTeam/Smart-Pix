@@ -39,14 +39,17 @@ class UserController {
                 echo "<div class='flash flash-success'>Inscription terminée !</div>";
                 // Envoi du mail :
                 $to = $email; // this is your Email address
-                $from = "admin@smart-pix.fr"; // this is the sender's Email address
+                $from = "Smart-Pix <no-reply@smart-pix.fr>"; // this is the sender's Email address
                 $subject = "Votre inscription sur Smart-Pix !";
-                $message = "Bonjour ".$username.
+                $message = "<img src='http://smart-pix.fr/public/image/logo.png'>".
+                    "<br>Bonjour ".$username.
                     "<br><br>Votre identifiant : ".$username.
                     "<br>Votre mot de passe : vous seul le connaissez !
                     <br><br>Cordialement,<br>L'équipe Smart-Pix"
                 ;
-                $headers = "From:" . $from;
+                $headers = "From:" . $from . "\r\n";
+                $headers .= "MIME-Version: 1.0\r\n";
+                $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
                 mail($to,$subject,$message,$headers);
             } else {
                 echo "<div class='flash flash-warning'>Les mots de passe sont différents</div>";
