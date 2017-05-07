@@ -223,24 +223,25 @@ select {
     #masonry:hover img:hover {
       opacity: 1; }
 
-.flash {
-  right: 1%;
+.flash-container {
   position: fixed;
-  width: 20%;
-  margin: auto;
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
-  border-radius: 5px;
-  top: 1%;
-  color: #fff;
-  font-family: 'Montserrat', sans-serif; }
-
-.flash-success {
-  background: #27ae60; }
-
-.flash-warning {
-  background: #c0392b; }
+  right: 1%;
+  top: 1%; }
+  .flash-container .flash {
+    position: relative;
+    overflow: hidden;
+    width: 300px;
+    margin: 10px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif; }
+  .flash-container .flash-success {
+    background: #27ae60; }
+  .flash-container .flash-warning {
+    background: #c0392b; }
 
 /* fallback for earlier versions of Firefox */
 @supports not (flex-wrap: wrap) {

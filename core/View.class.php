@@ -32,6 +32,16 @@ class View{
         }
     }
 
+    public function includeModal($modal, $config) {
+        if (file_exists("views/modals/".$modal.".mod.php")) {
+            include "views/modals/".$modal.".mod.php";
+        } else {
+            // logs
+
+            die("Le modal n'existe pas");
+        }
+    }
+
     public function assign($key, $value){
         $this->data[$key]=$value;
     }

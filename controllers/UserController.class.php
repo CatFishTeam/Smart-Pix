@@ -17,12 +17,16 @@ class UserController {
     public function signupAction() {
         // Si le formulaire a été envoyé :
         if ($_POST) {
+            $flash = '<div class="flash-container">';
             $user = new User();
             $username = $_POST['username'];
             $email = $_POST['email'];
             $pwd = $_POST['pwd'];
             $confpwd = $_POST['confpwd'];
-            if ($pwd == $confpwd) {
+            $usernameTaken = (new User())->getAllBy(['username' => $_POST['username']]);
+            $emailTaken = (new User())->getAllBy(['email' => $_POST['email']]);
+
+            if ($pwd == $confpwd && empty($usernameTaken) && empty($emailTaken)) {
                 $now = new DateTime("now");
                 $nowStr = $now->format("Y-m-d H:i:s");
                 $user->setUsername($username);
@@ -36,7 +40,6 @@ class UserController {
                 $user->setPermission(1);
                 $user->setIsDeleted(0);
                 $user->save();
-                echo "<div class='flash flash-success'>Inscription terminée !</div>";
                 // Envoi du mail :
                 $to = $email; // this is your Email address
                 $from = "Smart-Pix <no-reply@smart-pix.fr>"; // this is the sender's Email address
@@ -51,9 +54,16 @@ class UserController {
                 $headers .= "MIME-Version: 1.0\r\n";
                 $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
                 mail($to,$subject,$message,$headers);
-            } else {
-                echo "<div class='flash flash-warning'>Les mots de passe sont différents</div>";
+                $flash .= "<div class='flash flash-success'>Inscription terminée !</div>";
+            }  if ($pwd != $confpwd) {
+                $flash .= "<div class='flash flash-warning'>Les mots de passe sont différents</div>";
+            }  if (!empty($usernameTaken)) {
+                $flash .= "<div class='flash flash-warning'>Cet identifiant est déjà pris</div>";
+            }  if (!empty($emailTaken)) {
+                $flash .= "<div class='flash flash-warning'>Cet email existe déjà</div>";
             }
+            $flash .= "</div>";
+            echo $flash;
         }
         $v = new View('user.signup', 'frontend');
     }
@@ -80,5 +90,42 @@ class UserController {
         session_unset();
         session_destroy();
         $v = new View('index', 'frontend');
+    }
+
+    public function forgetPasswordAction() {
+        if ($_POST) {
+            $flash = '<div class="flash-container">';
+            $email = $_POST['email'];
+            $emailExists = (new User())->getAllBy(['email' => $email]);
+            if ($emailExists) {
+                $user = new User();
+                $user = $user->populate(['email' => $email]);
+                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                $charactersLength = strlen($characters);
+                $tempPwd = '';
+                for ($i = 0; $i < 8; $i++) {
+                    $tempPwd .= $characters[rand(0, $charactersLength - 1)];
+                }
+                $user->setPassword($tempPwd);
+                $user->save();
+                // Envoi du mail :
+                $to = $email;
+                $from = "Smart-Pix <no-reply@smart-pix.fr>";
+                $subject = "Mot de passe temporaire Smart-Pix";
+                $message = "<img src='http://smart-pix.fr/public/image/logo.png'>".
+                    "<br>Bonjour ".$user->getUsername().
+                    "<br><br>Votre mot de passe temporaire : ".$tempPwd.
+                    "<br><br>Cordialement,<br>L'équipe Smart-Pix"
+                ;
+                $headers = "From:" . $from . "\r\n";
+                $headers .= "MIME-Version: 1.0\r\n";
+                $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+                mail($to,$subject,$message,$headers);
+                $flash .= "<div class='flash flash-success'>Un email vous a été envoyé</div>";
+            }
+            $flash .= "</div>";
+            echo $flash;
+        }
+        $v = new View('user.forgetPassword', 'frontend');
     }
 }

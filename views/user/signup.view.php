@@ -16,14 +16,14 @@ $config = array(
     "struc" => [
         "username" => [
             "type" => "text",
-            "placeholder" => "Votre pseudo",
-            "value" => null,
+            "placeholder" => "Votre identifiant",
+            "value" => (isset($_POST['username'])) ? $_POST['username'] : null,
             "required" => true
         ],
         "email" => [
             "type" => "email",
             "placeholder" => "Votre email",
-            "value" => null,
+            "value" => (isset($_POST['email'])) ? $_POST['email'] : null,
             "required" => true
         ],
         "pwd" => [
@@ -41,6 +41,6 @@ $config = array(
     ]
 );
 
-include "views/modals/form.mod.php";
+$this->includeModal("form", $config);
 
 ?>
