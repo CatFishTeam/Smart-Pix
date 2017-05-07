@@ -16,7 +16,7 @@ $config = array(
     "struc" => [
         "username" => [
             "type" => "text",
-            "placeholder" => "Votre pseudo",
+            "placeholder" => "Votre identifiant",
             "value" => null,
             "required" => 0
         ],
@@ -32,3 +32,4 @@ $config = array(
 include "views/modals/form.mod.php";
 
 ?>
+<p><a href="<?php echo PATH_RELATIVE."user/forgetPassword" ?>">Mot de passe oublié ?</a></p>

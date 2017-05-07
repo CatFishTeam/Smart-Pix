@@ -51,8 +51,6 @@ class BaseSql{
             $sqlQuery = trim($sqlQuery, ", ");
             $req = $this->db->prepare("UPDATE ".$this->table." SET ".$sqlQuery." WHERE id = :id;");
             $req->execute($data);
-            echo "update";
-
         }
     }
 
