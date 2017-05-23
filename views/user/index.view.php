@@ -11,7 +11,8 @@ $config = array(
         "action" => "#",
         "class" => "form-group",
         "id" => "form-subscribe",
-        "submit" => "Mettre à jour le profil"
+        "submit" => "Mettre à jour le profil",
+        "submitName" => "profil",
     ],
     "struc" => [
         "username" => [
@@ -30,13 +31,13 @@ $config = array(
             "type" => "password",
             "placeholder" => "Modifier votre mot de passe",
             "value" => null,
-            "required" => true
+            "required" => false
         ],
         "confpwd" => [
             "type" => "password",
-            "placeholder" => "Confirmation le nouveau mot de passe",
+            "placeholder" => "Confirmer le nouveau mot de passe",
             "value" => null,
-            "required" => true
+            "required" => false
         ],
     ]
 );
@@ -51,7 +52,8 @@ $config = array(
         "action" => "#",
         "class" => "form-group",
         "id" => "form-subscribe",
-        "submit" => "Mettre à jour le profil"
+        "submit" => "Mettre à jour les informations personnelles",
+        "submitName" => "infos"
     ],
     "struc" => [
         "firstname" => [

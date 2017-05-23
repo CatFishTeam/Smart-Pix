@@ -11,7 +11,8 @@ $config = array(
         "action" => "#",
         "class" => "form-group",
         "id" => "form-subscribe",
-        "submit" => "Se connecter"
+        "submit" => "Se connecter",
+        "submitName" => "login"
     ],
     "struc" => [
         "username" => [
