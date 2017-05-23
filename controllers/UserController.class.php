@@ -46,7 +46,8 @@ class UserController {
                 $subject = "Votre inscription sur Smart-Pix !";
                 $message = "<img src='http://smart-pix.fr/public/image/logo.png'>".
                     "<br>Bonjour ".$username.
-                    "<br><br>Votre identifiant : ".$username.
+                    "<br><br>Votre inscription sur Smart-Pix a bien été validée !
+                    <br><br>Votre identifiant : ".$username.
                     "<br>Votre mot de passe : vous seul le connaissez !
                     <br><br>Cordialement,<br>L'équipe Smart-Pix"
                 ;
@@ -70,6 +71,7 @@ class UserController {
 
     public function loginAction() {
         if ($_POST) {
+            $flash = '<div class="flash-container">';
             $user = new User();
             $username = $_POST['username'];
             $password = $_POST['pwd'];
@@ -79,10 +81,12 @@ class UserController {
                 $_SESSION['username'] = $username;
                 // $_SESSION['user_id'] = $username;
                 // var_dump($user);
-                echo "<div class='flash flash-success'>Vous êtes connecté !</div>";
+                $flash .= "<div class='flash flash-success'>Vous êtes connecté !</div>";
             } else {
-                echo "<div class='flash flash-warning'>Erreur lors de la connexion</div>";
+                $flash .= "<div class='flash flash-warning'>Erreur lors de la connexion</div>";
             }
+            $flash .= "</div>";
+            echo $flash;
         }
          $v = new View('user.login', 'frontend');
     }
