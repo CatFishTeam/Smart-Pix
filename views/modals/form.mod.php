@@ -1,7 +1,14 @@
 <form method="<?php echo $config["options"]["method"];?>"
     id="<?php echo $config["options"]["id"];?>"
     class="<?php echo $config["options"]["class"];?>"
-    action="<?php echo $config["options"]["action"];?>">
+    action="<?php echo $config["options"]["action"];?>"
+    enctype="<?php
+    if (isset($config["options"]["enctype"]))
+        echo $config["options"]["enctype"];
+    else
+        echo "application/x-www-form-urlencoded";
+        ?>"
+>
 
 
     <?php foreach ($config["struc"] as $name => $attribute):?>

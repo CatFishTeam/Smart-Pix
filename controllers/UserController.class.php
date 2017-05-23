@@ -32,13 +32,13 @@ class UserController {
                 ) {
                     $now = new DateTime("now");
                     $nowStr = $now->format("Y-m-d H:i:s");
-                    $user->setUsername($username);
-                    $user->setEmail($email);
+                    $user->setUsername(htmlspecialchars(trim($username)));
+                    $user->setEmail(htmlspecialchars(trim($email)));
                     if ($pwd != "" && $confpwd != "") $user->setPassword($pwd);
                     $user->setUpdatedAt($nowStr);
                     $user->save();
                     $_SESSION["username"] = $username;
-                    $flash .= "<div class='flash flash-success'>Profil mis à jour !</div>";
+                    $flash .= "<div class='flash flash-success'>Profil mis à jour</div>";
                 }
                 if ($pwd != $confpwd) {
                     $flash .= "<div class='flash flash-warning'>Les mots de passe sont différents</div>";
@@ -58,7 +58,29 @@ class UserController {
              */
             if (isset($_POST["infos"])) {
                 $flash = '<div class="flash-container">';
-
+                $firstname = isset($_POST["firstname"]) ? $_POST["firstname"] : "";
+                $lastname = isset($_POST["lastname"]) ? $_POST["lastname"] : "";
+                $avatar = isset($_FILES["avatar"]) ? $_FILES["avatar"] : [];
+                $user->setFirstname(htmlspecialchars(trim($firstname)));
+                $user->setLastname(htmlspecialchars(trim($lastname)));
+                if (isset($_FILES["avatar"])) {
+                    if ($_FILES['avatar']['error'] > 0) {
+                        if ($_FILES['avatar']['error'] == 1 || $_FILES['avatar']['error'] == 2)
+                            $flash .= "<div class='flash flash-warning'>Le fichier d'avatar est trop volumineux (max: 5 Mo)</div>";
+                        elseif ($_FILES['avatar']['error'] != 4)
+                            $flash .= "<div class='flash flash-warning'>Le fichier d'avatar a rencontré une erreur.</div>";
+                    } else {
+                        $fileInfo = pathinfo($_FILES['avatar']['name']);
+                        $nameAvatar = "SP_".uniqid().".".strtolower($fileInfo["extension"]);
+                        move_uploaded_file($_FILES['avatar']['tmp_name'], "./public/cdn/images/avatars/".$nameAvatar);
+                        $user->setAvatar($nameAvatar);
+                        $flash .= "<div class='flash flash-success'>Votre avatar a été ajouté</div>";
+                    }
+                } else {
+                    echo "not set ?";
+                }
+                $user->save();
+                $flash .= "<div class='flash flash-success'>Informations personnelles mises à jour</div>";
                 $flash .= "</div>";
                 echo $flash;
             }
@@ -83,9 +105,9 @@ class UserController {
             if ($pwd == $confpwd && empty($usernameTaken) && empty($emailTaken)) {
                 $now = new DateTime("now");
                 $nowStr = $now->format("Y-m-d H:i:s");
-                $user->setUsername($username);
-                $user->setEmail($email);
-                $user->setPassword($pwd);
+                $user->setUsername(htmlspecialchars(trim($username)));
+                $user->setEmail(htmlspecialchars(trim($email)));
+                $user->setPassword(htmlspecialchars(trim($pwd)));
                 $user->setAvatar("");
                 $user->setFirstname("");
                 $user->setLastname("");

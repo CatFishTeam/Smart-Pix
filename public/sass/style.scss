@@ -298,22 +298,28 @@ select {
   .flash {
     position: relative;
     overflow: hidden;
-    width: 300px;
+    min-width: 300px;
     margin: 10px;
+    padding: 0 10px;
     height: 50px;
     line-height: 50px;
     text-align: center;
-    border-radius: 5px;
+    border: 1px solid transparent;
+    border-width: 0 1px 4px 1px;
+    border-radius: 4px;
     color: #fff;
     font-family: 'Montserrat', sans-serif;
+    box-shadow: 1px 1px 10px 2px lightgrey;
   }
 
   .flash-success {
-    background: #27ae60;
+    background-color: #28b62c;
+    border-color: #24a528;
   }
 
   .flash-warning {
-    background: #c0392b;
+    background-color: #ff4136;
+    border-color: #ff1103;
   }
 }
 

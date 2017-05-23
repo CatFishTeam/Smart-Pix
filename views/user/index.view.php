@@ -50,6 +50,7 @@ $config = array(
     "options" => [
         "method" => "POST",
         "action" => "#",
+        "enctype" => "multipart/form-data",
         "class" => "form-group",
         "id" => "form-subscribe",
         "submit" => "Mettre à jour les informations personnelles",
@@ -60,19 +61,23 @@ $config = array(
             "type" => "text",
             "placeholder" => "Votre prénom",
             "value" => $user->getFirstname(),
-            "required" => true
+            "required" => false
         ],
         "lastname" => [
             "type" => "text",
             "placeholder" => "Votre nom",
             "value" => $user->getLastname(),
-            "required" => true
+            "required" => false
+        ],
+        "MAX_FILE_SIZE" => [
+            "type" => "hidden",
+            "value" => "5242880"
         ],
         "avatar" => [
             "type" => "file",
             "placeholder" => "Ajouter un avatar",
             "value" => null,
-            "required" => true
+            "required" => false
         ],
     ]
 );
