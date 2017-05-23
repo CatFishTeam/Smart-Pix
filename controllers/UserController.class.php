@@ -78,7 +78,7 @@ class UserController {
                 if (!isset($_SESSION)) session_start();
                 $_SESSION['username'] = $username;
                 $_SESSION['user_id'] = $user->getId();
-                echo "<div class='flash flash-success'>Vous êtes connecté !</div>";
+                header('Location: /');
             } else {
                 echo "<div class='flash flash-warning'>Erreur lors de la connexion</div>";
             }

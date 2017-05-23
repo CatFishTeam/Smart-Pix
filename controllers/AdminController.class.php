@@ -1,6 +1,12 @@
 <?php
 class AdminController{
-    //Construct middleware être connecté !!
+
+    public function __construct(){
+        //TODO Middleware ?? !!
+        if(!isset($_SESSION['user_id'])){
+            header('Location:/user/login');
+        }
+    }
 
     //RENAME SHOW PAGE CONTROLLER ?
     public function indexAction(){
@@ -122,6 +128,12 @@ class AdminController{
             ));
             die($response);
         }
+    }
+
+    public function mediaAction($id){
+        $v = new View('admin.settings','backend');
+        $v->assign('id',$id);
+        var_dump($id);
     }
 
     public function settingsAction(){
