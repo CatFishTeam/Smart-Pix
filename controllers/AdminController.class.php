@@ -1,6 +1,12 @@
 <?php
 class AdminController{
-    //Construct middleware être connecté !!
+
+    public function __construct(){
+        //TODO Middleware ?? !!
+        if(!isset($_SESSION['user_id'])){
+            header('Location:/user/login');
+        }
+    }
 
     //RENAME SHOW PAGE CONTROLLER ?
     public function indexAction(){
@@ -18,10 +24,19 @@ class AdminController{
     }
 
     public function mediasAction(){
-        $pictures = new Picture();
-        $pictures = $pictures->getAllBy();
         $v = new View('admin.medias','backend');
+
+        $pictures = new Picture();
+        $pictures = $pictures->getAllBy(['user_id'=>$_SESSION['user_id']], "DESC");
         $v->assign('pictures',$pictures);
+
+        $totalWeight = 0;
+        foreach ($pictures as $picture) {
+            $totalWeight += $picture['weight'];
+        }
+        $v->assign('totalWeight',$totalWeight);
+
+
     }
 
     //Media Controller ou Ajax Controller ou Ici ?
@@ -63,7 +78,7 @@ class AdminController{
             $nowStr = $now->format("Y-m-d H:i:s");
             //Il faudrait donc tous les champs ici ?
             $picture->setAlbumId(null);
-            $picture->setUserId(1);
+            $picture->setUserId($_SESSION['user_id']);
             $picture->setTitle($_POST['title']);
             $picture->setDescription($_POST['description']);
             $picture->setUrl($ext);
@@ -113,6 +128,12 @@ class AdminController{
             ));
             die($response);
         }
+    }
+
+    public function mediaAction($id){
+        $v = new View('admin.settings','backend');
+        $v->assign('id',$id);
+        var_dump($id);
     }
 
     public function settingsAction(){

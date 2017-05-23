@@ -1,19 +1,22 @@
 <h1>On affiche : </h1>
 <ul>
     <li>Editer un media
-    <li>
-    <li>Check sur le title if empty prevent send
-    <li>Informer utilisateur sur la taille restante disponible pour celui-ci (mettre a jour si l'on retire etc)
-    <li>-> Rendre payant une fois un certain espace de stockage atteint ou proposer un autre système (compression image etc..)
+    <li>Check sur le title en ajax ?
+    <li>Mettre en place ce bordel !
 </ul>
 
-<form method="post" id="fileinfo" name="fileinfo" onsubmit="return submitForm();">
+<form method="post" id="fileinfo" name="fileinfo">
     <label>Select a file:</label><br>
     <input type="file" name="file">
     Title : <input type="text" name="title">
     Description : <textarea name="description"></textarea>
     <input type="submit" value="Upload" />
 </form>
+
+<div class="weight" style="height: 50px; background: grey; width: 300px; border-radius: 10px;">
+    <div class="bar" data-octet="<?php echo $totalWeight ?>" style="height: 50px; background: green; width: 0; border-radius: 10px; transition: ease 2s;"></div>
+    <div class="percent"></div>
+</div>Il vous reste 5Go de libre
 <div id='output'>
     <?php foreach($pictures as $picture): ?>
         <div class="imageContainer relative">
@@ -35,6 +38,48 @@
 
 
 <script type="text/javascript">
+$(document).ready(function(){
+    var percent = Math.round(($('.bar').data('octet') / 42949672960) * 100)+"%";
+
+    // var 42949672960
+    //Bar de niveau
+    $('.bar').css('width',percent);
+    $('.percent').text(percent);
+
+    //Envoie de fichier
+    $('#fileinfo').submit(function(e){
+        if($('[name="file"]').get(0).files.length == 0){
+            alert('Vous n\'avez pas uploadé de fichier');
+            return false;
+        }
+        if($('[name="title"]').val() == ""){
+            alert('Vous devez rentrer un Titre')
+            return false;
+        }
+
+        $('#output').prepend('<div class="loader imageContainer relative"><img src="/public/image/loader.gif" style="width: 100%" /></div>');
+
+        var fd = new FormData(document.getElementById("fileinfo"));
+        $.ajax({
+          url: "/admin/mediaUpload",
+          type: "POST",
+          data: fd,
+          processData: false,  // tell jQuery not to process the data
+          contentType: false   // tell jQuery not to set contentType
+        }).done(function( data ) {
+            data = JSON.parse(data);
+            console.log(data.msg);
+            $('#output').prepend('<div class="imageContainer relative"><a href="#"></a><button class="delete" data-url="'+data.img+'"><i class="fa fa-times" aria-hidden="true"></i></button><img src="/public/cdn/images/thumbnails/'+data.img+'" /></div>');
+            $('.loader').remove();
+            $('[name="file"]').val('');
+            $('[name="title"]').val('');
+            $('[name="description"]').val('');
+        });
+
+        return false;
+    });
+})
+
 $(document).on('click','.delete',function(){
     var _ = $(this);
     var url = _.data('url');
@@ -70,18 +115,6 @@ $(document).on('click','.delete',function(){
 // } -->
 
      function submitForm() {
-         var fd = new FormData(document.getElementById("fileinfo"));
-         $.ajax({
-           url: "/admin/mediaUpload",
-           type: "POST",
-           data: fd,
-           processData: false,  // tell jQuery not to process the data
-           contentType: false   // tell jQuery not to set contentType
-         }).done(function( data ) {
-             data = JSON.parse(data);
-             console.log(data.msg);
-             $('#output').prepend('<div class="imageContainer relative"><a href="#"></a><button class="delete" data-url="'+data.img+'"><i class="fa fa-times" aria-hidden="true"></i></button><img src="/public/cdn/images/thumbnails/'+data.img+'" /></div>');
-         });
-         return false;
+
      }
  </script>

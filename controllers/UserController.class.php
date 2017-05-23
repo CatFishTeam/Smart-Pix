@@ -79,9 +79,14 @@ class UserController {
             if (password_verify($password, $user->getPassword())) {
                 if (!isset($_SESSION)) session_start();
                 $_SESSION['username'] = $username;
+<<<<<<< HEAD
                 // $_SESSION['user_id'] = $username;
                 // var_dump($user);
                 $flash .= "<div class='flash flash-success'>Vous êtes connecté !</div>";
+=======
+                $_SESSION['user_id'] = $user->getId();
+                header('Location: /');
+>>>>>>> bdf32e86376902e9153865d7abeaae11665da22c
             } else {
                 $flash .= "<div class='flash flash-warning'>Erreur lors de la connexion</div>";
             }

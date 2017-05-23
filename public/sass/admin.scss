@@ -527,3 +527,21 @@ body{
       display: block;
     }
 }
+.percent{
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-size: 30px;
+  text-align: center;
+  line-height: 50px;
+  color: #fff;
+  transition: ease all 0.5s;
+}
+.weight{
+  position: relative;
+  &:hover .percent{
+    opacity: 1;
+  }
+}
