@@ -295,29 +295,29 @@ select {
   position: fixed;
   right: 1%;
   top: 1%;
+  border-spacing: 5px;
   .flash {
-    position: relative;
-    overflow: hidden;
-    min-width: 300px;
-    margin: 10px;
-    padding: 0 10px;
-    height: 50px;
-    line-height: 50px;
+    display: table-row;
     text-align: center;
-    border: 1px solid transparent;
-    border-width: 0 1px 4px 1px;
-    border-radius: 4px;
     color: #fff;
     font-family: 'Montserrat', sans-serif;
-    box-shadow: 1px 1px 10px 2px lightgrey;
+    .flash-cell {
+      display: table-cell;
+      padding: 15px;
+      vertical-align: middle;
+      border: 1px solid transparent;
+      border-width: 0 1px 4px 1px;
+      border-radius: 4px;
+      box-shadow: 1px 1px 10px 2px lightgrey;
+    }
   }
 
-  .flash-success {
+  .flash-success .flash-cell {
     background-color: #28b62c;
     border-color: #24a528;
   }
 
-  .flash-warning {
+  .flash-warning .flash-cell {
     background-color: #ff4136;
     border-color: #ff1103;
   }

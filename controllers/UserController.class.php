@@ -38,16 +38,16 @@ class UserController {
                     $user->setUpdatedAt($nowStr);
                     $user->save();
                     $_SESSION["username"] = $username;
-                    $flash .= "<div class='flash flash-success'>Profil mis à jour</div>";
+                    $flash .= "<div class='flash flash-success'><div class='flash-cell'>Profil mis à jour</div></div>";
                 }
                 if ($pwd != $confpwd) {
-                    $flash .= "<div class='flash flash-warning'>Les mots de passe sont différents</div>";
+                    $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Les mots de passe sont différents</div></div>";
                 }
                 if (!empty($usernameTaken) && $usernameTaken[0]["id"] != $userId) {
-                    $flash .= "<div class='flash flash-warning'>Cet identifiant est déjà pris</div>";
+                    $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Cet identifiant est déjà pris</div></div>";
                 }
                 if (!empty($emailTaken) && $emailTaken[0]["id"] != $userId) {
-                    $flash .= "<div class='flash flash-warning'>Cet email existe déjà</div>";
+                    $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Cet email existe déjà</div></div>";
                 }
                 $flash .= "</div>";
                 echo $flash;
@@ -66,21 +66,30 @@ class UserController {
                 if (isset($_FILES["avatar"])) {
                     if ($_FILES['avatar']['error'] > 0) {
                         if ($_FILES['avatar']['error'] == 1 || $_FILES['avatar']['error'] == 2)
-                            $flash .= "<div class='flash flash-warning'>Le fichier d'avatar est trop volumineux (max: 5 Mo)</div>";
+                            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Le fichier d'avatar est trop volumineux (max: 5 Mo)</div></div>";
                         elseif ($_FILES['avatar']['error'] != 4)
-                            $flash .= "<div class='flash flash-warning'>Le fichier d'avatar a rencontré une erreur.</div>";
+                            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Le fichier d'avatar a rencontré une erreur.</div></div>";
                     } else {
                         $fileInfo = pathinfo($_FILES['avatar']['name']);
-                        $nameAvatar = "SP_".uniqid().".".strtolower($fileInfo["extension"]);
-                        move_uploaded_file($_FILES['avatar']['tmp_name'], "./public/cdn/images/avatars/".$nameAvatar);
-                        $user->setAvatar($nameAvatar);
-                        $flash .= "<div class='flash flash-success'>Votre avatar a été ajouté</div>";
+                        if (
+                            $fileInfo["extension"] == "jpg" ||
+                            $fileInfo["extension"] == "jpeg" ||
+                            $fileInfo["extension"] == "png" ||
+                            $fileInfo["extension"] == "gif"
+                        ) {
+                            $nameAvatar = "SP_".uniqid().".".strtolower($fileInfo["extension"]);
+                            move_uploaded_file($_FILES['avatar']['tmp_name'], "./public/cdn/images/avatars/".$nameAvatar);
+                            $user->setAvatar($nameAvatar);
+                            $flash .= "<div class='flash flash-success'><div class='flash-cell'>Votre avatar a été ajouté</div></div>";
+                        } else {
+                            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Format d'image invalide<br>(essayez: .jpg, .jpeg, .png ou .gif)</div></div>";
+                        }
                     }
                 } else {
                     echo "not set ?";
                 }
                 $user->save();
-                $flash .= "<div class='flash flash-success'>Informations personnelles mises à jour</div>";
+                $flash .= "<div class='flash flash-success'><div class='flash-cell'>Informations personnelles mises à jour</div></div>";
                 $flash .= "</div>";
                 echo $flash;
             }
