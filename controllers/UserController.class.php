@@ -2,12 +2,66 @@
 
 class UserController {
 
+    /*
+     * Page de profil (/user)
+     */
     public function indexAction() {
         if ($_SESSION) {
             $user = new User();
             $user = $user->populate(array('username' => $_SESSION['username']));
+            $userId = $user->getId();
             $v = new View('user.index', 'frontend');
             $v->assign('user', $user);
+
+            /*
+             * Formulaire "Profil"
+             */
+            if (isset($_POST["profil"])) {
+                $flash = '<div class="flash-container">';
+                $username = $_POST['username'];
+                $email = $_POST['email'];
+                $pwd = isset($_POST['pwd']) ? $_POST['pwd'] : "";
+                $confpwd = isset($_POST['confpwd']) ? $_POST['confpwd'] : "";
+                $usernameTaken = (new User())->getAllBy(['username' => $username]);
+                $emailTaken = (new User())->getAllBy(['email' => $email]);
+
+                if (
+                    $pwd == $confpwd &&
+                    (empty($usernameTaken) || $usernameTaken[0]["id"] == $userId) &&
+                    (empty($emailTaken) || $emailTaken[0]["id"] == $userId)
+                ) {
+                    $now = new DateTime("now");
+                    $nowStr = $now->format("Y-m-d H:i:s");
+                    $user->setUsername($username);
+                    $user->setEmail($email);
+                    if ($pwd != "" && $confpwd != "") $user->setPassword($pwd);
+                    $user->setUpdatedAt($nowStr);
+                    $user->save();
+                    $_SESSION["username"] = $username;
+                    $flash .= "<div class='flash flash-success'>Profil mis à jour !</div>";
+                }
+                if ($pwd != $confpwd) {
+                    $flash .= "<div class='flash flash-warning'>Les mots de passe sont différents</div>";
+                }
+                if (!empty($usernameTaken) && $usernameTaken[0]["id"] != $userId) {
+                    $flash .= "<div class='flash flash-warning'>Cet identifiant est déjà pris</div>";
+                }
+                if (!empty($emailTaken) && $emailTaken[0]["id"] != $userId) {
+                    $flash .= "<div class='flash flash-warning'>Cet email existe déjà</div>";
+                }
+                $flash .= "</div>";
+                echo $flash;
+            }
+
+            /*
+             * Formulaire "Informations personnelles"
+             */
+            if (isset($_POST["infos"])) {
+                $flash = '<div class="flash-container">';
+
+                $flash .= "</div>";
+                echo $flash;
+            }
         } else {
             $v = new View('index', 'frontend');
         }
@@ -81,7 +135,7 @@ class UserController {
                 $_SESSION['username'] = $username;
 
                 $_SESSION['user_id'] = $user->getId();
-                header('Location: /');
+                header('Location: '.PATH_RELATIVE);
 
             } else {
                 $flash .= "<div class='flash flash-warning'>Erreur lors de la connexion</div>";

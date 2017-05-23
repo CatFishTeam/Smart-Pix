@@ -19,5 +19,5 @@
         <?php endif;?>
     <?php endforeach;?>
 
-    <input type="submit" value="<?php echo $config["options"]["submit"]; ?>">
+    <input type="submit" value="<?php echo $config["options"]["submit"]; ?>" name="<?php echo $config["options"]["submitName"] ?>">
 </form>
