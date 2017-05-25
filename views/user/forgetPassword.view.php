@@ -11,7 +11,8 @@ $config = array(
         "action" => "#",
         "class" => "form-group",
         "id" => "form-subscribe",
-        "submit" => "Demander un mot de passe temporaire"
+        "submit" => "Demander un mot de passe temporaire",
+        "submitName" => "forgetPassword"
     ],
     "struc" => [
         "email" => [

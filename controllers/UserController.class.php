@@ -72,10 +72,10 @@ class UserController {
                     } else {
                         $fileInfo = pathinfo($_FILES['avatar']['name']);
                         if (
-                            $fileInfo["extension"] == "jpg" ||
-                            $fileInfo["extension"] == "jpeg" ||
-                            $fileInfo["extension"] == "png" ||
-                            $fileInfo["extension"] == "gif"
+                            strtolower($fileInfo["extension"]) == "jpg" ||
+                            strtolower($fileInfo["extension"]) == "jpeg" ||
+                            strtolower($fileInfo["extension"]) == "png" ||
+                            strtolower($fileInfo["extension"]) == "gif"
                         ) {
                             $nameAvatar = "SP_".uniqid().".".strtolower($fileInfo["extension"]);
                             move_uploaded_file($_FILES['avatar']['tmp_name'], "./public/cdn/images/avatars/".$nameAvatar);
@@ -86,7 +86,7 @@ class UserController {
                         }
                     }
                 } else {
-                    echo "not set ?";
+                    $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Aucun avatar sélectionné</div></div>";
                 }
                 $user->save();
                 $flash .= "<div class='flash flash-success'><div class='flash-cell'>Informations personnelles mises à jour</div></div>";
@@ -124,29 +124,33 @@ class UserController {
                 $user->setUpdatedAt($nowStr);
                 $user->setPermission(1);
                 $user->setIsDeleted(0);
+                $user->setStatus(0);
+                $accessToken = md5(uniqid()."hbfuigs".time());
+                $user->setAccessToken($accessToken);
                 $user->save();
                 // Envoi du mail :
                 $to = $email; // this is your Email address
-                $from = "Smart-Pix <no-reply@smart-pix.fr>"; // this is the sender's Email address
+                $from = "no-reply@smart-pix.fr"; // this is the sender's Email address
                 $subject = "Votre inscription sur Smart-Pix !";
-                $message = "<img src='http://smart-pix.fr/public/image/logo.png'>".
+                $message = "<img src='http://smart-pix.fr/public/image/logo.png' width='100'>".
                     "<br>Bonjour ".$username.
                     "<br><br>Votre inscription sur Smart-Pix a bien été validée !
                     <br><br>Votre identifiant : ".$username.
                     "<br>Votre mot de passe : vous seul le connaissez !
+                    <br><a href='http://localhost/Smart-Pix/user/activate/".$accessToken."'>Activer votre compte</a>
                     <br><br>Cordialement,<br>L'équipe Smart-Pix"
                 ;
-                $headers = "From:" . $from . "\r\n";
+                $headers = "From: Smart-Pix <" . $from . ">\r\n";
                 $headers .= "MIME-Version: 1.0\r\n";
                 $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
                 mail($to,$subject,$message,$headers);
-                $flash .= "<div class='flash flash-success'>Inscription terminée !</div>";
+                $flash .= "<div class='flash flash-success'><div class='flash-cell'>Inscription terminée !</div></div>";
             }  if ($pwd != $confpwd) {
-                $flash .= "<div class='flash flash-warning'>Les mots de passe sont différents</div>";
+                $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Les mots de passe sont différents</div></div>";
             }  if (!empty($usernameTaken)) {
-                $flash .= "<div class='flash flash-warning'>Cet identifiant est déjà pris</div>";
+                $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Cet identifiant est déjà pris</div></div>";
             }  if (!empty($emailTaken)) {
-                $flash .= "<div class='flash flash-warning'>Cet email existe déjà</div>";
+                $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Cet email existe déjà</div></div>";
             }
             $flash .= "</div>";
             echo $flash;
@@ -154,27 +158,57 @@ class UserController {
         $v = new View('user.signup', 'frontend');
     }
 
+    public function activateAction($token) {
+        $flash = '<div class="flash-container">';
+        $user = new User();
+        $user = $user->populate(array('access_token' => $token[0]));
+
+        if (!empty($user) && $user->getStatus() == 0) {
+            $user->setStatus(1);
+            $user->save();
+            $username = $user->getUsername();
+            $password = $user->getPassword();
+            if (!isset($_SESSION)) session_start();
+            $_SESSION['username'] = $username;
+            $_SESSION['user_id'] = $user->getId();
+            $flash .= "<div class='flash flash-success'><div class='flash-cell'>Inscription confirmée !<br>Vous allez être redirigé...</div></div>";
+            header( "Refresh:3; url=".PATH_RELATIVE, true, 303);
+        } elseif(!empty($user) && $user->getStatus() == 1) {
+            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Inscription déjà validée<br>Vous allez être redirigée vers la connexion...</div></div>";
+            header( "Refresh:3; url=".PATH_RELATIVE."user/login", true, 303);
+        } else {
+            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Erreur lors de la confirmation</div></div>";
+        }
+        $flash .= "</div>";
+        echo $flash;
+        $v = new View('user.activate', 'frontend');
+    }
+
     public function loginAction() {
+        $userConnected = false;
         if ($_POST) {
             $flash = '<div class="flash-container">';
             $user = new User();
             $username = $_POST['username'];
             $password = $_POST['pwd'];
             $user = $user->populate(array('username' => $username));
-            if (password_verify($password, $user->getPassword())) {
+            if (password_verify($password, $user->getPassword()) && $user->getStatus() > 0) {
                 if (!isset($_SESSION)) session_start();
                 $_SESSION['username'] = $username;
-
                 $_SESSION['user_id'] = $user->getId();
-                header('Location: '.PATH_RELATIVE);
-
+                $userConnected = true;
+                header("Refresh:1; url=".PATH_RELATIVE, true, 303);
+                $flash .= "<div class='flash flash-success'><div class='flash-cell'>Vous êtes connecté !<br>Vous allez être redirigée...</div></div>";
+            } elseif ($user->getStatus() == 0) {
+                $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Votre compte n'est pas activé</div></div>";
             } else {
-                $flash .= "<div class='flash flash-warning'>Erreur lors de la connexion</div>";
+                $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Erreur lors de la connexion</div></div>";
             }
             $flash .= "</div>";
             echo $flash;
         }
          $v = new View('user.login', 'frontend');
+        $v->assign('userConnected', $userConnected);
     }
 
     public function logoutAction() {
@@ -212,11 +246,23 @@ class UserController {
                 $headers .= "MIME-Version: 1.0\r\n";
                 $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
                 mail($to,$subject,$message,$headers);
-                $flash .= "<div class='flash flash-success'>Un email vous a été envoyé</div>";
+                $flash .= "<div class='flash flash-success'><div class='flash-cell'>Un email vous a été envoyé</div></div>";
             }
             $flash .= "</div>";
             echo $flash;
         }
         $v = new View('user.forgetPassword', 'frontend');
+    }
+
+    public function wallAction() {
+        if ($_SESSION) {
+            $user = new User();
+            $user = $user->populate(array('username' => $_SESSION['username']));
+            $userId = $user->getId();
+            $v = new View('user.wall', 'frontend');
+            $v->assign('user', $user);
+        } else {
+            $v = new View('index', 'frontend');
+        }
     }
 }
