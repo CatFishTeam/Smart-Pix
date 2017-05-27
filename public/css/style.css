@@ -289,7 +289,10 @@ hr {
       padding: 5px;
       border-radius: 2px;
       border: 1px solid gray;
-      cursor: pointer; }
+      cursor: pointer;
+      opacity: 0.7; }
+    .bio .profil-avatar i.fa:hover {
+      opacity: 0.9; }
   .bio .bio-info {
     width: 155px;
     vertical-align: top;
