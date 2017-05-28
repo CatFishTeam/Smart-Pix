@@ -332,7 +332,6 @@ hr {
 }
 
 .profil-avatar {
-  width: 150px;
   border: 4px solid lightgray;
   border-radius: 4px;
   overflow: hidden;
@@ -358,6 +357,7 @@ hr {
     display: inline-block;
   }
   .profil-avatar {
+    width: 150px;
     position: relative;
     a {
       color: #333;

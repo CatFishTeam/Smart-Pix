@@ -256,7 +256,6 @@ hr {
     border-color: #ff1103; }
 
 .profil-avatar {
-  width: 150px;
   border: 4px solid lightgray;
   border-radius: 4px;
   overflow: hidden;
@@ -278,6 +277,7 @@ hr {
   .bio div {
     display: inline-block; }
   .bio .profil-avatar {
+    width: 150px;
     position: relative; }
     .bio .profil-avatar a {
       color: #333; }

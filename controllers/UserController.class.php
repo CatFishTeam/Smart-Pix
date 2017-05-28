@@ -128,22 +128,35 @@ class UserController {
                 $accessToken = md5(uniqid()."hbfuigs".time());
                 $user->setAccessToken($accessToken);
                 $user->save();
+
                 // Envoi du mail :
-                $to = $email; // this is your Email address
-                $from = "no-reply@smart-pix.fr"; // this is the sender's Email address
-                $subject = "Votre inscription sur Smart-Pix !";
-                $message = "<img src='http://smart-pix.fr/public/image/logo.png' width='100'>".
+                require './vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
+
+                $mail = new PHPMailer(); // create a new object
+                $mail->IsSMTP(); // enable SMTP
+                $mail->CharSet = 'UTF-8';
+                $mail->SMTPAuth = true; // authentication enabled
+                $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
+                $mail->Host = "smtp.gmail.com";
+                $mail->Port = 465; // or 587
+                $mail->IsHTML(true);
+                $mail->Username = "noreply.smartpix@gmail.com";
+                $mail->Password = "smart1234pix";
+                $mail->SetFrom("no-reply@smart-pix.fr");
+                $mail->Subject = "Votre inscription sur Smart-Pix !";
+                $mail->Body = "<img src='http://smart-pix.fr/public/image/logo.png' width='100'>".
                     "<br>Bonjour ".$username.
                     "<br><br>Votre inscription sur Smart-Pix a bien été validée !
                     <br><br>Votre identifiant : ".$username.
                     "<br>Votre mot de passe : vous seul le connaissez !
                     <br><a href='http://localhost/Smart-Pix/user/activate/".$accessToken."'>Activer votre compte</a>
-                    <br><br>Cordialement,<br>L'équipe Smart-Pix"
-                ;
-                $headers = "From: Smart-Pix <" . $from . ">\r\n";
-                $headers .= "MIME-Version: 1.0\r\n";
-                $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-                mail($to,$subject,$message,$headers);
+                    <br><br>Cordialement,<br>L'équipe Smart-Pix";
+                $mail->AddAddress($email);
+
+                if(!$mail->Send()) {
+                    echo "Mailer Error: " . $mail->ErrorInfo;
+                }
+
                 $flash .= "<div class='flash flash-success'><div class='flash-cell'>Inscription terminée !</div></div>";
             }  if ($pwd != $confpwd) {
                 $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Les mots de passe sont différents</div></div>";
