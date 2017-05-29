@@ -239,7 +239,8 @@ hr {
   background-image: linear-gradient(to right, #fff, #bbb, #fff);
 }
 
-.btn {
+.btn,
+.btn-timeline-actions {
   border: 1px solid lightgray;
   height: 30px;
   display: inline-block;
@@ -272,7 +273,9 @@ hr {
 }
 
 .btn-timeline-actions:hover {
-  background: rgba(83, 83, 83, 0.5);
+  background: rgba(248, 248, 248, 0.5);
+  color: #333;
+  transition-duration: .3s;
 }
 
 #form-subscribe {
@@ -416,6 +419,11 @@ Wall (user/wall)
     padding: 5px;
     h2, p {
       text-align: left;
+      span {
+        font-size: 40px;
+        vertical-align: top;
+        padding: 0 8px;
+      }
     }
   }
 }
