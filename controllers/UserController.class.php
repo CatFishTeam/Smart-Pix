@@ -141,7 +141,7 @@ class UserController {
                 $mail->Port = 465; // or 587
                 $mail->IsHTML(true);
                 $mail->Username = "noreply.smartpix@gmail.com";
-                $mail->Password = "smart1234pix";
+                $mail->Password = MAILER_PWD;
                 $mail->SetFrom("no-reply@smart-pix.fr");
                 $mail->Subject = "Votre inscription sur Smart-Pix !";
                 $mail->Body = "<img src='http://smart-pix.fr/public/image/logo.png' width='100'>".
