@@ -2,7 +2,6 @@
 class AlbumController{
 
     public function addalbumAction(){
-
         $album = new Album();
         $now = new DateTime("now");
         $nowStr = $now->format("Y-m-d H:i:s");

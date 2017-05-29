@@ -395,7 +395,7 @@ body {
   width: 60px;
   height: 100%;
   background: #353d47;
-  transition: 0.35 ease all; }
+  top: 0; }
   #navigator:hover {
     width: 215px; }
     #navigator:hover span {
@@ -424,7 +424,7 @@ body {
         font-family: sans-serif; }
 
 #mainContent {
-  margin-left: 50px; }
+  margin-left: 60px; }
 
 /* ~~~ Page Media - X ~~~ */
 .imageContainer {

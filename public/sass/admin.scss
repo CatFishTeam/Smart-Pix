@@ -461,7 +461,7 @@ body{
     width: 60px;
     height: 100%;
     background: #353d47;
-    transition: 0.35 ease all;
+    top: 0;
     &:hover{
       width: 215px;
       & span{
@@ -541,7 +541,7 @@ body{
 }
 
 #mainContent{
-  margin-left: 50px;
+  margin-left: 60px;
 }
 
 /* ~~~ Page Media - X ~~~ */
