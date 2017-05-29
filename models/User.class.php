@@ -10,6 +10,8 @@ class User extends BaseSql{
     protected $avatar;
     protected $permission;
     protected $is_deleted;
+    protected $status;
+    protected $access_token;
     protected $created_at;
     protected $updated_at;
 
@@ -230,6 +232,38 @@ class User extends BaseSql{
         $this->is_deleted = $is_deleted;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAccessToken()
+    {
+        return $this->accessToken;
+    }
+
+    /**
+     * @param mixed $access_token
+     */
+    public function setAccessToken($access_token)
+    {
+        $this->access_token = $access_token;
     }
 
     /**

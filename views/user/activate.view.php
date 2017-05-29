@@ -1,0 +1,1 @@
+<h1>Confirmation de l'inscription</h1>

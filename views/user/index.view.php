@@ -11,7 +11,8 @@ $config = array(
         "action" => "#",
         "class" => "form-group",
         "id" => "form-subscribe",
-        "submit" => "Mettre à jour le profil"
+        "submit" => "Mettre à jour le profil",
+        "submitName" => "profil",
     ],
     "struc" => [
         "username" => [
@@ -30,51 +31,88 @@ $config = array(
             "type" => "password",
             "placeholder" => "Modifier votre mot de passe",
             "value" => null,
-            "required" => true
+            "required" => false
         ],
         "confpwd" => [
             "type" => "password",
-            "placeholder" => "Confirmation le nouveau mot de passe",
+            "placeholder" => "Confirmer le nouveau mot de passe",
             "value" => null,
-            "required" => true
+            "required" => false
         ],
     ]
 );
+?>
+<div class="row">
+    <div class="col-1">
 
-include "views/modals/form.mod.php";
+    </div>
+    <div class="col-4">
+        <?php
+        include "views/modals/form.mod.php";
+        ?>
+    </div>
 
+</div>
+<?php
 echo "<h2>Informations personnelles</h2>";
 
 $config = array(
     "options" => [
         "method" => "POST",
         "action" => "#",
+        "enctype" => "multipart/form-data",
         "class" => "form-group",
         "id" => "form-subscribe",
-        "submit" => "Mettre à jour le profil"
+        "submit" => "Mettre à jour les informations personnelles",
+        "submitName" => "infos"
     ],
     "struc" => [
         "firstname" => [
             "type" => "text",
             "placeholder" => "Votre prénom",
             "value" => $user->getFirstname(),
-            "required" => true
+            "required" => false
         ],
         "lastname" => [
             "type" => "text",
             "placeholder" => "Votre nom",
             "value" => $user->getLastname(),
-            "required" => true
+            "required" => false
+        ],
+        "MAX_FILE_SIZE" => [
+            "type" => "hidden",
+            "value" => "5242880"
         ],
         "avatar" => [
             "type" => "file",
             "placeholder" => "Ajouter un avatar",
             "value" => null,
-            "required" => true
+            "required" => false
         ],
     ]
 );
-
-include "views/modals/form.mod.php";
-
 ?>
+<div class="row">
+    <div class="col-1 profil-avatar">
+
+        <?php if (!empty($user->getAvatar())): ?>
+            <img src="<?php echo PATH_RELATIVE; ?>/public/cdn/images/avatars/<?php echo $user->getAvatar(); ?>" alt="">
+        <?php else: ?>
+            <p>Aucun avatar sélectionné</p>
+        <?php endif; ?>
+
+    </div>
+    <div class="col-4">
+        <?php
+        include "views/modals/form.mod.php";
+        ?>
+    </div>
+
+</div>
+
+
+
+
+
+
+

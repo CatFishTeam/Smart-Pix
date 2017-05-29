@@ -11,7 +11,8 @@ $config = array(
         "action" => "#",
         "class" => "form-group",
         "id" => "form-subscribe",
-        "submit" => "S'inscrire"
+        "submit" => "S'inscrire",
+        "submitName" => "signup"
     ],
     "struc" => [
         "username" => [

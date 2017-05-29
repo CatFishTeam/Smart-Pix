@@ -52,7 +52,7 @@ table {
 /*Grid layout (6 col)*/
 
 h1, h2, h3, h4, h5, h6, p {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Roboto', sans-serif;
   text-align: center;
   margin: 20px 0;
 }
@@ -227,8 +227,16 @@ select {
 /* Style CSS */
 
 .body-container {
-  width: 60%;
+  width: 70%;
   margin: 30px auto;
+}
+
+hr {
+  margin-top: 20px;
+  border: 0;
+  height: 1px;
+  background: #333;
+  background-image: linear-gradient(to right, #fff, #bbb, #fff);
 }
 
 .btn-login,
@@ -256,7 +264,7 @@ select {
   input {
     display: block;
     margin: auto;
-    width: 40%;
+    width: 80%;
     height: 30px;
     border-radius: 3px;
     border: 1px solid lightgray;
@@ -295,25 +303,101 @@ select {
   position: fixed;
   right: 1%;
   top: 1%;
+  border-spacing: 5px;
   .flash {
-    position: relative;
-    overflow: hidden;
-    width: 300px;
-    margin: 10px;
-    height: 50px;
-    line-height: 50px;
+    display: table-row;
     text-align: center;
-    border-radius: 5px;
     color: #fff;
     font-family: 'Montserrat', sans-serif;
+    .flash-cell {
+      display: table-cell;
+      padding: 15px;
+      vertical-align: middle;
+      border: 1px solid transparent;
+      border-width: 0 1px 4px 1px;
+      border-radius: 4px;
+      box-shadow: 1px 1px 10px 2px lightgrey;
+    }
   }
 
-  .flash-success {
-    background: #27ae60;
+  .flash-success .flash-cell {
+    background-color: #28b62c;
+    border-color: #24a528;
   }
 
-  .flash-warning {
-    background: #c0392b;
+  .flash-warning .flash-cell {
+    background-color: #ff4136;
+    border-color: #ff1103;
+  }
+}
+
+.profil-avatar {
+  border: 4px solid lightgray;
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 0;
+  img {
+    vertical-align: middle;
+    border-radius: 4px;
+  }
+  p {
+    background-color: gainsboro;
+    color: #888;
+    height: 108px;
+    vertical-align: middle;
+    display: table-cell;
+  }
+}
+
+.bio {
+  background: white;
+  padding: 3px;
+  border-radius: 4px;
+  div {
+    display: inline-block;
+  }
+  .profil-avatar {
+    width: 150px;
+    position: relative;
+    a {
+      color: #333;
+    }
+    i.fa {
+      position: absolute;
+      right: 5px;
+      bottom: 5px;
+      background: #fff;
+      padding: 5px;
+      border-radius: 2px;
+      border: 1px solid gray;
+      cursor: pointer;
+      opacity: 0.7;
+    }
+    i.fa:hover {
+      opacity: 0.9;
+    }
+  }
+  .bio-info {
+    width: 155px;
+    vertical-align: top;
+    padding: 5px;
+    p {
+      text-align: center;
+    }
+    .username {
+      color: #333;
+      font-size: 18px;
+    }
+    .name {
+      color: gray;
+      font-size: 14px;
+    }
+  }
+  .bio-other {
+    padding: 5px;
+    h2, p {
+      text-align: left;
+    }
   }
 }
 
