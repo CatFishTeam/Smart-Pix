@@ -205,17 +205,22 @@ class UserController {
             $username = $_POST['username'];
             $password = $_POST['pwd'];
             $user = $user->populate(array('username' => $username));
-            if (password_verify($password, $user->getPassword()) && $user->getStatus() > 0) {
-                if (!isset($_SESSION)) session_start();
-                $_SESSION['username'] = $username;
-                $_SESSION['user_id'] = $user->getId();
-                $userConnected = true;
-                header("Refresh:1; url=".PATH_RELATIVE, true, 303);
-                $flash .= "<div class='flash flash-success'><div class='flash-cell'>Vous êtes connecté !<br>Vous allez être redirigée...</div></div>";
-            } elseif ($user->getStatus() == 0) {
-                $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Votre compte n'est pas activé</div></div>";
+
+            if ($user) {
+                if ($user && password_verify($password, $user->getPassword()) && $user->getStatus() > 0) {
+                    if (!isset($_SESSION)) session_start();
+                    $_SESSION['username'] = $username;
+                    $_SESSION['user_id'] = $user->getId();
+                    $userConnected = true;
+                    header("Refresh:1; url=".PATH_RELATIVE, true, 303);
+                    $flash .= "<div class='flash flash-success'><div class='flash-cell'>Vous êtes connecté !<br>Vous allez être redirigée...</div></div>";
+                } elseif ($user->getStatus() == 0) {
+                    $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Votre compte n'est pas activé</div></div>";
+                } else {
+                    $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Erreur lors de la connexion</div></div>";
+                }
             } else {
-                $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Erreur lors de la connexion</div></div>";
+                $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Aucun utilisateur trouvé</div></div>";
             }
             $flash .= "</div>";
             echo $flash;

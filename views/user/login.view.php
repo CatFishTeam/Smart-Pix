@@ -20,13 +20,13 @@ $config = array(
             "type" => "text",
             "placeholder" => "Votre identifiant",
             "value" => null,
-            "required" => 0
+            "required" => true
         ],
         "pwd" => [
             "type" => "password",
             "placeholder" => "Votre mot de passe",
             "value" => null,
-            "required" => 0
+            "required" => true
         ]
     ]
 );

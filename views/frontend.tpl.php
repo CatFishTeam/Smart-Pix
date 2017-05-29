@@ -28,7 +28,7 @@
                     <?php else: ?>
                         <a href="<?php echo PATH_RELATIVE; ?>user/wall" class="btn-login"><i class="fa fa-camera-retro" aria-hidden="true"></i> My wall</a>
                         <a href="<?php echo PATH_RELATIVE; ?>user" class="btn-login"><i class="fa fa-user" aria-hidden="true"></i> <?php echo $_SESSION['username']; ?></a>
-                        <a href="<?php echo PATH_RELATIVE; ?>user/logout" class="btn-login">Déconnexion</a></p>
+                        <a href="<?php echo PATH_RELATIVE; ?>user/logout" class="btn-login"><i class="fa fa-sign-out" aria-hidden="true"></i></a></p>
                     <?php endif; ?>
                 </div>
             </div>
