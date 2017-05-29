@@ -239,25 +239,40 @@ hr {
   background-image: linear-gradient(to right, #fff, #bbb, #fff);
 }
 
-.btn-login,
-.btn-signup {
+.btn {
   border: 1px solid lightgray;
-  width: 10%;
   height: 30px;
   display: inline-block;
   line-height: 30px;
   text-align: center;
+  background: rgba(238, 238, 238, 0.5);
   color: #333;
   font-family: 'Montserrat', sans-serif;
   text-decoration: none;
   border-radius: 3px;
+  padding: 0 15px;
 }
 
+.btn-login,
+.btn-signup {
+  width: 10%;
+}
+
+.btn-timeline-actions {
+  margin: 0 8px;
+  padding: 0 50px;
+}
+
+.btn:hover,
 .btn-login:hover,
 .btn-signup:hover {
   background: #333;
   color: #efefef;
   transition-duration: .3s;
+}
+
+.btn-timeline-actions:hover {
+  background: rgba(83, 83, 83, 0.5);
 }
 
 #form-subscribe {
@@ -349,6 +364,10 @@ hr {
   }
 }
 
+/*
+Wall (user/wall)
+ */
+
 .bio {
   background: white;
   padding: 3px;
@@ -378,7 +397,7 @@ hr {
     }
   }
   .bio-info {
-    width: 155px;
+    width: 150px;
     vertical-align: top;
     padding: 5px;
     p {
@@ -398,6 +417,29 @@ hr {
     h2, p {
       text-align: left;
     }
+  }
+}
+
+.timeline-actions {
+  padding: 5px;
+  border-radius: 4px;
+  background: #E0EAFC;
+  background: -webkit-linear-gradient(to right, #CFDEF3, #E0EAFC);
+  background: linear-gradient(to right, #CFDEF3, #E0EAFC);
+  margin-bottom: 5px;
+}
+
+.timeline-story {
+  padding: 10px;
+  border-radius: 4px;
+  background: #fff;
+  background-image: url("../image/photography.png");  /* Background pattern from Subtle Patterns */
+
+  .story {
+    background: rgba(221, 221, 221, 0.3);
+    margin: 5px 0;
+    padding: 5px 10px;
+    border-radius: 4px;
   }
 }
 
