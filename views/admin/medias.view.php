@@ -1,8 +1,9 @@
 <h1>On affiche : </h1>
-<ul>
-    <li>Editer un media
-    <li>Check sur le title en ajax ?
-    <li>Mettre en place ce bordel !
+    <!-- TODO
+    • Editer un media
+    • Mettre en PAGE
+    IDEA
+    • Check en Ajax ! -->
 </ul>
 
 <form method="post" id="fileinfo" name="fileinfo">
@@ -14,11 +15,12 @@
 </form>
 
 <div class="weight" style="height: 50px; background: grey; width: 300px; border-radius: 10px;">
-    <div class="bar" data-octet="<?php echo $totalWeight ?>" style="height: 50px; background: green; width: 0; border-radius: 10px; transition: ease 2s;"></div>
+    <div class="bar" data-octet="<?php isset($totalWeight) ? $totalWeight : '0' ?>" style="height: 50px; background: green; width: 0; border-radius: 10px; transition: ease 2s;"></div>
     <div class="percent"></div>
 </div>Il vous reste 5Go de libre
 <div id='output'>
-    <?php foreach($pictures as $picture): ?>
+    <?php
+        foreach($pictures as $picture): ?>
         <div class="imageContainer relative">
             <a href="#"></a>
             <button class="delete" data-url="<?php echo $picture['url'] ?>"><i class="fa fa-times" aria-hidden="true"></i></button>

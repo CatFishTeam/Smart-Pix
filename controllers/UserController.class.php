@@ -14,6 +14,7 @@ class UserController {
     }
 
     //TODO : Modifier pour qu'on utilise le constructeur de User (qu'il faut surement modifier un peu).
+    // • Captcha
     public function signupAction() {
         // Si le formulaire a été envoyé :
         if ($_POST) {

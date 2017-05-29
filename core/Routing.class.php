@@ -77,5 +77,8 @@ class Routing{
 
     public function page404(){
         die("Page 404");
+        //TODO : Make this work ?
+        // header('Location : /');
+        // exit;
     }
 }

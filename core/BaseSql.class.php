@@ -6,6 +6,7 @@ class BaseSql{
     private $columns = [];
 
     //TODO Save error display (log or return)
+    //TODO Problem if prepare statement in empty (case : no album yet or no picture yet ~ selectAllBy)
 
     public function __construct(){
         try {
@@ -38,11 +39,12 @@ class BaseSql{
             try {
                 $req = $this->db->prepare("INSERT INTO ".$this->table." (".$sqlCol.") VALUES (".$sqlKey.");");
                 $req->execute($data);
+                // var_dump($this->db->errorInfo());
+                // var_dump($req);
             } catch (Exception $e) {
                 die($e->getMessage());
             }
         } else {
-
             $sqlQuery = null;
             foreach ($this->columns as $columns => $value) {
                 $data[$columns] = $this->$columns;

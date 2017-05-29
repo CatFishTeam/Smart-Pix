@@ -19,8 +19,12 @@ class AdminController{
         $v->assign("specificHeader","<script src=\"https://cdn.ckeditor.com/4.6.2/standard/ckeditor.js\"></script>");
     }
 
-    public function pagesAction(){
-        $v = new View('admin.pages','backend');
+    public function albumsAction(){
+        $v = new View('admin.albums','backend');
+
+        $albums = new Album();
+        $albums = $albums->getAllBy(['user_id'=>$_SESSION['user_id']], "DESC");
+        $v->assign('albums',$albums);
     }
 
     public function mediasAction(){
@@ -71,7 +75,6 @@ class AdminController{
             $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
 
             //Stockage de l'image en base
-            //TODO User_id
             //TODO rajouter test de sauvegarde en bdd
             $picture = new Picture();
             $now = new DateTime("now");
@@ -87,6 +90,7 @@ class AdminController{
             $picture->setCreatedAt($nowStr);
             $picture->setUpdatedAt($nowStr);
             $picture->save();
+            var_dump($picture);
 
             //On crée l'image
             $image = new Imagick($_FILES['file']['tmp_name']);
@@ -146,5 +150,9 @@ class AdminController{
 
     public function statsAction(){
         $v = new View('admin.stats','backend');
+    }
+
+    public function phpinfoAction(){
+        phpinfo();
     }
 }

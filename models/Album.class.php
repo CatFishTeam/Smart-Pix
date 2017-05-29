@@ -12,8 +12,8 @@ class Album extends BaseSql{
     protected $updated_at;
     protected $user_id;
 
-    public function __construct(){
-        
+    public function __construct($id='DEFAULT', $title=null, $description=null, $background=null, $disposition=null, $is_presentation=0, $is_deleted=0, $created_at='DEFAULT', $updated_at='DEFAULT', $user_id=1){
+        parent::__construct();
     }
 
     /**
@@ -60,6 +60,30 @@ class Album extends BaseSql{
     public function setTitle($title)
     {
         $this->title = trim($title);
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Description
+     *
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set the value of Description
+     *
+     * @param mixed description
+     *
+     * @return self
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
 
         return $this;
     }

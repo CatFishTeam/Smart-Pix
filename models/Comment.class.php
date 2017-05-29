@@ -9,9 +9,9 @@ class Comment extends BaseSql{
 
     //TODO voir user
     // • Récupérer les comments liés à un user (détenteur)
-    public function __construct(){
-
-    }
+    // public function __construct(){
+    //
+    // }
 
     /**
      * Get the value of Id
