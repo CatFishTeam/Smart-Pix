@@ -24,6 +24,29 @@
                     <img src="http://placehold.it/50x40" alt="">
                     <img src="http://placehold.it/50x40" alt="">
                     <img src="http://placehold.it/50x40" alt="">
+                    <span>...</span>
+                </p>
+                <h2>Ses albums</h2>
+                <p class="photos-fav">
+                    <img src="http://placehold.it/50x40" alt="">
+                    <img src="http://placehold.it/50x40" alt="">
+                    <img src="http://placehold.it/50x40" alt="">
+                    <img src="http://placehold.it/50x40" alt="">
+                    <img src="http://placehold.it/50x40" alt="">
+                    <img src="http://placehold.it/50x40" alt="">
+                    <img src="http://placehold.it/50x40" alt="">
+                    <span>...</span>
+                </p>
+                <h2>Ses photos</h2>
+                <p class="photos-fav">
+                    <img src="http://placehold.it/50x40" alt="">
+                    <img src="http://placehold.it/50x40" alt="">
+                    <img src="http://placehold.it/50x40" alt="">
+                    <img src="http://placehold.it/50x40" alt="">
+                    <img src="http://placehold.it/50x40" alt="">
+                    <img src="http://placehold.it/50x40" alt="">
+                    <img src="http://placehold.it/50x40" alt="">
+                    <span>...</span>
                 </p>
             </div>
         </div>
@@ -32,8 +55,8 @@
         <div class="timeline">
             <div class="timeline-actions">
                 <p>
-                    <a href="<?php echo PATH_RELATIVE; ?>picture/create" class="btn btn-timeline-actions">Ajouter une image</a>
-                    <a href="<?php echo PATH_RELATIVE; ?>album/create" class="btn btn-timeline-actions">Ajouter un album</a>
+                    <a href="<?php echo PATH_RELATIVE; ?>picture/create" class="btn-timeline-actions">Ajouter une image</a>
+                    <a href="<?php echo PATH_RELATIVE; ?>album/create" class="btn-timeline-actions">Ajouter un album</a>
                 </p>
             </div>
             <div class="timeline-story">
