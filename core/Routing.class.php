@@ -31,9 +31,22 @@ class Routing{
     }
 
     public function setAction(){
+        $actionFound = false;
         $this->action = (empty($this->uriExploded[1])) ? "index" : $this->uriExploded[1];
         $this->actionName = $this->action."Action";
-        unset($this->uriExploded[1]);
+        $tokens = token_get_all(file_get_contents("controllers/".$this->controllerName.".class.php"));
+        foreach ($tokens as $token) {
+            if (is_array($token)) {
+                if ($token[1] == $this->actionName)
+                    $actionFound = true;
+            }
+        }
+
+        if(!$actionFound) {
+            $this->action = "index";
+            $this->actionName = "indexAction";
+        } else
+            unset($this->uriExploded[1]);
     }
 
     //Merge les variables Post avec les paramètres

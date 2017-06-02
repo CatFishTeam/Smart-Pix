@@ -54,7 +54,7 @@ class AdminController{
             if(!isset($_FILES['file']) || !is_uploaded_file($_FILES['file']['tmp_name'])){
                 $response = json_encode(array(
                     'type'=>'error',
-                    'msg'=>'Le fichier image n\'as pas été fournis !'
+                    'msg'=>'Le fichier image n\'a pas été fourni !'
                 ));
                 die($response);
             }
