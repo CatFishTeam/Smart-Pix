@@ -15,8 +15,7 @@ class PictureController {
             // Affichage d'une image avec $id
             $picture = new Picture();
             $picture = $picture->populate(['id' => $id[0]]);
-            //if (!empty($picture))
-                $v->assign('picture', $picture);
+            $v->assign('picture', $picture);
         }
     }
 

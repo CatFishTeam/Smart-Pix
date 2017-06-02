@@ -4,7 +4,7 @@ class AdminController{
     public function __construct(){
         //TODO Middleware ?? !!
         if(!isset($_SESSION['user_id'])){
-            header('Location:/user/login');
+            header('Location:'.PATH_RELATIVE.'user/login');
         }
     }
 
