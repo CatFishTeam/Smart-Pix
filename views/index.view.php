@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <section class="col-4">
+        <section class="col-8">
             <div id="masonry">
                 <a href=""><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/7.jpg"></a>
                 <a href=""><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/1.jpg"></a>
@@ -25,7 +25,7 @@
                 Voir plus d'images
             </div>
         </section>
-        <aside class="col-2">
+        <aside class="col-4">
             <div class="box">
                 <h3>Photo du jour</h3>
                 <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/7.jpg">

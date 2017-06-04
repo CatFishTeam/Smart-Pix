@@ -10,7 +10,7 @@ class BaseSql{
 
     public function __construct(){
         try {
-            $this->db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PWD);
+            $this->db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=utf8", DB_USER, DB_PWD);
         } catch(Exception $e) {
             die("Erreur SQL : ".$e->getMessage());
         }
@@ -22,6 +22,10 @@ class BaseSql{
             $varObject = get_class_vars($this->table);
             $varParent = get_class_vars(get_parent_class($this));
             $this->columns = array_diff_key($varObject, $varParent);
+    }
+
+    public function getDb() {
+        return $this->db;
     }
 
     public function save() {

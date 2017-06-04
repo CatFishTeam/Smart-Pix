@@ -43,10 +43,10 @@ $config = array(
 );
 ?>
 <div class="row">
-    <div class="col-1">
+    <div class="col-2">
 
     </div>
-    <div class="col-4">
+    <div class="col-8">
         <?php
         include "views/modals/form.mod.php";
         ?>
@@ -93,7 +93,7 @@ $config = array(
 );
 ?>
 <div class="row">
-    <div class="col-1 profil-avatar">
+    <div class="col-2 profil-avatar">
 
         <?php if (!empty($user->getAvatar())): ?>
             <img src="<?php echo PATH_RELATIVE; ?>/public/cdn/images/avatars/<?php echo $user->getAvatar(); ?>" alt="">
@@ -102,7 +102,7 @@ $config = array(
         <?php endif; ?>
 
     </div>
-    <div class="col-4">
+    <div class="col-8">
         <?php
         include "views/modals/form.mod.php";
         ?>

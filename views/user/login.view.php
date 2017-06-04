@@ -30,11 +30,15 @@ $config = array(
         ]
     ]
 );
-
-include "views/modals/form.mod.php";
-
 ?>
-    <p><a href="<?php echo PATH_RELATIVE."user/forgetPassword" ?>">Mot de passe oublié ?</a></p>
-<?php else: ?>
-    <h2>Vous êtes connecté !</h2>
-<?php endif; ?>
+
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <?php include "views/modals/form.mod.php"; ?>
+            <p><a href="<?php echo PATH_RELATIVE."user/forgetPassword" ?>">Mot de passe oublié ?</a></p>
+            <?php else: ?>
+                <h2>Vous êtes connecté !</h2>
+            <?php endif; ?>
+        </div>
+    </div>

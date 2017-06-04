@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-2">
+    <div class="col-4 col-m-12">
         <div class="bio">
             <div class="profil-avatar">
                 <?php if (!empty($user->getAvatar())): ?>
@@ -51,7 +51,7 @@
             </div>
         </div>
     </div>
-    <div class="col-4">
+    <div class="col-8 col-m-12">
         <div class="timeline">
             <div class="timeline-actions">
                 <p>

@@ -226,7 +226,7 @@ class UserController {
             $flash .= "</div>";
             echo $flash;
         }
-         $v = new View('user.login', 'frontend');
+        $v = new View('user.login', 'frontend');
         $v->assign('userConnected', $userConnected);
     }
 

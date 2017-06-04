@@ -49,6 +49,74 @@ table {
   border-spacing: 0;
 }
 
+/*Grid layout (12 col)*/
+
+* {
+  box-sizing: border-box;
+}
+
+/* For mobile phones: */
+[class*="col-"] {
+  width: 100%;
+}
+@media only screen and (min-width: 600px) {
+  /* For tablets: */
+  .col-m-1 {width: 8.33%;}
+  .col-m-2 {width: 16.66%;}
+  .col-m-3 {width: 25%;}
+  .col-m-4 {width: 33.33%;}
+  .col-m-5 {width: 41.66%;}
+  .col-m-6 {width: 50%;}
+  .col-m-7 {width: 58.33%;}
+  .col-m-8 {width: 66.66%;}
+  .col-m-9 {width: 75%;}
+  .col-m-10 {width: 83.33%;}
+  .col-m-11 {width: 91.66%;}
+  .col-m-12 {width: 100%;}
+}
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+  .col-1 {width: 8.33%;}
+  .col-2 {width: 16.66%;}
+  .col-3 {width: 25%;}
+  .col-4 {width: 33.33%;}
+  .col-5 {width: 41.66%;}
+  .col-6 {width: 50%;}
+  .col-7 {width: 58.33%;}
+  .col-8 {width: 66.66%;}
+  .col-9 {width: 75%;}
+  .col-10 {width: 83.33%;}
+  .col-11 {width: 91.66%;}
+  .col-12 {width: 100%;}
+
+  .body-container {
+    width: 70%;
+    margin: 30px auto;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .body-container {
+    width: 100%;
+    margin: 30px auto;
+  }
+  .m-center {
+    text-align: center;
+  }
+}
+
+[class*="col-"] {
+  float: left;
+  padding: 15px;
+  //border: 1px solid red;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
 /*Grid layout (6 col)*/
 
 h1, h2, h3, h4, h5, h6, p {
@@ -82,7 +150,7 @@ header {
   }
 }
 
-[class*='col-'] {
+/*[class*='col-'] {
   float: left;
   min-height: 1px;
   width: 16.66%;
@@ -136,7 +204,7 @@ header {
   .col-2, .col-3, .col-4, .col-5, .col-6 {
     width: 100%;
   }
-}
+}*/
 
 /* Header */
 
@@ -226,9 +294,16 @@ select {
 
 /* Style CSS */
 
-.body-container {
-  width: 70%;
-  margin: 30px auto;
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 26px;
+}
+
+h3 {
+  font-size: 20px;
 }
 
 hr {
@@ -237,6 +312,20 @@ hr {
   height: 1px;
   background: #333;
   background-image: linear-gradient(to right, #fff, #bbb, #fff);
+}
+
+.align-left,
+.align-left * {
+  text-align: left;
+}
+
+.image-center img {
+  margin: auto;
+  display: block;
+}
+
+.italic {
+  font-style: italic;
 }
 
 .btn,
@@ -256,11 +345,11 @@ hr {
 
 .btn-login,
 .btn-signup {
-  width: 10%;
+  //width: 10%;
 }
 
 .btn-timeline-actions {
-  margin: 0 8px;
+  margin: 4px 8px;
   padding: 0 50px;
 }
 
