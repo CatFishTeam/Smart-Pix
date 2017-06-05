@@ -324,6 +324,9 @@ hr {
   border-radius: 3px;
   padding: 0 15px; }
 
+.btn i.fa {
+  line-height: inherit; }
+
 .btn-timeline-actions {
   margin: 4px 8px;
   padding: 0 50px; }
