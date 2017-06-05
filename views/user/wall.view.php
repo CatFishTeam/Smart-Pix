@@ -60,31 +60,24 @@
                 </p>
             </div>
             <div class="timeline-story">
+                <?php
+//                    var_dump($actions);
+                    foreach ($actions as $action):
+                ?>
                 <div class="story">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid delectus eos, ex facere
-                        inventore, labore, molestiae possimus provident quasi sapiente sed veritatis vero voluptates. Ad
-                        aliquid eum quidem totam ut?</p>
+                    <p>
+                        <?php
+                            switch ($action['type_action']) {
+                                case "picture":
+                                    echo $user->getUsername() . " a ajouté une <a href=\"".PATH_RELATIVE."picture/".$action['related_id']."\">nouvelle image</a> !";
+                                    break;
+                                default:
+                                    break;
+                            }
+                        ?>
+                    </p>
                 </div>
-                <div class="story">
-                    <p>Accusamus ad, architecto culpa cumque harum maiores natus nostrum numquam pariatur quos ratione
-                        reiciendis similique temporibus ut voluptates. Ducimus ea eius enim eos ipsam modi nobis numquam
-                        pariatur, quibusdam ut.</p>
-                </div>
-                <div class="story">
-                    <p>Asperiores beatae cum, delectus deleniti eos impedit itaque minus nobis, nostrum pariatur
-                        perspiciatis quia quidem quis ratione sed sequi similique ullam voluptates! Alias assumenda
-                        doloremque est praesentium quo tempora tempore?</p>
-                </div>
-                <div class="story">
-                    <p>Animi assumenda autem deserunt dignissimos dolorem, esse eum excepturi explicabo illum ipsam iste
-                        iure laboriosam maxime necessitatibus quaerat quod, temporibus unde vel voluptas voluptatum! Ea
-                        enim fuga illo laborum quibusdam.</p>
-                </div>
-                <div class="story">
-                    <p>Impedit officiis quae vitae. Animi eaque eligendi, facere labore nihil odit porro praesentium
-                        quibusdam quidem quos sapiente similique, suscipit voluptatibus. Eveniet excepturi iusto labore
-                        nisi non omnis quos repellendus sint.</p>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>

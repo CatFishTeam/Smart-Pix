@@ -63,6 +63,13 @@ class PictureController {
                             $picture->setCreatedAt($nowStr);
                             $picture->setUpdatedAt($nowStr);
                             $picture->save();
+                            // Create related action
+                            $action = new Action();
+                            $action->setUserId($_SESSION['user_id']);
+                            $action->setTypeAction("picture");
+                            $action->setRelatedId($picture->getDb()->lastInsertId());
+                            $action->setCreatedAt($nowStr);
+                            $action->save();
                             move_uploaded_file($_FILES['picture']['tmp_name'], "./public/cdn/images/".$picture->getUrl());
                             header("Location: ".PATH_RELATIVE."picture/".$picture->getDb()->lastInsertId());
                             $flash .= "<div class='flash flash-success'><div class='flash-cell'>Votre image a été ajoutée</div></div>";

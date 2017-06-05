@@ -88,6 +88,9 @@ class UserController {
                 } else {
                     $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Aucun avatar sélectionné</div></div>";
                 }
+                $now = new DateTime("now");
+                $nowStr = $now->format("Y-m-d H:i:s");
+                $user->setUpdatedAt($nowStr);
                 $user->save();
                 $flash .= "<div class='flash flash-success'><div class='flash-cell'>Informations personnelles mises à jour</div></div>";
                 $flash .= "</div>";
@@ -278,8 +281,14 @@ class UserController {
             $user = new User();
             $user = $user->populate(array('username' => $_SESSION['username']));
             $userId = $user->getId();
+            $actions = [];
+            $action = new Action();
+            foreach ($action->getAllBy(['user_id' => $userId]) as $oneAction) {
+                array_push($actions, $oneAction);
+            }
             $v = new View('user.wall', 'frontend');
             $v->assign('user', $user);
+            $v->assign('actions', $actions);
         } else {
             $v = new View('index', 'frontend');
         }

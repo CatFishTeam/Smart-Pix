@@ -130,7 +130,7 @@ table {
     text-align: center; } }
 [class*="col-"] {
   float: left;
-  padding: 15px; }
+  padding: 10px; }
 
 .row::after {
   content: "";
