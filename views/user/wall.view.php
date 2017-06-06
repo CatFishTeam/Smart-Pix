@@ -63,6 +63,7 @@
                 <?php
 //                    var_dump($actions);
                     foreach ($actions as $action):
+                        $action_date = strtotime($action['created_at']);
                 ?>
                 <div class="story">
                     <p>
@@ -70,6 +71,7 @@
                             switch ($action['type_action']) {
                                 case "picture":
                                     echo $user->getUsername() . " a ajouté une <a href=\"".PATH_RELATIVE."picture/".$action['related_id']."\">nouvelle image</a> !";
+                                    echo "<span class=\"action-date\">le ".date("d/m/Y", $action_date)." à ".date("G:i:s", $action_date)."</span>";
                                     break;
                                 default:
                                     break;
