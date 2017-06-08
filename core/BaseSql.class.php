@@ -154,6 +154,6 @@ class BaseSql{
 
         $query->execute();
 
-        return $query->fetch(PDO::FETCH_OBJ);;
+        return $query->fetch(PDO::FETCH_OBJ);
     }
 }

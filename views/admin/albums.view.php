@@ -113,6 +113,7 @@ $('[name="editAlbum"]').click(function(){
     });
 });
 
+
 $('[name="deleteAlbum"]').click(function(){
     $id = $(this).parent().find('[name="id"]').val();
     $.ajax({

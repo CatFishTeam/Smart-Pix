@@ -12,7 +12,8 @@ $config = array(
         "class" => "form-group",
         "id" => "form-subscribe",
         "submit" => "S'inscrire",
-        "submitName" => "signup"
+        "submitName" => "signup",
+        "captcha" => true
     ],
     "struc" => [
         "username" => [
@@ -44,8 +45,8 @@ $config = array(
 ?>
 
 <div class="row">
-    <div class="col-2"></div>
-    <div class="col-8">
+    <div class="col-4 col-m-2"></div>
+    <div class="col-4 col-m-8">
         <?php $this->includeModal("form", $config); ?>
     </div>
 </div>
