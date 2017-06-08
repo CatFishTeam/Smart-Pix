@@ -294,7 +294,7 @@ class UserController {
             $userId = $user->getId();
             $actions = [];
             $action = new Action();
-            foreach ($action->getAllBy(['user_id' => $userId]) as $oneAction) {
+            foreach ($action->getAllBy(['user_id' => $userId], 'DESC') as $oneAction) {
                 array_push($actions, $oneAction);
             }
             $v = new View('user.wall', 'frontend');
