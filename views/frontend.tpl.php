@@ -7,6 +7,7 @@
         <link rel="shortcut icon" type="image/ico" href="<?php echo PATH_RELATIVE; ?>public/image/logo.ico"/>
         <!-- FONT A CHANGER -->
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+        <script src='https://www.google.com/recaptcha/api.js'></script>
     </head>
     <body>
         <header>

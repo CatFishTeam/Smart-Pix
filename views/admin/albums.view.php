@@ -44,7 +44,7 @@ TODO
         $('#addPage').click(function(){
             $pageTitle = $(this).prev().val();
             $.ajax({
-                url : '/album/addAlbum',
+                url : '<?php echo PATH_RELATIVE; ?>/album/addAlbum',
                 type: 'POST',
                 dataType: 'json',
                 data : { title: $pageTitle },
@@ -65,7 +65,7 @@ TODO
             $(this).addClass('active');
             $id = $(this).data('id');
             $.ajax({
-                url : '/album/showEdit',
+                url : '<?php echo PATH_RELATIVE; ?>/album/showEdit',
                 type: 'POST',
                 dataType: 'json',
                 data: { id: $id },
@@ -93,7 +93,7 @@ TODO
         $('[name="editAlbum"]').click(function(){
             $form = $(this).parent();
             $.ajax({
-                url: '/album/editAlbum',
+                url: '<?php echo PATH_RELATIVE; ?>/album/editAlbum',
                 type: 'POST',
                 dataType: 'json',
                 data: $form.serialize(),
@@ -106,7 +106,7 @@ TODO
         $('[name="deleteAlbum"]').click(function(){
             $id = $(this).parent().find('[name="id"]').val();
             $.ajax({
-                url: '/album/deleteAlbum',
+                url: '<?php echo PATH_RELATIVE; ?>/album/deleteAlbum',
                 type: 'POST',
                 dataType: 'json',
                 data: {id: $id},

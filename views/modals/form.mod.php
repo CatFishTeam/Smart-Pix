@@ -23,8 +23,13 @@
                    placeholder="<?php echo $attribute["placeholder"];?>"
                    value="<?php echo $attribute["value"];?>"
                    <?php echo (isset($attribute["required"]) && $attribute["required"]) ? "required='required'" : ""?>>
-        <?php endif;?>
-    <?php endforeach;?>
+        <?php
+        endif;
+    endforeach;
+
+    if (isset($config["options"]["captcha"]) && $config["options"]["captcha"]): ?>
+    <div class="g-recaptcha" data-sitekey="6LeftiQUAAAAAJO-QKv1u7redcYNbwLRgszt0IBR"></div>
+    <?php endif; ?>
 
     <input type="submit" value="<?php echo $config["options"]["submit"]; ?>" name="<?php echo $config["options"]["submitName"] ?>">
 </form>

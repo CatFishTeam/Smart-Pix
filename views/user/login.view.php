@@ -33,8 +33,8 @@ $config = array(
 ?>
 
     <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8">
+        <div class="col-4 col-m-2"></div>
+        <div class="col-4 col-m-8">
             <?php include "views/modals/form.mod.php"; ?>
             <p><a href="<?php echo PATH_RELATIVE."user/forgetPassword" ?>">Mot de passe oublié ?</a></p>
             <?php else: ?>
