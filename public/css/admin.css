@@ -377,6 +377,9 @@ template {
 body {
   margin: 0; }
 
+div {
+  box-sizing: border-box; }
+
 .relative {
   position: relative; }
 
@@ -418,7 +421,9 @@ body {
           color: #fff; }
       #navigator ul li a {
         color: #76838f;
-        text-decoration: none; }
+        text-decoration: none;
+        display: block;
+        width: 40px; }
         #navigator ul li a i {
           margin-right: 20px;
           display: inline-block;
@@ -430,12 +435,14 @@ body {
         font-family: sans-serif; }
 
 #mainContent {
-  margin-left: 60px; }
+  margin-left: 60px;
+  width: calc(100% - 60px);
+  height: 100vh;
+  position: relative; }
 
 /* ~~~ Page Media - X ~~~ */
 .imageContainer {
   display: inline-block;
-  width: 20%;
   margin: 10px;
   overflow: hidden; }
   .imageContainer:hover {
