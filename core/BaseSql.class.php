@@ -147,4 +147,13 @@ class BaseSql{
 
        return preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
     }
+
+    //Get last instance
+    public function last($user_id = null){
+        $query = $this->db->prepare("SELECT * FROM ".$this->table.($user_id != null ? " WHERE `user_id` = ".$user_id : "")." ORDER BY id DESC LIMIT 1 ");
+
+        $query->execute();
+
+        return $query->fetch(PDO::FETCH_OBJ);;
+    }
 }
