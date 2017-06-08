@@ -9,7 +9,7 @@ class AlbumController{
         $album->setDescription("");
         $album->setUserId($_SESSION['user_id']);
         $album->setIsPresentation(0);
-        $album->setIsDeleted(0);
+        $album->setIsPublished(1);
         $album->setCreatedAt($nowStr);
         $album->setUpdatedAt($nowStr);
         $album->save();
@@ -41,12 +41,11 @@ class AlbumController{
         } else {
             $album->setIsPresentation(0);
         }
-        // if(isset($_POST['is_published'])){
-        //     $album->setIsPublished(1);
-        // } else {
-        //     $album->setIsPublished(0);
-        // }
-        $album->setIsDeleted(0);
+        if(isset($_POST['is_published'])){
+            $album->setIsPublished(1);
+        } else {
+            $album->setIsPublished(0);
+        }
         $album->setCreatedAt($nowStr);
         $album->setUpdatedAt($nowStr);
         $album->save();

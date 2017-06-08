@@ -1,6 +1,7 @@
 <!--
 TODO
 • Message flash !!
+• IS_PUBLISHED (voir controller)
 • Gérer erreur plusieurs page de présentation ? (Afficher la dernière en date uniquement mais un message de warning quand même)
 -->
 <style>

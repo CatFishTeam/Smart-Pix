@@ -7,12 +7,12 @@ class Album extends BaseSql{
     protected $background;
     protected $disposition;
     protected $is_presentation;
-    protected $is_deleted;
+    protected $is_published; //0 not published 1 published 2 deleted
     protected $created_at;
     protected $updated_at;
     protected $user_id;
 
-    public function __construct($id='DEFAULT', $title=null, $description=null, $background=null, $disposition=null, $is_presentation=0, $is_deleted=0, $created_at='DEFAULT', $updated_at='DEFAULT', $user_id=1){
+    public function __construct($id='DEFAULT', $title=null, $description=null, $background=null, $disposition=null, $is_presentation=0, $is_published=0, $created_at='DEFAULT', $updated_at='DEFAULT', $user_id=1){
         parent::__construct();
     }
 
@@ -161,25 +161,25 @@ class Album extends BaseSql{
     }
 
     /**
-     * Get the value of Is Deleted
+     * Get the value of Is Published
      *
      * @return mixed
      */
-    public function getIsDeleted()
+    public function getIsPublished()
     {
-        return $this->is_deleted;
+        return $this->is_published;
     }
 
     /**
-     * Set the value of Is Deleted
+     * Set the value of Is Published
      *
-     * @param mixed is_deleted
+     * @param mixed is_published
      *
      * @return self
      */
-    public function setIsDeleted($is_deleted)
+    public function setIsPublished($is_published)
     {
-        $this->is_deleted = $is_deleted;
+        $this->is_published = $is_published;
 
         return $this;
     }
