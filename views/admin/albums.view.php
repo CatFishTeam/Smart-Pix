@@ -32,8 +32,8 @@ TODO
 </div>
 <div style="position: absolute; width: 20%; height: 45%; background: yellow; border: 2px solid grey; overflow-y: auto; top: 55%;" id="albums">
     <ul style="list-style: none; margin: 0; padding: 0;">
-        <?php foreach ($albums as $album): ?>
-            Remplacer par des photos <br>
+        <?php foreach ($pictures as $picture): ?>
+            <li data-id="<?php echo $picture['id'] ?>"><img style="height: 50px;" src="/public/cdn/images/thumbnails/<?php echo $picture['url'] ?>"/><p><?php echo $picture['title'] ?></p><br>
         <?php endforeach ?>
     </ul>
 </div>
@@ -49,6 +49,7 @@ TODO
     </form>
 </div>
 <div style="position: absolute; top: 30%; left: 20%; width: 80%; background: green; border: 2px solid grey; padding: 15px; bottom: 0;">
+    Disposition medias ?
 </div>
 <script>
 $('#addPage').click(function(){

@@ -25,6 +25,10 @@ class AdminController{
         $albums = new Album();
         $albums = $albums->getAllBy(['user_id'=>$_SESSION['user_id']], "DESC");
         $v->assign('albums',$albums);
+
+        $pictures = new Picture();
+        $pictures = $pictures->getAllBy(['user_id'=>$_SESSION['user_id']], "DESC");
+        $v->assign('pictures',$pictures);
     }
 
     public function mediasAction(){
