@@ -54,4 +54,12 @@ class AlbumController{
         echo json_encode($album->getOneBy(['id'=>$_POST['id']]));
         die;
     }
+
+    public function deleteAlbumAction(){
+        $album = new Album();
+        $album->deleteOneBy(['id'=>$_POST['id']]);
+
+        echo json_encode("success");
+        die;
+    }
 }

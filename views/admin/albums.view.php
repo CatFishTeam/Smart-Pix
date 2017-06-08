@@ -1,8 +1,6 @@
 <!--
 TODO
-• Faire vérification avant l'envoi en js ou en php ?
-• Ajouter une page et éditer son contenu (modifier )
-• Apercu si pages spécifique séléctionné (A faire sur une autre page de type : /pages/nomDeLaPage)
+• Message flash !!
 • Gérer erreur plusieurs page de présentation ? (Afficher la dernière en date uniquement mais un message de warning quand même)
 -->
 <style>
@@ -39,6 +37,7 @@ TODO
             Est publié : <input type="checkbox" name="is_published" /><br>
             Description : <textarea name="description"></textarea>
             <button type="button" name="editAlbum">Editer</button>
+            <button type="button" name="deleteAlbum">Supprimer</button>
         </form>
         <script>
         $('#addPage').click(function(){
@@ -50,7 +49,7 @@ TODO
                 data : { title: $pageTitle },
                 success: function(data){
                     console.log(data);
-                    $('#albums').append('<li data-id="'+data.id+'">'+data.title+'</li>');
+                    $('#albums ul').append('<li data-id="'+data.id+'">'+data.title+'</li>');
                 },
                 error: function(error){
                     console.log(error.responseText)
@@ -98,11 +97,27 @@ TODO
                 dataType: 'json',
                 data: $form.serialize(),
                 success: function(data){
-                    console.log(data);
                     $('li.active').text(data.title);
                 }
             });
         });
+
+        $('[name="deleteAlbum"]').click(function(){
+            $id = $(this).parent().find('[name="id"]').val();
+            $.ajax({
+                url: '/album/deleteAlbum',
+                type: 'POST',
+                dataType: 'json',
+                data: {id: $id},
+                success: function(data){
+                    $('li.active').remove();
+                    $('[name="title"]').val("");
+                    $('[name="is_presentation"]').prop('checked', false);
+                    $('[name="is_published"]').prop('checked', false);
+                    $('[name="description"]').val("");
+                }
+            });
+        })
         </script>
     </div>
 
