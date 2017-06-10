@@ -70,7 +70,9 @@
                         <?php
                             switch ($action['type_action']) {
                                 case "picture":
-                                    echo $user->getUsername() . " a ajouté une <a href=\"".PATH_RELATIVE."picture/".$action['related_id']."\">nouvelle image</a> !";
+                                    $picture = new Picture();
+                                    $picture = $picture->populate(['id' => $action['related_id']]);
+                                    echo $user->getUsername() . " a ajouté une nouvelle image : <a href=\"".PATH_RELATIVE."picture/".$action['related_id']."\">".$picture->getTitle()."</a>";
                                     echo "<span class=\"action-date\">le ".date("d/m/Y", $action_date)." à ".date("G:i:s", $action_date)."</span>";
                                     break;
                                 default:
