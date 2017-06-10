@@ -2,7 +2,7 @@
         <?php if (isset($picture) && !empty($picture)): ?>
             <div class="col-10 image-center">
                 <!-- La photo ! -->
-                <img src="<?php echo PATH_RELATIVE; ?>/public/cdn/images/<?php echo $picture->getUrl(); ?>" alt="">
+                <img src="<?php echo PATH_RELATIVE; ?>public/cdn/images/<?php echo $picture->getUrl(); ?>" alt="">
             </div>
             <div class="col-2 align-left">
                 <!-- Info photo & photographe -->
