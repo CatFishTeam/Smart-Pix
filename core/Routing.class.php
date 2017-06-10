@@ -19,7 +19,7 @@ class Routing{
     }
 
     public function setUri($uri){
-        $uri = preg_replace("/".PATH_RELATIVE_PATTERN."/i", "", $uri, 1);
+        // $uri = preg_replace("/".PATH_RELATIVE_PATTERN."/i", "", $uri, 1);
         $this->uri = trim($uri,'/');
         $this->uriExploded = explode("/", $this->uri);
     }

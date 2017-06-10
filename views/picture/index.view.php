@@ -2,7 +2,7 @@
         <?php if (isset($picture) && !empty($picture)): ?>
             <div class="col-10 image-center">
                 <!-- La photo ! -->
-                <img src="<?php echo PATH_RELATIVE; ?>/public/cdn/images/<?php echo $picture->getUrl(); ?>" alt="">
+                <img src="<?php echo PATH_RELATIVE; ?>public/cdn/images/<?php echo $picture->getUrl(); ?>" alt="">
             </div>
             <div class="col-2 align-left">
                 <!-- Info photo & photographe -->
@@ -19,5 +19,18 @@
                 <p>Listing des images</p>
             </div>
         <?php endif; ?>
-
+</div>
+<div class="row">
+        <h2>Commentaires :</h2>
+        <?php foreach ($comments as $comment): ?>
+                <p><?php echo $comment['content'] ?></p>
+        <?php endforeach ?>
+        <!-- TODO Limit to 1 comment -->
+        <div class="col-12">
+                <form action="/comment/add" method="post">
+                        <input type="hidden" name="id" value="<?php echo $id[0] ?>" />
+                        <textarea name="content"></textarea>
+                        <button type="submit">Envoyer</button>
+                </form>
+        </div>
 </div>

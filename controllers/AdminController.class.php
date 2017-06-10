@@ -31,6 +31,13 @@ class AdminController{
         $v->assign('pictures',$pictures);
     }
 
+
+    public function mediaAction($id){
+        $v = new View('admin.settings','backend');
+        $v->assign('id',$id);
+        var_dump($id);
+    }
+
     public function mediasAction(){
         $v = new View('admin.medias','backend');
 
@@ -138,18 +145,38 @@ class AdminController{
         }
     }
 
-    public function mediaAction($id){
-        $v = new View('admin.settings','backend');
-        $v->assign('id',$id);
-        var_dump($id);
-    }
-
     public function settingsAction(){
         $v = new View('admin.settings','backend');
     }
 
     public function commentsAction(){
         $v = new View('admin.comments','backend');
+
+        $pictures = new Picture();
+        $pictures = $pictures->getAllBy(['user_id'=>$_SESSION['user_id']]);
+
+        $allComments = [];
+
+        foreach ($pictures as $picture) {
+            $comments = new Comment();
+            $comments = $comments->getAllBy(['picture_id'=>$picture['id']]);
+            foreach ($comments as $comment) {
+                $user = new User();
+                $comment['username'] =  $user->getOneBy(['id'=>$comment['user_id']])['username'];
+                // echo "<pre>";
+                // print_r($comment);
+                // echo "</pre>";
+            }
+            echo "<pre>";
+            print_r($comment);
+            echo "</pre>";
+            $allComments = array_merge($allComments, $comments);
+
+
+        }
+
+        $v->assign('allComments', $allComments);
+
     }
 
     public function statsAction(){

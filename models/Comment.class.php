@@ -4,14 +4,20 @@ class Comment extends BaseSql{
     protected $id = -1;
     protected $content;
     protected $created_at;
-    protected $updated_at;
     protected $picture_id; //Rajouter User / Alubm ?
+    protected $user_id;
+    protected $is_archived;
 
     //TODO voir user
     // • Récupérer les comments liés à un user (détenteur)
-    // public function __construct(){
-    //
-    // }
+
+    public function __construct($id='DEFAULT',$content=null,$created_at='DEFAULT',$picture_id=null,$user_id=null,$is_archived='0'){
+        parent::__construct();
+        $this->setContent($content);
+        $this->setPictureId($picture_id);
+        $this->setUserId($user_id);
+    }
+
 
     /**
      * Get the value of Id
@@ -129,6 +135,55 @@ class Comment extends BaseSql{
     public function setPictureId($picture_id)
     {
         $this->picture_id = $picture_id;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of User Id
+     *
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * Set the value of User Id
+     *
+     * @param mixed user_id
+     *
+     * @return self
+     */
+    public function setUserId($user_id)
+    {
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Is Archived
+     *
+     * @return mixed
+     */
+    public function getIsArchived()
+    {
+        return $this->is_archived;
+    }
+
+    /**
+     * Set the value of Is Archived
+     *
+     * @param mixed is_archived
+     *
+     * @return self
+     */
+    public function setIsArchived($is_archived)
+    {
+        $this->is_archived = $is_archived;
 
         return $this;
     }

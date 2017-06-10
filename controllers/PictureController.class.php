@@ -8,9 +8,9 @@ class PictureController {
      */
     public function indexAction($id) {
         $v = new View('picture.index', 'frontend');
+        $v->assign('id', $id);
         if (empty($id)) {
             // Listing des images
-
         } else {
             // Affichage d'une image avec $id
             $picture = new Picture();
@@ -21,6 +21,11 @@ class PictureController {
                 $v->assign('author', $author);
             }
             $v->assign('picture', $picture);
+
+            $comments = new Comment();
+            $comments = $comments->getAllBy(['picture_id'=>$id[0]]);
+            $v->assign('comments', $comments);
+
         }
     }
 
