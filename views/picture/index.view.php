@@ -19,5 +19,18 @@
                 <p>Listing des images</p>
             </div>
         <?php endif; ?>
-
+</div>
+<div class="row">
+        <h2>Commentaires :</h2>
+        <?php foreach ($comments as $comment): ?>
+                <p><?php echo $comment['content'] ?></p>
+        <?php endforeach ?>
+        <!-- TODO Limit to 1 comment -->
+        <div class="col-12">
+                <form action="/comment/add" method="post">
+                        <input type="hidden" name="id" value="<?php echo $id[0] ?>" />
+                        <textarea name="content"></textarea>
+                        <button type="submit">Envoyer</button>
+                </form>
+        </div>
 </div>
