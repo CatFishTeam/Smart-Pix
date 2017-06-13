@@ -25,7 +25,7 @@ class PictureController {
             $comments = new Comment();
             $comments = $comments->getAllBy(['picture_id'=>$id[0]]);
             $v->assign('comments', $comments);
-
+            $v->assign('title', $picture->getTitle());
         }
     }
 
@@ -34,6 +34,7 @@ class PictureController {
      */
     public function createAction() {
         $v = new View("picture.create", "frontend");
+        $v->assign('title', "Ajout d'une image");
         if ($_POST) {
             $flash = '<div class="flash-container">';
             $title = htmlspecialchars(trim($_POST['title']));

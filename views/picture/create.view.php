@@ -35,8 +35,14 @@ $config = array(
         "picture" => [
             "type" => "file",
             "placeholder" => "Sélectionnez votre image",
+            "id" => "uploadImg",
             "value" => null,
             "required" => true
+        ],
+        "picture_label" => [
+            "type" => "label",
+            "for" => "uploadImg",
+            "text" => "<i class=\"fa fa-upload\" aria-hidden=\"true\"></i> Sélectionnez votre image"
         ],
     ]
 );

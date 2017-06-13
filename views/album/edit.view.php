@@ -1,4 +1,5 @@
-<h1>Ajouter un nouvel album</h1>
+<?php if (isset($album) && !empty($album)): ?>
+<h1>Editer l'album : <?php echo $album->getTitle(); ?></h1>
 
 <?php
 /*
@@ -9,22 +10,23 @@ $config = array(
     "options" => [
         "method" => "POST",
         "action" => "#",
+        "enctype" => "multipart/form-data",
         "class" => "form-group",
         "id" => "form-subscribe",
-        "submit" => "Ajouter mon album",
+        "submit" => "Editer mon album",
         "submitName" => "create-album",
     ],
     "struc" => [
         "title" => [
             "type" => "text",
             "placeholder" => "Nom de l'album",
-            "value" => null,
+            "value" => $album->getTitle(),
             "required" => true
         ],
         "description" => [
             "type" => "text",
             "placeholder" => "Description courte",
-            "value" => null,
+            "value" => $album->getDescription(),
             "required" => true
         ],
         "MAX_FILE_SIZE" => [
@@ -55,3 +57,6 @@ $config = array(
         <?php include "views/modals/form.mod.php"; ?>
     </div>
 </div>
+<?php else: ?>
+    <p>L'album n'a pas été trouvé.</p>
+<?php endif; ?>

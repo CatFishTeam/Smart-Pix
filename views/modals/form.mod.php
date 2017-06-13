@@ -12,7 +12,9 @@
 
 
     <?php foreach ($config["struc"] as $name => $attribute):?>
-        <?php if(
+        <?php if ($attribute['type'] == "label"): ?>
+            <label for="<?php echo $attribute['for']; ?>"><?php echo $attribute['text']; ?></label>
+        <?php elseif(
             $attribute['type'] == "email" ||
             $attribute['type'] == "password" ||
             $attribute['type'] == "text" ||
@@ -22,6 +24,7 @@
                    name="<?php echo $name?>"
                    placeholder="<?php echo $attribute["placeholder"];?>"
                    value="<?php echo $attribute["value"];?>"
+                   id="<?php echo (isset($attribute ["id"])) ? $attribute ["id"] : ""; ?>"
                    <?php echo (isset($attribute["required"]) && $attribute["required"]) ? "required='required'" : ""?>>
         <?php
         endif;

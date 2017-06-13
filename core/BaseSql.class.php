@@ -106,16 +106,16 @@ class BaseSql{
         echo $theUser['email'];
      *
      */
-    public function getAllBy($search = [], $order = null, $returnQuery = false){
+    public function getAllBy($search = [], $order = null, $limit = null, $returnQuery = false){
         if (empty($search)) {
-            $query = $this->db->prepare("SELECT * FROM ".$this->table.($order != null ? " ORDER BY created_at ".$order : ""));
+            $query = $this->db->prepare("SELECT * FROM ".$this->table.($order != null ? " ORDER BY created_at ".$order : " ").($limit != null ? " LIMIT ".$limit : ""));
             $query->execute();
             return $query->fetchAll(PDO::FETCH_ASSOC);
         } else {
             foreach($search as $key => $value){
                 $where[] = $key.'=:'.$key;
             }
-            $query = $this->db->prepare("SELECT * FROM ".$this->table." WHERE ".implode(" AND ", $where).($order != null ? " ORDER BY created_at ".$order : ""));
+            $query = $this->db->prepare("SELECT * FROM ".$this->table." WHERE ".implode(" AND ", $where).($order != null ? " ORDER BY created_at ".$order : "").($limit != null ? " LIMIT ".$limit : ""));
 
             $query->execute($search);
 

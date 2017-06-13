@@ -12,6 +12,7 @@ class UserController {
             $userId = $user->getId();
             $v = new View('user.index', 'frontend');
             $v->assign('user', $user);
+            $v->assign('title', "Profil de ".$user->getUsername());
 
             /*
              * Formulaire "Profil"
@@ -138,6 +139,14 @@ class UserController {
                     $user->setAccessToken($accessToken);
                     $user->save();
 
+                    // Action correspondante :
+                    $action = new Action();
+                    $action->setUserId($user->getDb()->lastInsertId());
+                    $action->setTypeAction("signup");
+                    $action->setRelatedId($user->getDb()->lastInsertId());
+                    $action->setCreatedAt($nowStr);
+                    $action->save();
+
                     // Envoi du mail :
                     require './vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
 
@@ -158,7 +167,7 @@ class UserController {
                         "<br><br>Votre inscription sur Smart-Pix a bien été validée !
                     <br><br>Votre identifiant : ".$username.
                         "<br>Votre mot de passe : vous seul le connaissez !
-                    <br><a href='http://localhost/Smart-Pix/user/activate/".$accessToken."'>Activer votre compte</a>
+                    <br><a href='http://smart-pix.dev/user/activate/".$accessToken."'>Activer votre compte</a>
                     <br><br>Cordialement,<br>L'équipe Smart-Pix";
                     $mail->AddAddress($email);
 
@@ -166,7 +175,7 @@ class UserController {
                         echo "Mailer Error: " . $mail->ErrorInfo;
                     }
 
-                    $flash .= "<div class='flash flash-success'><div class='flash-cell'>Inscription terminée !</div></div>";
+                    $flash .= "<div class='flash flash-success'><div class='flash-cell'>Inscription terminée !<br>Vous allez recevoir un email de confirmation</div></div>";
                 }  if ($pwd != $confpwd) {
                     $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Les mots de passe sont différents</div></div>";
                 }  if (!empty($usernameTaken)) {
@@ -184,6 +193,7 @@ class UserController {
         $flash .= "</div>";
         echo $flash;
         $v = new View('user.signup', 'frontend');
+        $v->assign('title', "Inscription");
     }
 
     public function activateAction($token) {
@@ -210,6 +220,7 @@ class UserController {
         $flash .= "</div>";
         echo $flash;
         $v = new View('user.activate', 'frontend');
+        $v->assign('title', "Activation du compte");
     }
 
     public function loginAction() {
@@ -242,6 +253,7 @@ class UserController {
         }
         $v = new View('user.login', 'frontend');
         $v->assign('userConnected', $userConnected);
+        $v->assign('title', "Connexion");
     }
 
     public function logoutAction() {
@@ -287,21 +299,33 @@ class UserController {
         $v = new View('user.forgetPassword', 'frontend');
     }
 
-    public function wallAction() {
-        if ($_SESSION) {
-            $user = new User();
-            $user = $user->populate(array('username' => $_SESSION['username']));
-            $userId = $user->getId();
-            $actions = [];
-            $action = new Action();
-            foreach ($action->getAllBy(['user_id' => $userId], 'DESC') as $oneAction) {
-                array_push($actions, $oneAction);
-            }
-            $v = new View('user.wall', 'frontend');
-            $v->assign('user', $user);
-            $v->assign('actions', $actions);
+    public function wallAction($id) {
+        $user = new User();
+        if (empty($id) && !isset($_SESSION)) {
+            $v = new View("index", "frontend");
+            return 0;
+        } elseif (empty($id) && $_SESSION) {
+            $user = $user->populate(array('id' => $_SESSION['user_id']));
         } else {
-            $v = new View('index', 'frontend');
+            $user = $user->populate(array('id' => $id[0]));
+            if (empty($user)) {
+                $v = new View("index", "frontend");
+                return 0;
+            }
         }
+        $userId = $user->getId();
+        $actions =  new Action();
+        $actions = $actions->getAllBy(['user_id' => $userId], 'DESC');
+        $pictures = new Picture();
+        $pictures = $pictures->getAllBy(['user_id' => $userId], 'DESC', 14);
+        $albums = new Album();
+        $albums = $albums->getAllBy(['user_id' => $userId], 'DESC', 14);
+
+        $v = new View('user.wall', 'frontend');
+        $v->assign('user', $user);
+        $v->assign('actions', $actions);
+        $v->assign('pictures', $pictures);
+        $v->assign('albums', $albums);
+        $v->assign('title', $user->getUsername());
     }
 }
