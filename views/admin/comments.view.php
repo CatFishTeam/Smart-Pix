@@ -47,7 +47,7 @@
             </td>
             <td>
                 <button type="button" class="delete"><i class="fa fa-times" aria-hidden="true"></i></button>
-                <?php echo ($comment['is_published'] == 0 ? '<button type="button" class="publish"><i class="fa fa-check" aria-hidden="true"></i></button>' : '<button type="button" class="publish"><i class="fa fa-check" aria-hidden="true"></i></button>') ?>
+                <?php echo ($comment['is_published'] == 0 ? '<button type="button" class="publish"><i class="fa fa-check" aria-hidden="true"></i></button>' : '<button type="button" class=""><i class="fa fa-check" aria-hidden="true"></i></button>') ?>
             </td>
         </tr>
     <?php endforeach ?>

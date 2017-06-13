@@ -22,9 +22,11 @@
 </div>
 <div class="row">
         <h2>Commentaires :</h2>
+        <?php if(isset($comments)){ ?>
         <?php foreach ($comments as $comment): ?>
                 <p><?php echo $comment['content'] ?></p>
         <?php endforeach ?>
+        <?php } ?>
         <!-- TODO Limit to 1 comment -->
         <div class="col-12">
                 <form action="/comment/add" method="post">

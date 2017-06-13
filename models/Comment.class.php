@@ -21,6 +21,9 @@ class Comment extends BaseSql{
         $this->setIsPublished($is_published);
     }
 
+    public function isNotArchived(){
+            
+    }
 
     /**
      * Get the value of Id

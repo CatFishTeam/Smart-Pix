@@ -175,8 +175,9 @@ class AdminController{
     //TODO RESPONSE !!
     public function publishCommentAction(){
         $comment = new Comment();
-        $comment->getOneBy(['id'=>$_POST['id']]);
-        echo $comment->setIsPublished(1);
+        $comment = $comment->populate(['id' => $_POST['id']]);
+        $comment->setIsPublished(1);
+        echo $comment->save();
         echo "succes";
         exit();
     }
