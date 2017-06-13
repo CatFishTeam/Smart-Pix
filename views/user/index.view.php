@@ -86,8 +86,14 @@ $config = array(
         "avatar" => [
             "type" => "file",
             "placeholder" => "Ajouter un avatar",
+            "id" => "uploadImg",
             "value" => null,
             "required" => false
+        ],
+        "avatar_label" => [
+            "type" => "label",
+            "for" => "uploadImg",
+            "text" => "<i class=\"fa fa-upload\" aria-hidden=\"true\"></i> Choisir un avatar"
         ],
     ]
 );

@@ -43,8 +43,6 @@ class BaseSql{
             try {
                 $req = $this->db->prepare("INSERT INTO ".$this->table." (".$sqlCol.") VALUES (".$sqlKey.");");
                 $req->execute($data);
-                // var_dump($this->db->errorInfo());
-                // var_dump($req);
             } catch (Exception $e) {
                 die($e->getMessage());
             }

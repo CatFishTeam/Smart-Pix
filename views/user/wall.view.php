@@ -32,8 +32,10 @@
                         <a href="<?php echo PATH_RELATIVE; ?>album/<?php echo $album['id']; ?>"><img src="<?php echo PATH_RELATIVE; ?>public/cdn/images/<?php echo $album['thumbnail_url']; ?>" alt="<?php echo $album['title']; ?>"></a>
                     <?php
                         endforeach;
-                        if (count($albums) == 14):
+                        if (count($albums) == 0):
                     ?>
+                        Aucun album à afficher.
+                    <?php elseif (count($albums) == 14): ?>
                         <span><a href="<?php echo PATH_RELATIVE; ?>user/albums/<?php echo $user->getId(); ?>" class="wall-more">...</a></span>
                     <?php endif; ?>
                 </p>
@@ -43,8 +45,10 @@
                         <a href="<?php echo PATH_RELATIVE; ?>picture/<?php echo $picture['id']; ?>"><img src="<?php echo PATH_RELATIVE; ?>public/cdn/images/<?php echo $picture['url']; ?>" alt="<?php echo $picture['title']; ?>"></a>
                     <?php
                         endforeach;
-                        if (count($pictures) == 14):
+                        if (count($pictures) == 0):
                     ?>
+                    Aucune photo à afficher.
+                    <?php elseif (count($pictures) == 14): ?>
                         <span><a href="<?php echo PATH_RELATIVE; ?>user/pictures/<?php echo $user->getId(); ?>" class="wall-more">...</a></span>
                     <?php endif; ?>
                 </p>

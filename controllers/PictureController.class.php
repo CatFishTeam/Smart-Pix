@@ -19,13 +19,13 @@ class PictureController {
                 $author = new User();
                 $author = $author->populate(['id' => $picture->getUserId()]);
                 $v->assign('author', $author);
+                $v->assign('title', $picture->getTitle());
             }
             $v->assign('picture', $picture);
 
             $comments = new Comment();
             $comments = $comments->getAllBy(['picture_id'=>$id[0]]);
             $v->assign('comments', $comments);
-            $v->assign('title', $picture->getTitle());
         }
     }
 
