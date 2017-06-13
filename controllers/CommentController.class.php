@@ -1,5 +1,7 @@
 <?php
 class CommentController{
+
+
     public function addAction(){
         $comment = new Comment();
         $now = new DateTime("now");
@@ -8,16 +10,13 @@ class CommentController{
         $comment->setCreatedAt($nowStr);
         $comment->setPictureId($_POST['id']);
         $comment->setUserId($_SESSION['user_id']);
-        $comment->setIsArchived(0);
         $comment->save();
 
         header('Location: '.$_SERVER['HTTP_REFERER']);
+    }
 
+    //If user whant to delete his own comment
+    public function deleteAction(){
 
     }
-    // protected $id = -1;
-    // protected $content;
-    // protected $created_at;
-    // protected $picture_id; //Rajouter User / Alubm ?
-    // protected $is_archived;
 }

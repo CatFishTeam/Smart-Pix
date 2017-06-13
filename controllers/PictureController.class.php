@@ -6,6 +6,7 @@ class PictureController {
      * Page d'une image (/picture/{id})
      * Si $id non fourni => listing des images sur le site
      */
+     //TODO Message en attente de validation
     public function indexAction($id) {
         $v = new View('picture.index', 'frontend');
         $v->assign('id', $id);
@@ -24,7 +25,7 @@ class PictureController {
             $v->assign('picture', $picture);
 
             $comments = new Comment();
-            $comments = $comments->getAllBy(['picture_id'=>$id[0]]);
+            $comments = $comments->getAllBy(['picture_id'=>$id[0],'is_archived'=>0, 'is_published'=>1]);
             $v->assign('comments', $comments);
         }
     }

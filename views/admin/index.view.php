@@ -1,1 +1,1 @@
-<?php echo (isset($test) ?  $test : 'yala') ?>
+Quelle est cette page ?

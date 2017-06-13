@@ -15,13 +15,13 @@ class AlbumController{
         $album->save();
 
         echo json_encode($album->last($_SESSION['user_id']));
-        die;
+        exit;
     }
 
     public function showEditAction(){
         $album = new Album();
         echo json_encode($album->getOneBy(['id'=>$_POST['id']]));
-        die;
+        exit;
     }
 
     // TODO AJOUTER is_published
@@ -51,15 +51,14 @@ class AlbumController{
         $album->save();
 
         echo json_encode($album->getOneBy(['id'=>$_POST['id']]));
-        die;
+        exit;
     }
 
     public function deleteAlbumAction(){
         $album = new Album();
         $album->deleteOneBy(['id'=>$_POST['id']]);
-
         echo json_encode("success");
-        die;
+        exit;
     }
 
     public function indexAction($id) {
