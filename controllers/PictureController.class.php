@@ -27,7 +27,6 @@ class PictureController {
             $comments = new Comment();
             $comments = $comments->getAllBy(['picture_id'=>$id[0],'is_archived'=>0, 'is_published'=>1]);
             $v->assign('comments', $comments);
-            $v->assign('title', $picture->getTitle());
 
             $unpublishedComments = new Comment();
             $unpublishedComments = $unpublishedComments->getAllBy(['picture_id'=>$id[0], 'user_id'=>$_SESSION['user_id'], 'is_archived'=>0, 'is_published'=>0]);
