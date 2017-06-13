@@ -7,15 +7,18 @@ class Comment extends BaseSql{
     protected $picture_id; //Rajouter User / Alubm ?
     protected $user_id;
     protected $is_archived;
+    protected $is_published;
 
     //TODO voir user
     // • Récupérer les comments liés à un user (détenteur)
 
-    public function __construct($id='DEFAULT',$content=null,$created_at='DEFAULT',$picture_id=null,$user_id=null,$is_archived='0'){
+    public function __construct($id='DEFAULT',$content=null,$created_at='DEFAULT',$picture_id=null,$user_id=null,$is_archived='0',$is_published='0'){
         parent::__construct();
         $this->setContent($content);
         $this->setPictureId($picture_id);
         $this->setUserId($user_id);
+        $this->setIsArchived($is_archived);
+        $this->setIsPublished($is_published);
     }
 
 
@@ -184,6 +187,29 @@ class Comment extends BaseSql{
     public function setIsArchived($is_archived)
     {
         $this->is_archived = $is_archived;
+
+        return $this;
+    }
+    /**
+     * Get the value of Is Published
+     *
+     * @return mixed
+     */
+    public function getIsPublished()
+    {
+        return $this->is_published;
+    }
+
+    /**
+     * Set the value of Is Published
+     *
+     * @param mixed is_published
+     *
+     * @return self
+     */
+    public function setIsPublished($is_published)
+    {
+        $this->is_published = $is_published;
 
         return $this;
     }

@@ -11,7 +11,6 @@ class AdminController{
     //RENAME SHOW PAGE CONTROLLER ?
     public function indexAction(){
         $v = new View('admin.index','backend');
-        $v->assign("test","yolo");
     }
 
     public function profilAction(){
@@ -156,27 +155,37 @@ class AdminController{
         $pictures = $pictures->getAllBy(['user_id'=>$_SESSION['user_id']]);
 
         $allComments = [];
+        $monarray = [];
 
+        //TODO ? Album et User
         foreach ($pictures as $picture) {
             $comments = new Comment();
-            $comments = $comments->getAllBy(['picture_id'=>$picture['id']]);
-            foreach ($comments as $comment) {
+            $comments = $comments->getAllBy(['picture_id'=>$picture['id'],'is_archived'=>0]);
+
+            foreach ($comments as $key=>$comment) {
                 $user = new User();
-                $comment['username'] =  $user->getOneBy(['id'=>$comment['user_id']])['username'];
-                // echo "<pre>";
-                // print_r($comment);
-                // echo "</pre>";
+                $comments[$key]['username'] =  $user->getOneBy(['id'=>$comment['user_id']])['username'];
             }
-            echo "<pre>";
-            print_r($comment);
-            echo "</pre>";
             $allComments = array_merge($allComments, $comments);
-
-
         }
-
         $v->assign('allComments', $allComments);
 
+    }
+
+    //TODO RESPONSE !!
+    public function publishCommentAction(){
+        $comment = new Comment();
+        $comment->getOneBy(['id'=>$_POST['id']]);
+        echo $comment->setIsPublished(1);
+        echo "succes";
+        exit();
+    }
+
+    public function deleteCommentAction(){
+        $comment = new Comment();
+        $comment->deleteOneBy(['id'=>$_POST['id']], true);
+        echo "succes";
+        exit();
     }
 
     public function statsAction(){

@@ -11,8 +11,10 @@ class BaseSql{
     public function __construct(){
         try {
             $this->db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=utf8", DB_USER, DB_PWD);
-        } catch(Exception $e) {
-            die("Erreur SQL : ".$e->getMessage());
+            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            echo 'Échec lors de la connexion : ' . $e->getMessage();
+            die();
         }
 
             //Récupérer le nom de la table dynamiquement
@@ -43,8 +45,6 @@ class BaseSql{
             try {
                 $req = $this->db->prepare("INSERT INTO ".$this->table." (".$sqlCol.") VALUES (".$sqlKey.");");
                 $req->execute($data);
-                // var_dump($this->db->errorInfo());
-                // var_dump($req);
             } catch (Exception $e) {
                 die($e->getMessage());
             }
@@ -126,11 +126,17 @@ class BaseSql{
         }
     }
 
-    public function deleteOneBy($search = [], $returnQuery = false){
+    //if archived = true : SET is_archived to 1
+    public function deleteOneBy($search = [], $archived = false, $returnQuery = false){
+
         foreach($search as $key => $value){
             $where[] = $key.'=:'.$key;
         }
-        $query = $this->db->prepare("DELETE FROM ".$this->table." WHERE ".implode(" AND ", $where));
+        if($archived = true){
+            $query = $this->db->prepare("UPDATE ".$this->table." SET is_archived = 1 WHERE ".implode(" AND ", $where));
+        } else {
+            $query = $this->db->prepare("DELETE FROM ".$this->table." WHERE ".implode(" AND ", $where));
+        }
 
         $query->execute($search);
 
