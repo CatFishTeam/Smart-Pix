@@ -6,13 +6,14 @@ class Album extends BaseSql{
     protected $description;
     protected $background;
     protected $disposition;
+    protected $thumbnail_url;
     protected $is_presentation;
     protected $is_published; //0 not published 1 published 2 deleted
     protected $created_at;
     protected $updated_at;
     protected $user_id;
 
-    public function __construct($id='DEFAULT', $title=null, $description=null, $background=null, $disposition=null, $is_presentation=0, $is_published=0, $created_at='DEFAULT', $updated_at='DEFAULT', $user_id=1){
+    public function __construct($id='DEFAULT', $title=null, $description=null, $background=null, $disposition=null, $thumbnail_url=null, $is_presentation=0, $is_published=0, $created_at='DEFAULT', $updated_at='DEFAULT', $user_id=1){
         parent::__construct();
     }
 
@@ -135,6 +136,23 @@ class Album extends BaseSql{
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getThumbnailUrl()
+    {
+        return $this->thumbnail_url;
+    }
+
+    /**
+     * @param mixed $thumbnail_url
+     */
+    public function setThumbnailUrl($ext)
+    {
+        $this->thumbnail_url = parent::clean($this->title).'_'.uniqid().'.'.$ext;
+    }
+
 
     /**
      * Get the value of Is Presentation

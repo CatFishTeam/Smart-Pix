@@ -254,6 +254,7 @@ img {
 a:not([class*="btn"]),
 a:not([class*="btn"]):visited {
   color: #2980b9;
+  text-decoration: none;
 }
 
 a:not([class*="btn"]):hover,
@@ -347,6 +348,23 @@ hr {
   background-image: linear-gradient(to right, #fff, #bbb, #fff);
 }
 
+input[type="file"][id="uploadImg"] {
+  display: none !important;
+}
+
+label[for="uploadImg"] {
+  font-family: 'Montserrat', sans-serif;
+  border: 1px solid lightgray;
+  background: #fff;
+  width: inherit;
+  display: block;
+  padding: 5px 15px;
+  font-size: 14px;
+  margin: 5px 0;
+  cursor: pointer;
+  text-align: center;
+}
+
 .align-left,
 .align-left * {
   text-align: left;
@@ -366,6 +384,7 @@ hr {
   border: 1px solid lightgray;
   height: 30px;
   display: inline-block;
+  font-size: 16px;
   line-height: 30px;
   text-align: center;
   background: rgba(238, 238, 238, 0.5);
@@ -505,9 +524,9 @@ Wall (user/wall)
 
 .bio {
   background: white;
-  padding: 3px;
+  padding: 10px;
   border-radius: 4px;
-  div {
+  > div {
     display: inline-block;
   }
   .profil-avatar {
@@ -551,10 +570,30 @@ Wall (user/wall)
     padding: 5px;
     h2, p {
       text-align: left;
-      span {
+      a {
+        width: 50px;
+        height: 40px;
+        display: inline-block;
+        border: 1px dashed lightgray;
+        border-radius: 3px;
+        text-align: center;
+        line-height: 40px;
+        overflow: hidden;
+        background-image: url(../image/photography.png);
+        img {
+          max-height: 40px;
+          text-align: center;
+          vertical-align: middle;
+          border-radius: 3px;
+        }
+      }
+      > span {
         font-size: 40px;
         vertical-align: top;
-        padding: 0 8px;
+        a.wall-more {
+          color: #333;
+          text-decoration: none;
+        }
       }
     }
   }

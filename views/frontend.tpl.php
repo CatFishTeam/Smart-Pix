@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Bienvenue sur Smart-Pix</title>
+        <title><?php echo isset($title) ? $title . " | Smart-Pix" : "Smart-Pix"; ?></title>
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="<?php echo PATH_RELATIVE; ?>public/css/style.css" />
         <link rel="shortcut icon" type="image/ico" href="<?php echo PATH_RELATIVE; ?>public/image/logo.ico"/>
@@ -44,5 +44,6 @@
                 Smart-Pix © - 2017
             </p>
         </footer>
+
     </body>
 </html>

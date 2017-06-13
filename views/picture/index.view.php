@@ -7,7 +7,7 @@
             <div class="col-2 align-left">
                 <!-- Info photo & photographe -->
                 <h2><?php echo $picture->getTitle(); ?></h2>
-                <h3 class="italic">Par <?php echo $author->getUsername(); ?></h3>
+                <h3 class="italic">Par <a href="<?php echo PATH_RELATIVE; ?>user/wall/<?php echo $author->getId(); ?>"><?php echo $author->getUsername(); ?></a></h3>
                 <p><?php echo $picture->getDescription(); ?></p>
             </div>
         <?php elseif (isset($picture) && empty($picture)): ?>

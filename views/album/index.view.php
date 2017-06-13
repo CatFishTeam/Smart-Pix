@@ -6,7 +6,8 @@
             <p><?php echo $album->getDescription(); ?></p>
             <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $author->getId()): ?>
             <p>
-                <button id="albumBtn" class="btn-timeline-actions">Ajouter une image</button>
+                <button id="albumBtn" class="btn">Ajouter une image</button>
+                <a href="<?php echo PATH_RELATIVE; ?>album/edit/<?php echo $album->getId(); ?>" class="btn">Editer l'album</a>
             </p>
             <div id="albumModal" class="modal">
                 <div class="modal-content">
