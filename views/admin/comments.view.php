@@ -13,10 +13,17 @@
             color: #fff;
             font-size: 20px;
         }
+        button.unpublish{
+            background: orange;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 20px;
+        }
     </style>
 
-    TODO : • Pagination
-    <br />• Mettre en avant les fichiers qui n'ont pas étés validés
+    TODO :
+    <br />• Pagination
+    <br />• Mettre en avant les commentaires qui n'ont pas encore étés modérés
 
     <table>
         <tr>
@@ -36,8 +43,7 @@
     <?php foreach($allComments as $comment): ?>
         <tr data-id="<?php echo $comment['id'] ?>">
             <td>
-                <?php echo $comment['id'] ?>
-                <?php echo $comment['content'] ?>
+                <a href="/picture/<?php echo $comment['id'] ?>"><?php echo $comment['content'] ?></a>
             </td>
             <td>
                 <?php echo $comment['picture_id'] ?>
@@ -47,7 +53,8 @@
             </td>
             <td>
                 <button type="button" class="delete"><i class="fa fa-times" aria-hidden="true"></i></button>
-                <?php echo ($comment['is_published'] == 0 ? '<button type="button" class="publish"><i class="fa fa-check" aria-hidden="true"></i></button>' : '<button type="button" class=""><i class="fa fa-check" aria-hidden="true"></i></button>') ?>
+                <button type="button" class="publish" style="display: <?php echo $comment['is_published'] == 0  ? 'inline-block' : 'none' ?>"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                <button type="button" class="unpublish" style="display: <?php echo $comment['is_published'] == 0  ? 'none' : 'inline-block' ?>"><i class="fa fa-eye-slash" aria-hidden="true"></i></i></button>
             </td>
         </tr>
     <?php endforeach ?>
@@ -75,7 +82,9 @@
                 type: "POST",
                 data: {id: $el.data('id')},
                 success: function(data){
-                    console.log(data);
+                    $el.find('.publish').fadeOut(function(){
+                        $el.find('.unpublish').fadeIn();
+                    });
                 }
             });
         });
@@ -87,7 +96,9 @@
                 type: "POST",
                 data: {id: $el.data('id')},
                 success: function(data){
-                    console.log(data);
+                    $el.find('.unpublish').fadeOut(function(){
+                        $el.find('.publish').fadeIn();
+                    });
                 }
             });
         });

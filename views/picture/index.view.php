@@ -28,6 +28,11 @@
         <?php endforeach ?>
         <?php } ?>
         <!-- TODO Limit to 1 comment -->
+        <?php if(isset($unpublishedComments)){ ?>
+            <div class="col-12">
+                <p>Vous avez déjà un message en attente de validation sur cette photo</p>
+
+        <?php } else { ?>
         <div class="col-12">
                 <form action="/comment/add" method="post">
                         <input type="hidden" name="id" value="<?php echo $id[0] ?>" />
@@ -35,4 +40,5 @@
                         <button type="submit">Envoyer</button>
                 </form>
         </div>
+        <?php } ?>
 </div>

@@ -177,7 +177,15 @@ class AdminController{
         $comment = new Comment();
         $comment = $comment->populate(['id' => $_POST['id']]);
         $comment->setIsPublished(1);
-        echo $comment->save();
+        $comment->save();
+        echo "succes";
+        exit();
+    }
+    public function unpublishCommentAction(){
+        $comment = new Comment();
+        $comment = $comment->populate(['id' => $_POST['id']]);
+        $comment->setIsPublished(0);
+        $comment->save();
         echo "succes";
         exit();
     }
