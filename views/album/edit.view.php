@@ -1,5 +1,5 @@
 <?php if (isset($album) && !empty($album)): ?>
-<h1>Editer l'album : <?php echo $album->getTitle(); ?></h1>
+<h1>Editer l'album : <a href="<?php echo PATH_RELATIVE; ?>album/<?php echo $album->getId(); ?>"><?php echo $album->getTitle(); ?></a></h1>
 
 <?php
 /*
@@ -21,13 +21,11 @@ $config = array(
             "type" => "text",
             "placeholder" => "Nom de l'album",
             "value" => $album->getTitle(),
-            "required" => true
         ],
         "description" => [
             "type" => "text",
             "placeholder" => "Description courte",
             "value" => $album->getDescription(),
-            "required" => true
         ],
         "MAX_FILE_SIZE" => [
             "type" => "hidden",
@@ -38,7 +36,6 @@ $config = array(
             "placeholder" => "Sélectionnez une image de couverture",
             "id" => "uploadImg",
             "value" => null,
-            "required" => true
         ],
         "thumbnail_label" => [
             "type" => "label",

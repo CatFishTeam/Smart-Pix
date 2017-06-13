@@ -141,6 +141,8 @@ class AlbumController{
                 $title = htmlspecialchars(trim($_POST['title']));
                 $description = htmlspecialchars(trim($_POST['description']));
                 if (!empty($title) && !empty($description)) {
+                    $album->setTitle($title);
+                    $album->setDescription($description);
                     if (isset($_FILES["thumbnail_url"])) {
                         if ($_FILES['thumbnail_url']['error'] > 0) {
                             if ($_FILES['thumbnail_url']['error'] == 1 || $_FILES['thumbnail_url']['error'] == 2)
@@ -148,6 +150,7 @@ class AlbumController{
                             elseif ($_FILES['thumbnail_url']['error'] != 4)
                                 $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Le fichier d'image a rencontré une erreur.</div></div>";
                         } else {
+                            var_dump($_FILES["thumbnail_url"]);
                             $fileInfo = pathinfo($_FILES['thumbnail_url']['name']);
                             $ext = pathinfo($_FILES['thumbnail_url']['name'], PATHINFO_EXTENSION);
                             if (
@@ -156,15 +159,10 @@ class AlbumController{
                                 strtolower($fileInfo["extension"]) == "png" ||
                                 strtolower($fileInfo["extension"]) == "gif"
                             ) {
-                                $now = new DateTime("now");
-                                $nowStr = $now->format("Y-m-d H:i:s");
                                 $album->setThumbnailUrl($ext);
-                                $album->setUpdatedAt($nowStr);
-                                $album->save();
-
                                 move_uploaded_file($_FILES['thumbnail_url']['tmp_name'], "./public/cdn/images/" . $album->getThumbnailUrl());
-                                header("Location: " . PATH_RELATIVE . "album/" . $album->getId());
-                                $flash .= "<div class='flash flash-success'><div class='flash-cell'>Votre album a été mis à jour</div></div>";
+
+                                $flash .= "<div class='flash flash-success'><div class='flash-cell'>L'image de couverture a été ajoutée</div></div>";
                             } else {
                                 $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Format d'image invalide<br>(essayez: .jpg, .jpeg, .png ou .gif)</div></div>";
                             }
@@ -173,6 +171,11 @@ class AlbumController{
                         $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Aucune image sélectionnée</div></div>";
                     }
                 }
+                $now = new DateTime("now");
+                $nowStr = $now->format("Y-m-d H:i:s");
+                $album->setUpdatedAt($nowStr);
+                $album->save();
+                $flash .= "<div class='flash flash-success'><div class='flash-cell'>Votre album a été mis à jour</div></div>";
                 $flash .= "</div>";
                 echo $flash;
             }

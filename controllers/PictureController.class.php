@@ -20,6 +20,7 @@ class PictureController {
                 $author = new User();
                 $author = $author->populate(['id' => $picture->getUserId()]);
                 $v->assign('author', $author);
+                $v->assign('title', $picture->getTitle());
             }
             $v->assign('picture', $picture);
 

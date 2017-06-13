@@ -43,10 +43,10 @@
     <?php foreach($allComments as $comment): ?>
         <tr data-id="<?php echo $comment['id'] ?>">
             <td>
-                <a href="/picture/<?php echo $comment['id'] ?>"><?php echo $comment['content'] ?></a>
+                <?php echo $comment['content'] ?>
             </td>
             <td>
-                <?php echo $comment['picture_id'] ?>
+                <a href="/picture/<?php echo $comment['picture_id'] ?>"><?php echo $comment['picture_id'] ?></a>
             </td>
             <td>
                 <?php echo $comment['username'] ?>
