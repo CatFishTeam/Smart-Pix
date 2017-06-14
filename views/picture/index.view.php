@@ -17,7 +17,6 @@
                         <p><?php echo $comment['content'] ?></p>
                     <?php endforeach ?>
                 <?php } ?>
-                <!-- TODO Limit to 1 comment -->
                 <?php if(isset($unpublishedComments)){ ?>
                     <div class="col-12">
                         <p>Vous avez déjà un message en attente de validation sur cette photo</p>
@@ -42,4 +41,3 @@
             </div>
         <?php endif; ?>
 </div>
-
