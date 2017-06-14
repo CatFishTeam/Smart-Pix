@@ -328,4 +328,19 @@ class UserController {
         $v->assign('albums', $albums);
         $v->assign('title', $user->getUsername());
     }
+
+    public function picturesAction($id) {
+        $v = new View('user.pictures', 'frontend');
+        if (!empty($id)) {
+            $user = new User();
+            $user = $user->populate(['id' => $id[0]]);
+        }
+        if (!empty($user)) {
+            $pictures = new Picture();
+            $pictures = $pictures->getAllBy(['user_id' => $user->getId()]);
+            $v->assign('user', $user);
+            $v->assign('pictures', $pictures);
+            $v->assign('title', "Photos de ".$user->getUsername());
+        }
+    }
 }

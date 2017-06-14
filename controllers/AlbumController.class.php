@@ -150,7 +150,6 @@ class AlbumController{
                             elseif ($_FILES['thumbnail_url']['error'] != 4)
                                 $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Le fichier d'image a rencontré une erreur.</div></div>";
                         } else {
-                            var_dump($_FILES["thumbnail_url"]);
                             $fileInfo = pathinfo($_FILES['thumbnail_url']['name']);
                             $ext = pathinfo($_FILES['thumbnail_url']['name'], PATHINFO_EXTENSION);
                             if (

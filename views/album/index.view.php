@@ -1,7 +1,7 @@
 <div class="row">
     <?php if (isset($album) && !empty($album)): ?>
         <div class="col-12">
-            <h2><?php echo $album->getTitle(); ?></h2>
+            <h2 class="albumTitle" style="background-image: url('/public/cdn/images/<?php echo $album->getThumbnailUrl(); ?>');"><?php echo $album->getTitle(); ?></h2>
             <h3 class="italic">Par <a href="<?php echo PATH_RELATIVE; ?>user/wall/<?php echo $author->getId(); ?>"><?php echo $author->getUsername(); ?></a></h3>
             <p><?php echo $album->getDescription(); ?></p>
             <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $author->getId()): ?>
