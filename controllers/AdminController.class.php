@@ -172,6 +172,8 @@ class AdminController{
 
     }
 
+
+    /* ~~~~~ Comments ~~~~ */
     //TODO RESPONSE !!
     public function publishCommentAction(){
         $comment = new Comment();
@@ -189,12 +191,19 @@ class AdminController{
         echo "succes";
         exit();
     }
-
     public function deleteCommentAction(){
         $comment = new Comment();
         $comment->deleteOneBy(['id'=>$_POST['id']], true);
         echo "succes";
         exit();
+    }
+
+    public function usersAction(){
+        $v = new View('admin.users','backend');
+        $users = new User();
+        $users = $users->getAllBy();
+        $v->assign('users',$users);
+
     }
 
     public function statsAction(){
