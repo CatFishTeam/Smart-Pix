@@ -11,7 +11,6 @@ $config = array(
         "action" => "#",
         "enctype" => "multipart/form-data",
         "class" => "form-group",
-        "id" => "form-subscribe",
         "submit" => "Ajouter mon image",
         "submitName" => "create-picture",
     ],

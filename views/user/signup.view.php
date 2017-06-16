@@ -10,7 +10,6 @@ $config = array(
         "method" => "POST",
         "action" => "#",
         "class" => "form-group",
-        "id" => "form-subscribe",
         "submit" => "S'inscrire",
         "submitName" => "signup",
         "captcha" => true

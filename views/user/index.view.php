@@ -10,7 +10,6 @@ $config = array(
         "method" => "POST",
         "action" => "#",
         "class" => "form-group",
-        "id" => "form-subscribe",
         "submit" => "Mettre à jour le profil",
         "submitName" => "profil",
     ],
@@ -62,7 +61,6 @@ $config = array(
         "action" => "#",
         "enctype" => "multipart/form-data",
         "class" => "form-group",
-        "id" => "form-subscribe",
         "submit" => "Mettre à jour les informations personnelles",
         "submitName" => "infos"
     ],

@@ -12,7 +12,6 @@ $config = array(
         "action" => "#",
         "enctype" => "multipart/form-data",
         "class" => "form-group",
-        "id" => "form-subscribe",
         "submit" => "Editer mon album",
         "submitName" => "create-album",
     ],

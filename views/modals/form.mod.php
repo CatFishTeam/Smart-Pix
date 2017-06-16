@@ -1,5 +1,5 @@
 <form method="<?php echo $config["options"]["method"];?>"
-    id="<?php echo $config["options"]["id"];?>"
+    id="<?php echo (isset($config["options"]["id"])) ? $config["options"]["id"] : "" ;?>"
     class="<?php echo $config["options"]["class"];?>"
     action="<?php echo $config["options"]["action"];?>"
     enctype="<?php
