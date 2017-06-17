@@ -152,7 +152,11 @@ table {
     margin: 30px auto; }
 
   .m-center {
-    text-align: center; } }
+    text-align: center; }
+
+  .profil-avatar {
+    max-width: 50%;
+    margin-left: 25%; } }
 [class*="col-"] {
   float: left;
   padding: 10px; }
@@ -398,18 +402,23 @@ label[for="uploadImg"] {
   color: #333;
   transition-duration: .3s; }
 
-#form-subscribe input {
+.form-group input,
+.form-group textarea,
+.form-group button {
   display: block;
   margin: auto;
   width: 100%;
-  height: 30px;
   border-radius: 3px;
   border: 1px solid lightgray;
   padding-left: 15px;
   margin-bottom: 5px; }
-#form-subscribe [type="submit"] {
+.form-group input, .form-group button {
+  height: 30px; }
+.form-group textarea {
+  height: 100px; }
+.form-group [type="submit"] {
   cursor: pointer; }
-#form-subscribe .g-recaptcha {
+.form-group .g-recaptcha {
   display: table;
   margin: 10px auto;
   transform: scale(1.12); }
@@ -620,6 +629,31 @@ Wall (user/wall)
   -webkit-animation-duration: 0.4s;
   animation-name: animatetop;
   animation-duration: 0.4s; }
+
+.comment {
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  background-color: #fff;
+  position: relative;
+  box-shadow: 0 1px 8px lightgrey;
+  margin: 10px 0; }
+  .comment .comment-author {
+    text-align: left;
+    margin: 0;
+    font-style: italic;
+    padding: 10px;
+    border-bottom: 1px solid lightgray;
+    background-color: #E0EAFC; }
+  .comment .comment-time {
+    margin: 0;
+    color: gray;
+    font-size: 12px;
+    position: absolute;
+    top: 10px;
+    right: 10px; }
+  .comment .comment-content {
+    text-align: left;
+    padding: 0 10px; }
 
 @-webkit-keyframes animatetop {
   from {

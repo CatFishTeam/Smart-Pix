@@ -11,7 +11,6 @@ $config = array(
         "method" => "POST",
         "action" => "#",
         "class" => "form-group",
-        "id" => "form-subscribe",
         "submit" => "Se connecter",
         "submitName" => "login"
     ],

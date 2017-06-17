@@ -25,7 +25,7 @@ class PictureController {
             $v->assign('picture', $picture);
 
             $comments = new Comment();
-            $comments = $comments->getAllBy(['picture_id'=>$id[0],'is_archived'=>0, 'is_published'=>1]);
+            $comments = $comments->getAllBy(['picture_id'=>$id[0],'is_archived'=>0, 'is_published'=>1], 'DESC');
             $v->assign('comments', $comments);
 
             if(isset($_SESSION['user_id'])){

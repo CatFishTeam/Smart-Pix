@@ -10,7 +10,6 @@ $config = array(
         "method" => "POST",
         "action" => "#",
         "class" => "form-group",
-        "id" => "form-subscribe",
         "submit" => "Ajouter mon album",
         "submitName" => "create-album",
     ],
