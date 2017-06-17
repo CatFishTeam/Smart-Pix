@@ -9,7 +9,7 @@ class User extends BaseSql{
     protected $password;
     protected $avatar;
     protected $permission;
-    protected $is_deleted;
+    protected $is_archived;
     protected $status;
     protected $access_token;
     protected $created_at;
@@ -22,7 +22,7 @@ class User extends BaseSql{
     • Check longueur name, etc
     • Check if user not allready exist (email and username)
     */
-    public function __construct($id='DEFAULT',$email=null,$firstname=null,$lastname=null,$username=null,$password=null,$avatar=null,$permission= 0,$is_deleted=0,$created_at='DEFAULT',$updated_at='DEFAULT'){
+    public function __construct($id='DEFAULT',$email=null,$firstname=null,$lastname=null,$username=null,$password=null,$avatar=null,$permission= 0,$is_archived=0,$created_at='DEFAULT',$updated_at='DEFAULT'){
         parent::__construct();
         $this->setEmail($email);
         $this->setFirstname($firstname);
@@ -211,25 +211,25 @@ class User extends BaseSql{
     }
 
     /**
-     * Get the value of Is Deleted
+     * Get the value of Is Archived
      *
      * @return mixed
      */
-    public function getIsDeleted()
+    public function getIsArchived()
     {
-        return $this->is_deleted;
+        return $this->is_archived;
     }
 
     /**
-     * Set the value of Is Deleted
+     * Set the value of Is Archived
      *
-     * @param mixed is_deleted
+     * @param mixed is_archived
      *
      * @return self
      */
-    public function setIsDeleted($is_deleted)
+    public function setIsArchived($is_archived)
     {
-        $this->is_deleted = $is_deleted;
+        $this->is_archived = $is_archived;
 
         return $this;
     }

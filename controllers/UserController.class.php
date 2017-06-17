@@ -300,6 +300,7 @@ class UserController {
     }
 
     public function wallAction($id) {
+        //TODO ??
         $user = new User();
         if (empty($id) && !isset($_SESSION)) {
             $v = new View("index", "frontend");

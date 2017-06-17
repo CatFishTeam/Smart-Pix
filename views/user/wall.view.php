@@ -67,7 +67,7 @@
             <?php endif; ?>
             <div class="timeline-story">
                 <?php
-//                    var_dump($actions);
+                //    var_dump($actions);
                     foreach ($actions as $action):
                         $action_date = strtotime($action['created_at']);
                 ?>

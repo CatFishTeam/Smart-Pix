@@ -1,4 +1,6 @@
 <h1>On affiche : </h1>
+
+PAGE INUTILE DU COUP ???
 <ul>
     <li>Affichage des stats (nombre de pages, nombre de photos etc)
     <li>

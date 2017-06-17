@@ -132,7 +132,7 @@ class BaseSql{
         foreach($search as $key => $value){
             $where[] = $key.'=:'.$key;
         }
-        if($archived = true){
+        if($archived == true){
             $query = $this->db->prepare("UPDATE ".$this->table." SET is_archived = 1 WHERE ".implode(" AND ", $where));
         } else {
             $query = $this->db->prepare("DELETE FROM ".$this->table." WHERE ".implode(" AND ", $where));

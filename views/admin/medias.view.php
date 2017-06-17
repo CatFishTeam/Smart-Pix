@@ -2,12 +2,14 @@
     <!-- TODO
     • Editer un media
     • Mettre en PAGE
-    IDEA
-    • Check en Ajax ! -->
-</ul>
+-->
+
+• Retirer l'ajout de photo Ici ?
+• Remplacer par crud de gestion des images ?
+• Valider les images des utilisateurs ?
 
 <form method="post" id="fileinfo" name="fileinfo">
-    <label>Select a file:</label><br>
+    <label>Choisir un fichier :</label><br>
     <input type="file" name="file">
     Title : <input type="text" name="title">
     Description : <textarea name="description"></textarea>
@@ -22,7 +24,7 @@
     <?php
         foreach($pictures as $picture): ?>
         <div class="imageContainer relative">
-            <a href="#"></a>
+            <a href="/picture/<?php echo $picture['id'] ?>"></a>
             <button class="delete" data-url="<?php echo $picture['url'] ?>"><i class="fa fa-times" aria-hidden="true"></i></button>
             <img src="/public/cdn/images/thumbnails/<?php echo $picture['url'] ?>" alt="<?php echo $picture['title'] ?>">
         </div>
@@ -71,7 +73,7 @@ $(document).ready(function(){
         }).done(function( data ) {
             data = JSON.parse(data);
             console.log(data.msg);
-            $('#output').prepend('<div class="imageContainer relative"><a href="#"></a><button class="delete" data-url="'+data.img+'"><i class="fa fa-times" aria-hidden="true"></i></button><img src="/public/cdn/images/thumbnails/'+data.img+'" /></div>');
+            $('#output').prepend('<div class="imageContainer relative"><a href="/picture'+data.id+'"></a><button class="delete" data-url="'+data.img+'"><i class="fa fa-times" aria-hidden="true"></i></button><img src="/public/cdn/images/thumbnails/'+data.img+'" /></div>');
             $('.loader').remove();
             $('[name="file"]').val('');
             $('[name="title"]').val('');
@@ -115,8 +117,4 @@ $(document).on('click','.delete',function(){
 // }else{
 //     alert("Can't upload! Your browser does not support File API!");
 // } -->
-
-     function submitForm() {
-
-     }
  </script>

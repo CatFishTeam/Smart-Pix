@@ -28,11 +28,14 @@ class PictureController {
             $comments = $comments->getAllBy(['picture_id'=>$id[0],'is_archived'=>0, 'is_published'=>1]);
             $v->assign('comments', $comments);
 
-            $unpublishedComments = new Comment();
-            $unpublishedComments = $unpublishedComments->getAllBy(['picture_id'=>$id[0], 'user_id'=>$_SESSION['user_id'], 'is_archived'=>0, 'is_published'=>0]);
-            if(count($unpublishedComments) > 0){
-                $v->assign('unpublishedComments', count($unpublishedComments));
+            if(isset($_SESSION['user_id'])){
+                $unpublishedComments = new Comment();
+                $unpublishedComments = $unpublishedComments->getAllBy(['picture_id'=>$id[0], 'user_id'=>$_SESSION['user_id'], 'is_archived'=>0, 'is_published'=>0]);
+                if(count($unpublishedComments) > 0){
+                    $v->assign('unpublishedComments', count($unpublishedComments));
+                }
             }
+
         }
     }
 

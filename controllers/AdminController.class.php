@@ -2,9 +2,14 @@
 class AdminController{
 
     public function __construct(){
-        //TODO Middleware ?? !!
         if(!isset($_SESSION['user_id'])){
-            header('Location:'.PATH_RELATIVE.'user/login');
+            header('Location:/user/login');
+        }
+        $user = new User();
+        $user = $user->getOneBy(['id'=>$_SESSION['user_id']]);
+        if($user['permission'] < 2){
+            $v = new View('404', 'frontend');
+            exit();
         }
     }
 
@@ -34,10 +39,12 @@ class AdminController{
     public function mediaAction($id){
         $v = new View('admin.settings','backend');
         $v->assign('id',$id);
-        var_dump($id);
     }
 
+
+    /* ~~~~~ Picture ~~~~~*/
     public function mediasAction(){
+
         $v = new View('admin.medias','backend');
 
         $pictures = new Picture();
@@ -49,11 +56,7 @@ class AdminController{
             $totalWeight += $picture['weight'];
         }
         $v->assign('totalWeight',$totalWeight);
-
-
     }
-
-    //Media Controller ou Ajax Controller ou Ici ?
     public function mediaUploadAction(){
         $upload_dir = '/public/cdn/images/';
         $upload_thumb_dir = '/public/cdn/images/thumbnails/';
@@ -100,15 +103,15 @@ class AdminController{
             $picture->setCreatedAt($nowStr);
             $picture->setUpdatedAt($nowStr);
             $picture->save();
-            var_dump($picture);
+            // var_dump($picture);
 
             //On crée l'image
-            $image = new Imagick($_FILES['file']['tmp_name']);
+            $image = new \Imagick($_FILES['file']['tmp_name']);
             $results = $image->writeImages(PATH_ABSOLUT.$upload_dir.$picture->getUrl(), true);
 
             //On crée la miniature
             //TODO Si possible ? Eviter la répétition ici ?
-            $thumb = new Imagick($_FILES['file']['tmp_name']);
+            $thumb = new \Imagick($_FILES['file']['tmp_name']);
             $thumb->cropThumbnailImage(200, 200);
             $thumb->writeImages(PATH_ABSOLUT.$upload_thumb_dir.$picture->getUrl(), true);
 
@@ -144,10 +147,7 @@ class AdminController{
         }
     }
 
-    public function settingsAction(){
-        $v = new View('admin.settings','backend');
-    }
-
+    /* ~~~~~~ Comments ~~~~~~ */
     public function commentsAction(){
         $v = new View('admin.comments','backend');
 
@@ -172,8 +172,6 @@ class AdminController{
 
     }
 
-
-    /* ~~~~~ Comments ~~~~ */
     //TODO RESPONSE !!
     public function publishCommentAction(){
         $comment = new Comment();
@@ -198,12 +196,30 @@ class AdminController{
         exit();
     }
 
+    /* ~~~~~~ Users ~~~~~~ */
     public function usersAction(){
         $v = new View('admin.users','backend');
         $users = new User();
         $users = $users->getAllBy();
         $v->assign('users',$users);
 
+    }
+    public function userPermissionAction(){
+        $user = new User();
+        $user = $user->populate(['id'=>$_POST['user_id']]);
+        $user->setPermission($_POST['permission']);
+
+        $now = new DateTime("now");
+        $nowStr = $now->format("Y-m-d H:i:s");
+        $user->setUpdatedAt($nowStr);
+
+        $user->save();
+        echo json_encode(array('date' => $nowStr));
+        exit();
+    }
+
+    public function settingsAction(){
+        $v = new View('admin.settings','backend');
     }
 
     public function statsAction(){
