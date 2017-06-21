@@ -32,6 +32,8 @@
                 <?php if($_SESSION['permission'] > 2): ?>
                 <li><a href="/admin/stats"><i class="fa fa-bar-chart" aria-hidden="true"></i><span>Stats</span></a>
                 <li><a href="/admin/users"><i class="fa fa-users" aria-hidden="true"></i><span>Utilisateurs</span></a>
+                <?php endif ?>
+                <?php if($_SESSION['permission'] > 3): ?>
                 <li><a href="/admin/settings"><i class="fa fa-cogs" aria-hidden="true"></i><span>Reglages</span></a>
                 <?php endif ?>
             </ul>

@@ -216,14 +216,15 @@ class AdminController{
     }
     public function userPermissionAction(){
         //For security purpose
-        if($_SESSION['permission'] >= $_POST['permission']){
-            $user->setPermission($_POST['permission']);
-        } else {
+        echo($_SESSION['permission']);
+        if($_SESSION['permission'] < $_POST['permission']){
             //TODO RESPONSE VOUS N'AVEZ PAS LA PERMISSION DE FAIRE CECI
+            echo 'test';
             exit();
         }
         $user = new User();
         $user = $user->populate(['id'=>$_POST['user_id']]);
+        $user->setPermission($_POST['permission']);
 
         $now = new DateTime("now");
         $nowStr = $now->format("Y-m-d H:i:s");
