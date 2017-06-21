@@ -18,7 +18,9 @@
                 <td><a href="mailto:<?php echo $user['email'] ?>"><?php echo $user['email'] ?></a></td>
                 <td>
                     <select name="permission">
+                        <?php if($_SESSION['permission'] > 3): ?>
                         <option data-id="4" <?php echo ($user['permission'] == 4) ? "selected" : ""; ?>>Super Administrateur</option>
+                        <?php endif?>
                         <option data-id="3" <?php echo ($user['permission'] == 3) ? "selected" : ""; ?>>Administrateur</option>
                         <option data-id="2" <?php echo ($user['permission'] == 2) ? "selected" : ""; ?>>Modérateur</option>
                         <option data-id="1" <?php echo ($user['permission'] == 1) ? "selected" : ""; ?>>Membre</option>

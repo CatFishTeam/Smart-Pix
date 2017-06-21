@@ -237,6 +237,7 @@ class UserController {
                     if (!isset($_SESSION)) session_start();
                     $_SESSION['username'] = $username;
                     $_SESSION['user_id'] = $user->getId();
+                    $_SESSION['permission'] = $user->getPermission();
                     $userConnected = true;
                     header("Refresh:1; url=".PATH_RELATIVE, true, 303);
                     $flash .= "<div class='flash flash-success'><div class='flash-cell'>Vous êtes connecté !<br>Vous allez être redirigée...</div></div>";

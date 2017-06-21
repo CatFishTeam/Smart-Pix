@@ -196,36 +196,36 @@ $(document).ready(function() {
     // populatePattern();
 });
 //
-var processing, fullsize_url, id, title;
-$(document).scroll(function(e){
-
-       if (processing)
-           return false;
-
-       if ($(window).scrollTop() >= ($(document).height() - $(window).height())*0.85){
-            processing = true;
-            // $.ajax({
-            //     url: '/media/loadMore',
-            //     data: {index: $('.containerImg img').length + img.length},
-            //     type: 'POST',
-            //     success: function(datas){
-            //         $.each(datas,function(index,data){
-            //             fullsize_url = (data.fullsize_url != null ? data.fullsize_url : "");
-            //             type = (data.type == "0" ? 'video' : 'photo');
-            //             id = (data.id != null ? data.id : "");
-            //             username = (data.username != null ? data.username : "");
-            //             countryCode = (data.countryCode != null ? data.countryCode : "");
-            //             title = (data.title != null ? data.title : "");
-            //             hits = (data.hits != null ? data.hits : "");
-            //             avg_rating = (data.avg_rating != null ? data.avg_rating : "");
-            //             console.log(data);
-            //             img.push([fullsize_url,type+"/"+id,title,username,countryCode,hits,avg_rating]);
-            //         });
-            //         populatePattern();
-            //         processing = false;
-            //     }
-            // })
-       }
-});
+// var processing, fullsize_url, id, title;
+// $(document).scroll(function(e){
+//
+//        if (processing)
+//            return false;
+//
+//        if ($(window).scrollTop() >= ($(document).height() - $(window).height())*0.85){
+//             processing = true;
+//             // $.ajax({
+//             //     url: '/media/loadMore',
+//             //     data: {index: $('.containerImg img').length + img.length},
+//             //     type: 'POST',
+//             //     success: function(datas){
+//             //         $.each(datas,function(index,data){
+//             //             fullsize_url = (data.fullsize_url != null ? data.fullsize_url : "");
+//             //             type = (data.type == "0" ? 'video' : 'photo');
+//             //             id = (data.id != null ? data.id : "");
+//             //             username = (data.username != null ? data.username : "");
+//             //             countryCode = (data.countryCode != null ? data.countryCode : "");
+//             //             title = (data.title != null ? data.title : "");
+//             //             hits = (data.hits != null ? data.hits : "");
+//             //             avg_rating = (data.avg_rating != null ? data.avg_rating : "");
+//             //             console.log(data);
+//             //             img.push([fullsize_url,type+"/"+id,title,username,countryCode,hits,avg_rating]);
+//             //         });
+//             //         populatePattern();
+//             //         processing = false;
+//             //     }
+//             // })
+//        }
+// });
 </script>
 <div id="content" class="massonry"></div>
