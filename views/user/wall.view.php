@@ -57,7 +57,7 @@
     </div>
     <div class="col-8 col-m-12">
         <div class="timeline">
-            <?php if (isset($_SESSION) && $_SESSION['user_id'] == $user->getId()): ?>
+            <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $user->getId()): ?>
             <div class="timeline-actions">
                 <p>
                     <a href="<?php echo PATH_RELATIVE; ?>picture/create" class="btn-timeline-actions">Ajouter une image</a>
@@ -67,7 +67,6 @@
             <?php endif; ?>
             <div class="timeline-story">
                 <?php
-                //    var_dump($actions);
                     foreach ($actions as $action):
                         $action_date = strtotime($action['created_at']);
                 ?>

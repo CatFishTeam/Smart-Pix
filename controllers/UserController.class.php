@@ -133,7 +133,7 @@ class UserController {
                     $user->setCreatedAt($nowStr);
                     $user->setUpdatedAt($nowStr);
                     $user->setPermission(1);
-                    $user->setIsDeleted(0);
+                    $user->setIsArchived(0);
                     $user->setStatus(0);
                     $accessToken = md5(uniqid()."hbfuigs".time());
                     $user->setAccessToken($accessToken);
@@ -233,7 +233,7 @@ class UserController {
             $user = $user->populate(array('username' => $username));
 
             if ($user) {
-                if ($user && password_verify($password, $user->getPassword()) && $user->getStatus() > 0) {
+                if (password_verify($password, $user->getPassword()) && $user->getStatus() > 0) {
                     if (!isset($_SESSION)) session_start();
                     $_SESSION['username'] = $username;
                     $_SESSION['user_id'] = $user->getId();
@@ -266,9 +266,9 @@ class UserController {
     public function forgetPasswordAction() {
         if ($_POST) {
             $flash = '<div class="flash-container">';
-            $email = $_POST['email'];
+            $email = trim(htmlspecialchars($_POST['email']));
             $emailExists = (new User())->getAllBy(['email' => $email]);
-            if ($emailExists) {
+            if (!empty($email) && $emailExists) {
                 $user = new User();
                 $user = $user->populate(['email' => $email]);
                 $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -293,6 +293,8 @@ class UserController {
                 $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
                 mail($to,$subject,$message,$headers);
                 $flash .= "<div class='flash flash-success'><div class='flash-cell'>Un email vous a été envoyé</div></div>";
+            } else {
+                $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Erreur : email introuvable</div></div>";
             }
             $flash .= "</div>";
             echo $flash;

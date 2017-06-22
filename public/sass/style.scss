@@ -396,10 +396,15 @@ label[for="uploadImg"] {
   text-align: left;
 }
 
-.image-center img {
-  margin: auto;
-  display: block;
+.image-center {
+  background-image: url(../image/photography.png);
+  border: 2px dashed #ddddc6;
+  img {
+    margin: auto;
+    display: block;
+  }
 }
+
 
 .italic {
   font-style: italic;
@@ -645,7 +650,7 @@ Wall (user/wall)
   padding: 10px;
   border-radius: 4px;
   background: #fff;
-  background-image: url("../image/photography.png");  /* Background pattern from Subtle Patterns */
+  background-image: url(../image/photography.png);  /* Background pattern from Subtle Patterns */
 
   .story {
     background: rgba(221, 221, 221, 0.3);
@@ -736,6 +741,14 @@ Wall (user/wall)
     padding: 10px;
     border-bottom: 1px solid lightgray;
     background-color: #E0EAFC;
+
+    .comment-avatar {
+      width: 40px;
+      vertical-align: middle;
+      margin: 0 15px 0 0;
+      border-radius: 3px;
+      border: 1px solid lightgray;
+    }
   }
   .comment-time {
     margin: 0;
