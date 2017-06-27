@@ -95,6 +95,7 @@ img{
 }
 
 </style>
+
 <script>
 /* TODO
     * Ratio images
@@ -159,7 +160,7 @@ img{
  }
 
 
-function populatePattern(){
+function populatePattern(img){
     var rand = Math.floor((Math.random() * Object.keys(patterns).length + 1));
     if(rand != $('.rowImg:last').data('index')){
         $('#content').append('<div class="rowImg" data-index="'+rand+'" data-nbimg="'+patterns[rand].nbImg+'"></div>');
@@ -184,13 +185,17 @@ function populatePattern(){
 }
 
 var img = [];
+
 <?php foreach($pictures as $picture): ?>
-  img.push(["/public/cdn/images/<?php echo $picture['url'] ?>", "/picture/<?php echo $picture['id'] ?>","<?php echo $picture['title'] ?>"]);
-<?php endforeach ?>
+    img.push(["/public/cdn/images/<?php echo $picture['url'] ?>", "/picture/<?php echo $picture['id'] ?>","<?php echo $picture['title'] ?>"]);
+    //console.log("1"+img);
+<?php endforeach; ?>
+//console.log("2"+img);
 
 $(document).ready(function() {
-    populatePattern();
-    populatePattern();
+    console.log("3"+img);
+    populatePattern(img);
+    populatePattern(img);
     // populatePattern();
     // populatePattern();
     // populatePattern();

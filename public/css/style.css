@@ -393,7 +393,7 @@ label[for="uploadImg"] {
   margin: 4px 8px;
   padding: 0 50px; }
 
-.btn:hover,
+.btn:not(:disabled):hover,
 .btn-login:hover,
 .btn-signup:hover {
   background: #333;
@@ -618,6 +618,13 @@ Wall (user/wall)
 
 .modal-body {
   padding: 2px 16px; }
+  .modal-body .album-search input {
+    width: 55%; }
+  .modal-body .album-pictures img {
+    max-height: 150px;
+    display: inline-block;
+    border-radius: 3px;
+    background-color: transparent; }
 
 .modal-content {
   position: relative;
@@ -625,7 +632,7 @@ Wall (user/wall)
   margin: auto;
   padding: 0;
   border: 1px solid #888;
-  width: 80%;
+  width: 90%;
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-animation-name: animatetop;
@@ -633,6 +640,7 @@ Wall (user/wall)
   animation-name: animatetop;
   animation-duration: 0.4s; }
 
+/* Comments */
 .comment {
   border: 1px solid lightgray;
   border-radius: 3px;
