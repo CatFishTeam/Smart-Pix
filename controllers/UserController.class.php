@@ -133,7 +133,7 @@ class UserController {
                     $user->setCreatedAt($nowStr);
                     $user->setUpdatedAt($nowStr);
                     $user->setPermission(1);
-                    $user->setIsDeleted(0);
+                    $user->setIsArchived(0);
                     $user->setStatus(0);
                     $accessToken = md5(uniqid()."hbfuigs".time());
                     $user->setAccessToken($accessToken);
@@ -209,6 +209,7 @@ class UserController {
             if (!isset($_SESSION)) session_start();
             $_SESSION['username'] = $username;
             $_SESSION['user_id'] = $user->getId();
+            $_SESSION['permission'] = $user->getPermission();
             $flash .= "<div class='flash flash-success'><div class='flash-cell'>Inscription confirmée !<br>Vous allez être redirigé...</div></div>";
             header( "Refresh:3; url=".PATH_RELATIVE, true, 303);
         } elseif(!empty($user) && $user->getStatus() == 1) {

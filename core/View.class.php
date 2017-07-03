@@ -47,6 +47,7 @@ class View{
     }
 
     function __destruct(){
+        phpinfo();
         extract($this->data);
         include "views/".$this->template.".tpl.php";
     }
