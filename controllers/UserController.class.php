@@ -234,7 +234,7 @@ class UserController {
             $user = $user->populate(array('username' => $username));
 
             if ($user) {
-                if ($user && password_verify($password, $user->getPassword()) && $user->getStatus() > 0) {
+                if (password_verify($password, $user->getPassword()) && $user->getStatus() > 0) {
                     if (!isset($_SESSION)) session_start();
                     $_SESSION['username'] = $username;
                     $_SESSION['user_id'] = $user->getId();
@@ -261,15 +261,16 @@ class UserController {
     public function logoutAction() {
         session_unset();
         session_destroy();
-        $v = new View('index', 'frontend');
+        //$v = new View('index', 'frontend');
+        header("Location: /");
     }
 
     public function forgetPasswordAction() {
         if ($_POST) {
             $flash = '<div class="flash-container">';
-            $email = $_POST['email'];
+            $email = trim(htmlspecialchars($_POST['email']));
             $emailExists = (new User())->getAllBy(['email' => $email]);
-            if ($emailExists) {
+            if (!empty($email) && $emailExists) {
                 $user = new User();
                 $user = $user->populate(['email' => $email]);
                 $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -281,19 +282,33 @@ class UserController {
                 $user->setPassword($tempPwd);
                 $user->save();
                 // Envoi du mail :
-                $to = $email;
-                $from = "Smart-Pix <no-reply@smart-pix.fr>";
-                $subject = "Mot de passe temporaire Smart-Pix";
-                $message = "<img src='http://smart-pix.fr/public/image/logo.png'>".
+                require './vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
+
+                $mail = new PHPMailer(); // create a new object
+                $mail->IsSMTP(); // enable SMTP
+                $mail->CharSet = 'UTF-8';
+                $mail->SMTPAuth = true; // authentication enabled
+                $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
+                $mail->Host = "smtp.gmail.com";
+                $mail->Port = 465; // or 587
+                $mail->IsHTML(true);
+                $mail->Username = "noreply.smartpix@gmail.com";
+                $mail->Password = MAILER_PWD;
+                $mail->SetFrom("no-reply@smart-pix.fr");
+                $mail->Subject = "Mot de passe temporaire Smart-Pix";
+                $mail->Body = "<img src='http://smart-pix.fr/public/image/logo.png' width='100'>".
                     "<br>Bonjour ".$user->getUsername().
                     "<br><br>Votre mot de passe temporaire : ".$tempPwd.
-                    "<br><br>Cordialement,<br>L'équipe Smart-Pix"
-                ;
-                $headers = "From:" . $from . "\r\n";
-                $headers .= "MIME-Version: 1.0\r\n";
-                $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-                mail($to,$subject,$message,$headers);
+                    "<br><br>Cordialement,<br>L'équipe Smart-Pix";
+                $mail->AddAddress($email);
+
+                if(!$mail->Send()) {
+                    echo "Mailer Error: " . $mail->ErrorInfo;
+                }
+
                 $flash .= "<div class='flash flash-success'><div class='flash-cell'>Un email vous a été envoyé</div></div>";
+            } else {
+                $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Erreur : email introuvable </div></div>";
             }
             $flash .= "</div>";
             echo $flash;

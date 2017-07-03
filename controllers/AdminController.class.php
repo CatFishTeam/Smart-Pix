@@ -6,8 +6,9 @@ class AdminController{
             header('Location:/user/login');
         }
         if($_SESSION['permission'] < 2){
-            $v = new View('404', 'frontend');
-            exit();
+//            $v = new View('404', 'frontend');
+//            exit();
+            header('Location: /');
         }
     }
 

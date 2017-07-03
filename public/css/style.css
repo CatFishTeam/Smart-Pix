@@ -360,9 +360,12 @@ label[for="uploadImg"] {
 .align-left * {
   text-align: left; }
 
-.image-center img {
-  margin: auto;
-  display: block; }
+.image-center {
+  background-image: url(../image/photography.png);
+  border: 2px dashed #ddddc6; }
+  .image-center img {
+    margin: auto;
+    display: block; }
 
 .italic {
   font-style: italic; }
@@ -390,7 +393,7 @@ label[for="uploadImg"] {
   margin: 4px 8px;
   padding: 0 50px; }
 
-.btn:hover,
+.btn:not(:disabled):hover,
 .btn-login:hover,
 .btn-signup:hover {
   background: #333;
@@ -558,7 +561,7 @@ Wall (user/wall)
   padding: 10px;
   border-radius: 4px;
   background: #fff;
-  background-image: url("../image/photography.png");
+  background-image: url(../image/photography.png);
   /* Background pattern from Subtle Patterns */ }
   .timeline-story .story {
     background: rgba(221, 221, 221, 0.3);
@@ -615,6 +618,13 @@ Wall (user/wall)
 
 .modal-body {
   padding: 2px 16px; }
+  .modal-body .album-search input {
+    width: 55%; }
+  .modal-body .album-pictures img {
+    max-height: 150px;
+    display: inline-block;
+    border-radius: 3px;
+    background-color: transparent; }
 
 .modal-content {
   position: relative;
@@ -622,7 +632,7 @@ Wall (user/wall)
   margin: auto;
   padding: 0;
   border: 1px solid #888;
-  width: 80%;
+  width: 90%;
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-animation-name: animatetop;
@@ -630,6 +640,7 @@ Wall (user/wall)
   animation-name: animatetop;
   animation-duration: 0.4s; }
 
+/* Comments */
 .comment {
   border: 1px solid lightgray;
   border-radius: 3px;
@@ -644,6 +655,12 @@ Wall (user/wall)
     padding: 10px;
     border-bottom: 1px solid lightgray;
     background-color: #E0EAFC; }
+    .comment .comment-author .comment-avatar {
+      width: 40px;
+      vertical-align: middle;
+      margin: 0 15px 0 0;
+      border-radius: 3px;
+      border: 1px solid lightgray; }
   .comment .comment-time {
     margin: 0;
     color: gray;

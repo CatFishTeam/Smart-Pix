@@ -98,6 +98,30 @@ class AlbumController{
                 $album->setUserId($_SESSION['user_id']);
                 $album->setTitle($title);
                 $album->setDescription($description);
+                if (isset($_FILES["thumbnail_url"])) {
+                    if ($_FILES['thumbnail_url']['error'] > 0) {
+                        if ($_FILES['thumbnail_url']['error'] == 1 || $_FILES['thumbnail_url']['error'] == 2)
+                            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Le fichier d'image est trop volumineux (max: 5 Mo)</div></div>";
+                        elseif ($_FILES['thumbnail_url']['error'] != 4)
+                            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Le fichier d'image a rencontré une erreur.</div></div>";
+                    } else {
+                        $fileInfo = pathinfo($_FILES['thumbnail_url']['name']);
+                        $ext = pathinfo($_FILES['thumbnail_url']['name'], PATHINFO_EXTENSION);
+                        if (
+                            strtolower($fileInfo["extension"]) == "jpg" ||
+                            strtolower($fileInfo["extension"]) == "jpeg" ||
+                            strtolower($fileInfo["extension"]) == "png" ||
+                            strtolower($fileInfo["extension"]) == "gif"
+                        ) {
+                            $album->setThumbnailUrl($ext);
+                            move_uploaded_file($_FILES['thumbnail_url']['tmp_name'], "./public/cdn/images/" . $album->getThumbnailUrl());
+
+                            $flash .= "<div class='flash flash-success'><div class='flash-cell'>L'image de couverture a été ajoutée</div></div>";
+                        } else {
+                            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Format d'image invalide<br>(essayez: .jpg, .jpeg, .png ou .gif)</div></div>";
+                        }
+                    }
+                }
                 $album->setBackground(null);
                 $album->setDisposition(null);
                 $album->setIsPresentation(0);
