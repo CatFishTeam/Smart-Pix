@@ -8,4 +8,8 @@ class IndexController{
         var_dump($pictures);
     }
 
+    public function test(){
+        echo 'test';
+    }
+
 }
