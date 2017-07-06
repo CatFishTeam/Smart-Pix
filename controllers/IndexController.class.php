@@ -5,7 +5,7 @@ class IndexController{
         $pictures = new Picture();
         $pictures = $pictures->getAllBy([], 'DESC');
         $v->assign('pictures', $pictures);
-        var_dump($pictures);
+//        var_dump($pictures);
     }
 
 }

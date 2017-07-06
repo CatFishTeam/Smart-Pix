@@ -23,7 +23,14 @@
                 ?>
 
                 <div class="comment">
-                    <p class="comment-author"><img src="/public/cdn/images/avatars/<?php echo $commentAuthor->getAvatar(); ?>" class="comment-avatar" alt="Avatar de <?php echo $commentAuthor->getUsername(); ?>"><a href="/user/wall/<?php echo $commentAuthor->getId(); ?>"><?php echo $commentAuthor->getUsername(); ?></a></p>
+                    <p class="comment-author">
+                        <?php if (!empty($commentAuthor->getAvatar())): ?>
+                            <img src="/public/cdn/images/avatars/<?php echo $commentAuthor->getAvatar(); ?>" class="comment-avatar" alt="Avatar de <?php echo $commentAuthor->getUsername(); ?>">
+                        <?php else: ?>
+                            <i class="fa fa-user comment-no-avatar" aria-hidden="true"></i>
+                        <?php endif; ?>
+                        <a href="/user/wall/<?php echo $commentAuthor->getId(); ?>"><?php echo $commentAuthor->getUsername(); ?></a>
+                    </p>
                     <p class="comment-time">le <?php echo date("d/m/Y", $createdAt); ?> à <?php echo date("G:i:s", $createdAt); ?></p>
                     <p class="comment-content"><?php echo $comment['content']; ?></p>
                 </div>
