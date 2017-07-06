@@ -38,11 +38,15 @@ class Route{
     }
 
     public function call(){
-        //TODO CHECK IF CONTROLLER EXIST
+        //TODO CHECK IF CONTROLLER EXIST CHECK IF METHOD EXIST
         if(is_string($this->callable)){
             $params = explode('@', $this->callable);
-            $controller =  "controllers".DS.$params[0]."Controller.class.php";
+            include "controllers".DS.$params[0]."Controller.class.php";
+            $controller = $params[0]."Controller";
             $controller = new $controller();
+
+            return call_user_func_array([$controller, $params[1]], $this->matches);
+
             return $controller->$params[1]();
         } else {
             return call_user_func_array($this->callable, $this->matches);

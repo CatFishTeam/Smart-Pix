@@ -21,6 +21,6 @@ $router->get('/posts', function(){ echo 'Yolo'; });
 
 $router->get('/posts/:id-:slug', function($id, $slug) use ($router) { echo $router->url('posts.show', ['id' => 1, 'slug' => 'salut-les-gens']); })->with('id', '[0-9]+')->with('slug', '[a-z\-0-9]+');
 
-$router->get('/test', "Index@test");
+$router->get('/test/:id', "Index@test");
 
 $router->run();
