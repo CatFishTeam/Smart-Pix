@@ -12,14 +12,14 @@ spl_autoload_register(function ($class) {
     }
 });
 
-// // $routing = new Routing();
+
 $router = new Router($_GET['url']);
-//
+//Les plus précises en premier
 $router->get('/', function(){ echo 'Yolo'; });
 
 $router->get('/posts', function(){ echo 'Yolo'; });
 
-$router->get('/posts/:id-:slug', function($id, $slug) use ($router) { echo $router->url('posts.show', ['id' => 1, 'slug' => 'salut-les-gens']); })->with('id', '[0-9]+')->with('slug', '[a-z\-0-9]+');
+// $router->get('/posts/:id-:slug')->with('id', '[0-9]+')->with('slug', '[a-z\-0-9]+');
 
 $router->get('/test/:id', "Index@test");
 
