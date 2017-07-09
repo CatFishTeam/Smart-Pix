@@ -27,13 +27,13 @@
                     <section class="col-4 col-m-12 m-center">
                         <!--    Non connecté :      -->
                         <?php if(!isset($_SESSION['username'])): ?>
-                            <a href="<?php echo PATH_RELATIVE; ?>user/login" class="btn btn-login">Connexion</a>
-                            <a href="<?php echo PATH_RELATIVE; ?>user/signup" class="btn btn-signup">Inscription</a>
+                            <a href="<?php echo PATH_RELATIVE; ?>login" class="btn btn-login">Connexion</a>
+                            <a href="<?php echo PATH_RELATIVE; ?>signup" class="btn btn-signup">Inscription</a>
                             <!--    Connecté :          -->
                         <?php else: ?>
                             <a href="<?php echo PATH_RELATIVE; ?>user/wall" class="btn btn-login"><i class="fa fa-camera-retro" aria-hidden="true"></i> <?php echo $_SESSION['username']; ?></a>
                             <a href="<?php echo PATH_RELATIVE; ?>user" class="btn btn-login"><i class="fa fa-user" aria-hidden="true"></i> Profil</a>
-                            <a href="<?php echo PATH_RELATIVE; ?>user/logout" class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                            <a href="<?php echo PATH_RELATIVE; ?>logout" class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
                         <?php endif; ?>
                     </section>
                 </div>

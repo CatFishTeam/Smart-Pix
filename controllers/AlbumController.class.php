@@ -61,28 +61,6 @@ class AlbumController{
         exit;
     }
 
-    public function indexAction($id) {
-        $v = new View('album.index', 'frontend');
-        if (empty($id)) {
-            // Listing des albums
-
-        } else {
-            // Affichage d'un album avec $id
-            $album = new Album();
-            $album = $album->populate(['id' => $id[0]]);
-            if (!empty($album)) {
-                $author = new User();
-                $author = $author->populate(['id' => $album->getUserId()]);
-                $pictures = new Picture();
-                $pictures = $pictures->getAllBy(['user_id' => $author->getId()]);
-                $v->assign('author', $author);
-                $v->assign('pictures', $pictures);
-                $v->assign('title', $album->getTitle());
-            }
-            $v->assign('album', $album);
-        }
-    }
-
     public function createAction() {
         $v = new View("album.create", "frontend");
         $v->assign('title', "Ajout d'un album");

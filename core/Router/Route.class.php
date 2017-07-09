@@ -38,13 +38,29 @@ class Route{
     }
 
     public function call(){
-        //TODO CHECK IF CONTROLLER EXIST CHECK IF METHOD EXIST
         if(is_string($this->callable)){
-            $params = explode('@', $this->callable);
-            include "controllers".DS.$params[0]."Controller.class.php";
-            $controller = $params[0]."Controller";
-            $controller = new $controller();
+            Helpers::createLogExist();
 
+            $params = explode('@', $this->callable);
+            $controller = $params[0]."Controller";
+            $controllerPath = "controllers".DS.$controller.".class.php";
+
+            if( !file_exists($controllerPath) ){
+                Helpers::log("Le controller ".$params[0]." n'existe pas");
+                throw new RouterException("Le controller ".$params[0]." n'existe pas");
+            }
+            include $controllerPath;
+            //Est ce que l'instanciation est possible
+            if( !class_exists($controller) ){
+                Helpers::log("L'instanciation de  ".$params[0]." n'est pas possible");
+                throw new RouterException("L'instanciation de  ".$params[0]." n'est pas possible");
+            }
+            $controller = new $controller();
+            //Est ce que la méthode existe à travers l'objet
+            if( !method_exists($controller, $params[1]) ){
+                Helpers::log("La méthode ". $params[1]." n'éxiste pas dans ". $params[0]);
+                throw new RouterException("La méthode ". $params[1]." n'éxiste pas dans ". $params[0]);
+            }
             return call_user_func_array([$controller, $params[1]], $this->matches);
 
             return $controller->$params[1]();
