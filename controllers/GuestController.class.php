@@ -92,4 +92,81 @@ class GuestController{
         $v = new View('user.signup', 'frontend');
         $v->assign('title', "Inscription");
     }
+
+    public function activate($token) {
+        $flash = '<div class="flash-container">';
+        $user = new User();
+        $user = $user->populate(array('access_token' => $token[0]));
+
+        if (!empty($user) && $user->getStatus() == 0) {
+            $user->setStatus(1);
+            $user->save();
+            $username = $user->getUsername();
+            $password = $user->getPassword();
+            if (!isset($_SESSION)) session_start();
+            $_SESSION['username'] = $username;
+            $_SESSION['user_id'] = $user->getId();
+            $_SESSION['permission'] = $user->getPermission();
+            $flash .= "<div class='flash flash-success'><div class='flash-cell'>Inscription confirmée !<br>Vous allez être redirigé...</div></div>";
+            header( "Refresh:3; url=".PATH_RELATIVE, true, 303);
+        } elseif(!empty($user) && $user->getStatus() == 1) {
+            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Inscription déjà validée<br>Vous allez être redirigée vers la connexion...</div></div>";
+            header( "Refresh:3; url=".PATH_RELATIVE."user/login", true, 303);
+        } else {
+            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Erreur lors de la confirmation</div></div>";
+        }
+        $flash .= "</div>";
+        echo $flash;
+        $v = new View('user.activate', 'frontend');
+        $v->assign('title', "Activation du compte");
+    }
+
+    public function forgetPassword() {
+            $flash = '<div class="flash-container">';
+            $email = trim(htmlspecialchars($_POST['email']));
+            $emailExists = (new User())->getAllBy(['email' => $email]);
+            if (!empty($email) && $emailExists) {
+                $user = new User();
+                $user = $user->populate(['email' => $email]);
+                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                $charactersLength = strlen($characters);
+                $tempPwd = '';
+                for ($i = 0; $i < 8; $i++) {
+                    $tempPwd .= $characters[rand(0, $charactersLength - 1)];
+                }
+                $user->setPassword($tempPwd);
+                $user->save();
+                // Envoi du mail :
+                require './vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
+
+                $mail = new PHPMailer(); // create a new object
+                $mail->IsSMTP(); // enable SMTP
+                $mail->CharSet = 'UTF-8';
+                $mail->SMTPAuth = true; // authentication enabled
+                $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
+                $mail->Host = "smtp.gmail.com";
+                $mail->Port = 465; // or 587
+                $mail->IsHTML(true);
+                $mail->Username = "noreply.smartpix@gmail.com";
+                $mail->Password = MAILER_PWD;
+                $mail->SetFrom("no-reply@smart-pix.fr");
+                $mail->Subject = "Mot de passe temporaire Smart-Pix";
+                $mail->Body = "<img src='http://smart-pix.fr/public/image/logo.png' width='100'>".
+                    "<br>Bonjour ".$user->getUsername().
+                    "<br><br>Votre mot de passe temporaire : ".$tempPwd.
+                    "<br><br>Cordialement,<br>L'équipe Smart-Pix";
+                $mail->AddAddress($email);
+
+                if(!$mail->Send()) {
+                    echo "Mailer Error: " . $mail->ErrorInfo;
+                }
+
+                $flash .= "<div class='flash flash-success'><div class='flash-cell'>Un email vous a été envoyé</div></div>";
+            } else {
+                $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Erreur : email introuvable </div></div>";
+            }
+            $flash .= "</div>";
+            echo $flash;
+        $v = new View('user.forgetPassword', 'frontend');
+    }
 }
