@@ -8,7 +8,7 @@
 $config = array(
     "options" => [
         "method" => "POST",
-        "action" => "#",
+        "action" => "",
         "class" => "form-group",
         "submit" => "S'inscrire",
         "submitName" => "signup",

@@ -31,7 +31,6 @@
                         </p>
                     </div>
                 </div>
-            </div>
             <?php endif; ?>
         </div>
     <?php elseif (isset($album) && empty($album)): ?>
@@ -53,22 +52,18 @@
         var btn = document.getElementById("albumBtn");
         var span = document.getElementsByClassName("close")[0];
         var nbSelected = 0;
-
         btn.onclick = function() {
             modal.style.display = "block";
             input.focus();
         };
-
         span.onclick = function() {
             modal.style.display = "none";
         };
-
         window.onclick = function(e) {
             if (e.target == modal) {
                 modal.style.display = "none";
             }
         };
-
         $('.album-search input').on('input', function(e) {
             var img = $('.album-pictures img');
             $.each(img, function() {
@@ -85,7 +80,6 @@
                     $(this).css("display", "inline-block");
             });
         });
-
         $('body').on('click', '.album-pictures img', function(e) {
             var img = $(this);
             img.toggleClass("selected");
@@ -98,7 +92,6 @@
                 img.css("border", "0");
                 img.css("background-color", "transparent");
             }
-
             if (nbSelected < 1) {
                 $('.add-album-pictures').text("Aucune image sélectionnée");
                 $('.add-album-pictures').prop('disabled', true);
@@ -111,9 +104,6 @@
                 $('.add-album-pictures').text("Ajouter les " + nbSelected + " images à l'album");
                 $('.add-album-pictures').prop('disabled', false);
             }
-
         });
     });
-
-
 </script>

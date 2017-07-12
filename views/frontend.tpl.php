@@ -12,6 +12,23 @@
           src="https://code.jquery.com/jquery-3.2.1.min.js"
           integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
           crossorigin="anonymous"></script>
+        <script>
+            $('.flash-cell').on('click',function(){
+            	$(this).fadeOut();
+            });
+            // var $messages = $('.flash-cell');
+            // var i=0;
+            //
+            // (function fadeFlashMessage($collection, index){
+            //     $collection.eq(index).fadeIn(1000, function(){
+            //         fadeFlashMessage($collection, index++);
+            //     }).delay('4000').fadeOut();
+            // })($messages, i);
+            //TODO DELAY is not overridable + Test to set up this (just above)
+            $('.flash-cell').each(function(){
+                $(this).delay('1000').fadeIn().delay('4000').fadeOut();
+            });
+        </script>
     </head>
     <body>
         <header>
@@ -27,13 +44,13 @@
                     <section class="col-4 col-m-12 m-center">
                         <!--    Non connecté :      -->
                         <?php if(!isset($_SESSION['username'])): ?>
-                            <a href="<?php echo PATH_RELATIVE; ?>user/login" class="btn btn-login">Connexion</a>
-                            <a href="<?php echo PATH_RELATIVE; ?>user/signup" class="btn btn-signup">Inscription</a>
+                            <a href="<?php echo PATH_RELATIVE; ?>login" class="btn btn-login">Connexion</a>
+                            <a href="<?php echo PATH_RELATIVE; ?>signup" class="btn btn-signup">Inscription</a>
                             <!--    Connecté :          -->
                         <?php else: ?>
-                            <a href="<?php echo PATH_RELATIVE; ?>user/wall" class="btn btn-login"><i class="fa fa-camera-retro" aria-hidden="true"></i> <?php echo $_SESSION['username']; ?></a>
-                            <a href="<?php echo PATH_RELATIVE; ?>user" class="btn btn-login"><i class="fa fa-user" aria-hidden="true"></i> Profil</a>
-                            <a href="<?php echo PATH_RELATIVE; ?>user/logout" class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                            <a href="<?php echo PATH_RELATIVE; ?>user/<?php  echo $_SESSION['user_id']; ?>" class="btn btn-login"><i class="fa fa-camera-retro" aria-hidden="true"></i> <?php echo $_SESSION['username']; ?></a>
+                            <a href="<?php echo PATH_RELATIVE; ?>profile" class="btn btn-login"><i class="fa fa-user" aria-hidden="true"></i> Profil</a>
+                            <a href="<?php echo PATH_RELATIVE; ?>logout" class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
                         <?php endif; ?>
                     </section>
                 </div>

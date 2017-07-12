@@ -7,7 +7,7 @@
             <div class="col-3 col-m-12 align-left">
                 <!-- Info photo & photographe -->
                 <h2><?php echo $picture->getTitle(); ?></h2>
-                <h3 class="italic">Par <a href="<?php echo PATH_RELATIVE; ?>user/wall/<?php echo $author->getId(); ?>"><?php echo $author->getUsername(); ?></a></h3>
+                <h3 class="italic">Par <a href="<?php echo PATH_RELATIVE; ?>user/<?php echo $author->getId(); ?>"><?php echo $author->getUsername(); ?></a></h3>
                 <p><?php echo $picture->getDescription(); ?></p>
             </div>
 </div>
@@ -46,7 +46,7 @@
     <?php } else { ?>
         <div class="col-2"></div>
         <div class="col-8">
-            <form action="/comment/add" method="post" class="form-group">
+            <form action="/add-comment" method="post" class="form-group">
                 <input type="hidden" name="id" value="<?php echo $id[0] ?>" />
                 <textarea name="content" required="required"></textarea>
                 <button type="submit">Envoyer</button>

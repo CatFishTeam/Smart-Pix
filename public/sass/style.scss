@@ -89,7 +89,7 @@ table {
 .col-m-11 {width: 91.66%;}
 .col-m-12 {width: 100%;}
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-device-width: 768px) {
   /* For desktop: */
   .col-1 {width: 8.33%;}
   .col-2 {width: 16.66%;}
@@ -535,13 +535,19 @@ label[for="uploadImg"] {
     color: #fff;
     font-family: 'Montserrat', sans-serif;
     .flash-cell {
-      display: table-cell;
+      cursor: pointer;
+      display: none;
+    //   display: table-cell;
+      opacity: 0.8;
       padding: 15px;
       vertical-align: middle;
       border: 1px solid transparent;
-      border-width: 0 1px 4px 1px;
+    //   border-width: 0 1px 4px 1px;
       border-radius: 4px;
       box-shadow: 1px 1px 10px 2px lightgrey;
+      &:hover{
+          opacity: 1;
+      }
     }
   }
 
@@ -551,6 +557,10 @@ label[for="uploadImg"] {
   }
 
   .flash-warning .flash-cell {
+      background-color: rgb(236, 150, 21);
+  }
+
+  .flash-error .flash-cell {
     background-color: #ff4136;
     border-color: #ff1103;
   }

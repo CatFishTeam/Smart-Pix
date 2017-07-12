@@ -3,22 +3,21 @@ class AdminController{
 
     public function __construct(){
         if(!isset($_SESSION['user_id'])){
-            header('Location:/user/login');
+            $_SESSION['messages']['warning'][] = "Seuls les administrateurs ont accès a cette partie du site !";
+            header('Location:/login');
         }
         if($_SESSION['permission'] < 2){
-//            $v = new View('404', 'frontend');
-//            exit();
             header('Location: /');
         }
     }
 
-/* ~~~~~ MODERATOR ~~~~~ */
-    public function indexAction(){
+    /* ~~~~~ MODERATOR ~~~~~ */
+    public function index(){
         $v = new View('admin.index','backend');
     }
 
     /* ~~~~~~ Comments ~~~~~~ */
-    public function commentsAction(){
+    public function comments(){
         $v = new View('admin.comments','backend');
 
         $pictures = new Picture();
@@ -42,7 +41,7 @@ class AdminController{
 
     }
     //TODO RESPONSE !!
-    public function publishCommentAction(){
+    public function publishComment(){
         $comment = new Comment();
         $comment = $comment->populate(['id' => $_POST['id']]);
         $comment->setIsPublished(1);
@@ -50,7 +49,7 @@ class AdminController{
         echo "succes";
         exit();
     }
-    public function unpublishCommentAction(){
+    public function unpublishComment(){
         $comment = new Comment();
         $comment = $comment->populate(['id' => $_POST['id']]);
         $comment->setIsPublished(0);
@@ -58,7 +57,7 @@ class AdminController{
         echo "succes";
         exit();
     }
-    public function deleteCommentAction(){
+    public function deleteComment(){
         $comment = new Comment();
         $comment->deleteOneBy(['id'=>$_POST['id']], true);
         echo "succes";
@@ -66,7 +65,7 @@ class AdminController{
     }
 
 /* ~~~~~ ADMINISTRATOR ~~~~ */
-    public function profilAction(){
+    public function profil(){
         if($_SESSION['permission'] < 3){
             header('Location:\admin');
         }
@@ -75,7 +74,7 @@ class AdminController{
     }
 
     /* ~~~~~ Picture ~~~~~*/
-    public function mediasAction(){
+    public function medias(){
         if($_SESSION['permission'] < 3){
             header('Location:\admin');
         }
@@ -91,7 +90,7 @@ class AdminController{
         }
         $v->assign('totalWeight',$totalWeight);
     }
-    public function mediaUploadAction(){
+    public function mediaUpload(){
         if($_SESSION['permission'] < 3){
             //TODO RESPONSE Vous n'avez pas le droit de ...
             exit();
@@ -164,7 +163,7 @@ class AdminController{
         return $response;
         exit();
     }
-    public function mediaDeleteAction(){
+    public function mediaDelete(){
         if($_SESSION['permission'] < 3){
             //TODO RESPONSE Vous n'avez pas le droit de ...
             exit();
@@ -189,7 +188,7 @@ class AdminController{
         }
     }
 
-    public function albumsAction(){
+    public function albums(){
         if($_SESSION['permission'] < 3){
             header('Location:\admin');
         }
@@ -205,7 +204,7 @@ class AdminController{
     }
 
     /* ~~~~~~ Users ~~~~~~ */
-    public function usersAction(){
+    public function users(){
         if($_SESSION['permission'] < 3){
             header('Location:/admin');
         }
@@ -215,7 +214,7 @@ class AdminController{
         $v->assign('users',$users);
 
     }
-    public function userPermissionAction(){
+    public function userPermission(){
         //For security purpose
         echo($_SESSION['permission']);
         if($_SESSION['permission'] < $_POST['permission']){
@@ -236,7 +235,7 @@ class AdminController{
         exit();
     }
 
-    public function statsAction(){
+    public function stats(){
         if($_SESSION['permission'] < 3){
             header('Location:/admin');
         }
@@ -246,7 +245,7 @@ class AdminController{
 /* ~~~~ SUPER ADMINISTRATOR ~~~~~~ */
 
     //Change background / name of the site... (those kind of actions ?)
-    public function settingsAction(){
+    public function settings(){
         if($_SESSION['permission'] < 4){
             header('Location:/admin');
         }
@@ -255,7 +254,7 @@ class AdminController{
 
 
 
-    // public function phpinfoAction(){
+    // public function phpinfo(){
     //     phpinfo();
     // }
 }

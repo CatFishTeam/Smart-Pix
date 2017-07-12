@@ -7,7 +7,7 @@
                 <?php else: ?>
                     <p>Aucun avatar sélectionné</p>
                 <?php endif; ?>
-                <a href="<?php echo PATH_RELATIVE; ?>user"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
+                <a href="<?php echo PATH_RELATIVE; ?>profile"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
             </div>
             <div class="bio-info">
                 <p class="username"><?php echo $user->getUsername(); ?></p>
@@ -60,8 +60,8 @@
             <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $user->getId()): ?>
             <div class="timeline-actions">
                 <p>
-                    <a href="<?php echo PATH_RELATIVE; ?>picture/create" class="btn-timeline-actions">Ajouter une image</a>
-                    <a href="<?php echo PATH_RELATIVE; ?>album/create" class="btn-timeline-actions">Ajouter un album</a>
+                    <a href="<?php echo PATH_RELATIVE; ?>add-picture" class="btn-timeline-actions">Ajouter une image</a>
+                    <a href="<?php echo PATH_RELATIVE; ?>add-album" class="btn-timeline-actions">Ajouter un album</a>
                 </p>
             </div>
             <?php endif; ?>

@@ -1,4 +1,4 @@
-<?php if (isset($album) && !empty($album)): ?>
+<?php if (isset($album) && !empty($album) && $_SESSION['user_id'] == $album->getUserId()): ?>
 <h1>Editer l'album : <a href="<?php echo PATH_RELATIVE; ?>album/<?php echo $album->getId(); ?>"><?php echo $album->getTitle(); ?></a></h1>
 
 <?php
@@ -54,5 +54,5 @@ $config = array(
     </div>
 </div>
 <?php else: ?>
-    <p>L'album n'a pas été trouvé.</p>
+    <p>L'album n'a pas été trouvé ou vous n'êtes pas autorisé à voir cette page.</p>
 <?php endif; ?>
