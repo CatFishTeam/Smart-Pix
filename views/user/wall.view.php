@@ -60,8 +60,8 @@
             <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $user->getId()): ?>
             <div class="timeline-actions">
                 <p>
-                    <a href="<?php echo PATH_RELATIVE; ?>picture/create" class="btn-timeline-actions">Ajouter une image</a>
-                    <a href="<?php echo PATH_RELATIVE; ?>album/create" class="btn-timeline-actions">Ajouter un album</a>
+                    <a href="<?php echo PATH_RELATIVE; ?>add-picture" class="btn-timeline-actions">Ajouter une image</a>
+                    <a href="<?php echo PATH_RELATIVE; ?>add-album" class="btn-timeline-actions">Ajouter un album</a>
                 </p>
             </div>
             <?php endif; ?>

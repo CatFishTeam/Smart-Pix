@@ -9,7 +9,7 @@
             <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $author->getId()): ?>
                 <p>
                     <button id="albumBtn" class="btn">Ajouter des images à l'album</button>
-                    <a href="<?php echo PATH_RELATIVE; ?>album/edit/<?php echo $album->getId(); ?>" class="btn">Editer l'album</a>
+                    <a href="<?php echo PATH_RELATIVE; ?>edit-album/<?php echo $album->getId(); ?>" class="btn">Editer l'album</a>
                 </p>
                 <div id="albumModal" class="modal">
                     <div class="modal-content">

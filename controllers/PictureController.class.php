@@ -5,7 +5,7 @@ class PictureController {
     /*
      * Ajout d'une image par un user (/picture/create)
      */
-    public function createAction() {
+    public function add() {
         $v = new View("picture.create", "frontend");
         $v->assign('title', "Ajout d'une image");
         if ($_POST) {

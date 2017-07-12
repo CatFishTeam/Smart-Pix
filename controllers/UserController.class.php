@@ -103,7 +103,7 @@ class UserController {
             $v = new View('index', 'frontend');
         }
     }
-    
+
     public function picturesAction($id) {
         $v = new View('user.pictures', 'frontend');
         if (!empty($id)) {
