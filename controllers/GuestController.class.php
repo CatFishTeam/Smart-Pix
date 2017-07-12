@@ -89,5 +89,7 @@ class GuestController{
         }
         $flash .= "</div>";
         echo $flash;
+        $v = new View('user.signup', 'frontend');
+        $v->assign('title', "Inscription");
     }
 }
