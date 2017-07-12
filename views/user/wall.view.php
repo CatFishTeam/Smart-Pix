@@ -7,7 +7,7 @@
                 <?php else: ?>
                     <p>Aucun avatar sélectionné</p>
                 <?php endif; ?>
-                <a href="<?php echo PATH_RELATIVE; ?>user"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
+                <a href="<?php echo PATH_RELATIVE; ?>profile"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
             </div>
             <div class="bio-info">
                 <p class="username"><?php echo $user->getUsername(); ?></p>

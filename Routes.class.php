@@ -21,9 +21,9 @@ $router->post('/signup', 'Guest@signup');
 $router->get('/activate/:id', 'User@activate');
 $router->get('/forgetPassword', 'User@forgetPassword');
 $router->get('/logout', 'User@logout');
-
-$router->get('/:id/wall', 'Pages@wall');
-
+$router->get('/user', 'Pages@wall');
+$router->get('/user/:id', 'Pages@wall');
+$router->get('/profile', 'User@index');
 
 $router->get('admin' , 'Admin@index');
 $router->get('/admin/albums' , 'Admin@albums');

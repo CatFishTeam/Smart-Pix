@@ -7,7 +7,7 @@
             <div class="col-3 col-m-12 align-left">
                 <!-- Info photo & photographe -->
                 <h2><?php echo $picture->getTitle(); ?></h2>
-                <h3 class="italic">Par <a href="<?php echo PATH_RELATIVE; ?>user/wall/<?php echo $author->getId(); ?>"><?php echo $author->getUsername(); ?></a></h3>
+                <h3 class="italic">Par <a href="<?php echo PATH_RELATIVE; ?>user/<?php echo $author->getId(); ?>"><?php echo $author->getUsername(); ?></a></h3>
                 <p><?php echo $picture->getDescription(); ?></p>
             </div>
 </div>
@@ -23,7 +23,7 @@
                 ?>
 
                 <div class="comment">
-                    <p class="comment-author"><img src="/public/cdn/images/avatars/<?php echo $commentAuthor->getAvatar(); ?>" class="comment-avatar" alt="Avatar de <?php echo $commentAuthor->getUsername(); ?>"><a href="/user/wall/<?php echo $commentAuthor->getId(); ?>"><?php echo $commentAuthor->getUsername(); ?></a></p>
+                    <p class="comment-author"><img src="/public/cdn/images/avatars/<?php echo $commentAuthor->getAvatar(); ?>" class="comment-avatar" alt="Avatar de <?php echo $commentAuthor->getUsername(); ?>"><a href="/user/<?php echo $commentAuthor->getId(); ?>"><?php echo $commentAuthor->getUsername(); ?></a></p>
                     <p class="comment-time">le <?php echo date("d/m/Y", $createdAt); ?> à <?php echo date("G:i:s", $createdAt); ?></p>
                     <p class="comment-content"><?php echo $comment['content']; ?></p>
                 </div>

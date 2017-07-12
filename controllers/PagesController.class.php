@@ -109,19 +109,21 @@ class PagesController{
     }
 
     //Wall d'un user
-    public function wall($id) {
+    public function wall($id = null) {
         //TODO ??
+
         $user = new User();
         if (empty($id) && !isset($_SESSION)) {
             $v = new View("index", "frontend");
             return 0;
-        } elseif (empty($id) && $_SESSION) {
+        } elseif (empty($id) && isset($_SESSION['user_id'])) {
             $user = $user->populate(array('id' => $_SESSION['user_id']));
         } else {
             $user = $user->populate(array('id' => $id[0]));
             if (empty($user)) {
-                $v = new View("index", "frontend");
-                return 0;
+                var_dump("test3");
+                //$v = new View("index", "frontend");
+                header("Location: /");
             }
         }
         $userId = $user->getId();
