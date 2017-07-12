@@ -34,7 +34,6 @@ $router->get('/add-comment',        'User@addComment');
 $router->post('/add-comment',       'User@addComment');
 
 $router->get('/logout',             'User@logout');
-$router->get('/:id/wall',           'Pages@wall');
 
 $router->get('/admin' ,             'Admin@index');
 $router->get('/admin/albums' ,      'Admin@albums');

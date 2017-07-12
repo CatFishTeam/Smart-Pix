@@ -1,8 +1,9 @@
 <?php
+include 'GlobalController.class.php';
 
-class UserController {
+class UserController extends GlobalController{
 
-//TODO PK USER CONNECT2 PERMISSION 2 DE BASE
+//TODO PK USER CONNECTÉ PERMISSION 2 DE BASE
 //TODO ADD POSSIBILITY FOR USER TO EDIT / DELET OWN COMMENT
     /*
      * Page de profil (/user)

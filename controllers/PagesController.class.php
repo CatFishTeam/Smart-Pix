@@ -1,6 +1,7 @@
 <?php
+include 'GlobalController.class.php';
 
-class PagesController{
+class PagesController extends GlobalController{
 
     public function index(){
         $v = new View();
@@ -110,7 +111,6 @@ class PagesController{
 
     //Wall d'un user
     public function wall($id = null) {
-        //TODO ??
         $user = new User();
         if (empty($id) && !isset($_SESSION)) {
             $v = new View("index", "frontend");
