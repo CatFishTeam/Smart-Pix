@@ -21,7 +21,6 @@ class UserController extends GlobalController{
              * Formulaire "Profil"
              */
             if (isset($_POST["profil"])) {
-                $flash = '<div class="flash-container">';
                 $username = $_POST['username'];
                 $email = $_POST['email'];
                 $pwd = isset($_POST['pwd']) ? $_POST['pwd'] : "";
@@ -42,26 +41,23 @@ class UserController extends GlobalController{
                     $user->setUpdatedAt($nowStr);
                     $user->save();
                     $_SESSION["username"] = $username;
-                    $flash .= "<div class='flash flash-success'><div class='flash-cell'>Profil mis à jour</div></div>";
+                    $_SESSION['messages']['success'][] = "Profil mis à jour";
                 }
                 if ($pwd != $confpwd) {
-                    $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Les mots de passe sont différents</div></div>";
+                    $_SESSION['messages']['warning'][] = "Les mots de passe sont différents";
                 }
                 if (!empty($usernameTaken) && $usernameTaken[0]["id"] != $userId) {
-                    $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Cet identifiant est déjà pris</div></div>";
+                    $_SESSION['messages']['warning'][] = "Cet identifiant est déjà pris";
                 }
                 if (!empty($emailTaken) && $emailTaken[0]["id"] != $userId) {
-                    $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Cet email existe déjà</div></div>";
+                    $_SESSION['messages']['warning'][] = "Cet email existe déjà";
                 }
-                $flash .= "</div>";
-                echo $flash;
             }
 
             /*
              * Formulaire "Informations personnelles"
              */
             if (isset($_POST["infos"])) {
-                $flash = '<div class="flash-container">';
                 $firstname = isset($_POST["firstname"]) ? $_POST["firstname"] : "";
                 $lastname = isset($_POST["lastname"]) ? $_POST["lastname"] : "";
                 $avatar = isset($_FILES["avatar"]) ? $_FILES["avatar"] : [];
@@ -70,9 +66,9 @@ class UserController extends GlobalController{
                 if (isset($_FILES["avatar"])) {
                     if ($_FILES['avatar']['error'] > 0) {
                         if ($_FILES['avatar']['error'] == 1 || $_FILES['avatar']['error'] == 2)
-                            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Le fichier d'avatar est trop volumineux (max: 5 Mo)</div></div>";
+                            $_SESSION['messages']['warning'][] = "Le fichier d'avatar est trop volumineux (max: 5 Mo)";
                         elseif ($_FILES['avatar']['error'] != 4)
-                            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Le fichier d'avatar a rencontré une erreur.</div></div>";
+                            $_SESSION['messages']['warning'][] = "Le fichier d'avatar a rencontré une erreur.";
                     } else {
                         $fileInfo = pathinfo($_FILES['avatar']['name']);
                         if (
@@ -84,21 +80,19 @@ class UserController extends GlobalController{
                             $nameAvatar = "SP_".uniqid().".".strtolower($fileInfo["extension"]);
                             move_uploaded_file($_FILES['avatar']['tmp_name'], "./public/cdn/images/avatars/".$nameAvatar);
                             $user->setAvatar($nameAvatar);
-                            $flash .= "<div class='flash flash-success'><div class='flash-cell'>Votre avatar a été ajouté</div></div>";
+                            $_SESSION['messages']['success'][] = "Votre avatar a été ajouté";
                         } else {
-                            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Format d'image invalide<br>(essayez: .jpg, .jpeg, .png ou .gif)</div></div>";
+                            $_SESSION['messages']['warning'][] = "Format d'image invalide<br>(essayez: .jpg, .jpeg, .png ou .gif)";
                         }
                     }
                 } else {
-                    $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Aucun avatar sélectionné</div></div>";
+                    $_SESSION['messages']['warning'][] = "Aucun avatar sélectionné";
                 }
                 $now = new DateTime("now");
                 $nowStr = $now->format("Y-m-d H:i:s");
                 $user->setUpdatedAt($nowStr);
                 $user->save();
-                $flash .= "<div class='flash flash-success'><div class='flash-cell'>Informations personnelles mises à jour</div></div>";
-                $flash .= "</div>";
-                echo $flash;
+                $_SESSION['messages']['success'][] = "Informations personnelles mises à jour";
             }
         } else {
             $v = new View('index', 'frontend');
@@ -122,7 +116,6 @@ class UserController extends GlobalController{
 
     public function addComment(){
         if (isset($_POST['content'])) {
-            $flash = '<div class="flash-container">';
             $content = trim(htmlspecialchars($_POST['content']));
             if (!empty($content)) {
                 $comment = new Comment();
@@ -133,12 +126,10 @@ class UserController extends GlobalController{
                 $comment->setPictureId($_POST['id']);
                 $comment->setUserId($_SESSION['user_id']);
                 $comment->save();
-                $flash .= "<div class='flash flash-success'><div class='flash-cell'>Votre commentaire a été ajouté<br>et est en attente de validation</div></div>";
+                $_SESSION['messages']['success'][] = "Votre commentaire a été ajouté<br>et est en attente de validation";
             } else {
-                $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Votre commentaire ne peut pas être vide</div></div>";
+                $_SESSION['messages']['warning'][] = "Votre commentaire ne peut pas être vide";
             }
-            $flash .= "</div>";
-            echo $flash;
             header('Location: '.$_SERVER['HTTP_REFERER']);
         } else {
             header('Location: /');

@@ -65,7 +65,6 @@ class AlbumController{
         $v = new View("album.create", "frontend");
         $v->assign('title', "Ajout d'un album");
         if ($_POST) {
-            $flash = '<div class="flash-container">';
             $title = htmlspecialchars(trim($_POST['title']));
             $description = htmlspecialchars(trim($_POST['description']));
             $album = new Album();
@@ -79,9 +78,9 @@ class AlbumController{
                 if (isset($_FILES["thumbnail_url"])) {
                     if ($_FILES['thumbnail_url']['error'] > 0) {
                         if ($_FILES['thumbnail_url']['error'] == 1 || $_FILES['thumbnail_url']['error'] == 2)
-                            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Le fichier d'image est trop volumineux (max: 5 Mo)</div></div>";
+                            $_SESSION['messages']['warning'][] = "Le fichier d'image est trop volumineux (max: 5 Mo)";
                         elseif ($_FILES['thumbnail_url']['error'] != 4)
-                            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Le fichier d'image a rencontré une erreur.</div></div>";
+                            $_SESSION['messages']['warning'][] = "Le fichier d'image a rencontré une erreur.";
                     } else {
                         $fileInfo = pathinfo($_FILES['thumbnail_url']['name']);
                         $ext = pathinfo($_FILES['thumbnail_url']['name'], PATHINFO_EXTENSION);
@@ -94,9 +93,9 @@ class AlbumController{
                             $album->setThumbnailUrl($ext);
                             move_uploaded_file($_FILES['thumbnail_url']['tmp_name'], "./public/cdn/images/" . $album->getThumbnailUrl());
 
-                            $flash .= "<div class='flash flash-success'><div class='flash-cell'>L'image de couverture a été ajoutée</div></div>";
+                            $_SESSION['messages']['success'][] = "L'image de couverture a été ajoutée";
                         } else {
-                            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Format d'image invalide<br>(essayez: .jpg, .jpeg, .png ou .gif)</div></div>";
+                            $_SESSION['messages']['warning'][] = "Format d'image invalide<br>(essayez: .jpg, .jpeg, .png ou .gif)";
                         }
                     }
                 }
@@ -115,12 +114,10 @@ class AlbumController{
                 $action->setCreatedAt($nowStr);
                 $action->save();
                 header("Location: ".PATH_RELATIVE."album/".$album->getDb()->lastInsertId());
-                $flash .= "<div class='flash flash-success'><div class='flash-cell'>Votre album a été créé</div></div>";
+                $_SESSION['messages']['success'][] = "Votre album a été créé";
             } else {
-                $flash .= "<div class='flash flash-warning'><div class='flash-cell'>La création de l'album a échoué</div></div>";
+                $_SESSION['messages']['warning'][] = "La création de l'album a échoué";
             }
-            $flash .= "</div>";
-            echo $flash;
         }
     }
 
@@ -139,7 +136,6 @@ class AlbumController{
 
             // Envoi du formulaire :
             if ($_POST) {
-                $flash = '<div class="flash-container">';
                 $title = htmlspecialchars(trim($_POST['title']));
                 $description = htmlspecialchars(trim($_POST['description']));
                 if (!empty($title) && !empty($description)) {
@@ -148,9 +144,9 @@ class AlbumController{
                     if (isset($_FILES["thumbnail_url"])) {
                         if ($_FILES['thumbnail_url']['error'] > 0) {
                             if ($_FILES['thumbnail_url']['error'] == 1 || $_FILES['thumbnail_url']['error'] == 2)
-                                $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Le fichier d'image est trop volumineux (max: 5 Mo)</div></div>";
+                                $_SESSION['messages']['warning'][] = "Le fichier d'image est trop volumineux (max: 5 Mo)";
                             elseif ($_FILES['thumbnail_url']['error'] != 4)
-                                $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Le fichier d'image a rencontré une erreur.</div></div>";
+                                $_SESSION['messages']['warning'][] = "Le fichier d'image a rencontré une erreur.";
                         } else {
                             $fileInfo = pathinfo($_FILES['thumbnail_url']['name']);
                             $ext = pathinfo($_FILES['thumbnail_url']['name'], PATHINFO_EXTENSION);
@@ -163,22 +159,20 @@ class AlbumController{
                                 $album->setThumbnailUrl($ext);
                                 move_uploaded_file($_FILES['thumbnail_url']['tmp_name'], "./public/cdn/images/" . $album->getThumbnailUrl());
 
-                                $flash .= "<div class='flash flash-success'><div class='flash-cell'>L'image de couverture a été ajoutée</div></div>";
+                                $_SESSION['messages']['success'][] =  "L'image de couverture a été ajoutée";
                             } else {
-                                $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Format d'image invalide<br>(essayez: .jpg, .jpeg, .png ou .gif)</div></div>";
+                                $_SESSION['messages']['warning'][] = "Format d'image invalide<br>(essayez: .jpg, .jpeg, .png ou .gif)";
                             }
                         }
                     } else {
-                        $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Aucune image sélectionnée</div></div>";
+                        $_SESSION['messages']['warning'][] = "Aucune image sélectionnée";
                     }
                 }
                 $now = new DateTime("now");
                 $nowStr = $now->format("Y-m-d H:i:s");
                 $album->setUpdatedAt($nowStr);
                 $album->save();
-                $flash .= "<div class='flash flash-success'><div class='flash-cell'>Votre album a été mis à jour</div></div>";
-                $flash .= "</div>";
-                echo $flash;
+                $_SESSION['messages']['success'][] = "Votre album a été mis à jour";
             }
         }
     }

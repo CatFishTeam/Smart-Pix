@@ -6,7 +6,6 @@ class GuestController extends GlobalController{
     public function signup(){
         require_once __DIR__ . '/../vendor/autoload.php';
         // Si le formulaire a été envoyé :
-        $flash = '<div class="flash-container">';
         if (!empty($_POST['g-recaptcha-response'])) {
             $captchaSecret = "6LeftiQUAAAAAK0ofViC7O1cbx0Kw2_Mm2NFNSxO";
             $captchaResponse = $_POST["g-recaptcha-response"];
@@ -75,29 +74,27 @@ class GuestController extends GlobalController{
                         echo "Mailer Error: " . $mail->ErrorInfo;
                     }
 
-                    $flash .= "<div class='flash flash-success'><div class='flash-cell'>Inscription terminée !<br>Vous allez recevoir un email de confirmation</div></div>";
+                    $_SESSION['messages']['success'][] = "Inscription terminée !<br>Vous allez recevoir un email de confirmation";
                 }  if ($pwd != $confpwd) {
-                    $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Les mots de passe sont différents</div></div>";
+                    $_SESSION['messages']['warning'][] = "Les mots de passe sont différents";
                 }  if (!empty($usernameTaken)) {
-                    $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Cet identifiant est déjà pris</div></div>";
+                    $_SESSION['messages']['warning'][] = "Cet identifiant est déjà pris";
                 }  if (!empty($emailTaken)) {
-                    $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Cet email existe déjà</div></div>";
+                    $_SESSION['messages']['warning'][] = "Cet email existe déjà";
                 }
             } else {
-                $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Erreur lors de la validation reCAPTCHA</div></div>";
+                $_SESSION['messages']['warning'][] = "Erreur lors de la validation reCAPTCHA";
             }
 
         } elseif ($_POST && empty($_POST['g-recaptcha-response'])) {
-            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Erreur lors de la validation reCAPTCHA</div></div>";
+            $_SESSION['messages']['warning'][] = "Erreur lors de la validation reCAPTCHA";
         }
-        $flash .= "</div>";
-        echo $flash;
         $v = new View('user.signup', 'frontend');
         $v->assign('title', "Inscription");
     }
 
     public function activate($token) {
-        $flash = '<div class="flash-container">';
+
         $user = new User();
         $user = $user->populate(array('access_token' => $token[0]));
 
@@ -110,22 +107,19 @@ class GuestController extends GlobalController{
             $_SESSION['username'] = $username;
             $_SESSION['user_id'] = $user->getId();
             $_SESSION['permission'] = $user->getPermission();
-            $flash .= "<div class='flash flash-success'><div class='flash-cell'>Inscription confirmée !<br>Vous allez être redirigé...</div></div>";
+            $_SESSION['messages']['success'][] = "Inscription confirmée !<br>Vous allez être redirigé...";
             header( "Refresh:3; url=".PATH_RELATIVE, true, 303);
         } elseif(!empty($user) && $user->getStatus() == 1) {
-            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Inscription déjà validée<br>Vous allez être redirigée vers la connexion...</div></div>";
+            $_SESSION['messages']['warning'][] = "Inscription déjà validée<br>Vous allez être redirigée vers la connexion...";
             header( "Refresh:3; url=".PATH_RELATIVE."user/login", true, 303);
         } else {
-            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Erreur lors de la confirmation</div></div>";
+            $_SESSION['messages']['warning'][] = "Erreur lors de la confirmation";
         }
-        $flash .= "</div>";
-        echo $flash;
         $v = new View('user.activate', 'frontend');
         $v->assign('title', "Activation du compte");
     }
 
     public function forgetPassword() {
-            $flash = '<div class="flash-container">';
             $email = trim(htmlspecialchars($_POST['email']));
             $emailExists = (new User())->getAllBy(['email' => $email]);
             if (!empty($email) && $emailExists) {
@@ -164,12 +158,10 @@ class GuestController extends GlobalController{
                     echo "Mailer Error: " . $mail->ErrorInfo;
                 }
 
-                $flash .= "<div class='flash flash-success'><div class='flash-cell'>Un email vous a été envoyé</div></div>";
+                $_SESSION['messages']['success'][] = "Un email vous a été envoyé";
             } else {
-                $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Erreur : email introuvable </div></div>";
+                $_SESSION['messages']['warning'][] = "Erreur : email introuvable";
             }
-            $flash .= "</div>";
-            echo $flash;
         $v = new View('user.forgetPassword', 'frontend');
     }
 }

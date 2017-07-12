@@ -9,7 +9,6 @@ class PictureController {
         $v = new View("picture.create", "frontend");
         $v->assign('title', "Ajout d'une image");
         if ($_POST) {
-            $flash = '<div class="flash-container">';
             $title = htmlspecialchars(trim($_POST['title']));
             $description = htmlspecialchars(trim($_POST['description']));
             $picture = new Picture();
@@ -22,9 +21,9 @@ class PictureController {
                 if (isset($_FILES["picture"])) {
                     if ($_FILES['picture']['error'] > 0) {
                         if ($_FILES['picture']['error'] == 1 || $_FILES['picture']['error'] == 2)
-                            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Le fichier d'image est trop volumineux (max: 5 Mo)</div></div>";
+                            $_SESSION['messages']['warning'][] = "Le fichier d'image est trop volumineux (max: 5 Mo)";
                         elseif ($_FILES['picture']['error'] != 4)
-                            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Le fichier d'image a rencontré une erreur.</div></div>";
+                            $_SESSION['messages']['warning'][] = "Le fichier d'image a rencontré une erreur.";
                     } else {
                         $fileInfo = pathinfo($_FILES['picture']['name']);
                         $ext = pathinfo($_FILES['picture']['name'], PATHINFO_EXTENSION);
@@ -51,18 +50,15 @@ class PictureController {
                             $action->save();
                             move_uploaded_file($_FILES['picture']['tmp_name'], "./public/cdn/images/".$picture->getUrl());
                             header("Location: ".PATH_RELATIVE."picture/".$picture->getDb()->lastInsertId());
-                            $flash .= "<div class='flash flash-success'><div class='flash-cell'>Votre image a été ajoutée</div></div>";
+                            $_SESSION['messages']['success'][] = "Votre image a été ajoutée";
                         } else {
-                            $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Format d'image invalide<br>(essayez: .jpg, .jpeg, .png ou .gif)</div></div>";
+                            $_SESSION['messages']['warning'][] = "Format d'image invalide<br>(essayez: .jpg, .jpeg, .png ou .gif)";
                         }
                     }
                 } else {
-                    $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Aucune image sélectionnée</div></div>";
+                    $_SESSION['messages']['warning'][] = "Aucune image sélectionnée";
                 }
             }
-
-            $flash .= "</div>";
-            echo $flash;
 
         }
     }

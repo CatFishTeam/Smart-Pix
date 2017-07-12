@@ -72,7 +72,6 @@ class PagesController extends GlobalController{
     public function login() {
         $userConnected = false;
         if ($_POST) {
-            $flash = '<div class="flash-container">';
             $user = new User();
             $username = $_POST['username'];
             $password = $_POST['pwd'];
@@ -86,17 +85,15 @@ class PagesController extends GlobalController{
                     $_SESSION['permission'] = $user->getPermission();
                     $userConnected = true;
                     header("Refresh:1; url=".PATH_RELATIVE, true, 303);
-                    $flash .= "<div class='flash flash-success'><div class='flash-cell'>Vous êtes connecté !<br>Vous allez être redirigée...</div></div>";
+                    $_SESSION['messages']['success'][] = "Vous êtes connecté !<br>Vous allez être redirigée...";
                 } elseif ($user->getStatus() == 0) {
-                    $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Votre compte n'est pas activé</div></div>";
+                    $_SESSION['messages']['warning'][] = "Votre compte n'est pas activé";
                 } else {
-                    $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Erreur lors de la connexion</div></div>";
+                    $_SESSION['messages']['warning'][] = "Erreur lors de la connexion";
                 }
             } else {
-                $flash .= "<div class='flash flash-warning'><div class='flash-cell'>Aucun utilisateur trouvé</div></div>";
+                $_SESSION['messages']['warning'][] = "Aucun utilisateur trouvé";
             }
-            $flash .= "</div>";
-            echo $flash;
         }
         $v = new View('user.login', 'frontend');
         $v->assign('userConnected', $userConnected);
