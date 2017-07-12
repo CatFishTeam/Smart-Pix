@@ -34,7 +34,7 @@ $router->get('/picture/:id', 'Pages@picture');
 $router->get('/login',   'Pages@login');
 $router->post('/login',  'Pages@login');
 $router->get('/signup', 'Pages@signup');
-$router->post('/signup', 'Pages@signup');
+$router->post('/signup', 'Guest@signup');
 $router->get('/activate/:id', 'User@activate');
 $router->get('/forgetPassword', 'User@forgetPassword');
 $router->get('/logout', 'User@logout');
