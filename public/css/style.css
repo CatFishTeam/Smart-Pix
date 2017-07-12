@@ -133,18 +133,23 @@ table {
     width: 70%;
     margin: 30px auto; } }
 .albumTitle {
-  font-family: "Proxima Nova Semibold", sans-serif;
-  color: #fff;
+  position: relative;
   background-position: center;
   -webkit-background-size: cover;
   background-size: cover;
   height: 200px;
-  line-height: 200px;
-  border-radius: 5px;
-  font-weight: 900;
-  font-size: 40px;
-  -webkit-text-stroke: 1px #34495e;
-  text-shadow: 2px 2px   #34495e, -1px -1px #34495e, 1px -1px  #34495e, -1px 1px  #34495e, 1px 1px   #34495e; }
+  border-radius: 5px; }
+  .albumTitle h2 {
+    width: 100%;
+    font-family: "Proxima Nova Semibold", sans-serif;
+    color: #fff;
+    font-size: 36px;
+    text-shadow: 1px 2px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    margin: auto;
+    bottom: 0;
+    padding: 15px; }
 
 @media only screen and (max-width: 768px) {
   .body-container {
@@ -661,6 +666,10 @@ Wall (user/wall)
       margin: 0 15px 0 0;
       border-radius: 3px;
       border: 1px solid lightgray; }
+    .comment .comment-author .comment-no-avatar {
+      color: lightslategray;
+      vertical-align: middle;
+      margin: 0 5px; }
   .comment .comment-time {
     margin: 0;
     color: gray;
