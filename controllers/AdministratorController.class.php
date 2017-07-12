@@ -1,18 +1,18 @@
 <?php
-include 'UserController.class.php';
+include 'ModeratorController.class.php';
 
-class ModeratorController extends UserController{
+class AdministratorController extends ModeratorController{
     public function __construct(){
         if(!isset($_SESSION['user_id'])){
             header('Location:/login');
         }
-        if($_SESSION['permission'] < 2){
-            echo $_SESSION['permission'];
+        if($_SESSION['permission'] < 3){
             header('Location: /');
         }
     }
 
     public function test(){
-        echo 'yolo';
+        echo 'C\'est bon !';
     }
+
 }
