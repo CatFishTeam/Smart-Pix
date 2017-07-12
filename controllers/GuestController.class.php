@@ -96,7 +96,7 @@ class GuestController extends GlobalController{
     public function activate($token) {
 
         $user = new User();
-        $user = $user->populate(array('access_token' => $token[0]));
+        $user = $user->populate(array('access_token' => $token));
 
         if (!empty($user) && $user->getStatus() == 0) {
             $user->setStatus(1);

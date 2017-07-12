@@ -1,7 +1,7 @@
 <?php
 class AlbumController{
 
-    public function addAlbumAction(){
+    public function add(){
         $album = new Album();
         $now = new DateTime("now");
         $nowStr = $now->format("Y-m-d H:i:s");
@@ -18,7 +18,7 @@ class AlbumController{
         exit;
     }
 
-    public function showEditAction(){
+    public function showEdit(){
         $album = new Album();
         echo json_encode($album->getOneBy(['id'=>$_POST['id']]));
         exit;
@@ -26,7 +26,7 @@ class AlbumController{
 
     // TODO AJOUTER is_published
     // TODO retourner un objet json
-    public function editAlbumAction(){
+    public function editAlbum(){
         $album = new Album();
         $now = new DateTime("now");
         $nowStr = $now->format("Y-m-d H:i:s");
@@ -54,14 +54,14 @@ class AlbumController{
         exit;
     }
 
-    public function deleteAlbumAction(){
+    public function deleteAlbum(){
         $album = new Album();
         $album->deleteOneBy(['id'=>$_POST['id']]);
         echo json_encode("success");
         exit;
     }
 
-    public function createAction() {
+    public function create() {
         $v = new View("album.create", "frontend");
         $v->assign('title', "Ajout d'un album");
         if ($_POST) {
@@ -121,13 +121,13 @@ class AlbumController{
         }
     }
 
-    public function editAction($id)
+    public function edit($id)
     {
-        if (!isset($id) || empty($id) || !isset($_SESSION)) {
-            $v = new View('index', 'frontend');
+        if (!isset($id) || empty($id) || !isset($_SESSION['user_id'])) {
+            header('Location: /');
         } else {
             $album = new Album();
-            $album = $album->populate(['id' => $id[0]]);
+            $album = $album->populate(['id' => $id]);
 
             $v = new View('album.edit', 'frontend');
             if (!empty($album)) {

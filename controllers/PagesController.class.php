@@ -117,7 +117,6 @@ class PagesController extends GlobalController{
         } else {
             $user = $user->populate(array('id' => $id[0]));
             if (empty($user)) {
-                $v = new View("index", "frontend");
                 header("Location: /");
             }
         }
