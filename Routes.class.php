@@ -18,14 +18,13 @@ $router->get('/signup',         'Pages@signup');
 $router->post('/signup',        'Guest@signup');
 $router->get('/activate/:id',   'Guest@activate');
 $router->get('/forgetPassword', 'Guest@forgetPassword');
-$router->get('/user', 'Pages@wall');
-$router->get('/user/:id', 'Pages@wall');
-$router->get('/profile', 'User@index');
 
-$router->post('/add_comment',   'User@addComment');
+$router->get('/user',           'Pages@wall');
+$router->get('/user/:id',       'Pages@wall');
 
+$router->get('/profile',        'User@index');
+$router->post('/add-comment',   'User@addComment');
 $router->get('/logout',         'User@logout');
-$router->get('/:id/wall',       'Pages@wall');
 
 $router->get('/admin' ,         'Admin@index');
 $router->get('/admin/albums' ,  'Admin@albums');

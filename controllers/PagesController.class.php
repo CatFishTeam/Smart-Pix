@@ -110,8 +110,6 @@ class PagesController{
 
     //Wall d'un user
     public function wall($id = null) {
-        //TODO ??
-
         $user = new User();
         if (empty($id) && !isset($_SESSION)) {
             $v = new View("index", "frontend");
@@ -121,8 +119,7 @@ class PagesController{
         } else {
             $user = $user->populate(array('id' => $id[0]));
             if (empty($user)) {
-                var_dump("test3");
-                //$v = new View("index", "frontend");
+                $v = new View("index", "frontend");
                 header("Location: /");
             }
         }

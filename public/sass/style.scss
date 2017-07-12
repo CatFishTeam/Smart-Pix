@@ -518,11 +518,13 @@ label[for="uploadImg"] {
     color: #fff;
     font-family: 'Montserrat', sans-serif;
     .flash-cell {
-      display: table-cell;
+      display: none;
+    //   display: table-cell;
+      opacity: 0.9;
       padding: 15px;
       vertical-align: middle;
       border: 1px solid transparent;
-      border-width: 0 1px 4px 1px;
+    //   border-width: 0 1px 4px 1px;
       border-radius: 4px;
       box-shadow: 1px 1px 10px 2px lightgrey;
     }
