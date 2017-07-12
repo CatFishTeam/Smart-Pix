@@ -518,15 +518,19 @@ label[for="uploadImg"] {
     color: #fff;
     font-family: 'Montserrat', sans-serif;
     .flash-cell {
+      cursor: pointer;
       display: none;
     //   display: table-cell;
-      opacity: 0.9;
+      opacity: 0.8;
       padding: 15px;
       vertical-align: middle;
       border: 1px solid transparent;
     //   border-width: 0 1px 4px 1px;
       border-radius: 4px;
       box-shadow: 1px 1px 10px 2px lightgrey;
+      &:hover{
+          opacity: 1;
+      }
     }
   }
 
@@ -536,6 +540,10 @@ label[for="uploadImg"] {
   }
 
   .flash-warning .flash-cell {
+      background-color: rgb(236, 150, 21);
+  }
+
+  .flash-error .flash-cell {
     background-color: #ff4136;
     border-color: #ff1103;
   }

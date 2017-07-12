@@ -461,17 +461,22 @@ label[for="uploadImg"] {
     color: #fff;
     font-family: 'Montserrat', sans-serif; }
     .flash-container .flash .flash-cell {
+      cursor: pointer;
       display: none;
-      opacity: 0.9;
+      opacity: 0.8;
       padding: 15px;
       vertical-align: middle;
       border: 1px solid transparent;
       border-radius: 4px;
       box-shadow: 1px 1px 10px 2px lightgrey; }
+      .flash-container .flash .flash-cell:hover {
+        opacity: 1; }
   .flash-container .flash-success .flash-cell {
     background-color: #28b62c;
     border-color: #24a528; }
   .flash-container .flash-warning .flash-cell {
+    background-color: #ec9615; }
+  .flash-container .flash-error .flash-cell {
     background-color: #ff4136;
     border-color: #ff1103; }
 

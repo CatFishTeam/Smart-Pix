@@ -1,5 +1,8 @@
 <?php
-class GuestController{
+include 'GlobalController.class.php';
+
+class GuestController extends GlobalController{
+
     public function signup(){
         require_once __DIR__ . '/../vendor/autoload.php';
         // Si le formulaire a été envoyé :
