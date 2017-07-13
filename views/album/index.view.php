@@ -4,12 +4,12 @@
             <div class="albumTitle" style="background-image: url('/public/cdn/images/<?php echo $album->getThumbnailUrl(); ?>');">
                 <h2><?php echo $album->getTitle(); ?></h2>
             </div>
-            <h3 class="italic">Par <a href="<?php echo PATH_RELATIVE; ?>user/wall/<?php echo $author->getId(); ?>"><?php echo $author->getUsername(); ?></a></h3>
+            <h3 class="italic">Par <a href="<?php echo PATH_RELATIVE; ?>user/<?php echo $author->getId(); ?>"><?php echo $author->getUsername(); ?></a></h3>
             <p><?php echo $album->getDescription(); ?></p>
             <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $author->getId()): ?>
             <p>
                 <button id="albumBtn" class="btn">Ajouter des images à l'album</button>
-                <a href="<?php echo PATH_RELATIVE; ?>album/edit/<?php echo $album->getId(); ?>" class="btn">Editer l'album</a>
+                <a href="<?php echo PATH_RELATIVE; ?>edit-album/<?php echo $album->getId(); ?>" class="btn">Editer l'album</a>
             </p>
             <div id="albumModal" class="modal">
                 <div class="modal-content">

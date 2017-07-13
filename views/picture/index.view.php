@@ -29,7 +29,7 @@
                         <?php else: ?>
                             <i class="fa fa-user comment-no-avatar" aria-hidden="true"></i>
                         <?php endif; ?>
-                        <a href="/user/wall/<?php echo $commentAuthor->getId(); ?>"><?php echo $commentAuthor->getUsername(); ?></a>
+                        <a href="/user/<?php echo $commentAuthor->getId(); ?>"><?php echo $commentAuthor->getUsername(); ?></a>
                     </p>
                     <p class="comment-time">le <?php echo date("d/m/Y", $createdAt); ?> à <?php echo date("G:i:s", $createdAt); ?></p>
                     <p class="comment-content"><?php echo $comment['content']; ?></p>
