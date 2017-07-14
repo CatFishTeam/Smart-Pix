@@ -164,4 +164,37 @@ class GuestController extends GlobalController{
             }
         $v = new View('user.forgetPassword', 'frontend');
     }
+
+    public function login(){
+        $userConnected = false;
+        $login = $_POST['username'];
+        $password = $_POST['pwd'];
+        
+        $user = new User();
+        $user = $user->populate(array('username' => $login));
+        if(!$user){
+            $user = new User();
+            $user = $user->populate(array('email' => $login));
+        }
+        if ($user) {
+            if (password_verify($password, $user->getPassword()) && $user->getStatus() > 0) {
+                if (!isset($_SESSION)) session_start();
+                $_SESSION['username'] = $user->getUsername();
+                $_SESSION['user_id'] = $user->getId();
+                $_SESSION['permission'] = $user->getPermission();
+                $userConnected = true;
+                header("Refresh:1; url=".PATH_RELATIVE, true, 303);
+                $_SESSION['messages']['success'][] = "Vous êtes connecté !<br>Vous allez être redirigée...";
+            } elseif ($user->getStatus() == 0) {
+                $_SESSION['messages']['warning'][] = "Votre compte n'est pas activé";
+            } else {
+                $_SESSION['messages']['warning'][] = "Erreur lors de la connexion";
+            }
+        } else {
+            $_SESSION['messages']['warning'][] = "Aucun utilisateur trouvé";
+        }
+        $v = new View('user.login', 'frontend');
+        $v->assign('userConnected', $userConnected);
+        $v->assign('title', "Connexion");
+    }
 }

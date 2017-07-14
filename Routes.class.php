@@ -13,7 +13,7 @@ $router->get('/album/:id',          'Pages@album');
 $router->get('/picture/:id',        'Pages@picture');
 
 $router->get('/login',              'Pages@login');
-$router->post('/login',             'Pages@login');
+$router->post('/login',             'Guest@login');
 $router->get('/signup',             'Pages@signup');
 $router->post('/signup',            'Guest@signup');
 $router->get('/activate/:token',    'Guest@activate');

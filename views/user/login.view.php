@@ -17,7 +17,7 @@ $config = array(
     "struc" => [
         "username" => [
             "type" => "text",
-            "placeholder" => "Votre identifiant",
+            "placeholder" => "Votre identifiant ou votre mail",
             "value" => null,
             "required" => true
         ],
