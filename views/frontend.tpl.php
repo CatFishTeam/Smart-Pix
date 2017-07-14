@@ -25,9 +25,11 @@
             //     }).delay('4000').fadeOut();
             // })($messages, i);
             //TODO DELAY is not overridable + Test to set up this (just above)
-            $('.flash-cell').each(function(){
-                $(this).delay('1000').fadeIn().delay('4000').fadeOut();
-            });
+            function flash(){
+                $('.flash-cell').each(function(){
+                    $(this).delay('500').fadeIn().delay('4000').fadeOut();
+                });
+            }
         </script>
     </head>
     <body>
