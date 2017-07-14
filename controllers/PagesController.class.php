@@ -18,7 +18,7 @@ class PagesController extends GlobalController{
         } else {
             // Affichage d'un album avec $id
             $album = new Album();
-            $album = $album->populate(['id' => $id[0]]);
+            $album = $album->populate(['id' => $id]);
             if (!empty($album)) {
                 $author = new User();
                 $author = $author->populate(['id' => $album->getUserId()]);
