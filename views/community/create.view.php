@@ -1,8 +1,4 @@
 <?php
-/*
- * Pour faire un formulaire, on prépare toutes ses données dans $config,
- * puis on include "form.mod.php" qui génère le form
- */
 $config = array(
     "options" => [
         "method" => "POST",
@@ -29,10 +25,27 @@ $config = array(
 ?>
 
 <div class="row">
+    <h1>Créez votre première communauté</h1>
     <div class="col-2">
 
     </div>
     <div class="col-8">
         <?php include "views/modals/form.mod.php"; ?>
     </div>
+    <script>
+        $('[name="title"]').on('change paste keyup', function(){
+            $name = $(this).val();
+            $.ajax({
+                url: '/community/check-name',
+                method: 'POST',
+                data : {name: $name},
+                dataType: 'json',
+                success: function(data){
+                    if(data == 'good'){
+
+                    }
+                }
+            });
+        });
+    </script>
 </div>
