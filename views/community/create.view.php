@@ -8,7 +8,7 @@ $config = array(
         "submitName" => "create-community",
     ],
     "struc" => [
-        "title" => [
+        "name" => [
             "type" => "text",
             "placeholder" => "Nom de la communauté",
             "value" => null,
@@ -41,8 +41,8 @@ $config = array(
                 data : {name: $name},
                 dataType: 'json',
                 success: function(data){
-                    if(data == 'good'){
-
+                    if(data != 'good'){
+                        alert('Ce nom de communauté existe déjà !')
                     }
                 }
             });

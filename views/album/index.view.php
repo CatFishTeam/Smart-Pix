@@ -175,6 +175,7 @@
                         flash();
                     }
                 });
+                modal.style.display = "none";
             }
         });
     });
