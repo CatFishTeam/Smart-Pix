@@ -22,13 +22,14 @@ $router->post('/forgetPassword',    'Guest@forgetPassword');
 $router->get('/user',               'Pages@wall');
 $router->get('/user/:id',           'Pages@wall');
 $router->get('/profile',            'User@index');
-$router->post('/profile',            'User@index');
+$router->post('/profile',           'User@index');
 
 $router->get('/add-album',          'Album@create');
 $router->post('/add-album',         'Album@create');
 $router->get('/edit-album/',        'Album@edit');
 $router->get('/edit-album/:id',     'Album@edit');
 $router->post('/edit-album/:id',    'Album@edit');
+$router->post('/album/add-pictures', 'Album@addPictures');
 
 $router->get('/add-picture',        'Picture@add');
 $router->post('/add-picture',       'Picture@add');

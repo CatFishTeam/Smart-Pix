@@ -24,8 +24,11 @@ class PagesController extends GlobalController{
                 $author = $author->populate(['id' => $album->getUserId()]);
                 $pictures = new Picture();
                 $pictures = $pictures->getAllBy(['user_id' => $author->getId()]);
+                $picturesAlbum = new Picture_Album();
+                $picturesAlbum = $picturesAlbum->getAllBy(['album_id' => $id]);
                 $v->assign('author', $author);
                 $v->assign('pictures', $pictures);
+                $v->assign('picturesAlbum', $picturesAlbum);
                 $v->assign('title', $album->getTitle());
             }
             $v->assign('album', $album);
@@ -84,7 +87,7 @@ class PagesController extends GlobalController{
                     $_SESSION['user_id'] = $user->getId();
                     $_SESSION['permission'] = $user->getPermission();
                     $userConnected = true;
-                    header("Refresh:1; url=".PATH_RELATIVE, true, 303);
+                    header("Refresh:2; url=".PATH_RELATIVE, true, 303);
                     $_SESSION['messages']['success'][] = "Vous êtes connecté !<br>Vous allez être redirigée...";
                 } elseif ($user->getStatus() == 0) {
                     $_SESSION['messages']['warning'][] = "Votre compte n'est pas activé";
