@@ -24,8 +24,11 @@ class PagesController extends GlobalController{
                 $author = $author->populate(['id' => $album->getUserId()]);
                 $pictures = new Picture();
                 $pictures = $pictures->getAllBy(['user_id' => $author->getId()]);
+                $picturesAlbum = new Picture_Album();
+                $picturesAlbum = $picturesAlbum->getAllBy(['album_id' => $id]);
                 $v->assign('author', $author);
                 $v->assign('pictures', $pictures);
+                $v->assign('picturesAlbum', $picturesAlbum);
                 $v->assign('title', $album->getTitle());
             }
             $v->assign('album', $album);

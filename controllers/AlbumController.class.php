@@ -177,4 +177,25 @@ class AlbumController{
         }
     }
 
+    public function addPictures() {
+        if ($_POST) {
+            //var_dump($_POST['imgSelected']);
+            $albumId = 0;
+            foreach ($_POST['imgSelected'] as $img) {
+                var_dump($img);
+                $albumId = $img['album'];
+                $addPicture = new Picture_Album();
+                $addPicture->setPictureId($img['id']);
+                $addPicture->setAlbumId($img['album']);
+                $addPicture->save();
+            }
+            header("Refresh:2; url=/album/".$albumId, true, 303);
+            if (count($_POST['imgSelected']) > 1)
+                $_SESSION['messages']['success'][] = "Vos images ont été ajoutées à l'album";
+            else
+                $_SESSION['messages']['success'][] = "Votre image a été ajoutée à l'album";
+        }
+        exit();
+    }
+
 }

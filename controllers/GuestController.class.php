@@ -120,6 +120,7 @@ class GuestController extends GlobalController{
     }
 
     public function forgetPassword() {
+        if (isset($_POST['email'])) {
             $email = trim(htmlspecialchars($_POST['email']));
             $emailExists = (new User())->getAllBy(['email' => $email]);
             if (!empty($email) && $emailExists) {
@@ -157,11 +158,11 @@ class GuestController extends GlobalController{
                 if(!$mail->Send()) {
                     echo "Mailer Error: " . $mail->ErrorInfo;
                 }
-
                 $_SESSION['messages']['success'][] = "Un email vous a été envoyé";
             } else {
                 $_SESSION['messages']['warning'][] = "Erreur : email introuvable";
             }
+        }
         $v = new View('user.forgetPassword', 'frontend');
     }
 
