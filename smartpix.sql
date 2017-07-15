@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 15, 2017 at 12:38 AM
+-- Generation Time: Jul 15, 2017 at 03:05 AM
 -- Server version: 5.6.35
 -- PHP Version: 7.1.1
 
@@ -40,7 +40,8 @@ INSERT INTO `action` (`id`, `user_id`, `type_action`, `related_id`, `created_at`
 (8, 12, 'signup', 12, '2017-07-09 18:59:07'),
 (9, 13, 'signup', 13, '2017-07-09 19:05:44'),
 (10, 14, 'signup', 14, '2017-07-12 20:26:14'),
-(11, 14, 'picture', 123, '2017-07-14 22:31:20');
+(11, 14, 'picture', 123, '2017-07-14 22:31:20'),
+(12, 14, 'album', 108, '2017-07-15 01:00:40');
 
 -- --------------------------------------------------------
 
@@ -61,6 +62,13 @@ CREATE TABLE `album` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `album`
+--
+
+INSERT INTO `album` (`id`, `user_id`, `title`, `thumbnail_url`, `background`, `disposition`, `description`, `is_presentation`, `is_published`, `created_at`, `updated_at`) VALUES
+(108, 14, 'Yolo', NULL, NULL, NULL, 'Swag', 0, 1, '2017-07-15 01:00:40', '2017-07-15 01:00:40');
 
 -- --------------------------------------------------------
 
@@ -88,7 +96,8 @@ CREATE TABLE `community` (
   `id` int(11) UNSIGNED NOT NULL,
   `name` int(11) NOT NULL,
   `slug` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `description` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -155,7 +164,7 @@ CREATE TABLE `picture_album` (
   `id` int(11) NOT NULL,
   `picture_id` int(11) NOT NULL,
   `album_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -249,7 +258,7 @@ INSERT INTO `user` (`id`, `email`, `firstname`, `lastname`, `username`, `passwor
 (5, 'minimus76@gmail.com', '', '', 'test6', '$2y$10$xxyWJGW0nCB420jeiXSvnuiQQyJV6Tgri6zP2JVp4xSNuCnLku4aK', '', 2, 0, 0, '39c9025b703e0cbcdd279b2f302e3f2e', '2017-05-28 19:00:12', '2017-06-21 05:22:32'),
 (6, 'admin@guillaumepn.fr', 'Guillaume', 'Pham ngoc', 'guillaume', '$2y$10$LwGMvpxcHmFJ/29rwto1yuNVlF0fMZKiW0JdM7jx78j6ljMJt.HWq', 'SP_592ca24634184.jpg', 1, 0, 1, 'c949c64c08acc288f84142ee21e1c6d4', '2017-05-29 20:57:48', '2017-06-16 08:41:34'),
 (7, 'contact@guillaumepn.fr', '', '', 'toto', '$2y$10$hD6Ls1j8ZUxcl3MSJiQKIeCni.LzhPEhTjd7LSytSGgy1te9xvERO', '', 2, 0, 1, 'ab707bcac780edd5c48b8866bd087fec', '2017-06-02 00:21:49', '2017-06-21 05:24:37'),
-(14, 'mael.mayon@free.fr', '', '', 'welldon', '$2y$10$plynJYt63Q2XV65r2sjtzuw3ZJ4K7utUzSVzDxFDNmnEaMVyvKDl2', '', 2, 0, 1, '4ed04e8fa813cf148c599fdfa8054b43', '2017-07-12 20:26:14', '2017-07-12 20:59:05');
+(14, 'mael.mayon@free.fr', '', '', 'welldon', '$2y$10$plynJYt63Q2XV65r2sjtzuw3ZJ4K7utUzSVzDxFDNmnEaMVyvKDl2', '', 4, 0, 1, '4ed04e8fa813cf148c599fdfa8054b43', '2017-07-12 20:26:14', '2017-07-14 23:49:26');
 
 --
 -- Indexes for dumped tables
@@ -306,7 +315,9 @@ ALTER TABLE `picture`
 -- Indexes for table `picture_album`
 --
 ALTER TABLE `picture_album`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `picture_id` (`picture_id`),
+  ADD KEY `album_id` (`album_id`);
 
 --
 -- Indexes for table `stat`
@@ -358,17 +369,17 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `action`
 --
 ALTER TABLE `action`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `album`
 --
 ALTER TABLE `album`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 --
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `community`
 --
@@ -388,7 +399,7 @@ ALTER TABLE `picture`
 -- AUTO_INCREMENT for table `picture_album`
 --
 ALTER TABLE `picture_album`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `stat`
 --
@@ -432,6 +443,13 @@ ALTER TABLE `comment`
 ALTER TABLE `picture`
   ADD CONSTRAINT `Pictures_Albums` FOREIGN KEY (`album_id`) REFERENCES `album` (`id`),
   ADD CONSTRAINT `Pictures_Users` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `picture_album`
+--
+ALTER TABLE `picture_album`
+  ADD CONSTRAINT `album_id` FOREIGN KEY (`album_id`) REFERENCES `album` (`id`),
+  ADD CONSTRAINT `picture_id` FOREIGN KEY (`picture_id`) REFERENCES `picture` (`id`);
 
 --
 -- Constraints for table `stat`
