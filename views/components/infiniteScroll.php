@@ -167,7 +167,7 @@ function populatePattern(img){
         $.each(patterns[rand].pattern,function(index,value){
             $('.rowImg:last').append('<div class="colImg" style="width: '+value.width+'%"></div>');
             if(img.length > 0){
-                for(i = 1; i <= value.number; i++){
+                for(i = 0; i <= value.number; i++){
                     var data = img.shift();
                     $('.colImg:last').append('<div class="containerImg" style="height: '+100/value.number+'%"></div>');
                     if(data[0] != undefined) $('.containerImg:last').append('<img src="'+data[0]+'"/>');

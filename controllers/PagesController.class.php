@@ -18,7 +18,7 @@ class PagesController extends GlobalController{
         } else {
             // Affichage d'un album avec $id
             $album = new Album();
-            $album = $album->populate(['id' => $id[0]]);
+            $album = $album->populate(['id' => $id]);
             if (!empty($album)) {
                 $author = new User();
                 $author = $author->populate(['id' => $album->getUserId()]);
@@ -45,7 +45,7 @@ class PagesController extends GlobalController{
         } else {
             // Affichage d'une image avec $id
             $picture = new Picture();
-            $picture = $picture->populate(['id' => $id[0]]);
+            $picture = $picture->populate(['id' => $id]);
             if (!empty($picture)) {
                 $author = new User();
                 $author = $author->populate(['id' => $picture->getUserId()]);
@@ -91,7 +91,7 @@ class PagesController extends GlobalController{
         } elseif (empty($id) && isset($_SESSION['user_id'])) {
             $user = $user->populate(array('id' => $_SESSION['user_id']));
         } else {
-            $user = $user->populate(array('id' => $id[0]));
+            $user = $user->populate(array('id' => $id));
             if (empty($user)) {
                 header("Location: /");
             }

@@ -136,6 +136,11 @@ class UserController extends GlobalController{
         }
     }
 
+    /* ~~~~~ Community ~~~~~ */
+    public function createCommunity(){
+        $v = new View('community.create');
+    }
+
     public function logout() {
         session_unset();
         session_destroy();

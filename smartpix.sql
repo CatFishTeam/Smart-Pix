@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 14, 2017 at 10:45 PM
+-- Generation Time: Jul 15, 2017 at 12:38 AM
 -- Server version: 5.6.35
 -- PHP Version: 7.1.1
 
@@ -13,8 +13,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `smartpix`
 --
-CREATE DATABASE IF NOT EXISTS `smartpix` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `smartpix`;
 
 -- --------------------------------------------------------
 
@@ -41,7 +39,8 @@ INSERT INTO `action` (`id`, `user_id`, `type_action`, `related_id`, `created_at`
 (6, 10, 'album', 106, '2017-06-17 22:03:57'),
 (8, 12, 'signup', 12, '2017-07-09 18:59:07'),
 (9, 13, 'signup', 13, '2017-07-09 19:05:44'),
-(10, 14, 'signup', 14, '2017-07-12 20:26:14');
+(10, 14, 'signup', 14, '2017-07-12 20:26:14'),
+(11, 14, 'picture', 123, '2017-07-14 22:31:20');
 
 -- --------------------------------------------------------
 
@@ -63,14 +62,6 @@ CREATE TABLE `album` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `album`
---
-
-INSERT INTO `album` (`id`, `user_id`, `title`, `thumbnail_url`, `background`, `disposition`, `description`, `is_presentation`, `is_published`, `created_at`, `updated_at`) VALUES
-(106, 10, 'Yolo', NULL, NULL, NULL, 'Coast', 0, 1, '2017-06-17 22:03:57', '2017-06-17 22:03:57'),
-(107, 10, 'Yolo', NULL, NULL, NULL, '', 0, 1, '2017-06-21 19:19:18', '2017-06-21 19:19:18');
-
 -- --------------------------------------------------------
 
 --
@@ -86,25 +77,6 @@ CREATE TABLE `comment` (
   `is_archived` tinyint(1) NOT NULL,
   `is_published` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `comment`
---
-
-INSERT INTO `comment` (`id`, `content`, `created_at`, `picture_id`, `user_id`, `is_archived`, `is_published`) VALUES
-(1, 'test', '2017-06-09 22:54:13', 103, 10, 1, 0),
-(13, 'o', '2017-06-09 23:53:00', 104, 10, 1, 0),
-(15, 'Tchoin', '2017-06-13 15:09:35', 103, 10, 0, 1),
-(16, 'test', '2017-06-13 18:35:16', 103, 10, 1, 0),
-(17, 'yolo', '2017-06-13 18:47:06', 103, 10, 1, 0),
-(18, 'test', '2017-06-13 21:12:14', 104, 10, 1, 1),
-(19, 'test', '2017-06-13 21:24:06', 104, 10, 1, 1),
-(20, 'TEston', '2017-06-13 22:20:02', 104, 10, 0, 1),
-(21, 'test', '2017-06-13 22:37:54', 103, 10, 1, 1),
-(22, 'test', '2017-06-14 00:45:20', 103, 10, 1, 1),
-(23, 'YOLOO', '2017-06-14 07:53:30', 103, 10, 0, 1),
-(24, 'Ajout', '2017-06-17 21:35:39', 117, 10, 0, 1),
-(25, 'test', '2017-06-17 21:59:01', 103, 10, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -171,13 +143,19 @@ CREATE TABLE `picture` (
 --
 
 INSERT INTO `picture` (`id`, `user_id`, `album_id`, `title`, `description`, `url`, `weight`, `is_visible`, `is_archived`, `created_at`, `updated_at`) VALUES
-(103, 10, NULL, 'test', '', 'test_5939bda49e36e.jpg', 31706, 0, 0, '2017-06-08 21:12:04', '2017-06-17 21:49:10'),
-(104, 10, NULL, 'test', '', 'test_5939ca5254a4e.png', 486288, 0, 0, '2017-06-08 22:06:10', '2017-06-17 21:49:08'),
-(117, 10, NULL, 'Swaaag', '', 'Swaaag_5945a095a19be.jpg', 196531, 0, 0, '2017-06-17 21:35:17', '2017-06-17 21:35:17'),
-(119, 10, NULL, 'fqsdqsd', '', 'fqsdqsd_5945a4fa7e143.png', 10688, 0, 0, '2017-06-17 21:54:02', '2017-06-17 21:54:02'),
-(120, 10, NULL, 'fqdsfqd', '', 'fqdsfqd_5945a50123ef7.jpg', 196531, 0, 0, '2017-06-17 21:54:09', '2017-06-17 21:54:09'),
-(121, 10, NULL, 'qfsqsd', '', 'qfsqsd_5945a509d0777.png', 10688, 0, 0, '2017-06-17 21:54:17', '2017-06-17 21:54:17'),
-(122, 10, NULL, 'fqsdfqsd', '', 'fqsdfqsd_5945a51012c5c.jpg', 196531, 0, 0, '2017-06-17 21:54:24', '2017-06-17 21:54:24');
+(123, 14, NULL, 'Test', 'Yolo', 'Test_59694638adc48.jpg', 77046, 0, 0, '2017-07-14 22:31:20', '2017-07-14 22:31:20');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `picture_album`
+--
+
+CREATE TABLE `picture_album` (
+  `id` int(11) NOT NULL,
+  `picture_id` int(11) NOT NULL,
+  `album_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -271,7 +249,6 @@ INSERT INTO `user` (`id`, `email`, `firstname`, `lastname`, `username`, `passwor
 (5, 'minimus76@gmail.com', '', '', 'test6', '$2y$10$xxyWJGW0nCB420jeiXSvnuiQQyJV6Tgri6zP2JVp4xSNuCnLku4aK', '', 2, 0, 0, '39c9025b703e0cbcdd279b2f302e3f2e', '2017-05-28 19:00:12', '2017-06-21 05:22:32'),
 (6, 'admin@guillaumepn.fr', 'Guillaume', 'Pham ngoc', 'guillaume', '$2y$10$LwGMvpxcHmFJ/29rwto1yuNVlF0fMZKiW0JdM7jx78j6ljMJt.HWq', 'SP_592ca24634184.jpg', 1, 0, 1, 'c949c64c08acc288f84142ee21e1c6d4', '2017-05-29 20:57:48', '2017-06-16 08:41:34'),
 (7, 'contact@guillaumepn.fr', '', '', 'toto', '$2y$10$hD6Ls1j8ZUxcl3MSJiQKIeCni.LzhPEhTjd7LSytSGgy1te9xvERO', '', 2, 0, 1, 'ab707bcac780edd5c48b8866bd087fec', '2017-06-02 00:21:49', '2017-06-21 05:24:37'),
-(10, '', '', '', 'Welldo', 'test', '', 4, 0, 1, '181eb2eb10aec9323a975be7b42f41ac', '2017-06-07 22:29:05', '2017-07-03 17:23:01'),
 (14, 'mael.mayon@free.fr', '', '', 'welldon', '$2y$10$plynJYt63Q2XV65r2sjtzuw3ZJ4K7utUzSVzDxFDNmnEaMVyvKDl2', '', 2, 0, 1, '4ed04e8fa813cf148c599fdfa8054b43', '2017-07-12 20:26:14', '2017-07-12 20:59:05');
 
 --
@@ -325,6 +302,11 @@ ALTER TABLE `picture`
   ADD KEY `Pictures_Albums` (`album_id`),
   ADD KEY `Pictures_Users` (`user_id`);
 
+--
+-- Indexes for table `picture_album`
+--
+ALTER TABLE `picture_album`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `stat`
@@ -376,7 +358,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `action`
 --
 ALTER TABLE `action`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `album`
 --
@@ -386,7 +368,7 @@ ALTER TABLE `album`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `community`
 --
@@ -401,7 +383,12 @@ ALTER TABLE `email`
 -- AUTO_INCREMENT for table `picture`
 --
 ALTER TABLE `picture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+--
+-- AUTO_INCREMENT for table `picture_album`
+--
+ALTER TABLE `picture_album`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `stat`
 --
@@ -436,8 +423,8 @@ ALTER TABLE `album`
 -- Constraints for table `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `Comments_Pictures` FOREIGN KEY (`picture_id`) REFERENCES `picture` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `comments_users` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `Comments_Pictures` FOREIGN KEY (`picture_id`) REFERENCES `picture` (`id`),
+  ADD CONSTRAINT `comments_users` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `picture`

@@ -27,4 +27,3 @@ if(isset($_SESSION['messages'])){
     echo $flash;
     unset($_SESSION['messages']);
 }
-echo '<script>flash();</script>';

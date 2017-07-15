@@ -20,12 +20,18 @@
         <?php echo (isset($specificHeader) ? $specificHeader : '') ?>
     </head>
     <body>
+        <script>
+        function flash(){
+            $('.flash-cell').each(function(){
+                $(this).delay('500').fadeIn().delay('4000').fadeOut();
+            });
+        }
+        </script>
         <noscript><strong>Attention !</strong> Ce site à besoin de Javascript pour fonctionner et il ne semble pas activé sur votre navigateur.</noscript>
         <nav id="navigator">
             <ul>
                 <li><a href="/"><img src="/image/logo.png" style="max-width: 50px;margin-top: 10px;margin-left: -10px;"/><span>Smart-Pix</span></a>
                 <li><a href="/admin"><i class="fa fa-home" aria-hidden="true"></i><span>Acceuil</span></a>
-                <!-- <li><a href="/admin/profil"><i class="fa fa-user" aria-hidden="true"></i><span>Profil</span></a> -->
                 <li><a href="/admin/albums"><i class="fa fa-file-text" aria-hidden="true"></i><span>Albums</span></a>
                 <li><a href="/admin/medias"><i class="fa fa-file-image-o" aria-hidden="true"></i><span>Medias</span></a>
                 <li><a href="/admin/comments"><i class="fa fa-commenting" aria-hidden="true"></i><span>Commentaires</span></a>

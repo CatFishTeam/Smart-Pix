@@ -14,6 +14,8 @@
     <?php foreach ($config["struc"] as $name => $attribute):?>
         <?php if ($attribute['type'] == "label"): ?>
             <label for="<?php echo $attribute['for']; ?>"><?php echo $attribute['text']; ?></label>
+        <?php elseif($attribute['type'] == "textarea"): ?>
+            <textarea name="<?php echo $name?>" placeholder="<?php echo $attribute["placeholder"];?>"></textarea>
         <?php elseif(
             $attribute['type'] == "email" ||
             $attribute['type'] == "password" ||

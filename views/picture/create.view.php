@@ -8,7 +8,7 @@
 $config = array(
     "options" => [
         "method" => "POST",
-        "action" => "#",
+        "action" => "",
         "enctype" => "multipart/form-data",
         "class" => "form-group",
         "submit" => "Ajouter mon image",

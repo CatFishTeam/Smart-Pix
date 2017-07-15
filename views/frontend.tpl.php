@@ -12,25 +12,6 @@
           src="https://code.jquery.com/jquery-3.2.1.min.js"
           integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
           crossorigin="anonymous"></script>
-        <script>
-            $('.flash-cell').on('click',function(){
-            	$(this).fadeOut();
-            });
-            // var $messages = $('.flash-cell');
-            // var i=0;
-            //
-            // (function fadeFlashMessage($collection, index){
-            //     $collection.eq(index).fadeIn(1000, function(){
-            //         fadeFlashMessage($collection, index++);
-            //     }).delay('4000').fadeOut();
-            // })($messages, i);
-            //TODO DELAY is not overridable + Test to set up this (just above)
-            function flash(){
-                $('.flash-cell').each(function(){
-                    $(this).delay('500').fadeIn().delay('4000').fadeOut();
-                });
-            }
-        </script>
     </head>
     <body>
         <header>
@@ -50,6 +31,7 @@
                             <a href="<?php echo PATH_RELATIVE; ?>signup" class="btn btn-signup">Inscription</a>
                             <!--    Connecté :          -->
                         <?php else: ?>
+                            <a href="/community/create" class="btn btn-login">Create a new community</a>
                             <a href="<?php echo PATH_RELATIVE; ?>user/<?php  echo $_SESSION['user_id']; ?>" class="btn btn-login"><i class="fa fa-camera-retro" aria-hidden="true"></i> <?php echo $_SESSION['username']; ?></a>
                             <a href="<?php echo PATH_RELATIVE; ?>profile" class="btn btn-login"><i class="fa fa-user" aria-hidden="true"></i> Profil</a>
                             <a href="<?php echo PATH_RELATIVE; ?>logout" class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
@@ -66,6 +48,28 @@
             <p>
                 Smart-Pix © - 2017
             </p>
+            <script>
+                $('.flash-cell').on('click',function(){
+                    $(this).fadeOut();
+                });
+                // var $messages = $('.flash-cell');
+                // var i=0;
+                //
+                // (function fadeFlashMessage($collection, index){
+                //     $collection.eq(index).fadeIn(1000, function(){
+                //         fadeFlashMessage($collection, index++);
+                //     }).delay('4000').fadeOut();
+                // })($messages, i);
+                //TODO DELAY is not overridable + Test to set up this (just above)
+                function flash(){
+                    $('.flash-cell').each(function(){
+                        $(this).delay('500').fadeIn().delay('4000').fadeOut();
+                    });
+                }
+                $(document).ready(function() {
+                    flash();
+                });
+            </script>
         </footer>
 
     </body>
