@@ -99,6 +99,10 @@ class UserController extends GlobalController{
         }
     }
 
+    public function actions() {
+
+    }
+
     public function pictures($id = null) {
         $v = new View('user.pictures', 'frontend');
         if (!empty($id) || isset($_SESSION['user_id'])) {

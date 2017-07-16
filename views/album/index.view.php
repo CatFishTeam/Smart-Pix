@@ -152,9 +152,6 @@
                 $('.add-album-pictures').prop('disabled', false);
             }
             imgSelected = $('.album-pictures img.selected');
-            $.each(imgSelected, function() {
-               console.log($(this).attr('data-id'));
-            });
         });
 
         /* Validation de l'ajout : */
@@ -165,12 +162,11 @@
                 var object = [];
                 $.each(imgSelected, function () {
                     object[i] = {
-                        id: $(this).attr('data-id'),
+                        id: $(this).data('id'),
                         album: albumId
                     };
                     i++;
                 });
-                console.log(object);
 
                 $.ajax({
                     url: '/album/add-pictures',

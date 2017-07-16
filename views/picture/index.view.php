@@ -24,8 +24,14 @@
             echo "Cette image ne fait partie d'aucun album.";
         endif; ?>
 
-        <?php foreach ($albums as $album): ?>
+        <?php
+        $i = 1;
+        foreach ($albums as $album): ?>
             <a href="/album/<?php echo $album['id']; ?>"><?php echo $album['title']; ?></a>
+            <?php
+            if ($i != count($albums)) echo "- ";
+            $i++;
+            ?>
         <?php endforeach; ?>
         </p>
     </div>
