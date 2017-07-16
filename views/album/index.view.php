@@ -178,6 +178,7 @@
                     data: {imgSelected: object},
                     dataType: 'json',
                     success: function(data) {
+                        $('body').append(data);
                         flash();
                     }
                 });
@@ -199,10 +200,11 @@
                     dataType: 'json',
                     data: {album_id: $album_id,picture_id: $picture_id},
                     success: function(data){
+                        $('body').append(data);
                         flash();
                     },
                     error: function(error){
-                        console.log(error);
+                        console.log(error.responseText);
                     }
                 });
             }

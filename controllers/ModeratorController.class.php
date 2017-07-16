@@ -17,6 +17,80 @@ class ModeratorController extends UserController{
         $v = new View('admin.index','backend');
     }
 
+
+    /* ~~~~ Albus ~~~~*/
+    public function showAlbums(){
+        $v = new View('admin.albums','backend');
+
+        $albums = new Album();
+        $albums = $albums->getAllBy(['user_id'=>$_SESSION['user_id']], "DESC");
+        $v->assign('albums',$albums);
+
+        $pictures = new Picture();
+        $pictures = $pictures->getAllBy(['user_id'=>$_SESSION['user_id']], "DESC");
+        $v->assign('pictures',$pictures);
+    }
+
+    public function addAlbum(){
+        $album = new Album();
+        $now = new DateTime("now");
+        $nowStr = $now->format("Y-m-d H:i:s");
+        $album->setTitle($_POST['title']);
+        $album->setDescription("");
+        $album->setUserId($_SESSION['user_id']);
+        $album->setIsPresentation(0);
+        $album->setIsPublished(1);
+        $album->setCreatedAt($nowStr);
+        $album->setUpdatedAt($nowStr);
+        $album->save();
+
+        echo json_encode($album->last($_SESSION['user_id']));
+        exit;
+    }
+
+    public function getAlbum(){
+        $album = new Album();
+        echo json_encode($album->getOneBy(['id'=>$_POST['id']]));
+        exit;
+    }
+
+    // TODO AJOUTER is_published
+    // TODO retourner un objet json
+    public function editAlbum(){
+        $album = new Album();
+        $now = new DateTime("now");
+        $nowStr = $now->format("Y-m-d H:i:s");
+
+        $album->populate(['id'=>$_POST['id']]);
+        $album->setId($_POST['id']);
+        $album->setTitle($_POST['title']);
+        $album->setDescription($_POST['description']);
+        $album->setUserId($_SESSION['user_id']);
+        if(isset($_POST['is_presentation'])){
+            $album->setIsPresentation(1);
+        } else {
+            $album->setIsPresentation(0);
+        }
+        if(isset($_POST['is_published'])){
+            $album->setIsPublished(1);
+        } else {
+            $album->setIsPublished(0);
+        }
+        $album->setCreatedAt($nowStr);
+        $album->setUpdatedAt($nowStr);
+        $album->save();
+
+        echo json_encode($album->getOneBy(['id'=>$_POST['id']]));
+        exit;
+    }
+
+    public function deleteAlbum(){
+        $album = new Album();
+        $album->deleteOneBy(['id'=>$_POST['id']]);
+        echo json_encode("success");
+        exit;
+    }
+    
     /* ~~~~~ Picture ~~~~~*/
     public function medias(){
         $v = new View('admin.medias','backend');
@@ -119,18 +193,6 @@ class ModeratorController extends UserController{
             echo($response);
             exit();
         }
-    }
-
-    public function showAlbums(){
-        $v = new View('admin.albums','backend');
-
-        $albums = new Album();
-        $albums = $albums->getAllBy(['user_id'=>$_SESSION['user_id']], "DESC");
-        $v->assign('albums',$albums);
-
-        $pictures = new Picture();
-        $pictures = $pictures->getAllBy(['user_id'=>$_SESSION['user_id']], "DESC");
-        $v->assign('pictures',$pictures);
     }
 
     /* ~~~~~~ Comments ~~~~~~ */

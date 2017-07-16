@@ -4,8 +4,6 @@
     • Mettre en PAGE
 -->
 
-• Retirer l'ajout de photo Ici ?
-• Remplacer par crud de gestion des images ?
 • Valider les images des utilisateurs ?
 
 <form method="post" id="fileinfo" name="fileinfo">

@@ -20,7 +20,6 @@ $router->get('/activate/:token',        'Guest@activate');
 $router->get('/forgetPassword',         'Guest@forgetPassword');
 $router->post('/forgetPassword',        'Guest@forgetPassword');
 
-
 $router->get('/user-pictures',          'User@pictures');
 $router->get('/user-pictures/:id',      'User@pictures');
 $router->get('/user-albums',            'User@albums');
@@ -45,6 +44,13 @@ $router->post('/add-comment',           'User@addComment');
 $router->get('/logout',                 'User@logout');
 
 $router->get('/admin',                  'Moderator@index');
+$router->post('/admin/addAlbum',        'Moderator@addAlbum');
+$router->post('/admin/getAlbum',        'Moderator@getAlbum');
+$router->post('/admin/editAlbum',       'Moderator@editAlbum');
+$router->post('/admin/deleteAlbum',     'Moderator@deleteAlbum');
+
+$router->post('/admin/mediaUpload',     'Moderator@mediaUpload');
+
 $router->get('/admin/comments',         'Moderator@comments');
 $router->get('/admin/albums',           'Moderator@showAlbums');
 $router->get('/admin/medias',           'Moderator@medias');
