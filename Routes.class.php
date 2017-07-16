@@ -48,7 +48,9 @@ $router->get('/admin/comments',     'Moderator@comments');
 $router->get('/admin/albums',       'Moderator@albums');
 $router->get('/admin/medias',       'Moderator@medias');
 
-$router->get('/community/create',       'User@createCommunity');
-$router->post('/community/check-name',  'Community@checkName');
+$router->get('/community',          'Community@index');
+$router->get('/community/create',        'User@createCommunity');
+$router->post('/community/create',       'Community@create');
+$router->post('/community/check-name',   'Community@checkName');
 
 $router->run();

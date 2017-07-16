@@ -2,18 +2,22 @@
 class Community extends BaseSql{
 
     protected $id = -1;
+    protected $user_id;
     protected $name;
     protected $slug;
     protected $description;
     protected $created_at;
     protected $updated_at;
 
-    //TODO voir user
-    // • Récupérer les comments liés à un user (détenteur)
+    //TODO
+    //Method Slug !
+    //Check Length name and slug < 256
 
-    public function __construct($id='DEFAULT',$name=null,$description=null){
+    public function __construct($id='DEFAULT',$user_id=null,$name=null,$description=null){
         parent::__construct();
+        $this->setUserId($user_id);
         $this->setName($name);
+        $this->setSlug();
         $this->setDescription($description);
     }
 
@@ -38,6 +42,30 @@ class Community extends BaseSql{
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of User Id
+     *
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * Set the value of User Id
+     *
+     * @param mixed user_id
+     *
+     * @return self
+     */
+    public function setUserId($user_id)
+    {
+        $this->user_id = $user_id;
 
         return $this;
     }
@@ -83,9 +111,9 @@ class Community extends BaseSql{
      *
      * @return self
      */
-    public function setSlug($slug)
+    public function setSlug()
     {
-        $this->slug = $slug;
+        $this->slug = $this->name;
 
         return $this;
     }
