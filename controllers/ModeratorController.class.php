@@ -121,7 +121,7 @@ class ModeratorController extends UserController{
         }
     }
 
-    public function albums(){
+    public function showAlbums(){
         $v = new View('admin.albums','backend');
 
         $albums = new Album();

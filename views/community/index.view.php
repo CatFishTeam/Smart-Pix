@@ -5,4 +5,5 @@
             <a href="<?php echo $communities->slug ?>">
         <?php endforeach ?>
     </div>
+    <a href="/community/create">Créer une communauté</a>
 </div>

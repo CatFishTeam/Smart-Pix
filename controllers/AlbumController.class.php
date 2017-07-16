@@ -200,7 +200,6 @@ class AlbumController{
 
     public function removePicture() {
         //TODO CALL FLASH !
-        var_dump($_POST);
         $removePicture = new Picture_Album();
         $removePicture->deleteOneBy(['album_id' => $_POST['album_id'], 'picture_id' => $_POST['picture_id']]);
         $_SESSION['messages']['success'][] = "Votre image a bien été retirée de l'album";
