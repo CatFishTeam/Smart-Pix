@@ -144,7 +144,7 @@ class AlbumController extends GlobalController{
         $removePicture = new Picture_Album();
         $removePicture->deleteOneBy(['album_id' => $_POST['album_id'], 'picture_id' => $_POST['picture_id']]);
         $_SESSION['messages']['success'][] = "Votre image a bien été retirée de l'album";
-        GlobalController::flash();
+        GlobalController::flash('json');
         exit();
     }
 

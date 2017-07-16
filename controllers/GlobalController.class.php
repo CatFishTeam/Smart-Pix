@@ -1,7 +1,7 @@
 <?php
 class GlobalController{
-    
-    public static function flash(){
+
+    public static function flash($type = null){
         if(isset($_SESSION['messages'])){
             $flash = '<div class="flash-container">';
             foreach ($_SESSION['messages'] as $key => $messages) {
@@ -12,7 +12,12 @@ class GlobalController{
                 $flash .= '</div>';
             }
             $flash .= '</div>';
-            echo $flash;
+
+            if($type == 'json'){
+                echo json_encode($flash);
+            }else {
+                echo $flash;
+            }
             unset($_SESSION['messages']);
         }
     }
