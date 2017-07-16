@@ -33,6 +33,7 @@ $router->post('/add-album',         'Album@create');
 $router->get('/edit-album/',        'Album@edit');
 $router->get('/edit-album/:id',     'Album@edit');
 $router->post('/edit-album/:id',    'Album@edit');
+$router->post('/album/remove-picture',      'Album@removePicture');
 $router->post('/album/add-pictures', 'Album@addPictures');
 
 $router->get('/add-picture',        'Picture@add');
