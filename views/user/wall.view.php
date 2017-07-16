@@ -26,7 +26,7 @@
                     <img src="http://placehold.it/50x40" alt="">
                     <span>...</span>
                 </p>
-                <h2>Ses albums</h2>
+                <h2><a href="/user-albums/<?php echo $user->getId(); ?>">Ses albums</a></h2>
                 <p class="photos-fav">
                     <?php foreach ($albums as $album): ?>
                         <a href="<?php echo PATH_RELATIVE; ?>album/<?php echo $album['id']; ?>"><img src="<?php echo PATH_RELATIVE; ?>public/cdn/images/<?php echo $album['thumbnail_url']; ?>" alt="<?php echo $album['title']; ?>"></a>
@@ -36,10 +36,10 @@
                     ?>
                         Aucun album à afficher.
                     <?php elseif (count($albums) == 14): ?>
-                        <span><a href="<?php echo PATH_RELATIVE; ?>user/albums/<?php echo $user->getId(); ?>" class="wall-more">...</a></span>
+                        <span><a href="/user-albums/<?php echo $user->getId(); ?>" class="wall-more">...</a></span>
                     <?php endif; ?>
                 </p>
-                <h2>Ses photos</h2>
+                <h2><a href="/user-pictures/<?php echo $user->getId(); ?>">Ses photos</a></h2>
                 <p class="photos-fav">
                     <?php foreach ($pictures as $picture): ?>
                         <a href="<?php echo PATH_RELATIVE; ?>picture/<?php echo $picture['id']; ?>"><img src="<?php echo PATH_RELATIVE; ?>public/cdn/images/<?php echo $picture['url']; ?>" alt="<?php echo $picture['title']; ?>"></a>
@@ -49,7 +49,7 @@
                     ?>
                     Aucune photo à afficher.
                     <?php elseif (count($pictures) == 14): ?>
-                        <span><a href="<?php echo PATH_RELATIVE; ?>user/pictures/<?php echo $user->getId(); ?>" class="wall-more">...</a></span>
+                        <span><a href="/user-pictures/<?php echo $user->getId(); ?>" class="wall-more">...</a></span>
                     <?php endif; ?>
                 </p>
             </div>

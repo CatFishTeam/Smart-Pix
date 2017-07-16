@@ -38,18 +38,24 @@
                     </div>
                 </div>
             </div>
-            <?php endif; ?>
-            <div class="albumPictures">
-                <?php
-                foreach ($pictures as $picture):
-                    if (isInAlbum($picture, $picturesAlbum)):
-                ?>
-                            <img src="<?php echo PATH_RELATIVE."public/cdn/images/". $picture['url']; ?>" data-id="<?php echo $picture['id']; ?>" data-title="<?php echo $picture['title']; ?>" data-description="<?php echo $picture['description']; ?>" alt="<?php echo $picture['title']; ?>" width="150">
+            <?php
+            endif;
+
+            foreach ($pictures as $picture):
+            if (isInAlbum($picture, $picturesAlbum)):
+            ?>
+            <div class="picture pictureAlbum col-6 col-m-12" data-id="<?php echo $picture['id']; ?>" data-title="<?php echo $picture['title']; ?>">
+                <a href="/picture/<?php echo $picture['id']; ?>">
+                    <img src="<?php echo PATH_RELATIVE."public/cdn/images/". $picture['url']; ?>" data-id="<?php echo $picture['id']; ?>" data-title="<?php echo $picture['title']; ?>" data-description="<?php echo $picture['description']; ?>" alt="<?php echo $picture['title']; ?>">
+                </a>
+                <span class="removePicture" data-id="<?php echo $picture['id']; ?>"><i class="fa fa-times" aria-hidden="true"></i></span>
+                <h2><?php echo $picture['title']; ?></h2>
+                <p><?php echo $picture['description']; ?></p>
+            </div>
                 <?php
                     endif;
                 endforeach;
                 ?>
-            </div>
     <?php elseif (isset($album) && empty($album)): ?>
         <div class="col-12">
             <p>Cet album n'existe pas.</p>
@@ -177,5 +183,15 @@
                 });
             }
         });
+
+        /* Suppression d'une image de l'album : */
+
+        $('body').on('click', '.removePicture', function() {
+            var remove = confirm('Voulez-vous supprimer l\'image "'+ $(this).parent().attr('data-title') +'" de cet album ? ');
+            if (remove) {
+                $(this).parent().fadeOut("slow");
+            }
+        });
+
     });
 </script>

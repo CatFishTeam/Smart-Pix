@@ -21,6 +21,10 @@ $router->get('/forgetPassword',     'Guest@forgetPassword');
 $router->post('/forgetPassword',    'Guest@forgetPassword');
 $router->get('/user',               'Pages@wall');
 $router->get('/user/:id',           'Pages@wall');
+$router->get('/user-pictures',      'User@pictures');
+$router->get('/user-pictures/:id',  'User@pictures');
+$router->get('/user-albums',        'User@albums');
+$router->get('/user-albums/:id',    'User@albums');
 $router->get('/profile',            'User@index');
 $router->post('/profile',           'User@index');
 
@@ -45,6 +49,6 @@ $router->get('/admin/albums',       'Moderator@albums');
 $router->get('/admin/medias',       'Moderator@medias');
 
 $router->get('/community/create',       'User@createCommunity');
-$router->post('/community/check-name',   'Community@checkName');
+$router->post('/community/check-name',  'Community@checkName');
 
 $router->run();

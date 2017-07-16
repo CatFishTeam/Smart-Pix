@@ -535,9 +535,11 @@ Wall (user/wall)
       font-size: 14px; }
   .bio .bio-other {
     padding: 5px; }
-    .bio .bio-other h2, .bio .bio-other p {
+    .bio .bio-other h2 {
       text-align: left; }
-      .bio .bio-other h2 a, .bio .bio-other p a {
+    .bio .bio-other p {
+      text-align: left; }
+      .bio .bio-other p a {
         width: 50px;
         height: 40px;
         display: inline-block;
@@ -547,15 +549,15 @@ Wall (user/wall)
         line-height: 40px;
         overflow: hidden;
         background-image: url(../image/photography.png); }
-        .bio .bio-other h2 a img, .bio .bio-other p a img {
+        .bio .bio-other p a img {
           max-height: 40px;
           text-align: center;
           vertical-align: middle;
           border-radius: 3px; }
-      .bio .bio-other h2 > span, .bio .bio-other p > span {
+      .bio .bio-other p > span {
         font-size: 40px;
         vertical-align: top; }
-        .bio .bio-other h2 > span a.wall-more, .bio .bio-other p > span a.wall-more {
+        .bio .bio-other p > span a.wall-more {
           color: #333;
           text-decoration: none; }
 
@@ -592,6 +594,29 @@ Wall (user/wall)
 /* User's pictures */
 .picture {
   text-align: center; }
+  .picture img:hover {
+    outline: 3px dashed #cfcfad; }
+
+/* Album's pictures */
+.pictureAlbum {
+  position: relative; }
+  .pictureAlbum .removePicture {
+    background: rgba(0, 0, 0, 0.5);
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    border: none;
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer; }
+  .pictureAlbum .removePicture:hover {
+    font-size: 24px;
+    color: #e74c3c;
+    transition-duration: 0.1s; }
 
 /* Modals */
 .modal {

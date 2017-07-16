@@ -2,7 +2,7 @@
     if (isset($user) && isset($pictures)):
 ?>
 
-    <h1>Photos de <a href="/user/wall/<?php echo $user->getId(); ?>"><?php echo $user->getUsername(); ?></a></h1>
+    <h1>Photos de <a href="/user/<?php echo $user->getId(); ?>"><?php echo $user->getUsername(); ?></a></h1>
 
         <div class="row">
         <?php foreach ($pictures as $picture): ?>

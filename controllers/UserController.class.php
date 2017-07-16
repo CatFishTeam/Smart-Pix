@@ -99,11 +99,13 @@ class UserController extends GlobalController{
         }
     }
 
-    public function picturesAction($id) {
+    public function pictures($id = null) {
         $v = new View('user.pictures', 'frontend');
-        if (!empty($id)) {
+        if (!empty($id) || isset($_SESSION['user_id'])) {
             $user = new User();
-            $user = $user->populate(['id' => $id[0]]);
+            $user = $user->populate([
+                'id' => (!empty($id)) ? $id : $_SESSION['user_id']
+            ]);
         }
         if (!empty($user)) {
             $pictures = new Picture();
@@ -111,6 +113,23 @@ class UserController extends GlobalController{
             $v->assign('user', $user);
             $v->assign('pictures', $pictures);
             $v->assign('title', "Photos de ".$user->getUsername());
+        }
+    }
+
+    public function albums($id = null) {
+        $v = new View('user.albums', 'frontend');
+        if (!empty($id) || isset($_SESSION['user_id'])) {
+            $user = new User();
+            $user = $user->populate([
+                'id' => (!empty($id)) ? $id : $_SESSION['user_id']
+            ]);
+        }
+        if (!empty($user)) {
+            $albums = new Album();
+            $albums = $albums->getAllBy(['user_id' => $user->getId()]);
+            $v->assign('user', $user);
+            $v->assign('albums', $albums);
+            $v->assign('title', "Album de ".$user->getUsername());
         }
     }
 
