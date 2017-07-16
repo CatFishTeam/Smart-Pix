@@ -3,9 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 15, 2017 at 03:05 AM
+-- Generation Time: Jul 16, 2017 at 06:44 PM
 -- Server version: 5.6.35
 -- PHP Version: 7.1.1
+
+-- TODO RESTART AUTOINCREMENT IN PRODUCTION
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,25 +25,29 @@ SET time_zone = "+00:00";
 CREATE TABLE `action` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `community_id` int(11) NOT NULL,
   `type_action` varchar(10) NOT NULL,
   `related_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `action`
 --
 
-INSERT INTO `action` (`id`, `user_id`, `type_action`, `related_id`, `created_at`) VALUES
-(1, 6, 'picture', 98, '2017-06-05 00:19:19'),
-(2, 6, 'picture', 99, '2017-06-06 00:28:42'),
-(7, 11, 'signup', 11, '2017-07-03 17:24:02'),
-(6, 10, 'album', 106, '2017-06-17 22:03:57'),
-(8, 12, 'signup', 12, '2017-07-09 18:59:07'),
-(9, 13, 'signup', 13, '2017-07-09 19:05:44'),
-(10, 14, 'signup', 14, '2017-07-12 20:26:14'),
-(11, 14, 'picture', 123, '2017-07-14 22:31:20'),
-(12, 14, 'album', 108, '2017-07-15 01:00:40');
+INSERT INTO `action` (`id`, `user_id`, `type_action`, `related_id`, `community_id`, `created_at`) VALUES
+(1, 6, 'picture', 98, 0, '2017-06-05 00:19:19'),
+(2, 6, 'picture', 99, 0, '2017-06-06 00:28:42'),
+(7, 11, 'signup', 11, 0, '2017-07-03 17:24:02'),
+(6, 10, 'album', 106, 0, '2017-06-17 22:03:57'),
+(8, 12, 'signup', 12, 0, '2017-07-09 18:59:07'),
+(9, 13, 'signup', 13, 0, '2017-07-09 19:05:44'),
+(10, 14, 'signup', 14, 0, '2017-07-12 20:26:14'),
+(11, 14, 'picture', 123, 0, '2017-07-14 22:31:20'),
+(12, 14, 'album', 108, 0, '2017-07-15 01:00:40'),
+(13, 14, 'picture', 124, 0, '2017-07-15 01:27:25'),
+(14, 14, 'picture', 125, 0, '2017-07-15 07:59:38'),
+(15, 14, 'picture', 126, 0, '2017-07-15 07:59:58');
 
 -- --------------------------------------------------------
 
@@ -68,7 +74,7 @@ CREATE TABLE `album` (
 --
 
 INSERT INTO `album` (`id`, `user_id`, `title`, `thumbnail_url`, `background`, `disposition`, `description`, `is_presentation`, `is_published`, `created_at`, `updated_at`) VALUES
-(108, 14, 'Yolo', NULL, NULL, NULL, 'Swag', 0, 1, '2017-07-15 01:00:40', '2017-07-15 01:00:40');
+(108, 14, 'Yoloa', NULL, NULL, NULL, 'Swag', 0, 1, '2017-07-16 13:27:52', '2017-07-16 13:27:52');
 
 -- --------------------------------------------------------
 
@@ -78,12 +84,12 @@ INSERT INTO `album` (`id`, `user_id`, `title`, `thumbnail_url`, `background`, `d
 
 CREATE TABLE `comment` (
   `id` int(11) NOT NULL,
-  `content` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `picture_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `picture_id` int(11) NOT NULL,
+  `content` text NOT NULL,
   `is_archived` tinyint(1) NOT NULL,
   `is_published` tinyint(1) NOT NULL DEFAULT '0'
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -93,13 +99,25 @@ CREATE TABLE `comment` (
 --
 
 CREATE TABLE `community` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `name` int(11) NOT NULL,
-  `slug` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL COMMENT 'Super Admin de la communauté',
+  `name` varchar(256) NOT NULL,
+  `slug` varchar(256) NOT NULL,
   `description` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `community`
+--
+
+INSERT INTO `community` (`id`, `user_id`, `name`, `slug`, `description`, `created_at`, `updated_at`) VALUES
+(7, 14, 'TestSylvain', 'TestSylvain', 'Yolo', '2017-07-15 12:42:15', '2017-07-15 12:42:15'),
+(8, 14, 'TestSylvain', 'TestSylvain', 'Yolo', '2017-07-15 12:43:18', '2017-07-15 12:43:18'),
+(9, 14, 'TestSylvain', 'TestSylvain', 'Yolo', '2017-07-15 12:43:31', '2017-07-15 12:43:31'),
+(10, 14, 'TestSylvain', 'TestSylvain', 'Yolo', '2017-07-15 12:44:09', '2017-07-15 12:44:09'),
+(11, 14, 'TestSylvain', 'TestSylvain', 'Yolo', '2017-07-15 12:46:29', '2017-07-15 12:46:29');
 
 -- --------------------------------------------------------
 
@@ -152,7 +170,21 @@ CREATE TABLE `picture` (
 --
 
 INSERT INTO `picture` (`id`, `user_id`, `album_id`, `title`, `description`, `url`, `weight`, `is_visible`, `is_archived`, `created_at`, `updated_at`) VALUES
-(123, 14, NULL, 'Test', 'Yolo', 'Test_59694638adc48.jpg', 77046, 0, 0, '2017-07-14 22:31:20', '2017-07-14 22:31:20');
+(1, 1, NULL, 'petit chat', 'eza eeza  aeze', 'petit-chat_59696dcdc419a.jpeg', 53889, 0, 0, '2017-07-15 01:20:13', '2017-07-15 01:20:13'),
+(2, 1, NULL, 'chaton', 'darzaaz rza', 'chaton_59696df237cb9.jpg', 60066, 0, 0, '2017-07-15 01:20:50', '2017-07-15 01:20:50'),
+(3, 1, NULL, 'zar dsq', 'ddadfffq fq', 'zar-dsq_596b5e962ae84.png', 1219322, 0, 0, '2017-07-16 12:39:50', '2017-07-16 12:39:50'),
+(4, 1, NULL, 'fhgshd', 'fesfhds', 'fhgshd_596b5eafe3303.png', 1892915, 0, 0, '2017-07-16 12:40:15', '2017-07-16 12:40:15'),
+(5, 1, NULL, 'zear', 'dsqf', 'zear_596b5f6d8d9f1.jpg', 298584, 0, 0, '2017-07-16 12:43:25', '2017-07-16 12:43:25'),
+(6, 1, NULL, 'raghr', 'gqehh', 'raghr_596b5fe7b7bf4.png', 1556205, 0, 0, '2017-07-16 12:45:27', '2017-07-16 12:45:27'),
+(7, 1, NULL, 'sqdfg', 'rzqetsrytjf', 'sqdfg_596b5ff766ec3.jpg', 129620, 0, 0, '2017-07-16 12:45:43', '2017-07-16 12:45:43'),
+(8, 1, NULL, 'ytjrhg', 'sdqf', 'ytjrhg_596b60098cc65.png', 1199988, 0, 0, '2017-07-16 12:46:01', '2017-07-16 12:46:01'),
+(9, 1, NULL, 'dzqfes', 'fqgd', 'dzqfes_596b60308b978.png', 2099361, 0, 0, '2017-07-16 12:46:40', '2017-07-16 12:46:40'),
+(10, 1, NULL, 'gsfhdjkg', 'qgdshf', 'gsfhdjkg_596b60460c70d.png', 1170473, 0, 0, '2017-07-16 12:47:02', '2017-07-16 12:47:02'),
+(11, 1, NULL, 'fzeghd', 'qgdshf', 'fzeghd_596b60593930a.png', 1130332, 0, 0, '2017-07-16 12:47:21', '2017-07-16 12:47:21'),
+(12, 1, NULL, 'fdsg', 'gshfjdgk', 'fdsg_596b607d3c9b7.png', 297750, 0, 0, '2017-07-16 12:47:57', '2017-07-16 12:47:57'),
+(13, 1, NULL, 'aezrt', 'zqtes', 'aezrt_596b608b8b166.png', 1276099, 0, 0, '2017-07-16 12:48:11', '2017-07-16 12:48:11'),
+(14, 1, NULL, 'zqfegsr', 'qgdshfj', 'zqfegsr_596b60dadd13f.PNG', 5225, 0, 0, '2017-07-16 12:49:30', '2017-07-16 12:49:30');
+
 
 -- --------------------------------------------------------
 
@@ -164,7 +196,17 @@ CREATE TABLE `picture_album` (
   `id` int(11) NOT NULL,
   `picture_id` int(11) NOT NULL,
   `album_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `picture_album`
+--
+
+INSERT INTO `picture_album` (`id`, `picture_id`, `album_id`) VALUES
+(26, 126, 108),
+(27, 123, 108),
+(28, 125, 108),
+(31, 124, 108);
 
 -- --------------------------------------------------------
 
@@ -242,9 +284,9 @@ CREATE TABLE `user` (
   `password` varchar(60) NOT NULL,
   `avatar` text NOT NULL,
   `permission` int(1) NOT NULL,
-  `is_archived` int(11) NOT NULL DEFAULT '0',
   `status` int(1) NOT NULL COMMENT '0 not validated, 1 validated, 2 deleted',
   `access_token` varchar(32) NOT NULL,
+  `is_archived` int(11) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -289,7 +331,8 @@ ALTER TABLE `comment`
 -- Indexes for table `community`
 --
 ALTER TABLE `community`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `community_user`
@@ -369,12 +412,12 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `action`
 --
 ALTER TABLE `action`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `album`
 --
 ALTER TABLE `album`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 --
 -- AUTO_INCREMENT for table `comment`
 --
@@ -384,7 +427,7 @@ ALTER TABLE `comment`
 -- AUTO_INCREMENT for table `community`
 --
 ALTER TABLE `community`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `email`
 --
@@ -394,12 +437,12 @@ ALTER TABLE `email`
 -- AUTO_INCREMENT for table `picture`
 --
 ALTER TABLE `picture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 --
 -- AUTO_INCREMENT for table `picture_album`
 --
 ALTER TABLE `picture_album`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `stat`
 --
@@ -425,9 +468,17 @@ ALTER TABLE `user`
 --
 
 --
+-- Constraints for table `action`
+--
+ALTER TABLE `action`
+  ADD CONSTRAINT `Actions_Communities` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`),
+  ADD CONSTRAINT `Actions_Users` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
 -- Constraints for table `album`
 --
 ALTER TABLE `album`
+  ADD CONSTRAINT `Albums_Communities` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`),
   ADD CONSTRAINT `Albums_Users` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
@@ -438,10 +489,17 @@ ALTER TABLE `comment`
   ADD CONSTRAINT `comments_users` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
+-- Constraints for table `community`
+--
+ALTER TABLE `community`
+  ADD CONSTRAINT `community_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
 -- Constraints for table `picture`
 --
 ALTER TABLE `picture`
   ADD CONSTRAINT `Pictures_Albums` FOREIGN KEY (`album_id`) REFERENCES `album` (`id`),
+  ADD CONSTRAINT `Pictures_Communities` FOREIGN KEY (`community_id`) REFERENCES `community`(`id`),
   ADD CONSTRAINT `Pictures_Users` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --

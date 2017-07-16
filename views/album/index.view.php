@@ -153,7 +153,7 @@
             }
             imgSelected = $('.album-pictures img.selected');
             $.each(imgSelected, function() {
-               console.log($(this).attr('data-id'));
+            //    console.log($(this).attr('data-id'));
             });
         });
 
@@ -170,7 +170,6 @@
                     };
                     i++;
                 });
-                console.log(object);
 
                 $.ajax({
                     url: '/album/add-pictures',
