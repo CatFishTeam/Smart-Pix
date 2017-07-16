@@ -24,6 +24,7 @@ class AlbumController extends GlobalController{
                         elseif ($_FILES['thumbnail_url']['error'] != 4)
                             $_SESSION['messages']['warning'][] = "Le fichier d'image a rencontré une erreur.";
                     } else {
+                        var_dump("test");
                         $fileInfo = pathinfo($_FILES['thumbnail_url']['name']);
                         $ext = pathinfo($_FILES['thumbnail_url']['name'], PATHINFO_EXTENSION);
                         if (
@@ -120,9 +121,7 @@ class AlbumController extends GlobalController{
     }
 
     public function addPictures() {
-        $albumId = 0;
         foreach ($_POST['imgSelected'] as $img) {
-            $albumId = $img['album'];
             $addPicture = new Picture_Album();
             $addPicture->setPictureId($img['id']);
             $addPicture->setAlbumId($img['album']);

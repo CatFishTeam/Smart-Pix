@@ -188,9 +188,7 @@ var img = [];
 
 <?php foreach($pictures as $picture): ?>
     img.push(["/public/cdn/images/<?php echo $picture['url'] ?>", "/picture/<?php echo $picture['id'] ?>","<?php echo $picture['title'] ?>"]);
-    //console.log("1"+img);
 <?php endforeach; ?>
-//console.log("2"+img);
 
 $(document).ready(function() {
     console.log("3"+img);

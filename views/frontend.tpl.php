@@ -48,28 +48,28 @@
             <p>
                 Smart-Pix © - 2017
             </p>
-            <script>
-                $('.flash-cell').on('click',function(){
-                    $(this).fadeOut();
-                });
-                // var $messages = $('.flash-cell');
-                // var i=0;
-                //
-                // (function fadeFlashMessage($collection, index){
-                //     $collection.eq(index).fadeIn(1000, function(){
-                //         fadeFlashMessage($collection, index++);
-                //     }).delay('4000').fadeOut();
-                // })($messages, i);
-                //TODO DELAY is not overridable + Test to set up this (just above)
-                function flash(){
-                    $('.flash-cell').each(function(){
-                        $(this).delay('500').fadeIn().delay('4000').fadeOut();
-                    });
-                }
-                $(document).ready(function() {
-                    flash();
-                });
-            </script>
+<!--            <script>-->
+<!--                $('.flash-cell').on('click',function(){-->
+<!--                    $(this).fadeOut();-->
+<!--                });-->
+<!--                // var $messages = $('.flash-cell');-->
+<!--                // var i=0;-->
+<!--                //-->
+<!--                // (function fadeFlashMessage($collection, index){-->
+<!--                //     $collection.eq(index).fadeIn(1000, function(){-->
+<!--                //         fadeFlashMessage($collection, index++);-->
+<!--                //     }).delay('4000').fadeOut();-->
+<!--                // })($messages, i);-->
+<!--                //TODO DELAY is not overridable + Test to set up this (just above)-->
+<!--                function flash(){-->
+<!--                    $('.flash-cell').each(function(){-->
+<!--                        $(this).delay('500').fadeIn().delay('4000').fadeOut();-->
+<!--                    });-->
+<!--                }-->
+<!--                $(document).ready(function() {-->
+<!--                    flash();-->
+<!--                });-->
+<!--            </script>-->
         </footer>
 
     </body>

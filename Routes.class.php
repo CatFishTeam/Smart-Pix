@@ -13,6 +13,7 @@ $router->get('/login',                  'Pages@login');
 $router->get('/signup',                 'Pages@signup');
 $router->get('/user',                   'Pages@wall');
 $router->get('/user/:id',               'Pages@wall');
+$router->get('/user-actions',           'User@actions');
 
 $router->post('/login',                 'Guest@login');
 $router->post('/signup',                'Guest@signup');

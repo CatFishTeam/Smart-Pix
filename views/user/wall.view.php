@@ -103,5 +103,39 @@
                 <?php endforeach; ?>
             </div>
         </div>
+<!--        <div class="loading">-->
+<!--            <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>-->
+<!--            <span class="sr-only">Loading...</span>-->
+<!--        </div>-->
     </div>
 </div>
+
+<script>
+    function loadActions(actions, count, limit) {
+        $.each(actions, function () {
+            if (count >= limit)
+                return false;
+            $(this).fadeIn("slow");
+            count++;
+        });
+    }
+    $(document).ready(function() {
+        var win = $(window);
+        var actions = $('.story');
+        var limit = 10;
+        var count = 0;
+        console.log(actions.length);
+        actions.hide();
+        loadActions(actions, count, limit);
+
+        $('.loading').hide();
+
+        win.scroll(function() {
+            // Test si on a atteint le bas de page :
+            if ($(document).height() - win.height() == Math.ceil(win.scrollTop())) {
+                limit += 10;
+                loadActions(actions, count, limit);
+            }
+        });
+    });
+</script>

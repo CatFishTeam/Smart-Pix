@@ -136,7 +136,7 @@
                 img.css("background-color", "#2ecc71");
             } else {
                 nbSelected--;
-                img.css("border", "0");
+                img.css("border", "5px solid transparent");
                 img.css("background-color", "transparent");
             }
             if (nbSelected < 1) {
@@ -152,9 +152,6 @@
                 $('.add-album-pictures').prop('disabled', false);
             }
             imgSelected = $('.album-pictures img.selected');
-            $.each(imgSelected, function() {
-            //    console.log($(this).attr('data-id'));
-            });
         });
 
         /* Validation de l'ajout : */
@@ -165,7 +162,7 @@
                 var object = [];
                 $.each(imgSelected, function () {
                     object[i] = {
-                        id: $(this).attr('data-id'),
+                        id: $(this).data('id'),
                         album: albumId
                     };
                     i++;
