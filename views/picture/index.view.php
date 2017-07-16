@@ -11,6 +11,26 @@
                 <p><?php echo $picture->getDescription(); ?></p>
             </div>
 </div>
+<?php //var_dump($albums); ?>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <p>
+        <?php if (count($albums) > 1):
+            echo "Cette image fait partie des albums suivants :";
+        elseif (count($albums) == 1):
+            echo "Cette image fait partie de l'album :";
+        else:
+            echo "Cette image ne fait partie d'aucun album.";
+        endif; ?>
+
+        <?php foreach ($albums as $album): ?>
+            <a href="/album/<?php echo $album['id']; ?>"><?php echo $album['title']; ?></a>
+        <?php endforeach; ?>
+        </p>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-2"></div>
     <div class="col-8">

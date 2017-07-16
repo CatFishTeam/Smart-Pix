@@ -57,6 +57,18 @@ class PagesController extends GlobalController{
             }
             $v->assign('picture', $picture);
 
+            $albumsId = new Picture_Album();
+            $albumsId = $albumsId->getAllBy(['picture_id' => $id]);
+            //var_dump($albumsId);
+            $albums = array();
+            foreach ($albumsId as $albumId) {
+                $album = new Album();
+                $album = $album->getOneBy(['id' => $albumId['album_id']]);
+                array_push($albums, $album);
+            }
+            $v->assign('albums', $albums);
+            //var_dump($albums);
+
             $comments = new Comment();
             $comments = $comments->getAllBy(['picture_id'=>$id[0],'is_archived'=>0, 'is_published'=>1], 'DESC');
             $v->assign('comments', $comments);

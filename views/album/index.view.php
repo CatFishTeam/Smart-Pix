@@ -190,22 +190,22 @@
         $('body').on('click', '.removePicture', function() {
             $album_id = $('#albumModal').data('id');
             $picture_id = $(this).data('id');
-            var remove = confirm('Voulez-vous supprimer l\'image "'+ $(this).parent().attr('data-title') +'" de cet album ? ');
+            var remove = confirm('Voulez-vous supprimer l\'image "'+ $(this).parent().data('title') +'" de cet album ? ');
             if (remove) {
                 $(this).parent().fadeOut("slow");
+                $.ajax({
+                    url: '/album/remove-picture',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {album_id: $album_id,picture_id: $picture_id},
+                    success: function(data){
+                        flash();
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
             }
-            $.ajax({
-                url: '/album/remove-picture',
-                method: 'POST',
-                dataType: 'json',
-                data: {album_id: $album_id,picture_id: $picture_id},
-                success: function(data){
-                    flash();
-                },
-                error: function(error){
-                    console.log(error);
-                }
-            })
         });
 
     });
