@@ -1,65 +1,7 @@
 <?php
-class AlbumController{
+include 'GlobalController.class.php';
 
-    public function add(){
-        $album = new Album();
-        $now = new DateTime("now");
-        $nowStr = $now->format("Y-m-d H:i:s");
-        $album->setTitle($_POST['title']);
-        $album->setDescription("");
-        $album->setUserId($_SESSION['user_id']);
-        $album->setIsPresentation(0);
-        $album->setIsPublished(1);
-        $album->setCreatedAt($nowStr);
-        $album->setUpdatedAt($nowStr);
-        $album->save();
-
-        echo json_encode($album->last($_SESSION['user_id']));
-        exit;
-    }
-
-    public function showEdit(){
-        $album = new Album();
-        echo json_encode($album->getOneBy(['id'=>$_POST['id']]));
-        exit;
-    }
-
-    // TODO AJOUTER is_published
-    // TODO retourner un objet json
-    public function editAlbum(){
-        $album = new Album();
-        $now = new DateTime("now");
-        $nowStr = $now->format("Y-m-d H:i:s");
-
-        $album->populate(['id'=>$_POST['id']]);
-        $album->setId($_POST['id']);
-        $album->setTitle($_POST['title']);
-        $album->setDescription($_POST['description']);
-        $album->setUserId($_SESSION['user_id']);
-        if(isset($_POST['is_presentation'])){
-            $album->setIsPresentation(1);
-        } else {
-            $album->setIsPresentation(0);
-        }
-        if(isset($_POST['is_published'])){
-            $album->setIsPublished(1);
-        } else {
-            $album->setIsPublished(0);
-        }
-        $album->setCreatedAt($nowStr);
-        $album->setUpdatedAt($nowStr);
-        $album->save();
-
-        echo json_encode($album->getOneBy(['id'=>$_POST['id']]));
-        exit;
-    }
-
-    public function deleteAlbum(){
-        $album = new Album();
-        $album->deleteOneBy(['id'=>$_POST['id']]);
-        echo json_encode("success");
-        exit;
-    }
+class AlbumController extends GlobalController{
 
     public function create() {
         $v = new View("album.create", "frontend");
@@ -200,12 +142,10 @@ class AlbumController{
     }
 
     public function removePicture() {
-        //TODO CALL FLASH !
-        var_dump($_POST);
         $removePicture = new Picture_Album();
         $removePicture->deleteOneBy(['album_id' => $_POST['album_id'], 'picture_id' => $_POST['picture_id']]);
         $_SESSION['messages']['success'][] = "Votre image a bien été retirée de l'album";
-        flash();
+        GlobalController::flash('json');
         exit();
     }
 

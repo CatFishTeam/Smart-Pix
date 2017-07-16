@@ -37,7 +37,7 @@ TODO
         <?php endforeach ?>
     </ul>
 </div>
-<div style="position: absolute; left: 20%; width: 80%; height: 20%; background: blue; border: 2px solid grey; padding: 15px;">
+<div style="position: absolute; left: 20%; width: 80%; height: 20%; background: blue; color: #fff; border: 2px solid grey; padding: 15px;">
     <form action="/album/addalbum" type="POST">
         <input type="hidden" name="id"/>
         Titre de la page : <input type="text" name="title" /><br>
@@ -55,7 +55,7 @@ TODO
 $('#addPage').click(function(){
     $pageTitle = $(this).prev().val();
     $.ajax({
-        url : '/album/addAlbum',
+        url : '/admin/addAlbum',
         type: 'POST',
         dataType: 'json',
         data : { title: $pageTitle },
@@ -76,7 +76,7 @@ $(document).on('click','#albums li',function(){
     $(this).addClass('active');
     $id = $(this).data('id');
     $.ajax({
-        url : '/album/showEdit',
+        url : '/admin/getAlbum',
         type: 'POST',
         dataType: 'json',
         data: { id: $id },
@@ -104,7 +104,7 @@ $(document).on('click','#albums li',function(){
 $('[name="editAlbum"]').click(function(){
     $form = $(this).parent();
     $.ajax({
-        url: '/album/editAlbum',
+        url: '/admin/editAlbum',
         type: 'POST',
         dataType: 'json',
         data: $form.serialize(),
@@ -118,7 +118,7 @@ $('[name="editAlbum"]').click(function(){
 $('[name="deleteAlbum"]').click(function(){
     $id = $(this).parent().find('[name="id"]').val();
     $.ajax({
-        url: '/album/deleteAlbum',
+        url: '/admin/deleteAlbum',
         type: 'POST',
         dataType: 'json',
         data: {id: $id},
