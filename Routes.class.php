@@ -9,7 +9,9 @@ $router = new Router($_GET['url']);
 $router->get('/',                   'Pages@index');
 $router->get('/test',               'Moderator@test');
 
+$router->get('/album',              'Pages@album');
 $router->get('/album/:id',          'Pages@album');
+$router->get('/picture',            'Pages@picture');
 $router->get('/picture/:id',        'Pages@picture');
 
 $router->get('/login',              'Pages@login');

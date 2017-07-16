@@ -40,11 +40,14 @@ class PagesController extends GlobalController{
      * Si $id non fourni => listing des images sur le site
      */
      //TODO Message en attente de validation
-    public function picture($id) {
+    public function picture($id = null) {
         $v = new View('picture.index', 'frontend');
         $v->assign('id', $id);
         if (empty($id)) {
             // Listing des images
+            $allPictures = new Picture();
+            $allPictures = $allPictures->getAllBy([], 'DESC');
+            $v->assign('allPictures', $allPictures);
         } else {
             // Affichage d'une image avec $id
             $picture = new Picture();
@@ -67,7 +70,6 @@ class PagesController extends GlobalController{
                 array_push($albums, $album);
             }
             $v->assign('albums', $albums);
-            //var_dump($albums);
 
             $comments = new Comment();
             $comments = $comments->getAllBy(['picture_id'=>$id[0],'is_archived'=>0, 'is_published'=>1], 'DESC');

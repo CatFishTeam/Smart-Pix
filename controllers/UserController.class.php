@@ -109,7 +109,7 @@ class UserController extends GlobalController{
         }
         if (!empty($user)) {
             $pictures = new Picture();
-            $pictures = $pictures->getAllBy(['user_id' => $user->getId()]);
+            $pictures = $pictures->getAllBy(['user_id' => $user->getId()], 'DESC');
             $v->assign('user', $user);
             $v->assign('pictures', $pictures);
             $v->assign('title', "Photos de ".$user->getUsername());
@@ -126,7 +126,7 @@ class UserController extends GlobalController{
         }
         if (!empty($user)) {
             $albums = new Album();
-            $albums = $albums->getAllBy(['user_id' => $user->getId()]);
+            $albums = $albums->getAllBy(['user_id' => $user->getId()], 'DESC');
             $v->assign('user', $user);
             $v->assign('albums', $albums);
             $v->assign('title', "Album de ".$user->getUsername());
