@@ -79,8 +79,15 @@
     <p>Cette image n'existe pas.</p>
 </div>
 <?php else: ?>
-<div class="col-12">
-    <p>Listing des images</p>
-</div>
+    <h2>Toutes les images</h2>
+    <?php foreach ($allPictures as $picture): ?>
+
+        <div class="picture col-6 col-m-12">
+            <a href="/picture/<?php echo $picture['id']; ?>"><img src="/public/cdn/images/<?php echo $picture['url']; ?>" alt="<?php echo $picture['title']; ?>"></a><br>
+            <h2><?php echo $picture['title']; ?></h2>
+            <p><?php echo $picture['description']; ?></p>
+        </div>
+
+    <?php endforeach; ?>
 <?php endif; ?>
 </div>
