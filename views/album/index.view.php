@@ -136,7 +136,7 @@
                 img.css("background-color", "#2ecc71");
             } else {
                 nbSelected--;
-                img.css("border", "0");
+                img.css("border", "5px solid transparent");
                 img.css("background-color", "transparent");
             }
             if (nbSelected < 1) {

@@ -9,6 +9,7 @@ $config = array(
     "options" => [
         "method" => "POST",
         "action" => "#",
+        "enctype" => "multipart/form-data",
         "class" => "form-group",
         "submit" => "Ajouter mon album",
         "submitName" => "create-album",
@@ -35,7 +36,6 @@ $config = array(
             "placeholder" => "Sélectionnez une image de couverture",
             "id" => "uploadImg",
             "value" => null,
-            "required" => true
         ],
         "thumbnail_label" => [
             "type" => "label",

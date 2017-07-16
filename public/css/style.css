@@ -594,6 +594,10 @@ Wall (user/wall)
 /* User's pictures */
 .picture {
   text-align: center; }
+  .picture img {
+    height: 300px;
+    width: 100%;
+    object-fit: cover; }
   .picture img:hover {
     outline: 3px dashed #cfcfad; }
 
@@ -658,8 +662,10 @@ Wall (user/wall)
   .modal-body .album-pictures img {
     max-height: 150px;
     display: inline-block;
-    border-radius: 3px;
-    background-color: transparent; }
+    border: 5px solid transparent;
+    border-radius: 8px;
+    background-color: transparent;
+    cursor: pointer; }
 
 .modal-content {
   position: relative;
