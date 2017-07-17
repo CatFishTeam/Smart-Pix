@@ -61,4 +61,19 @@ $router->get('/communities',            'Community@index');
 $router->get('/community/create',       'User@createCommunity');
 $router->post('/community/check-name',  'Community@checkName');
 
+$router->get(':community',                          'Pages@communityIndex');
+$router->get(':community/album/:id',                'Pages@album');
+$router->get(':community/picture/:id',              'Pages@picture');
+$router->get(':community/add-album',                'Album@create');
+$router->post(':community/add-album',               'Album@create');
+$router->get(':community/edit-album',               'Album@edit');
+$router->get(':community/edit-album/:id',           'Album@edit');
+$router->post(':community/edit-album/:id',          'Album@edit');
+$router->post(':community/album/remove-picture',    'Album@removePicture');
+$router->post(':community/album/add-pictures',      'Album@addPictures');
+$router->get(':community/add-picture',              'Picture@add');
+$router->post(':community/add-picture',             'Picture@add');
+$router->get(':community/user',                     'Pages@wall');
+$router->get(':community/user/:id',                 'Pages@wall');
+
 $router->run();

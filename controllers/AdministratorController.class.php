@@ -7,25 +7,20 @@ class AdministratorController extends ModeratorController{
             header('Location:/login');
         }
         if($_SESSION['permission'] < 3){
+            $_SESSION['messages']['error'][] = "Vous n'avez pas la permission de faire ceci";
             header('Location: /');
         }
     }
 
     /* ~~~~~ ADMINISTRATOR ~~~~ */
     public function profil(){
-        if($_SESSION['permission'] < 3){
-            header('Location:\admin');
-        }
         $v = new View('admin.profil','backend');
         $v->assign("specificHeader","<script src=\"https://cdn.ckeditor.com/4.6.2/standard/ckeditor.js\"></script>");
     }
 
-    
+
     /* ~~~~~~ Users ~~~~~~ */
     public function users(){
-        if($_SESSION['permission'] < 3){
-            header('Location:/admin');
-        }
         $v = new View('admin.users','backend');
         $users = new User();
         $users = $users->getAllBy();
@@ -33,11 +28,9 @@ class AdministratorController extends ModeratorController{
 
     }
     public function userPermission(){
-        //For security purpose
-        echo($_SESSION['permission']);
         if($_SESSION['permission'] < $_POST['permission']){
-            //TODO RESPONSE VOUS N'AVEZ PAS LA PERMISSION DE FAIRE CECI
-            echo 'test';
+            $_SESSION['messages']['error'][] = "Vous n'avez pas la permission de faire ceci";
+            GlobalController::flash('json');
             exit();
         }
         $user = new User();
@@ -54,9 +47,6 @@ class AdministratorController extends ModeratorController{
     }
 
     public function stats(){
-        if($_SESSION['permission'] < 3){
-            header('Location:/admin');
-        }
         $v = new View('admin.stats','backend');
     }
 

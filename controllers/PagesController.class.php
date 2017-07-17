@@ -8,6 +8,16 @@ class PagesController{
         $v->assign('pictures', $pictures);
     }
 
+    public function communityIndex($slug){
+        $community = new Community();
+        $community = $community->getOneBy(['slug'=>$slug]);
+
+        $v = new View();
+        $pictures = new Picture();
+        $pictures = $pictures->getAllBy(['community_id' => $community['id']], 'DESC');
+        $v->assign('pictures', $pictures);
+    }
+
     public function album($id) {
         $v = new View('album.index', 'frontend');
         if (empty($id)) {
@@ -91,7 +101,6 @@ class PagesController{
         $v->assign('title', "Connexion");
     }
 
-    //TODO : Modifier pour qu'on utilise le constructeur de User (qu'il faut surement modifier un peu).
     public function signup() {
         $v = new View('user.signup', 'frontend');
         $v->assign('title', "Inscription");
