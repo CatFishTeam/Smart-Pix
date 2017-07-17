@@ -116,9 +116,7 @@ class BaseSql{
                 $where[] = $key.'=:'.$key;
             }
             $query = $this->db->prepare("SELECT * FROM ".$this->table." WHERE ".implode(" AND ", $where).($order != null ? " ORDER BY created_at ".$order : "").($limit != null ? " LIMIT ".$limit : ""));
-
             $query->execute($search);
-
             if($returnQuery){
                 return $query;
             }

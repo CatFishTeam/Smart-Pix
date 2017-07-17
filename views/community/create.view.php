@@ -2,10 +2,11 @@
 $config = array(
     "options" => [
         "method" => "POST",
-        "action" => "",
+        "action" => "/community/create",
         "class" => "form-group",
         "submit" => "Créer une communauté",
         "submitName" => "create-community",
+        "submitType" => 'button',
     ],
     "struc" => [
         "name" => [
@@ -33,7 +34,8 @@ $config = array(
         <?php include "views/modals/form.mod.php"; ?>
     </div>
     <script>
-        $('[name="title"]').on('change paste keyup', function(){
+        var error = false;
+        $('[name="name"]').on('change paste keyup', function(){
             $name = $(this).val();
             $.ajax({
                 url: '/community/check-name',
@@ -42,10 +44,30 @@ $config = array(
                 dataType: 'json',
                 success: function(data){
                     if(data != 'good'){
-                        alert('Ce nom de communauté existe déjà !')
+                        $('[name="name"]').css({'outline':'none','border':'1px solid red','box-shadow': '0px 0px 4px 0px red'});
+                        error = true;
+                    }else {
+                        $('[name="name"]').css({'border':'1px solid lightgray','box-shadow':'none'});
+                        error = false;
                     }
                 }
             });
+        });
+        function checkError(){
+            $('input[required="required"],textarea[required="required"]').each(function(){
+                if($(this).val().length == 0){
+                    console.log('Un champ est mal rempli');
+                    return false;
+                }
+            })
+            return true;
+        }
+        $('[name="create-community"]').click(function(){
+            if(!error && checkError()){
+                $('form').submit();
+            } else {
+                alert('Le formulaire n\'est pas correctement rempli')
+            }
         });
     </script>
 </div>

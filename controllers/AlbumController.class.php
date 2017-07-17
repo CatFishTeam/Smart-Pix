@@ -1,7 +1,6 @@
 <?php
-include 'GlobalController.class.php';
 
-class AlbumController extends GlobalController{
+class AlbumController{
 
     public function create() {
         $v = new View("album.create", "frontend");

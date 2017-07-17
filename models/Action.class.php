@@ -4,6 +4,7 @@ class Action extends BaseSql {
 
     protected $id = -1;
     protected $user_id;
+    protected $community_id;
     protected $type_action;
     protected $related_id;
     protected $created_at;
@@ -43,6 +44,30 @@ class Action extends BaseSql {
     public function setUserId($user_id)
     {
         $this->user_id = $user_id;
+    }
+
+    /**
+     * Get the value of Community Id
+     *
+     * @return mixed
+     */
+    public function getCommunityId()
+    {
+        return $this->community_id;
+    }
+
+    /**
+     * Set the value of Community Id
+     *
+     * @param mixed community_id
+     *
+     * @return self
+     */
+    public function setCommunityId($community_id)
+    {
+        $this->community_id = $community_id;
+
+        return $this;
     }
 
     /**
@@ -92,7 +117,6 @@ class Action extends BaseSql {
     {
         $this->created_at = $created_at;
     }
-
 
 
 }

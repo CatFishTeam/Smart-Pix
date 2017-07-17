@@ -2,15 +2,12 @@
 class Comment extends BaseSql{
 
     protected $id = -1;
-    protected $content;
-    protected $created_at;
-    protected $picture_id; //Rajouter User / Alubm ?
     protected $user_id;
+    protected $picture_id;
+    protected $content;
     protected $is_archived;
     protected $is_published;
-
-    //TODO voir user
-    // • Récupérer les comments liés à un user (détenteur)
+    protected $created_at;
 
     public function __construct($id='DEFAULT',$content=null,$created_at='DEFAULT',$picture_id=null,$user_id=null,$is_archived='0',$is_published='0'){
         parent::__construct();
@@ -19,10 +16,6 @@ class Comment extends BaseSql{
         $this->setUserId($user_id);
         $this->setIsArchived($is_archived);
         $this->setIsPublished($is_published);
-    }
-
-    public function isNotArchived(){
-            
     }
 
     /**
@@ -45,6 +38,54 @@ class Comment extends BaseSql{
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of User Id
+     *
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * Set the value of User Id
+     *
+     * @param mixed user_id
+     *
+     * @return self
+     */
+    public function setUserId($user_id)
+    {
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Picture Id
+     *
+     * @return mixed
+     */
+    public function getPictureId()
+    {
+        return $this->picture_id;
+    }
+
+    /**
+     * Set the value of Picture Id
+     *
+     * @param mixed picture_id
+     *
+     * @return self
+     */
+    public function setPictureId($picture_id)
+    {
+        $this->picture_id = $picture_id;
 
         return $this;
     }
@@ -122,55 +163,6 @@ class Comment extends BaseSql{
     }
 
     /**
-     * Get the value of Picture Id
-     *
-     * @return mixed
-     */
-    public function getPictureId()
-    {
-        return $this->picture_id;
-    }
-
-    /**
-     * Set the value of Picture Id
-     *
-     * @param mixed picture_id
-     *
-     * @return self
-     */
-    public function setPictureId($picture_id)
-    {
-        $this->picture_id = $picture_id;
-
-        return $this;
-    }
-
-
-    /**
-     * Get the value of User Id
-     *
-     * @return mixed
-     */
-    public function getUserId()
-    {
-        return $this->user_id;
-    }
-
-    /**
-     * Set the value of User Id
-     *
-     * @param mixed user_id
-     *
-     * @return self
-     */
-    public function setUserId($user_id)
-    {
-        $this->user_id = $user_id;
-
-        return $this;
-    }
-
-    /**
      * Get the value of Is Archived
      *
      * @return mixed
@@ -216,5 +208,6 @@ class Comment extends BaseSql{
 
         return $this;
     }
+
 
 }

@@ -1,7 +1,5 @@
 <?php
-include 'GlobalController.class.php';
-
-class PagesController extends GlobalController{
+class PagesController{
 
     public function index(){
         $v = new View();

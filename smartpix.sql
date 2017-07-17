@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `action` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `community_id` int(11) NOT NULL,
+  `community_id` int(11) DEFAULT NULL ,
   `type_action` varchar(10) NOT NULL,
   `related_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
