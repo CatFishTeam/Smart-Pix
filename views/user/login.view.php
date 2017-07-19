@@ -35,7 +35,10 @@ $config = array(
         <div class="col-4 col-m-2"></div>
         <div class="col-4 col-m-8">
             <?php include "views/modals/form.mod.php"; ?>
-            <p><a href="<?php echo PATH_RELATIVE."forgetPassword" ?>">Mot de passe oublié ?</a></p>
+            <p>
+                <a href="/forgetPassword">Mot de passe oublié ?</a><br>
+                Pas de compte ? <a href="/signup">Inscrivez-vous !</a>
+            </p>
             <?php else: ?>
                 <h2>Vous êtes connecté !</h2>
             <?php endif; ?>

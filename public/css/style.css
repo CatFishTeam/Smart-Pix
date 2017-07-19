@@ -151,7 +151,7 @@ table {
     bottom: 0;
     padding: 15px; }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-device-width: 768px) {
   .body-container {
     width: 100%;
     margin: 30px auto; }
@@ -185,6 +185,12 @@ header {
   height: 90px;
   line-height: 70px;
   background: #fff; }
+  header .logo-header {
+    float: left; }
+    header .logo-header .community-header {
+      font-family: 'Proxima Nova Regular', sans-serif;
+      color: #333;
+      vertical-align: top; }
 
 .container {
   width: 100%;
@@ -280,7 +286,6 @@ a:not([class*="btn"]):active {
   color: #3498db; }
 
 .logo {
-  float: left;
   width: 80px;
   margin-right: 50px; }
 

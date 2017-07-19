@@ -18,7 +18,10 @@
             <div class="container">
                 <div class="row">
                     <section class="col-8 col-m-12">
-                        <a href="<?php echo PATH_RELATIVE; ?>"><img src="<?php echo PATH_RELATIVE; ?>public/image/logo.png" alt="Smart-Pix Logo" class="logo"/></a>
+                        <a href="<?php echo isset($community) ? "/".$community->getSlug() : PATH_RELATIVE; ?>" class="logo-header">
+                            <span class="community-header"><?php echo isset($community) ? $community->getName() : ""; ?></span>
+                            <img src="<?php echo PATH_RELATIVE; ?>public/image/logo.png" alt="Smart-Pix Logo" class="logo"/>
+                        </a>
                         <nav>
                             <i class="fa fa-search" aria-hidden="true"></i>
                             <input type="text" placeholder="Recherche par photo, catégorie, artiste..."/>
@@ -27,14 +30,14 @@
                     <section class="col-4 col-m-12 m-center">
                         <!--    Non connecté :      -->
                         <?php if(!isset($_SESSION['username'])): ?>
-                            <a href="<?php echo PATH_RELATIVE; ?>login" class="btn btn-login">Connexion</a>
-                            <a href="<?php echo PATH_RELATIVE; ?>signup" class="btn btn-signup">Inscription</a>
+                            <a href="/login" class="btn btn-login">Connexion</a>
+                            <a href="/signup" class="btn btn-signup">Inscription</a>
                             <!--    Connecté :          -->
                         <?php else: ?>
-                            <a href="/communities" class="btn btn-login">Mes communautés</a>
-                            <a href="<?php echo PATH_RELATIVE; ?>user/<?php  echo $_SESSION['user_id']; ?>" class="btn btn-login"><i class="fa fa-camera-retro" aria-hidden="true"></i> <?php echo $_SESSION['username']; ?></a>
-                            <a href="<?php echo PATH_RELATIVE; ?>profile" class="btn btn-login"><i class="fa fa-user" aria-hidden="true"></i> Profil</a>
-                            <a href="<?php echo PATH_RELATIVE; ?>logout" class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                            <a href="/" class="btn" title="Smart-Pix - Accueil"><i class="fa fa-home" aria-hidden="true"></i></a>
+                            <a href="<?php echo isset($community) ? $community->getSlug() : ""; ?>/user/<?php echo $_SESSION['user_id']; ?>" class="btn btn-login"><i class="fa fa-camera-retro" aria-hidden="true"></i> <?php echo $_SESSION['username']; ?></a>
+                            <a href="/profile" class="btn btn-login"><i class="fa fa-user" aria-hidden="true"></i> Profil</a>
+                            <a href="/logout" class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
                         <?php endif; ?>
                     </section>
                 </div>
