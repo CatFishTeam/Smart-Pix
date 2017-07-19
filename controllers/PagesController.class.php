@@ -1,12 +1,20 @@
 <?php
-include 'GlobalController.class.php';
-
-class PagesController extends GlobalController{
+class PagesController{
 
     public function index(){
         $v = new View();
         $pictures = new Picture();
         $pictures = $pictures->getAllBy([], 'DESC');
+        $v->assign('pictures', $pictures);
+    }
+
+    public function communityIndex($slug){
+        $community = new Community();
+        $community = $community->getOneBy(['slug'=>$slug]);
+
+        $v = new View();
+        $pictures = new Picture();
+        $pictures = $pictures->getAllBy(['community_id' => $community['id']], 'DESC');
         $v->assign('pictures', $pictures);
     }
 
@@ -93,7 +101,6 @@ class PagesController extends GlobalController{
         $v->assign('title', "Connexion");
     }
 
-    //TODO : Modifier pour qu'on utilise le constructeur de User (qu'il faut surement modifier un peu).
     public function signup() {
         $v = new View('user.signup', 'frontend');
         $v->assign('title', "Inscription");

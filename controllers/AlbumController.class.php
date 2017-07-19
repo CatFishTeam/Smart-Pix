@@ -1,7 +1,6 @@
 <?php
-include 'GlobalController.class.php';
 
-class AlbumController extends GlobalController{
+class AlbumController{
 
     public function create() {
         $v = new View("album.create", "frontend");
@@ -127,7 +126,6 @@ class AlbumController extends GlobalController{
             $addPicture->setAlbumId($img['album']);
             $addPicture->save();
         }
-
         if (count($_POST['imgSelected']) > 1)
             $_SESSION['messages']['success'][] = "Vos images ont été ajoutées à l'album";
         else

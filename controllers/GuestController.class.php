@@ -1,7 +1,6 @@
 <?php
-include 'GlobalController.class.php';
 
-class GuestController extends GlobalController{
+class GuestController{
 
     public function signup(){
         require_once __DIR__ . '/../vendor/autoload.php';
@@ -170,7 +169,7 @@ class GuestController extends GlobalController{
         $userConnected = false;
         $login = $_POST['username'];
         $password = $_POST['pwd'];
-        
+
         $user = new User();
         $user = $user->populate(array('username' => $login));
         if(!$user){

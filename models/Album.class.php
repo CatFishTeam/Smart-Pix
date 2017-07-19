@@ -2,6 +2,8 @@
 class Album extends BaseSql{
 
     protected $id = -1;
+    protected $user_id;
+    protected $community_id;
     protected $title;
     protected $description;
     protected $background;
@@ -11,7 +13,6 @@ class Album extends BaseSql{
     protected $is_published; //0 not published 1 published 2 deleted
     protected $created_at;
     protected $updated_at;
-    protected $user_id;
 
     public function __construct($id='DEFAULT', $title=null, $description=null, $background=null, $disposition=null, $thumbnail_url=null, $is_presentation=0, $is_published=0, $created_at='DEFAULT', $updated_at='DEFAULT', $user_id=1){
         parent::__construct();
@@ -37,6 +38,55 @@ class Album extends BaseSql{
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of User Id
+     *
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * Set the value of User Id
+     *
+     * @param mixed user_id
+     *
+     * @return self
+     */
+    public function setUserId($user_id)
+    {
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of Community Id
+     *
+     * @return mixed
+     */
+    public function getCommunityId()
+    {
+        return $this->community_id;
+    }
+
+    /**
+     * Set the value of Community Id
+     *
+     * @param mixed community_id
+     *
+     * @return self
+     */
+    public function setCommunityId($community_id)
+    {
+        $this->community_id = $community_id;
 
         return $this;
     }
@@ -246,30 +296,6 @@ class Album extends BaseSql{
     public function setUpdatedAt($updated_at)
     {
         $this->updated_at = $updated_at;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of User Id
-     *
-     * @return mixed
-     */
-    public function getUserId()
-    {
-        return $this->user_id;
-    }
-
-    /**
-     * Set the value of User Id
-     *
-     * @param mixed user_id
-     *
-     * @return self
-     */
-    public function setUserId($user_id)
-    {
-        $this->user_id = $user_id;
 
         return $this;
     }

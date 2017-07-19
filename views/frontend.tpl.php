@@ -48,7 +48,8 @@
             <p>
                 Smart-Pix © - 2017
             </p>
-            <script>
+
+           <script>
                 $('.flash-cell').on('click',function(){
                     $(this).fadeOut();
                 });

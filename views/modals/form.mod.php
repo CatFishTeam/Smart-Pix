@@ -15,7 +15,8 @@
         <?php if ($attribute['type'] == "label"): ?>
             <label for="<?php echo $attribute['for']; ?>"><?php echo $attribute['text']; ?></label>
         <?php elseif($attribute['type'] == "textarea"): ?>
-            <textarea name="<?php echo $name?>" placeholder="<?php echo $attribute["placeholder"];?>"></textarea>
+            <textarea name="<?php echo $name?>" placeholder="<?php echo $attribute["placeholder"];?>"
+                <?php echo (isset($attribute["required"]) && $attribute["required"]) ? "required='required'" : ""?>></textarea>
         <?php elseif(
             $attribute['type'] == "email" ||
             $attribute['type'] == "password" ||
@@ -36,5 +37,5 @@
     <div class="g-recaptcha" data-sitekey="6LeftiQUAAAAAJO-QKv1u7redcYNbwLRgszt0IBR"></div>
     <?php endif; ?>
 
-    <input type="submit" value="<?php echo $config["options"]["submit"]; ?>" name="<?php echo $config["options"]["submitName"] ?>">
+    <input type="<?php echo (isset($config["options"]["submitType"])) ? $config["options"]["submitType"] : "submit" ?>" value="<?php echo $config["options"]["submit"]; ?>" name="<?php echo $config["options"]["submitName"] ?>">
 </form>

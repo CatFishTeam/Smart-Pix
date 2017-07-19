@@ -49,5 +49,6 @@ class View{
     function __destruct(){
         extract($this->data);
         include "views/".$this->template.".tpl.php";
+        GlobalController::flash();
     }
 }

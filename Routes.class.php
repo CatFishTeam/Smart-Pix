@@ -56,10 +56,26 @@ $router->get('/admin/comments',         'Moderator@comments');
 $router->get('/admin/albums',           'Moderator@showAlbums');
 $router->get('/admin/medias',           'Moderator@medias');
 
-
+$router->post('/community/create',      'Community@create');
 $router->get('/communities',            'Community@index');
 $router->get('/community/create',       'User@createCommunity');
-$router->post('/community/create',      'Community@create');
 $router->post('/community/check-name',  'Community@checkName');
+
+$router->get(':community',                          'Community@Index')->with('community','communities');
+$router->get(':community/album/:id',                'Community@album')->with('community','communities');
+$router->get(':community/picture/:id',              'Community@picture')->with('community','communities');
+$router->get(':community/add-album',                'Community@showAddAlbum')->with('community','communities');
+$router->post(':community/add-album',               'Community@addAlbum')->with('community','communities');
+$router->get(':community/edit-album',               'Community@showEditAlbum')->with('community','communities');
+$router->get(':community/edit-album/:id',           'Community@editAlbum')->with('community','communities');
+$router->post(':community/edit-album/:id',          'Community@editAlbum')->with('community','communities');
+$router->post(':community/album/remove-picture',    'Community@removePictureFromAlbum')->with('community','communities');
+$router->post(':community/album/add-pictures',      'Community@addPicturesToAlbum')->with('community','communities');
+$router->get(':community/add-picture',              'Community@showAddPicture')->with('community','communities');
+$router->post(':community/add-picture',             'Community@addPicture')->with('community','communities');
+$router->get(':community/user',                     'Community@personalWall')->with('community','communities');
+$router->get(':community/user/:id',                 'Community@wallUser')->with('community','communities');
+
+
 
 $router->run();

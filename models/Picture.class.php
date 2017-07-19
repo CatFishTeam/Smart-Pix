@@ -2,13 +2,15 @@
 class Picture extends BaseSql{
 
     protected $id = -1;
-    protected $album_id;
     protected $user_id;
+    protected $album_id;
+    protected $community_id;
     protected $title;
     protected $description;
     protected $url;
     protected $weight;
     protected $is_visible;
+    protected $is_archived;
     protected $created_at;
     protected $updated_at;
 
@@ -44,6 +46,30 @@ class Picture extends BaseSql{
     }
 
     /**
+     * Get the value of User Id
+     *
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * Set the value of UserId
+     *
+     * @param mixed user_id
+     *
+     * @return self
+     */
+    public function setUserId($user_id)
+    {
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    /**
      * Get the value of Album Id
      *
      * @return mixed
@@ -68,25 +94,25 @@ class Picture extends BaseSql{
     }
 
     /**
-     * Get the value of User Id
+     * Get the value of Community Id
      *
      * @return mixed
      */
-    public function getUserId()
+    public function getCommunityId()
     {
-        return $this->user_id;
+        return $this->community_id;
     }
 
     /**
-     * Set the value of UserId
+     * Set the value of Community Id
      *
-     * @param mixed user_id
+     * @param mixed community_id
      *
      * @return self
      */
-    public function setUserId($user_id)
+    public function setCommunityId($community_id)
     {
-        $this->user_id = $user_id;
+        $this->community_id = $community_id;
 
         return $this;
     }
@@ -210,6 +236,32 @@ class Picture extends BaseSql{
         return $this;
     }
 
+
+    /**
+     * Get the value of Is Archived
+     *
+     * @return mixed
+     */
+    public function getIsArchived()
+    {
+        return $this->is_archived;
+    }
+
+    /**
+     * Set the value of Is Archived
+     *
+     * @param mixed is_archived
+     *
+     * @return self
+     */
+    public function setIsArchived($is_archived)
+    {
+        $this->is_archived = $is_archived;
+
+        return $this;
+    }
+
+
     /**
      * Get the value of Created At
      *
@@ -272,6 +324,5 @@ class Picture extends BaseSql{
         // }
 
     }
-
 
 }

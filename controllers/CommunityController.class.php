@@ -1,11 +1,17 @@
 <?php
 
 class CommunityController{
+
+    public function __construct(){
+        
+    }
+
     public function checkName(){
         $name = $_POST['name'];
         $community = new Community;
         $community = $community->populate(['name' => $name]);
-        // $user = $user->populate(array('username' => $_SESSION['username']));
+        $user = new User;
+        $user = $user->populate(array('username' => $_SESSION['username']));
         if($community){
             echo json_encode('error');
         } else {
@@ -14,12 +20,9 @@ class CommunityController{
     }
 
     public function index(){
-        //TODO PK CA MARCHE PAS ?
         $v = new View('community.index', 'frontend');
         $communities = new Community;
-        $communities->getAllBy(['user_id'=>$_SESSION['user_id']], "DESC");
-        // echo '<pre>';
-        // print_r($communities);
+        $communities = $communities->getAllBy(array('user_id'=>$_SESSION['user_id']), "DESC");
         $v->assign('communities', $communities);
     }
 
@@ -31,6 +34,6 @@ class CommunityController{
             $community->setUpdatedAt($nowStr);
             $community->save(true);
             $_SESSION['messages']['success'][] = "Nouvelle communauté crée !";
-            Header("Location: /community");
+            Header("Location: /communities");
     }
 }

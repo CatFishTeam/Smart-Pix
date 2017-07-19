@@ -9,10 +9,6 @@ class Community extends BaseSql{
     protected $created_at;
     protected $updated_at;
 
-    //TODO
-    //Method Slug !
-    //Check Length name and slug < 256
-
     public function __construct($id='DEFAULT',$user_id=null,$name=null,$description=null){
         parent::__construct();
         $this->setUserId($user_id);
@@ -113,7 +109,8 @@ class Community extends BaseSql{
      */
     public function setSlug()
     {
-        $this->slug = $this->name;
+
+        $this->slug = GlobalController::slugify($this->name);
 
         return $this;
     }

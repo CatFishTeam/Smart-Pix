@@ -1,9 +1,8 @@
 <div class="row">
-    <div class="col-12" style="background: red;">
+    <a href="/community/create" class="btn btn-login">Créer une communauté</a>
+    <div class="col-12">
         <?php foreach($communities as $c): ?>
-            <h3><?php echo $communities->getName(); ?></h3>
-            <a href="<?php echo $communities->slug ?>">
+            <a href="<?php echo $c['slug']; ?>"><h3><?php echo $c['name']; ?></h3></a>
         <?php endforeach ?>
     </div>
-    <a href="/community/create">Créer une communauté</a>
 </div>

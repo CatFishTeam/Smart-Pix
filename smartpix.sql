@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 15, 2017 at 03:05 AM
+-- Generation Time: Jul 16, 2017 at 06:44 PM
 -- Server version: 5.6.35
 -- PHP Version: 7.1.1
 
@@ -23,25 +23,12 @@ SET time_zone = "+00:00";
 CREATE TABLE `action` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `community_id` int(11) DEFAULT NULL ,
   `type_action` varchar(10) NOT NULL,
   `related_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `action`
---
-
-INSERT INTO `action` (`id`, `user_id`, `type_action`, `related_id`, `created_at`) VALUES
-(1, 6, 'picture', 98, '2017-06-05 00:19:19'),
-(2, 6, 'picture', 99, '2017-06-06 00:28:42'),
-(7, 11, 'signup', 11, '2017-07-03 17:24:02'),
-(6, 10, 'album', 106, '2017-06-17 22:03:57'),
-(8, 12, 'signup', 12, '2017-07-09 18:59:07'),
-(9, 13, 'signup', 13, '2017-07-09 19:05:44'),
-(10, 14, 'signup', 14, '2017-07-12 20:26:14'),
-(11, 14, 'picture', 123, '2017-07-14 22:31:20'),
-(12, 14, 'album', 108, '2017-07-15 01:00:40');
 
 -- --------------------------------------------------------
 
@@ -52,6 +39,7 @@ INSERT INTO `action` (`id`, `user_id`, `type_action`, `related_id`, `created_at`
 CREATE TABLE `album` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `community_id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `thumbnail_url` varchar(150) DEFAULT '',
   `background` varchar(150) DEFAULT '',
@@ -63,13 +51,6 @@ CREATE TABLE `album` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `album`
---
-
-INSERT INTO `album` (`id`, `user_id`, `title`, `thumbnail_url`, `background`, `disposition`, `description`, `is_presentation`, `is_published`, `created_at`, `updated_at`) VALUES
-(108, 14, 'Yolo', NULL, NULL, NULL, 'Swag', 0, 1, '2017-07-15 01:00:40', '2017-07-15 01:00:40');
-
 -- --------------------------------------------------------
 
 --
@@ -78,12 +59,12 @@ INSERT INTO `album` (`id`, `user_id`, `title`, `thumbnail_url`, `background`, `d
 
 CREATE TABLE `comment` (
   `id` int(11) NOT NULL,
-  `content` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `picture_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `picture_id` int(11) NOT NULL,
+  `content` text NOT NULL,
   `is_archived` tinyint(1) NOT NULL,
-  `is_published` tinyint(1) NOT NULL DEFAULT '0'
+  `is_published` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -93,13 +74,15 @@ CREATE TABLE `comment` (
 --
 
 CREATE TABLE `community` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `name` int(11) NOT NULL,
-  `slug` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL COMMENT 'Super Admin de la communauté',
+  `name` varchar(256) NOT NULL,
+  `slug` varchar(256) NOT NULL,
   `description` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 -- --------------------------------------------------------
 
@@ -137,6 +120,7 @@ CREATE TABLE `picture` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `album_id` int(11) DEFAULT NULL,
+  `community_id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `description` text,
   `url` text NOT NULL,
@@ -147,12 +131,7 @@ CREATE TABLE `picture` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `picture`
---
 
-INSERT INTO `picture` (`id`, `user_id`, `album_id`, `title`, `description`, `url`, `weight`, `is_visible`, `is_archived`, `created_at`, `updated_at`) VALUES
-(123, 14, NULL, 'Test', 'Yolo', 'Test_59694638adc48.jpg', 77046, 0, 0, '2017-07-14 22:31:20', '2017-07-14 22:31:20');
 
 -- --------------------------------------------------------
 
@@ -164,7 +143,8 @@ CREATE TABLE `picture_album` (
   `id` int(11) NOT NULL,
   `picture_id` int(11) NOT NULL,
   `album_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 -- --------------------------------------------------------
 
@@ -242,23 +222,13 @@ CREATE TABLE `user` (
   `password` varchar(60) NOT NULL,
   `avatar` text NOT NULL,
   `permission` int(1) NOT NULL,
-  `is_archived` int(11) NOT NULL DEFAULT '0',
   `status` int(1) NOT NULL COMMENT '0 not validated, 1 validated, 2 deleted',
   `access_token` varchar(32) NOT NULL,
+  `is_archived` int(11) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`id`, `email`, `firstname`, `lastname`, `username`, `password`, `avatar`, `permission`, `is_archived`, `status`, `access_token`, `created_at`, `updated_at`) VALUES
-(4, 'guillaumepn@free.fr', 'Guillaume', 'Pham ngoc', 'test5', '$2y$10$DFNF3521V5DZ.8dTwf4MWuEIaDMaEBLJeppNXVFtC8.ew.bz3Oocu', 'SP_592b1a3ae97fd.jpg', 3, 0, 1, '251810bc2942b709142607597cc4df67', '2017-05-28 18:40:45', '2017-06-21 05:13:50'),
-(5, 'minimus76@gmail.com', '', '', 'test6', '$2y$10$xxyWJGW0nCB420jeiXSvnuiQQyJV6Tgri6zP2JVp4xSNuCnLku4aK', '', 2, 0, 0, '39c9025b703e0cbcdd279b2f302e3f2e', '2017-05-28 19:00:12', '2017-06-21 05:22:32'),
-(6, 'admin@guillaumepn.fr', 'Guillaume', 'Pham ngoc', 'guillaume', '$2y$10$LwGMvpxcHmFJ/29rwto1yuNVlF0fMZKiW0JdM7jx78j6ljMJt.HWq', 'SP_592ca24634184.jpg', 1, 0, 1, 'c949c64c08acc288f84142ee21e1c6d4', '2017-05-29 20:57:48', '2017-06-16 08:41:34'),
-(7, 'contact@guillaumepn.fr', '', '', 'toto', '$2y$10$hD6Ls1j8ZUxcl3MSJiQKIeCni.LzhPEhTjd7LSytSGgy1te9xvERO', '', 2, 0, 1, 'ab707bcac780edd5c48b8866bd087fec', '2017-06-02 00:21:49', '2017-06-21 05:24:37'),
-(14, 'mael.mayon@free.fr', '', '', 'welldon', '$2y$10$plynJYt63Q2XV65r2sjtzuw3ZJ4K7utUzSVzDxFDNmnEaMVyvKDl2', '', 4, 0, 1, '4ed04e8fa813cf148c599fdfa8054b43', '2017-07-12 20:26:14', '2017-07-14 23:49:26');
 
 --
 -- Indexes for dumped tables
@@ -289,7 +259,8 @@ ALTER TABLE `comment`
 -- Indexes for table `community`
 --
 ALTER TABLE `community`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `community_user`
@@ -369,22 +340,23 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `action`
 --
 ALTER TABLE `action`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `album`
 --
 ALTER TABLE `album`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `community`
 --
 ALTER TABLE `community`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `email`
 --
@@ -394,12 +366,12 @@ ALTER TABLE `email`
 -- AUTO_INCREMENT for table `picture`
 --
 ALTER TABLE `picture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `picture_album`
 --
 ALTER TABLE `picture_album`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `stat`
 --
@@ -419,15 +391,23 @@ ALTER TABLE `template`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `action`
+--
+ALTER TABLE `action`
+  ADD CONSTRAINT `Actions_Communities` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`),
+  ADD CONSTRAINT `Actions_Users` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
 -- Constraints for table `album`
 --
 ALTER TABLE `album`
+  ADD CONSTRAINT `Albums_Communities` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`),
   ADD CONSTRAINT `Albums_Users` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
@@ -438,10 +418,17 @@ ALTER TABLE `comment`
   ADD CONSTRAINT `comments_users` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
+-- Constraints for table `community`
+--
+ALTER TABLE `community`
+  ADD CONSTRAINT `community_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
 -- Constraints for table `picture`
 --
 ALTER TABLE `picture`
   ADD CONSTRAINT `Pictures_Albums` FOREIGN KEY (`album_id`) REFERENCES `album` (`id`),
+  ADD CONSTRAINT `Pictures_Communities` FOREIGN KEY (`community_id`) REFERENCES `community`(`id`),
   ADD CONSTRAINT `Pictures_Users` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --

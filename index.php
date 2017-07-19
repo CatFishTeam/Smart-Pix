@@ -1,6 +1,7 @@
 <?php
 session_start();
 require 'conf.inc.php';
+include 'controllers/GlobalController.class.php';
 
 spl_autoload_register(function ($class) {
     if( file_exists('core/' . $class . '.class.php')){
@@ -13,5 +14,3 @@ spl_autoload_register(function ($class) {
 });
 
 include 'Routes.class.php';
-
-GlobalController::flash();
