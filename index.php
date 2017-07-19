@@ -14,6 +14,3 @@ spl_autoload_register(function ($class) {
 });
 
 include 'Routes.class.php';
-
-//TODO ? Placer ca dans la vue pour que les message s'affiche dans le cas où l'on utilise header
-GlobalController::flash();

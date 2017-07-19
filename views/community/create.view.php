@@ -34,6 +34,7 @@ $config = array(
         <?php include "views/modals/form.mod.php"; ?>
     </div>
     <script>
+        $('[name="name"]').after('<span class="error" style="font-family: \'Proxima Nova Regular\', sans-serif;color: red;margin: 2px 0;display: none; ">Cette communauté existe déjà</span>');
         var error = false;
         $('[name="name"]').on('change paste keyup', function(){
             $name = $(this).val();
@@ -45,9 +46,11 @@ $config = array(
                 success: function(data){
                     if(data != 'good'){
                         $('[name="name"]').css({'outline':'none','border':'1px solid red','box-shadow': '0px 0px 4px 0px red'});
+                        $('.error').css('display', 'block');
                         error = true;
                     }else {
                         $('[name="name"]').css({'border':'1px solid lightgray','box-shadow':'none'});
+                        $('.error').css('display', 'none');
                         error = false;
                     }
                 }

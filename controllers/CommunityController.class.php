@@ -1,6 +1,11 @@
 <?php
 
 class CommunityController{
+
+    public function __construct(){
+        
+    }
+
     public function checkName(){
         $name = $_POST['name'];
         $community = new Community;
@@ -15,7 +20,6 @@ class CommunityController{
     }
 
     public function index(){
-        //TODO PK CA MARCHE PAS ?
         $v = new View('community.index', 'frontend');
         $communities = new Community;
         $communities = $communities->getAllBy(array('user_id'=>$_SESSION['user_id']), "DESC");

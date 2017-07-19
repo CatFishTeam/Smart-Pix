@@ -61,19 +61,21 @@ $router->get('/communities',            'Community@index');
 $router->get('/community/create',       'User@createCommunity');
 $router->post('/community/check-name',  'Community@checkName');
 
-$router->get(':community',                          'Pages@communityIndex');
-$router->get(':community/album/:id',                'Pages@album');
-$router->get(':community/picture/:id',              'Pages@picture');
-$router->get(':community/add-album',                'Album@create');
-$router->post(':community/add-album',               'Album@create');
-$router->get(':community/edit-album',               'Album@edit');
-$router->get(':community/edit-album/:id',           'Album@edit');
-$router->post(':community/edit-album/:id',          'Album@edit');
-$router->post(':community/album/remove-picture',    'Album@removePicture');
-$router->post(':community/album/add-pictures',      'Album@addPictures');
-$router->get(':community/add-picture',              'Picture@add');
-$router->post(':community/add-picture',             'Picture@add');
-$router->get(':community/user',                     'Pages@wall');
-$router->get(':community/user/:id',                 'Pages@wall');
+$router->get(':community',                          'Community@Index')->with('community','communities');
+$router->get(':community/album/:id',                'Community@album')->with('community','communities');
+$router->get(':community/picture/:id',              'Community@picture')->with('community','communities');
+$router->get(':community/add-album',                'Community@showAddAlbum')->with('community','communities');
+$router->post(':community/add-album',               'Community@addAlbum')->with('community','communities');
+$router->get(':community/edit-album',               'Community@showEditAlbum')->with('community','communities');
+$router->get(':community/edit-album/:id',           'Community@editAlbum')->with('community','communities');
+$router->post(':community/edit-album/:id',          'Community@editAlbum')->with('community','communities');
+$router->post(':community/album/remove-picture',    'Community@removePictureFromAlbum')->with('community','communities');
+$router->post(':community/album/add-pictures',      'Community@addPicturesToAlbum')->with('community','communities');
+$router->get(':community/add-picture',              'Community@showAddPicture')->with('community','communities');
+$router->post(':community/add-picture',             'Community@addPicture')->with('community','communities');
+$router->get(':community/user',                     'Community@personalWall')->with('community','communities');
+$router->get(':community/user/:id',                 'Community@wallUser')->with('community','communities');
+
+
 
 $router->run();

@@ -12,16 +12,23 @@ class Route{
     }
 
     public function with($param, $regex){
+        if($regex == 'communities'){
+            $communities = new Community;
+            $communities = $communities->getAllBy([]);
+            $regex = '';
+            foreach ($communities as $c) {
+                $regex .= '('.str_replace('-','\-',$c['slug']).')|';
+            }
+        }
         $this->params[$param] = $regex;
         return $this;
     }
 
     public function match($url){
         $url = trim($url, '/');
+
         $path = preg_replace_callback('#:([\w]+)#', [$this, 'paramMatch'], $this->path);
-
         $regex = "#^$path$#i";
-
         if(!preg_match($regex, $url, $matches)){
             return false;
         }
