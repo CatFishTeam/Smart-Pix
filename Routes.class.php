@@ -7,8 +7,6 @@ $router = new Router($_GET['url']);
 // //Les plus précises en premier
 
 $router->get('/',                       'Pages@index');
-$router->get('/album/:id',              'Pages@album');
-$router->get('/picture/:id',            'Pages@picture');
 $router->get('/login',                  'Pages@login');
 $router->get('/signup',                 'Pages@signup');
 $router->get('/user',                   'Pages@wall');
@@ -28,16 +26,16 @@ $router->get('/user-albums/:id',        'User@albums');
 $router->get('/profile',                'User@index');
 $router->post('/profile',               'User@index');
 
-$router->get('/add-album',              'Album@create');
-$router->post('/add-album',             'Album@create');
-$router->get('/edit-album',             'Album@edit');
-$router->get('/edit-album/:id',         'Album@edit');
-$router->post('/edit-album/:id',        'Album@edit');
+//$router->get('/add-album',              'Album@create');
+//$router->post('/add-album',             'Album@create');
+//$router->get('/edit-album',             'Album@edit');
+//$router->get('/edit-album/:id',         'Album@edit');
+//$router->post('/edit-album/:id',        'Album@edit');
 $router->post('/album/remove-picture',  'Album@removePicture');
 $router->post('/album/add-pictures',    'Album@addPictures');
 
-$router->get('/add-picture',            'Picture@add');
-$router->post('/add-picture',           'Picture@add');
+//$router->get('/add-picture',            'Picture@add');
+//$router->post('/add-picture',           'Picture@add');
 
 $router->get('/add-comment',            'User@addComment');
 $router->post('/add-comment',           'User@addComment');
@@ -61,21 +59,19 @@ $router->get('/communities',            'Community@index');
 $router->get('/community/create',       'User@createCommunity');
 $router->post('/community/check-name',  'Community@checkName');
 
-$router->get(':community',                          'Community@home')->with('community','communities');
-$router->get(':community/album/:id',                'Community@album')->with('community','communities');
-$router->get(':community/picture/:id',              'Community@picture')->with('community','communities');
-$router->get(':community/add-album',                'Community@showAddAlbum')->with('community','communities');
-$router->post(':community/add-album',               'Community@addAlbum')->with('community','communities');
-$router->get(':community/edit-album',               'Community@showEditAlbum')->with('community','communities');
-$router->get(':community/edit-album/:id',           'Community@editAlbum')->with('community','communities');
-$router->post(':community/edit-album/:id',          'Community@editAlbum')->with('community','communities');
-$router->post(':community/album/remove-picture',    'Community@removePictureFromAlbum')->with('community','communities');
-$router->post(':community/album/add-pictures',      'Community@addPicturesToAlbum')->with('community','communities');
-$router->get(':community/add-picture',              'Community@showAddPicture')->with('community','communities');
-$router->post(':community/add-picture',             'Community@addPicture')->with('community','communities');
-$router->get(':community/user',                     'Community@wall')->with('community','communities');
-$router->get(':community/user/:id',                 'Community@wall')->with('community','communities')->with('id', '[0-9]+');
-
-
+$router->get(':community',                          'Community@home')->with('community','[a-z-]+');
+$router->get(':community/album/:id',                'Community@album')->with('community','[a-z-]+')->with('id', '[0-9]+');
+$router->get(':community/picture/:id',              'Community@picture')->with('community','[a-z-]+')->with('id', '[0-9]+');
+$router->get(':community/add-album',                'Community@showAddAlbum')->with('community','[a-z-]+');
+$router->post(':community/add-album',               'Community@addAlbum')->with('community','[a-z-]+');
+$router->get(':community/edit-album',               'Community@showEditAlbum')->with('community','[a-z-]+');
+$router->get(':community/edit-album/:id',           'Community@editAlbum')->with('community','[a-z-]+')->with('id', '[0-9]+');
+$router->post(':community/edit-album/:id',          'Community@editAlbum')->with('community','[a-z-]+')->with('id', '[0-9]+');
+$router->post(':community/album/remove-picture',    'Community@removePictureFromAlbum')->with('community','[a-z-]+');
+$router->post(':community/album/add-pictures',      'Community@addPicturesToAlbum')->with('community','[a-z-]+');
+$router->get(':community/add-picture',              'Community@showAddPicture')->with('community','[a-z-]+');
+$router->post(':community/add-picture',             'Community@addPicture')->with('community','[a-z-]+');
+$router->get(':community/user',                     'Community@wall')->with('community','[a-z-]+');
+$router->get(':community/user/:id',                 'Community@wall')->with('community','[a-z-]+')->with('id', '[0-9]+');
 
 $router->run();

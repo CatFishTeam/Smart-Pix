@@ -36,20 +36,20 @@
                         ?>
                         Aucun album à afficher.
                     <?php elseif (count($albums) == 14): ?>
-                        <span><a href="/user-albums/<?php echo $user->getId(); ?>" class="wall-more">...</a></span>
+                        <span><a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/user-albums/<?php echo $user->getId(); ?>" class="wall-more">...</a></span>
                     <?php endif; ?>
                 </p>
-                <h2><a href="/user-pictures/<?php echo $user->getId(); ?>">Ses photos</a></h2>
+                <h2><a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/user-pictures/<?php echo $user->getId(); ?>">Ses photos</a></h2>
                 <p class="photos-fav">
                     <?php foreach ($pictures as $picture): ?>
-                        <a href="/picture/<?php echo $picture['id']; ?>"><img src="<?php echo PATH_RELATIVE; ?>public/cdn/images/<?php echo $picture['url']; ?>" alt="<?php echo $picture['title']; ?>"></a>
+                        <a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/picture/<?php echo $picture['id']; ?>"><img src="<?php echo PATH_RELATIVE; ?>public/cdn/images/<?php echo $picture['url']; ?>" alt="<?php echo $picture['title']; ?>"></a>
                         <?php
                     endforeach;
                     if (count($pictures) == 0):
                         ?>
                         Aucune photo à afficher.
                     <?php elseif (count($pictures) == 14): ?>
-                        <span><a href="/user-pictures/<?php echo $user->getId(); ?>" class="wall-more">...</a></span>
+                        <span><a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/user-pictures/<?php echo $user->getId(); ?>" class="wall-more">...</a></span>
                     <?php endif; ?>
                 </p>
             </div>
@@ -60,8 +60,8 @@
             <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $user->getId()): ?>
                 <div class="timeline-actions">
                     <p>
-                        <a href="/add-picture" class="btn-timeline-actions">Ajouter une image</a>
-                        <a href="/add-album" class="btn-timeline-actions">Ajouter un album</a>
+                        <a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/add-picture" class="btn-timeline-actions">Ajouter une image</a>
+                        <a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/add-album" class="btn-timeline-actions">Ajouter un album</a>
                     </p>
                 </div>
             <?php endif; ?>
@@ -83,9 +83,9 @@
 
                                 case "picture":
                                     $picture = new Picture();
-                                    $picture = $picture->populate(['id' => $action['related_id']]);
-                                    echo $user->getUsername() . " a ajouté une nouvelle image : <a href=\"/picture/\"".$action['related_id']."\">".$picture->getTitle()."</a>";
-                                    echo "<span class=\"action-date\">le ".date("d/m/Y", $action_date)." à ".date("G:i:s", $action_date)."</span>";
+                                    $picture = $picture->populate(['id' => $action['related_id']]); ?>
+                                    <?php echo $user->getUsername(); ?> a ajouté une nouvelle image : <a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/picture/<?php echo $action['related_id']; ?>"><?php echo $picture->getTitle(); ?></a>
+                                    <?php echo "<span class=\"action-date\">le ".date("d/m/Y", $action_date)." à ".date("G:i:s", $action_date)."</span>";
                                     break;
 
                                 case "album":
