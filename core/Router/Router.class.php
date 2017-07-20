@@ -36,11 +36,4 @@ class Router{
         }
         throw new RouterException('La route n\'existe pas');
     }
-
-    // public function url($name, $params = []){
-    //     if(!isset($this->namedRoutes[$name])){
-    //         throw new RouterException('Aucune route ne correspond a ce nom');
-    //     }
-    //     return $this->namedRoutes[$name]->getUrl($params);
-    // }
 }
