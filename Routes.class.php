@@ -61,6 +61,9 @@ $router->get('/communities',            'Community@index');
 $router->get('/community/create',       'User@createCommunity');
 $router->post('/community/check-name',  'Community@checkName');
 
+
+
+$router->get(':community/user/:id',                 'Community@wall')->with('community','communities')->with('id','[0-9]+');
 $router->get(':community',                          'Community@home')->with('community','communities');
 $router->get(':community/album/:id',                'Community@album')->with('community','communities');
 $router->get(':community/picture/:id',              'Community@picture')->with('community','communities');
@@ -74,7 +77,6 @@ $router->post(':community/album/add-pictures',      'Community@addPicturesToAlbu
 $router->get(':community/add-picture',              'Community@showAddPicture')->with('community','communities');
 $router->post(':community/add-picture',             'Community@addPicture')->with('community','communities');
 $router->get(':community/user',                     'Community@wall')->with('community','communities');
-$router->get(':community/user/:id',                 'Community@wall')->with('community','communities')->with('id', '[0-9]+');
 
 
 

@@ -5,6 +5,7 @@ class Route{
     private $callable;
     private $matches = [];
     private $params = [];
+    private $communities = false;
 
     public function __construct($path, $callable){
         $this->path = trim($path,'/');
@@ -13,6 +14,7 @@ class Route{
 
     public function with($param, $regex){
         if($regex == 'communities'){
+            $this->communities = true;
             $communities = new Community;
             $communities = $communities->getAllBy([]);
             $regex = '';
@@ -26,7 +28,6 @@ class Route{
 
     public function match($url){
         $url = trim($url, '/');
-
         $path = preg_replace_callback('#:([\w]+)#', [$this, 'paramMatch'], $this->path);
         $regex = "#^$path$#i";
         if(!preg_match($regex, $url, $matches)){
@@ -45,6 +46,9 @@ class Route{
     }
 
     public function call(){
+        if($this->communities == true){
+            $this->matches = [reset($this->matches), end($this->matches)];
+        }
         if(is_string($this->callable)){
             Helpers::createLogExist();
 
