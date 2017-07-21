@@ -1,12 +1,25 @@
 <?php
-class UserController{
+class UserController {
+
+    public function checkCommunity($community) {
+        if (!empty($community)) {
+            $commu = new Community();
+            $commu = $commu->populate(['slug' => $community]);
+            if (!$commu) {
+                $_SESSION['messages']['error'][] = "La communauté n'a pas été trouvée";
+                $v = new View("404", "frontend");
+                return 0;
+            }
+            return $commu;
+        }
+    }
 
 //TODO PK USER CONNECTÉ PERMISSION 2 DE BASE
 //TODO ADD POSSIBILITY FOR USER TO EDIT / DELET OWN COMMENT
     /*
      * Page de profil (/user)
      */
-    public function index() {
+    public function index($community = null) {
         if ($_SESSION) {
             $user = new User();
             $user = $user->populate(array('username' => $_SESSION['username']));
@@ -14,7 +27,8 @@ class UserController{
             $v = new View('user.index', 'frontend');
             $v->assign('user', $user);
             $v->assign('title', "Profil de ".$user->getUsername());
-
+            $commu = $this->checkCommunity($community);
+            $v->assign('community', $commu);
             /*
              * Formulaire "Profil"
              */

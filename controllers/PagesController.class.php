@@ -70,7 +70,7 @@ class PagesController{
 
             $albumsId = new Picture_Album();
             $albumsId = $albumsId->getAllBy(['picture_id' => $id]);
-            //var_dump($albumsId);
+
             $albums = array();
             foreach ($albumsId as $albumId) {
                 $album = new Album();

@@ -181,6 +181,9 @@ header {
       font-family: 'Proxima Nova Regular', sans-serif;
       color: #333;
       vertical-align: top;
+      max-width: 120px;
+      display: inline-block;
+      line-height: 20px;
     }
   }
 }
@@ -673,6 +676,11 @@ Wall (user/wall)
   background: #fff;
   background-image: url(../image/photography.png);  /* Background pattern from Subtle Patterns */
 
+  .no-action {
+    font-size: 28px;
+    color: #ccc;
+    text-shadow: 0 0 1px lightgrey;
+  }
   .story {
     background: rgba(221, 221, 221, 0.3);
     margin: 5px 0;

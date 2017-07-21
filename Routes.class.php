@@ -19,12 +19,18 @@ $router->get('/activate/:token',        'Guest@activate');
 $router->get('/forgetPassword',         'Guest@forgetPassword');
 $router->post('/forgetPassword',        'Guest@forgetPassword');
 
-$router->get('/user-pictures',          'User@pictures');
-$router->get('/user-pictures/:id',      'User@pictures');
-$router->get('/user-albums',            'User@albums');
-$router->get('/user-albums/:id',        'User@albums');
-$router->get('/profile',                'User@index');
-$router->post('/profile',               'User@index');
+$router->get('/user-pictures',                  'User@pictures');
+$router->get('/user-pictures/:id',              'User@pictures');
+$router->get(':community/user-pictures',        'Community@pictures')->with('community','[a-z-]+');
+$router->get(':community/user-pictures/:id',    'Community@pictures')->with('community','[a-z-]+')->with('id', '[0-9]+');
+$router->get('/user-albums',                    'User@albums');
+$router->get('/user-albums/:id',                'User@albums');
+$router->get(':community/user-albums',          'Community@albums')->with('community','[a-z-]+');
+$router->get(':community/user-albums/:id',      'Community@albums')->with('community','[a-z-]+')->with('id', '[0-9]+');
+$router->get('/profile',                        'User@index');
+$router->post('/profile',                       'User@index');
+$router->get(':community/profile',              'User@index')->with('community','[a-z-]+');;
+$router->post(':community/profile',             'User@index')->with('community','[a-z-]+');;
 
 //$router->get('/add-album',              'Album@create');
 //$router->post('/add-album',             'Album@create');

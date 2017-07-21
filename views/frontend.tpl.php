@@ -35,8 +35,8 @@
                             <!--    Connecté :          -->
                         <?php else: ?>
                             <a href="/" class="btn" title="Smart-Pix - Accueil"><i class="fa fa-home" aria-hidden="true"></i></a>
-                            <a href="<?php echo isset($community) ? $community->getSlug() : ""; ?>/user/<?php echo $_SESSION['user_id']; ?>" class="btn btn-login"><i class="fa fa-camera-retro" aria-hidden="true"></i> <?php echo $_SESSION['username']; ?></a>
-                            <a href="/profile" class="btn btn-login"><i class="fa fa-user" aria-hidden="true"></i> Profil</a>
+                            <a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/user/<?php echo $_SESSION['user_id']; ?>" class="btn btn-login"><i class="fa fa-camera-retro" aria-hidden="true"></i> <?php echo $_SESSION['username']; ?></a>
+                            <a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/profile" class="btn btn-login"><i class="fa fa-user" aria-hidden="true"></i> Profil</a>
                             <a href="/logout" class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
                         <?php endif; ?>
                     </section>

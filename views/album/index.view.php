@@ -4,12 +4,12 @@
             <div class="albumTitle" style="background-image: url('/public/cdn/images/<?php echo $album->getThumbnailUrl(); ?>');">
                 <h2><?php echo $album->getTitle(); ?></h2>
             </div>
-            <h3 class="italic">Par <a href="<?php echo PATH_RELATIVE; ?>user/<?php echo $author->getId(); ?>"><?php echo $author->getUsername(); ?></a></h3>
+            <h3 class="italic">Par <a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/user/<?php echo $author->getId(); ?>"><?php echo $author->getUsername(); ?></a></h3>
             <p><?php echo $album->getDescription(); ?></p>
             <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $author->getId()): ?>
             <p>
                 <button id="albumBtn" class="btn">Ajouter des images à l'album</button>
-                <a href="<?php echo PATH_RELATIVE; ?>edit-album/<?php echo $album->getId(); ?>" class="btn">Editer l'album</a>
+                <a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/edit-album/<?php echo $album->getId(); ?>" class="btn">Editer l'album</a>
             </p>
             <div id="albumModal" class="modal" data-id="<?php echo $album->getId(); ?>">
                 <div class="modal-content">
@@ -26,7 +26,7 @@
                                 foreach ($pictures as $picture):
                                     if (!isInAlbum($picture, $picturesAlbum)):
                             ?>
-                                <img src="<?php echo PATH_RELATIVE."public/cdn/images/". $picture['url']; ?>" data-id="<?php echo $picture['id']; ?>" data-title="<?php echo $picture['title']; ?>" data-description="<?php echo $picture['description']; ?>" alt="<?php echo $picture['title']; ?>">
+                                <img src="<?php echo "/public/cdn/images/". $picture['url']; ?>" data-id="<?php echo $picture['id']; ?>" data-title="<?php echo $picture['title']; ?>" data-description="<?php echo $picture['description']; ?>" alt="<?php echo $picture['title']; ?>">
                             <?php
                                     endif;
                                 endforeach;
@@ -45,8 +45,8 @@
             if (isInAlbum($picture, $picturesAlbum)):
             ?>
             <div class="picture pictureAlbum col-6 col-m-12" data-id="<?php echo $picture['id']; ?>" data-title="<?php echo $picture['title']; ?>">
-                <a href="/picture/<?php echo $picture['id']; ?>">
-                    <img src="<?php echo PATH_RELATIVE."public/cdn/images/". $picture['url']; ?>" data-id="<?php echo $picture['id']; ?>" data-title="<?php echo $picture['title']; ?>" data-description="<?php echo $picture['description']; ?>" alt="<?php echo $picture['title']; ?>">
+                <a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/picture/<?php echo $picture['id']; ?>">
+                    <img src="<?php echo "/public/cdn/images/". $picture['url']; ?>" data-id="<?php echo $picture['id']; ?>" data-title="<?php echo $picture['title']; ?>" data-description="<?php echo $picture['description']; ?>" alt="<?php echo $picture['title']; ?>">
                 </a>
                 <span class="removePicture" data-id="<?php echo $picture['id']; ?>"><i class="fa fa-times" aria-hidden="true"></i></span>
                 <h2><?php echo $picture['title']; ?></h2>

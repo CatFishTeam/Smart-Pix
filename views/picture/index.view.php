@@ -2,12 +2,12 @@
         <?php if (isset($picture) && !empty($picture)): ?>
             <div class="col-9 col-m-12 image-center">
                 <!-- La photo ! -->
-                <img src="<?php echo PATH_RELATIVE; ?>public/cdn/images/<?php echo $picture->getUrl(); ?>" alt="">
+                <img src="/public/cdn/images/<?php echo $picture->getUrl(); ?>" alt="">
             </div>
             <div class="col-3 col-m-12 align-left">
                 <!-- Info photo & photographe -->
                 <h2><?php echo $picture->getTitle(); ?></h2>
-                <h3 class="italic">Par <a href="<?php echo PATH_RELATIVE; ?>user/<?php echo $author->getId(); ?>"><?php echo $author->getUsername(); ?></a></h3>
+                <h3 class="italic">Par <a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/user/<?php echo $author->getId(); ?>"><?php echo $author->getUsername(); ?></a></h3>
                 <p><?php echo $picture->getDescription(); ?></p>
             </div>
 </div>
@@ -27,7 +27,7 @@
         <?php
         $i = 1;
         foreach ($albums as $album): ?>
-            <a href="/album/<?php echo $album['id']; ?>"><?php echo $album['title']; ?></a>
+            <a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/album/<?php echo $album['id']; ?>"><?php echo $album['title']; ?></a>
             <?php
             if ($i != count($albums)) echo "- ";
             $i++;
@@ -65,11 +65,11 @@
     </div>
 </div>
 <div class="row">
-    <?php if(isset($unpublishedComments)){ ?>
+    <?php if(isset($unpublishedComments)): ?>
         <div class="col-12">
             <p>Vous avez déjà un message en attente de validation sur cette photo</p>
         </div>
-    <?php } else { ?>
+    <?php else: ?>
         <div class="col-2"></div>
         <div class="col-8">
             <form action="/add-comment" method="post" class="form-group">
@@ -78,7 +78,7 @@
                 <button type="submit">Envoyer</button>
             </form>
         </div>
-    <?php } ?>
+    <?php endif; ?>
 
 <?php elseif (isset($picture) && empty($picture)): ?>
 <div class="col-12">
