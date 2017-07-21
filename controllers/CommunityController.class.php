@@ -71,15 +71,7 @@ class CommunityController{
     }
 
     public function wall($community = null, $id = null) {
-        $commu = new Community();
-        if (!empty($community)) {
-            $commu = $commu->populate(['slug' => $community]);
-            if (!$commu) {
-                $_SESSION['messages']['error'][] = "La communauté n'a pas été trouvée";
-                $v = new View("404", "frontend");
-                return 0;
-            }
-        }
+        $commu = $this->checkCommunity($community);
         $user = new User();
         if (empty($id) && !isset($_SESSION)) {
             $v = new View("community.home", "frontend");
@@ -356,6 +348,78 @@ class CommunityController{
             $v->assign('user', $user);
             $v->assign('albums', $albums);
             $v->assign('title', "Album de ".$user->getUsername());
+        }
+    }
+
+    public function showEditAlbum($community = null, $id = null) {
+        $commu = $this->checkCommunity($community);
+        if (empty($id)) {
+            $v = new View("404", "frontend");
+            $_SESSION['messages']['error'][] = "L'album n'a pas été retrouvé";
+        } else {
+            $album = new Album();
+            $album = $album->populate(['id' => $id]);
+
+            $v = new View('album.edit', 'frontend');
+            if (!empty($album)) {
+                $v->assign('album', $album);
+                $v->assign('community', $commu);
+            }
+        }
+    }
+
+    public function editAlbum($community = null, $id = null) {
+        $commu = $this->checkCommunity($community);
+        // Envoi du formulaire :
+        if ($_POST && isset($_SESSION['user_id'])) {
+            $title = htmlspecialchars(trim($_POST['title']));
+            $description = htmlspecialchars(trim($_POST['description']));
+            $album = new Album();
+            $album = $album->populate(['id' => $id]);
+            if (!$album) {
+                $_SESSION['messages']['error'][] = "L'album n'a pas été trouvé";
+                $v = new View("404", "frontend");
+                return 0;
+            }
+            if (!empty($title) && !empty($description)) {
+                $album->setTitle($title);
+                $album->setDescription($description);
+                if (isset($_FILES["thumbnail_url"])) {
+                    if ($_FILES['thumbnail_url']['error'] > 0) {
+                        if ($_FILES['thumbnail_url']['error'] == 1 || $_FILES['thumbnail_url']['error'] == 2)
+                            $_SESSION['messages']['warning'][] = "Le fichier d'image est trop volumineux (max: 5 Mo)";
+                        elseif ($_FILES['thumbnail_url']['error'] != 4)
+                            $_SESSION['messages']['warning'][] = "Le fichier d'image a rencontré une erreur.";
+                    } else {
+                        $fileInfo = pathinfo($_FILES['thumbnail_url']['name']);
+                        $ext = pathinfo($_FILES['thumbnail_url']['name'], PATHINFO_EXTENSION);
+                        if (
+                            strtolower($fileInfo["extension"]) == "jpg" ||
+                            strtolower($fileInfo["extension"]) == "jpeg" ||
+                            strtolower($fileInfo["extension"]) == "png" ||
+                            strtolower($fileInfo["extension"]) == "gif"
+                        ) {
+                            $album->setThumbnailUrl($ext);
+                            move_uploaded_file($_FILES['thumbnail_url']['tmp_name'], "./public/cdn/images/" . $album->getThumbnailUrl());
+
+                            $_SESSION['messages']['success'][] =  "L'image de couverture a été modifiée";
+                        } else {
+                            $_SESSION['messages']['warning'][] = "Format d'image invalide<br>(essayez: .jpg, .jpeg, .png ou .gif)";
+                        }
+                    }
+                } else {
+                    $_SESSION['messages']['warning'][] = "Aucune image sélectionnée";
+                }
+            }
+            $now = new DateTime("now");
+            $nowStr = $now->format("Y-m-d H:i:s");
+            $album->setUpdatedAt($nowStr);
+            $album->save();
+            header("Location: /".$commu->getSlug()."/album/".$album->getId());
+            $_SESSION['messages']['success'][] = "Votre album a été mis à jour";
+        } else {
+            $v = new View("404", "frontend");
+            $_SESSION['messages']['error'][] = "Vous devez être connecté pour éditer un album";
         }
     }
 

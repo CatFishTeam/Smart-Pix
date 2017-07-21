@@ -1,5 +1,5 @@
 <?php if (isset($album) && !empty($album) && $_SESSION['user_id'] == $album->getUserId()): ?>
-<h1>Editer l'album : <a href="<?php echo PATH_RELATIVE; ?>album/<?php echo $album->getId(); ?>"><?php echo $album->getTitle(); ?></a></h1>
+<h1>Editer l'album : <a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/album/<?php echo $album->getId(); ?>"><?php echo $album->getTitle(); ?></a></h1>
 
 <?php
 /*

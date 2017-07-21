@@ -43,6 +43,27 @@
                 </div>
             </div>
         </header>
+        <section class="breadcrumbs">
+            <p>
+                <a href="/">Smart-Pix</a> »
+                <?php if(isset($community)): ?>
+                    <a href="/<?php echo $community->getSlug(); ?>"><?php echo $community->getName(); ?></a> »
+                <?php endif; ?>
+
+                <?php if(isset($album)): ?>
+                    <a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/album/<?php echo $album->getId(); ?>"><?php echo $album->getTitle(); ?></a>
+                <?php endif; ?>
+
+                <?php if(isset($picture)): ?>
+                    <a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/picture/<?php echo $picture->getId(); ?>"><?php echo $picture->getTitle(); ?></a>
+                <?php endif; ?>
+
+                <?php if(isset($user)): ?>
+                    <a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/user/<?php echo $user->getId(); ?>"><?php echo $user->getUsername(); ?></a>
+                <?php endif; ?>
+
+            </p>
+        </section>
         <section class="body-container">
             <?php include $this->view.".view.php"; ?>
         </section>

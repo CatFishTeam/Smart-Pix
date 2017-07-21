@@ -132,6 +132,17 @@ table {
   .body-container {
     width: 70%;
     margin: 30px auto; } }
+.breadcrumbs {
+  width: 70%;
+  height: 20px;
+  position: relative;
+  margin: auto; }
+  .breadcrumbs p {
+    position: absolute;
+    padding: 0 10px;
+    font-size: 14px;
+    word-spacing: 2px; }
+
 .albumTitle {
   position: relative;
   background-position: center;
@@ -473,6 +484,7 @@ label[for="uploadImg"] {
       display: none;
       opacity: 0.8;
       padding: 15px;
+      margin: 5px;
       vertical-align: middle;
       border: 1px solid transparent;
       border-radius: 4px;
