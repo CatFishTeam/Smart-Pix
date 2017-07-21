@@ -73,7 +73,7 @@
         <div class="col-2"></div>
         <div class="col-8">
             <form action="/add-comment" method="post" class="form-group">
-                <input type="hidden" name="id" value="<?php echo $id[0] ?>" />
+                <input type="hidden" name="id" value="<?php echo $id ?>" />
                 <textarea name="content" required="required"></textarea>
                 <button type="submit">Envoyer</button>
             </form>

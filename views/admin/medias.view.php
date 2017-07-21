@@ -22,7 +22,7 @@
     <?php
         foreach($pictures as $picture): ?>
         <div class="imageContainer relative">
-            <a href="/picture/<?php echo $picture['id'] ?>"></a>
+            <a href="/<?php echo($_SESSION['community_slug']) ?>/picture/<?php echo $picture['id'] ?>"></a>
             <button class="delete" data-url="<?php echo $picture['url'] ?>"><i class="fa fa-times" aria-hidden="true"></i></button>
             <img src="/public/cdn/images/thumbnails/<?php echo $picture['url'] ?>" alt="<?php echo $picture['title'] ?>">
         </div>

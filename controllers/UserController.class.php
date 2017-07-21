@@ -166,8 +166,6 @@ class UserController {
                 $_SESSION['messages']['warning'][] = "Votre commentaire ne peut pas être vide";
             }
             header('Location: '.$_SERVER['HTTP_REFERER']);
-        } else {
-            header('Location: /');
         }
     }
 

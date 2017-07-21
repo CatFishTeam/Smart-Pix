@@ -285,7 +285,7 @@ class CommunityController{
             $v->assign('comments', $comments);
             if(isset($_SESSION['user_id'])){
                 $unpublishedComments = new Comment();
-                $unpublishedComments = $unpublishedComments->getAllBy(['picture_id'=>$id[0], 'user_id'=>$_SESSION['user_id'], 'is_archived'=>0, 'is_published'=>0]);
+                $unpublishedComments = $unpublishedComments->getAllBy(['picture_id'=>$id, 'user_id'=>$_SESSION['user_id']]);
                 if(count($unpublishedComments) > 0){
                     $v->assign('unpublishedComments', count($unpublishedComments));
                 }
