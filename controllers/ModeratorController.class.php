@@ -7,7 +7,7 @@ class ModeratorController extends UserController{
             $_SESSION['messages']['warning'][] = "Seuls les administrateurs ont accès a cette partie du site !";
             header('Location:/login');
         }
-        
+
         $community = new Community();
         $url = $_SERVER['REQUEST_URI'];
         $extracted = array_filter(explode("/",parse_url($url,PHP_URL_PATH)));

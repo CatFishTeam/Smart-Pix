@@ -8,22 +8,22 @@ class AdministratorController extends ModeratorController{
         }
         if($_SESSION['permission'] < 3){
             $_SESSION['messages']['error'][] = "Vous n'avez pas la permission de faire ceci";
-            header('Location: /');
+            header('Location:/'.$_SESSION['community_slug']);
         }
     }
-
-    /* ~~~~~ ADMINISTRATOR ~~~~ */
-    public function profil(){
-        $v = new View('admin.profil','backend');
-        $v->assign("specificHeader","<script src=\"https://cdn.ckeditor.com/4.6.2/standard/ckeditor.js\"></script>");
-    }
-
 
     /* ~~~~~~ Users ~~~~~~ */
     public function users(){
         $v = new View('admin.users','backend');
-        $users = new User();
-        $users = $users->getAllBy();
+        $users = [];
+        $users_id = new Community_User;
+        $users_id = $users_id->getAllBy(['community_id'=>$_SESSION['community_id']]);
+        foreach($users_id as $user){
+            $u = new User();
+            $u = $u->getOneBy(['id'=>$user['user_id']]);
+            $u['permission'] = $user['permission'];
+            array_push($users, $u);
+        }
         $v->assign('users',$users);
 
     }
@@ -33,21 +33,18 @@ class AdministratorController extends ModeratorController{
             GlobalController::flash('json');
             exit();
         }
-        $user = new User();
-        $user = $user->populate(['id'=>$_POST['user_id']]);
+        $user = new Community_User;
+        $user = $user->populate(['user_id'=>$_POST['user_id']]);
+        var_dump($user);
+        var_dump($_POST['user_id']);
         $user->setPermission($_POST['permission']);
+        $user->save();
 
         $now = new DateTime("now");
         $nowStr = $now->format("Y-m-d H:i:s");
-        $user->setUpdatedAt($nowStr);
 
-        $user->save();
         echo json_encode(array('date' => $nowStr));
         exit();
-    }
-
-    public function stats(){
-        $v = new View('admin.stats','backend');
     }
 
 }

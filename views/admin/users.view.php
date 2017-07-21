@@ -19,7 +19,7 @@
                 <td>
                     <select name="permission">
                         <?php if($_SESSION['permission'] > 3): ?>
-                        <option data-id="4" <?php echo ($user['permission'] == 4) ? "selected" : ""; ?>>Super Administrateur</option>
+                        <option data-id="4" <?php echo ($user['permission'] == 4) ? "selected" : ""; ?>>Creator</option>
                         <?php endif?>
                         <option data-id="3" <?php echo ($user['permission'] == 3) ? "selected" : ""; ?>>Administrateur</option>
                         <option data-id="2" <?php echo ($user['permission'] == 2) ? "selected" : ""; ?>>Modérateur</option>
@@ -36,7 +36,7 @@
             $('[name="permission"]').change(function(){
                 $this = $(this);
                 $.ajax({
-                    url: '/admin/userPermission',
+                    url: '/<?php echo $_SESSION['community_slug'] ?>/admin/userPermission',
                     type: 'POST',
                     dataType: 'json',
                     data: {

@@ -28,7 +28,7 @@
         }
         </script>
         <noscript><strong>Attention !</strong> Ce site à besoin de Javascript pour fonctionner et il ne semble pas activé sur votre navigateur.</noscript>
-        <nav id="navigator">
+        <nav id="navigator" style="display: none;">
             <ul>
                 <li><a href="/"><img src="/image/logo.png" style="max-width: 50px;margin-top: 10px;margin-left: -10px;"/><span>Smart-Pix</span></a>
                 <li><a href="/<?php echo($_SESSION['community_slug']) ?>/admin"><i class="fa fa-home" aria-hidden="true"></i><span>Acceuil</span></a>
