@@ -7,6 +7,8 @@ $router = new Router($_GET['url']);
 // //Les plus précises en premier
 
 $router->get('/',                       'Pages@index');
+$router->get('/404',                    'Pages@error');
+
 $router->get('/login',                  'Pages@login');
 $router->get('/signup',                 'Pages@signup');
 $router->get('/user',                   'Pages@wall');

@@ -27,6 +27,8 @@ class AdministratorController extends ModeratorController{
         $v->assign('users',$users);
 
     }
+
+    //TODO WTTTFFFFFFF ???
     public function userPermission(){
         if($_SESSION['permission'] < $_POST['permission']){
             $_SESSION['messages']['error'][] = "Vous n'avez pas la permission de faire ceci";
@@ -35,10 +37,12 @@ class AdministratorController extends ModeratorController{
         }
         $user = new Community_User;
         $user = $user->populate(['user_id'=>$_POST['user_id']]);
+        echo ('<pre>');
         var_dump($user);
-        var_dump($_POST['user_id']);
         $user->setPermission($_POST['permission']);
+        var_dump($user);
         $user->save();
+
 
         $now = new DateTime("now");
         $nowStr = $now->format("Y-m-d H:i:s");
