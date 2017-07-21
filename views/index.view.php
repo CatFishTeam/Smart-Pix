@@ -7,7 +7,7 @@
                 <p><a href="/login">Connectez-vous</a> pour voir ou créer vos communautés.</p>
             <?php
             endif;
-            include 'components/infiniteScroll.php';
+//            include 'components/infiniteScroll.php';
             ?>
 
         </div>
