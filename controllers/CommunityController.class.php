@@ -64,6 +64,7 @@ class CommunityController{
                 $v = new View('community.home', 'frontend');
                 $v->assign('community', $userCommunity);
                 $v->assign('pictures', $pictures);
+                $v->assign('title', $userCommunity->getName());
             }
         } else {
             header("Location: /communities");
