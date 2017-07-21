@@ -97,5 +97,8 @@ $router->post('/:communitiy/admin/publishComment',  'Moderator@publishComment')-
 $router->post('/:communitiy/admin/unpublishComment','Moderator@unpublishComment')->with('community','communities');
 $router->post('/:communitiy/admin/deleteComment',   'Moderator@deleteComment')->with('community','communities');
 
+$router->get('/:communitiy/admin/users',            'Administrator@users')->with('community','communities');
+$router->post('/:communitiy/admin/userPermission',   'Administrator@userPermission')->with('community','communities');
+
 
 $router->run();
