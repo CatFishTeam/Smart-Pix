@@ -11,6 +11,8 @@ class ModeratorController extends UserController{
         $url = $_SERVER['REQUEST_URI'];
         $extracted = array_filter(explode("/",parse_url($url,PHP_URL_PATH)));
         $community = $community->populate(['slug'=>current($extracted)]);
+        $_SESSION['community_slug'] = $community->getSlug();
+        $_SESSION['community_id'] = $community->getId();
 
         $community_user = new Community_User();
         $community_user = $community_user->populate(['community_id'=>$community->getId(), 'user_id'=>$_SESSION['user_id']]);
@@ -21,17 +23,17 @@ class ModeratorController extends UserController{
         }
 
         if($_SESSION['permission'] < 2){
-            header('Location:/'.$url = current($extracted));
+            header('Location:/'.$_SESSION['community_slug']);
         }
     }
 
     /* ~~~~~ MODERATOR ~~~~~ */
-    public function index(){
+    public function indexAdmin(){
         $v = new View('admin.index','backend');
     }
 
 
-    /* ~~~~ Albus ~~~~*/
+    /* ~~~~ Album ~~~~*/
     public function showAlbums(){
         $v = new View('admin.albums','backend');
 
@@ -51,6 +53,7 @@ class ModeratorController extends UserController{
         $album->setTitle($_POST['title']);
         $album->setDescription("");
         $album->setUserId($_SESSION['user_id']);
+        $album->setCommunityId($_SESSION['community_id']);
         $album->setIsPresentation(0);
         $album->setIsPublished(1);
         $album->setCreatedAt($nowStr);
@@ -118,7 +121,7 @@ class ModeratorController extends UserController{
         }
         $v->assign('totalWeight',$totalWeight);
     }
-    public function mediaUpload(){
+    public function uploadMedia(){
         $upload_dir = '/public/cdn/images/';
         $upload_thumb_dir = '/public/cdn/images/thumbnails/';
 
@@ -156,11 +159,13 @@ class ModeratorController extends UserController{
             //Il faudrait donc tous les champs ici ?
             $picture->setAlbumId(null);
             $picture->setUserId($_SESSION['user_id']);
+            $picture->setCommunityId($_SESSION['community_id']);
             $picture->setTitle($_POST['title']);
             $picture->setDescription($_POST['description']);
             $picture->setUrl($ext);
             $picture->setWeight($_FILES['file']['size']);
             $picture->setIsVisible(0);
+            $picture->setIsArchived(0);
             $picture->setCreatedAt($nowStr);
             $picture->setUpdatedAt($nowStr);
             $picture->save();
@@ -171,7 +176,6 @@ class ModeratorController extends UserController{
             $results = $image->writeImages(PATH_ABSOLUT.$upload_dir.$picture->getUrl(), true);
 
             //On crée la miniature
-            //TODO Si possible ? Eviter la répétition ici ?
             $thumb = new \Imagick($_FILES['file']['tmp_name']);
             $thumb->cropThumbnailImage(200, 200);
             $thumb->writeImages(PATH_ABSOLUT.$upload_thumb_dir.$picture->getUrl(), true);
@@ -187,7 +191,7 @@ class ModeratorController extends UserController{
         return $response;
         exit();
     }
-    public function mediaDelete(){
+    public function deleteMedia(){
         $upload_dir = '/public/cdn/images/';
         $upload_thumb_dir = '/public/cdn/images/thumbnails/';
 
@@ -199,11 +203,8 @@ class ModeratorController extends UserController{
         unlink(PATH_ABSOLUT.$upload_thumb_dir.$_POST['url']);
 
         if($delete){
-            $response = json_encode(array(
-                'type'=>'succes',
-                'msg'=>'L\'image a bien été supprimée'
-            ));
-            echo($response);
+            $_SESSION['messages']['success'][] = 'Image bien supprimée';
+            GlobalController::flash('json');
             exit();
         }
     }

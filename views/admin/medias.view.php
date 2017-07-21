@@ -63,20 +63,27 @@ $(document).ready(function(){
 
         var fd = new FormData(document.getElementById("fileinfo"));
         $.ajax({
-          url: "/admin/mediaUpload",
+          url: "/<?php echo($_SESSION['community_slug']) ?>/admin/uploadMedia",
           type: "POST",
           data: fd,
           processData: false,  // tell jQuery not to process the data
-          contentType: false   // tell jQuery not to set contentType
-        }).done(function( data ) {
-            data = JSON.parse(data);
-            console.log(data.msg);
-            $('#output').prepend('<div class="imageContainer relative"><a href="/picture'+data.id+'"></a><button class="delete" data-url="'+data.img+'"><i class="fa fa-times" aria-hidden="true"></i></button><img src="/public/cdn/images/thumbnails/'+data.img+'" /></div>');
-            $('.loader').remove();
-            $('[name="file"]').val('');
-            $('[name="title"]').val('');
-            $('[name="description"]').val('');
-        });
+          contentType: false,   // tell jQuery not to set contentType
+          success: function(data){
+              console.log(data);
+            //   data = JSON.parse(data);
+            //   console.log(data.msg);
+            //   $('#output').prepend('<div class="imageContainer relative"><a href="/picture'+data.id+'"></a><button class="delete" data-url="'+data.img+'"><i class="fa fa-times" aria-hidden="true"></i></button><img src="/public/cdn/images/thumbnails/'+data.img+'" /></div>');
+            //   $('.loader').remove();
+            //   $('[name="file"]').val('');
+            //   $('[name="title"]').val('');
+            //   $('[name="description"]').val('');
+          },
+          error: function(error){
+              console.log(error);
+          }
+      }).done(function(data){
+          console.log(data);
+      });
 
         return false;
     });
@@ -86,15 +93,17 @@ $(document).on('click','.delete',function(){
     var _ = $(this);
     var url = _.data('url');
     $.ajax({
-      url: "/admin/mediaDelete",
+      url: "/<?php echo($_SESSION['community_slug']) ?>/admin/deleteMedia",
       type: "POST",
       dataType: 'json',
-      data: { url: url }
-    }).done(function( data ) {
-        console.log(data.msg);
-        _.parent().fadeOut(300, function() {
-            _.parent().remove();
-        })
+      data: { url: url },
+      success: function(data){
+          $('body').append(data);
+          flash();
+          _.parent().fadeOut(300, function() {
+              _.parent().remove();
+          });
+      }
     });
 })
 

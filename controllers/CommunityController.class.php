@@ -111,16 +111,11 @@ class CommunityController{
         $v->assign('title', $user->getUsername());
     }
 
-<<<<<<< HEAD
-    public function showAddAlbum($community) {
-        echo $community;
-=======
     public function showAddAlbum($community = null) {
         $v = new View("album.create", "frontend");
         $v->assign('title', "Ajout d'un album");
         $commu = $this->checkCommunity($community);
         $v->assign('community', $commu);
->>>>>>> c6b3be78268a50c10213917cd4bd6e8b5e83cb49
     }
 
     public function addAlbum($community = null) {

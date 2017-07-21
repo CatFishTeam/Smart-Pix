@@ -48,18 +48,18 @@ $router->post('/add-comment',           'User@addComment');
 
 $router->get('/logout',                 'User@logout');
 
-$router->get('/admin',                  'Moderator@index');
-$router->post('/admin/addAlbum',        'Moderator@addAlbum');
-$router->post('/admin/getAlbum',        'Moderator@getAlbum');
-$router->post('/admin/editAlbum',       'Moderator@editAlbum');
-$router->post('/admin/deleteAlbum',     'Moderator@deleteAlbum');
-
-$router->post('/admin/mediaUpload',     'Moderator@mediaUpload');
-
-$router->get('/admin/comments',         'Moderator@comments');
-$router->get('/admin/albums',           'Moderator@showAlbums');
-$router->get('/admin/medias',           'Moderator@medias');
-
+// $router->get('/admin',                  'Moderator@index');
+// $router->post('/admin/addAlbum',        'Moderator@addAlbum');
+// $router->post('/admin/getAlbum',        'Moderator@getAlbum');
+// $router->post('/admin/editAlbum',       'Moderator@editAlbum');
+// $router->post('/admin/deleteAlbum',     'Moderator@deleteAlbum');
+//
+// $router->post('/admin/mediaUpload',     'Moderator@mediaUpload');
+//
+// $router->get('/admin/comments',         'Moderator@comments');
+// $router->get('/admin/albums',           'Moderator@showAlbums');
+// $router->get('/admin/medias',           'Moderator@medias');
+//
 $router->post('/community/create',      'Community@create');
 $router->get('/communities',            'Community@index');
 $router->get('/community/create',       'User@createCommunity');
@@ -81,17 +81,19 @@ $router->post(':community/add-picture',             'Community@addPicture')->wit
 $router->get(':community/user',                     'Community@wall')->with('community','communities');
 $router->get(':community/user/:id',                 'Community@wall')->with('community','communities')->with('id', '[0-9]+');
 
-$router->get(':communitiy/admin',                  'Moderator@index')->with('community','communities');
+$router->get(':communitiy/admin',                  'Moderator@indexAdmin')->with('community','communities');
+
+$router->get(':communitiy/admin/albums',           'Moderator@showAlbums')->with('community','communities');
 $router->post(':communitiy/admin/addAlbum',        'Moderator@addAlbum')->with('community','communities');
 $router->post(':communitiy/admin/getAlbum',        'Moderator@getAlbum')->with('community','communities');
 $router->post(':communitiy/admin/editAlbum',       'Moderator@editAlbum')->with('community','communities');
 $router->post(':communitiy/admin/deleteAlbum',     'Moderator@deleteAlbum')->with('community','communities');
 
-$router->post(':communitiy/admin/mediaUpload',     'Moderator@mediaUpload')->with('community','communities');
+$router->get(':communitiy/admin/medias',           'Moderator@medias')->with('community','communities');
+$router->post(':communitiy/admin/uploadMedia',     'Moderator@uploadMedia')->with('community','communities');
+$router->post(':communitiy/admin/deleteMedia',     'Moderator@deleteMedia')->with('community','communities');
 
 $router->get(':communitiy/admin/comments',         'Moderator@comments')->with('community','communities');
-$router->get(':communitiy/admin/albums',           'Moderator@showAlbums')->with('community','communities');
-$router->get(':communitiy/admin/medias',           'Moderator@medias')->with('community','communities');
 
 
 $router->run();

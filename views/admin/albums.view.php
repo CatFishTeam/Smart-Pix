@@ -55,7 +55,7 @@ TODO
 $('#addPage').click(function(){
     $pageTitle = $(this).prev().val();
     $.ajax({
-        url : '/admin/addAlbum',
+        url : '/<?php echo($_SESSION['community_slug']) ?>/admin/addAlbum',
         type: 'POST',
         dataType: 'json',
         data : { title: $pageTitle },
@@ -76,7 +76,7 @@ $(document).on('click','#albums li',function(){
     $(this).addClass('active');
     $id = $(this).data('id');
     $.ajax({
-        url : '/admin/getAlbum',
+        url : '/<?php echo($_SESSION['community_slug']) ?>/admin/getAlbum',
         type: 'POST',
         dataType: 'json',
         data: { id: $id },
@@ -104,7 +104,7 @@ $(document).on('click','#albums li',function(){
 $('[name="editAlbum"]').click(function(){
     $form = $(this).parent();
     $.ajax({
-        url: '/admin/editAlbum',
+        url: '/<?php echo($_SESSION['community_slug']) ?>/admin/editAlbum',
         type: 'POST',
         dataType: 'json',
         data: $form.serialize(),
@@ -118,7 +118,7 @@ $('[name="editAlbum"]').click(function(){
 $('[name="deleteAlbum"]').click(function(){
     $id = $(this).parent().find('[name="id"]').val();
     $.ajax({
-        url: '/admin/deleteAlbum',
+        url: '/<?php echo($_SESSION['community_slug']) ?>/admin/deleteAlbum',
         type: 'POST',
         dataType: 'json',
         data: {id: $id},

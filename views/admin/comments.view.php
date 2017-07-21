@@ -64,7 +64,7 @@
         $('.delete').click(function(){
             $el = $(this).parents('tr');
             $.ajax({
-              url: "/admin/deleteComment",
+              url: "/<?php echo($_SESSION['community_slug']) ?>/admin/deleteComment",
               type: "POST",
               data: {id: $el.data('id')},
               success: function(data){
@@ -78,7 +78,7 @@
         $('.publish').click(function(){
             $el = $(this).parents('tr');
             $.ajax({
-                url: "/admin/publishComment",
+                url: "/<?php echo($_SESSION['community_slug']) ?>/admin/publishComment",
                 type: "POST",
                 data: {id: $el.data('id')},
                 success: function(data){
@@ -92,7 +92,7 @@
         $('.unpublish').click(function(){
             $el = $(this).parents('tr');
             $.ajax({
-                url: "/admin/unpublishComment",
+                url: "/<?php echo($_SESSION['community_slug']) ?>/admin/unpublishComment",
                 type: "POST",
                 data: {id: $el.data('id')},
                 success: function(data){

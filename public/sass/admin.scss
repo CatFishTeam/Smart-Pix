@@ -452,6 +452,48 @@ div{
   display: flex
 }
 
+.flash-container {
+  position: fixed;
+  right: 1%;
+  top: 1%;
+  border-spacing: 5px;
+  .flash {
+    display: table-row;
+    text-align: center;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    .flash-cell {
+      cursor: pointer;
+      display: none;
+    //   display: table-cell;
+      opacity: 0.8;
+      padding: 15px;
+      vertical-align: middle;
+      border: 1px solid transparent;
+    //   border-width: 0 1px 4px 1px;
+      border-radius: 4px;
+      box-shadow: 1px 1px 10px 2px lightgrey;
+      &:hover{
+          opacity: 1;
+      }
+    }
+  }
+
+  .flash-success .flash-cell {
+    background-color: #28b62c;
+    border-color: #24a528;
+  }
+
+  .flash-warning .flash-cell {
+      background-color: rgb(236, 150, 21);
+  }
+
+  .flash-error .flash-cell {
+    background-color: #ff4136;
+    border-color: #ff1103;
+  }
+}
+
 #topBack{
   flex: 0 0 100%;
   height: 100px;
