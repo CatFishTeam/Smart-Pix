@@ -110,6 +110,19 @@ table {
   }
 }
 
+.breadcrumbs {
+  width: 70%;
+  height: 20px;
+  position: relative;
+  margin: auto;
+  p {
+    position: absolute;
+    padding: 0 10px;
+    font-size: 14px;
+    word-spacing: 2px;
+  }
+}
+
 .albumTitle {
   position: relative;
   background-position: center;
