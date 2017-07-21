@@ -530,12 +530,11 @@ label[for="uploadImg"] {
     .flash-cell {
       cursor: pointer;
       display: none;
-    //   display: table-cell;
       opacity: 0.8;
       padding: 15px;
+      margin: 5px;
       vertical-align: middle;
       border: 1px solid transparent;
-    //   border-width: 0 1px 4px 1px;
       border-radius: 4px;
       box-shadow: 1px 1px 10px 2px lightgrey;
       &:hover{

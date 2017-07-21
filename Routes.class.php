@@ -71,7 +71,7 @@ $router->get('/:community/picture/:id',              'Community@picture')->with(
 $router->get('/:community/add-album',                'Community@showAddAlbum')->with('community','communities');
 $router->post('/:community/add-album',               'Community@addAlbum')->with('community','communities');
 $router->get('/:community/edit-album',               'Community@showEditAlbum')->with('community','communities');
-$router->get('/:community/edit-album/:id',           'Community@editAlbum')->with('community','communities')->with('id', '[0-9]+');
+$router->get('/:community/edit-album/:id',           'Community@showEditAlbum')->with('community','communities')->with('id', '[0-9]+');
 $router->post('/:community/edit-album/:id',          'Community@editAlbum')->with('community','communities')->with('id', '[0-9]+');
 $router->post('/:community/album/remove-picture',    'Community@removePictureFromAlbum')->with('community','communities');
 $router->post('/:community/album/add-pictures',      'Community@addPicturesToAlbum')->with('community','communities');
