@@ -66,8 +66,11 @@
             $.ajax({
               url: "/<?php echo($_SESSION['community_slug']) ?>/admin/deleteComment",
               type: "POST",
+              dataType: "json",
               data: {id: $el.data('id')},
               success: function(data){
+                  $('body').append(data);
+                  flash();
                   $el.fadeOut(function(){
                       $el.remove();
                   });
@@ -80,11 +83,17 @@
             $.ajax({
                 url: "/<?php echo($_SESSION['community_slug']) ?>/admin/publishComment",
                 type: "POST",
+                dataType: "json",
                 data: {id: $el.data('id')},
                 success: function(data){
+                    $('body').append(data);
+                    flash();
                     $el.find('.publish').fadeOut(function(){
                         $el.find('.unpublish').fadeIn();
                     });
+                },
+                error: function(data){
+                    console.log(data);
                 }
             });
         });
@@ -94,8 +103,11 @@
             $.ajax({
                 url: "/<?php echo($_SESSION['community_slug']) ?>/admin/unpublishComment",
                 type: "POST",
+                dataType: "json",
                 data: {id: $el.data('id')},
                 success: function(data){
+                    $('body').append(data);
+                    flash();
                     $el.find('.unpublish').fadeOut(function(){
                         $el.find('.publish').fadeIn();
                     });

@@ -50,6 +50,7 @@
     </body>
     <footer>
         <script>
+            //TODO Fix multiple messages stack
              $('.flash-cell').on('click',function(){
                  $(this).fadeOut();
              });

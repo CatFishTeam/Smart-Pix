@@ -7,31 +7,15 @@ class ModeratorController extends UserController{
             $_SESSION['messages']['warning'][] = "Seuls les administrateurs ont accès a cette partie du site !";
             header('Location:/login');
         }
-        $community = new Community();
-        $url = $_SERVER['REQUEST_URI'];
-        $extracted = array_filter(explode("/",parse_url($url,PHP_URL_PATH)));
-        $community = $community->populate(['slug'=>current($extracted)]);
-        $_SESSION['community_slug'] = $community->getSlug();
-        $_SESSION['community_id'] = $community->getId();
-
-        $community_user = new Community_User();
-        $community_user = $community_user->populate(['community_id'=>$community->getId(), 'user_id'=>$_SESSION['user_id']]);
-        if($community_user != false){
-            $_SESSION['permission'] = $community_user->getPermission();
-        } else {
-            $_SESSION['permission'] = 0;
-        }
 
         if($_SESSION['permission'] < 2){
             header('Location:/'.$_SESSION['community_slug']);
         }
     }
 
-    /* ~~~~~ MODERATOR ~~~~~ */
     public function indexAdmin(){
         $v = new View('admin.index','backend');
     }
-
 
     /* ~~~~ Album ~~~~*/
     public function showAlbums(){
@@ -232,13 +216,14 @@ class ModeratorController extends UserController{
         }
         $v->assign('allComments', $allComments);
     }
-    //TODO RESPONSE !!
+
     public function publishComment(){
         $comment = new Comment();
         $comment = $comment->populate(['id' => $_POST['id']]);
         $comment->setIsPublished(1);
         $comment->save();
-        echo "succes";
+        $_SESSION['messages']['success'][] = "Commentaire publié";
+        GlobalController::flash('json');
         exit();
     }
     public function unpublishComment(){
@@ -246,13 +231,15 @@ class ModeratorController extends UserController{
         $comment = $comment->populate(['id' => $_POST['id']]);
         $comment->setIsPublished(0);
         $comment->save();
-        echo "succes";
+        $_SESSION['messages']['success'][] = "Commentaire dépublié";
+        GlobalController::flash('json');
         exit();
     }
     public function deleteComment(){
         $comment = new Comment();
         $comment->deleteOneBy(['id'=>$_POST['id']], true);
-        echo "succes";
+        $_SESSION['messages']['success'][] = "Commentaire supprimé";
+        GlobalController::flash('json');
         exit();
     }
 

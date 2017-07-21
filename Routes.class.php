@@ -93,6 +93,9 @@ $router->post('/:communitiy/admin/uploadMedia',     'Moderator@uploadMedia')->wi
 $router->post('/:communitiy/admin/deleteMedia',     'Moderator@deleteMedia')->with('community','communities');
 
 $router->get('/:communitiy/admin/comments',         'Moderator@comments')->with('community','communities');
+$router->post('/:communitiy/admin/publishComment',  'Moderator@publishComment')->with('community','communities');
+$router->post('/:communitiy/admin/unpublishComment','Moderator@unpublishComment')->with('community','communities');
+$router->post('/:communitiy/admin/deleteComment',   'Moderator@deleteComment')->with('community','communities');
 
 
 $router->run();

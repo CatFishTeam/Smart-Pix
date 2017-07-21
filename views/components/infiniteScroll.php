@@ -172,7 +172,7 @@ function populatePattern(img){
                     $('.colImg:last').append('<div class="containerImg" style="height: '+100/value.number+'%"></div>');
                     if(data[0] != undefined) $('.containerImg:last').append('<img src="'+data[0]+'"/>');
                     if(data[2] != undefined) $('.containerImg:last').append('<div class="infoSupp">'+data[2]+'</div>');
-                    if(data[1] != undefined) $('.containerImg:last').append('<a href="<?php echo isset($community) ? $community->getSlug() : ""; ?>'+data[1]+'"></a>');
+                    if(data[1] != undefined) $('.containerImg:last').append('<a href="<?php echo isset($community) ? '/'.$community->getSlug() : ""; ?>'+data[1]+'"></a>');
                 }
             }
         });
