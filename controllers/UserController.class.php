@@ -1,33 +1,21 @@
 <?php
 class UserController {
 
+    public function __construct(){
+
+    }
+
     public function checkCommunity($community) {
-        // if (!empty($community)) {
-        //     $commu = new Community();
-        //     $commu = $commu->populate(['slug' => $community]);
-        //     if (!$commu) {
-        //         $_SESSION['messages']['error'][] = "La communauté n'a pas été trouvée";
-        //         $v = new View("404", "frontend");
-        //         return 0;
-        //     }
-        //     return $commu;
-        // }
-
-        $community = new Community();
-        $url = $_SERVER['REQUEST_URI'];
-        $extracted = array_filter(explode("/",parse_url($url,PHP_URL_PATH)));
-        $community = $community->populate(['slug'=>current($extracted)]);
-        $_SESSION['community_slug'] = $community->getSlug();
-        $_SESSION['community_id'] = $community->getId();
-
-        $community_user = new Community_User();
-        $community_user = $community_user->populate(['community_id'=>$community->getId(), 'user_id'=>$_SESSION['user_id']]);
-        if($community_user != false){
-            $_SESSION['permission'] = $community_user->getPermission();
-        } else {
-            $_SESSION['permission'] = 0;
+        if (!empty($community)) {
+            $commu = new Community();
+            $commu = $commu->populate(['slug' => $community]);
+            if (!$commu) {
+                $_SESSION['messages']['error'][] = "La communauté n'a pas été trouvée";
+                $v = new View("404", "frontend");
+                return 0;
+            }
+            return $commu;
         }
-
     }
 
 //TODO PK USER CONNECTÉ PERMISSION 2 DE BASE
