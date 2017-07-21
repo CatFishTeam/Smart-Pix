@@ -46,7 +46,7 @@
                 <?php echo $comment['content'] ?>
             </td>
             <td>
-                <a href="/picture/<?php echo $comment['picture_id'] ?>"><?php echo $comment['picture_id'] ?></a>
+                <a href="/<?php echo $_SESSION['community_slug'] ?>/picture/<?php echo $comment['picture_id'] ?>"><?php echo $comment['picture_id'] ?></a>
             </td>
             <td>
                 <?php echo $comment['username'] ?>
