@@ -3,7 +3,7 @@
 class CommunityController{
 
     public function __construct(){
-        
+
     }
 
     public function checkName(){
@@ -32,7 +32,11 @@ class CommunityController{
             $nowStr = $now->format("Y-m-d H:i:s");
             $community->setCreatedAt($nowStr);
             $community->setUpdatedAt($nowStr);
-            $community->save(true);
+            $community->save();
+
+            $community_user = new Community_User('DEFAULT',$community->getDb()->lastInsertId(), $_SESSION['user_id'], 4);
+            $community_user->save();
+
             $_SESSION['messages']['success'][] = "Nouvelle communauté créée !";
             Header("Location: /communities");
     }
@@ -94,8 +98,8 @@ class CommunityController{
         $v->assign('title', $user->getUsername());
     }
 
-    public function showAddAlbum() {
-
+    public function showAddAlbum($community) {
+        echo $community;
     }
 
     public function addAlbum() {

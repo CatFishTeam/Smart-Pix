@@ -7,8 +7,21 @@ class ModeratorController extends UserController{
             $_SESSION['messages']['warning'][] = "Seuls les administrateurs ont accès a cette partie du site !";
             header('Location:/login');
         }
+        $community = new Community();
+        $url = $_SERVER['REQUEST_URI'];
+        $extracted = array_filter(explode("/",parse_url($url,PHP_URL_PATH)));
+        $community = $community->populate(['slug'=>current($extracted)]);
+
+        $community_user = new Community_User();
+        $community_user = $community_user->populate(['community_id'=>$community->getId(), 'user_id'=>$_SESSION['user_id']]);
+        if($community_user != false){
+            $_SESSION['permission'] = $community_user->getPermission();
+        } else {
+            $_SESSION['permission'] = 0;
+        }
+
         if($_SESSION['permission'] < 2){
-            header('Location: /');
+            header('Location:/'.$url = current($extracted));
         }
     }
 
@@ -90,7 +103,7 @@ class ModeratorController extends UserController{
         echo json_encode("success");
         exit;
     }
-    
+
     /* ~~~~~ Picture ~~~~~*/
     public function medias(){
         $v = new View('admin.medias','backend');

@@ -30,7 +30,6 @@ class GuestController{
                     $user->setLastname("");
                     $user->setCreatedAt($nowStr);
                     $user->setUpdatedAt($nowStr);
-                    $user->setPermission(1);
                     $user->setIsArchived(0);
                     $user->setStatus(0);
                     $accessToken = md5(uniqid()."hbfuigs".time());
@@ -105,7 +104,6 @@ class GuestController{
             if (!isset($_SESSION)) session_start();
             $_SESSION['username'] = $username;
             $_SESSION['user_id'] = $user->getId();
-            $_SESSION['permission'] = $user->getPermission();
             $_SESSION['messages']['success'][] = "Inscription confirmée !<br>Vous allez être redirigé...";
             header( "Refresh:3; url=".PATH_RELATIVE, true, 303);
         } elseif(!empty($user) && $user->getStatus() == 1) {
@@ -181,7 +179,6 @@ class GuestController{
                 if (!isset($_SESSION)) session_start();
                 $_SESSION['username'] = $user->getUsername();
                 $_SESSION['user_id'] = $user->getId();
-                $_SESSION['permission'] = $user->getPermission();
                 $userConnected = true;
                 header("Refresh:1; url=".PATH_RELATIVE, true, 303);
                 $_SESSION['messages']['success'][] = "Vous êtes connecté !<br>Vous allez être redirigée...";

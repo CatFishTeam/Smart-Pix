@@ -8,7 +8,6 @@ class User extends BaseSql{
     protected $username;
     protected $password;
     protected $avatar;
-    protected $permission;
     protected $is_archived;
     protected $status;
     protected $access_token;
@@ -22,7 +21,7 @@ class User extends BaseSql{
     • Check longueur name, etc
     • Check if user not allready exist (email and username)
     */
-    public function __construct($id='DEFAULT',$email=null,$firstname=null,$lastname=null,$username=null,$password=null,$avatar=null,$permission= 0,$is_archived=0,$created_at='DEFAULT',$updated_at='DEFAULT'){
+    public function __construct($id='DEFAULT',$email=null,$firstname=null,$lastname=null,$username=null,$password=null,$avatar=null,$is_archived=0,$created_at='DEFAULT',$updated_at='DEFAULT'){
         parent::__construct();
         $this->setEmail($email);
         $this->setFirstname($firstname);
@@ -30,7 +29,6 @@ class User extends BaseSql{
         $this->setUsername($username);
         $this->setAvatar($avatar);
         $this->setPassword($password);
-        $this->setPermission($permission);
     }
 
     /**
@@ -186,29 +184,6 @@ class User extends BaseSql{
         return $this;
     }
 
-    /**
-     * Get the value of Permission
-     *
-     * @return mixed
-     */
-    public function getPermission()
-    {
-        return $this->permission;
-    }
-
-    /**
-     * Set the value of Permission
-     *
-     * @param mixed permission
-     *
-     * @return self
-     */
-    public function setPermission($permission)
-    {
-        $this->permission = $permission;
-
-        return $this;
-    }
 
     /**
      * Get the value of Is Archived
