@@ -1,5 +1,5 @@
 <h1>Ajouter une nouvelle image</h1>
-• Miniatures pour l'utilisateurs aussi (Utiliser Imagick ?)
+
 <?php
 /*
  * Pour faire un formulaire, on prépare toutes ses données dans $config,

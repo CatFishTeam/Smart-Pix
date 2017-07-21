@@ -26,10 +26,10 @@
                     <img src="http://placehold.it/50x40" alt="">
                     <span>...</span>
                 </p>
-                <h2><a href="/user-albums/<?php echo $user->getId(); ?>">Ses albums</a></h2>
+                <h2><a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/user-albums/<?php echo $user->getId(); ?>">Ses albums</a></h2>
                 <p class="photos-fav">
                     <?php foreach ($albums as $album): ?>
-                        <a href="/album/<?php echo $album['id']; ?>"><img src="/public/cdn/images/<?php echo $album['thumbnail_url']; ?>" alt="<?php echo $album['title']; ?>"></a>
+                        <a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/album/<?php echo $album['id']; ?>"><img src="/public/cdn/images/<?php echo $album['thumbnail_url']; ?>" alt="<?php echo $album['title']; ?>"></a>
                         <?php
                     endforeach;
                     if (count($albums) == 0):
@@ -67,6 +67,9 @@
             <?php endif; ?>
             <div class="timeline-story">
                 <?php
+                if (count($actions) < 1): ?>
+                <p class="no-action">Cet utilisateur n'a pas encore d'activités</p>
+                <?php endif;
                 foreach ($actions as $action):
                     $action_date = strtotime($action['created_at']);
                     ?>
@@ -90,9 +93,9 @@
 
                                 case "album":
                                     $album = new Album();
-                                    $album = $album->populate(['id' => $action['related_id']]);
-                                    echo $user->getUsername() . " a ajouté un nouvel album : <a href=\"/album/\"".$action['related_id']."\">".$album->getTitle()."</a>";
-                                    echo "<span class=\"action-date\">le ".date("d/m/Y", $action_date)." à ".date("G:i:s", $action_date)."</span>";
+                                    $album = $album->populate(['id' => $action['related_id']]); ?>
+                                    <?php echo $user->getUsername(); ?> a ajouté un nouvel album : <a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/album/<?php echo $action['related_id']; ?>"><?php echo $album->getTitle(); ?></a>
+                                    <?php echo "<span class=\"action-date\">le ".date("d/m/Y", $action_date)." à ".date("G:i:s", $action_date)."</span>";
                                     break;
                                 default:
                                     break;

@@ -101,7 +101,7 @@ $config = array(
     <div class="col-2 profil-avatar">
 
         <?php if (!empty($user->getAvatar())): ?>
-            <img src="<?php echo PATH_RELATIVE; ?>public/cdn/images/avatars/<?php echo $user->getAvatar(); ?>" alt="">
+            <img src="/public/cdn/images/avatars/<?php echo $user->getAvatar(); ?>" alt="">
         <?php else: ?>
             <p>Aucun avatar sélectionné</p>
         <?php endif; ?>
