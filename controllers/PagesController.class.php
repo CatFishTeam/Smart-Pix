@@ -5,7 +5,13 @@ class PagesController{
         $v = new View();
         $pictures = new Picture();
         $pictures = $pictures->getAllBy([], 'DESC');
+        $communities = new Community();
+        $communities = $communities->getAllBy([], 'DESC');
+        $users = new User();
+        $users = $users->getAllBy([]);
         $v->assign('pictures', $pictures);
+        $v->assign('communities', $communities);
+        $v->assign('users', $users);
     }
 
     public function communityIndex($slug){
