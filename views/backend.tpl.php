@@ -20,13 +20,6 @@
         <?php echo (isset($specificHeader) ? $specificHeader : '') ?>
     </head>
     <body>
-        <script>
-        function flash(){
-            $('.flash-cell').each(function(){
-                $(this).delay('500').fadeIn().delay('4000').fadeOut();
-            });
-        }
-        </script>
         <noscript><strong>Attention !</strong> Ce site à besoin de Javascript pour fonctionner et il ne semble pas activé sur votre navigateur.</noscript>
         <nav id="navigator">
             <ul>
@@ -64,7 +57,9 @@
              //TODO DELAY is not overridable + Test to set up this (just above)
              function flash(){
                  $('.flash-cell').each(function(){
-                     $(this).delay('500').fadeIn().delay('4000').fadeOut();
+                     $(this).delay('500').fadeIn().delay('4000').fadeOut(function(){
+                         $(this).remove();
+                     });
                  });
              }
              $(document).ready(function() {

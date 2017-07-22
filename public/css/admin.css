@@ -416,6 +416,116 @@ div {
     background-color: #ff4136;
     border-color: #ff1103; }
 
+.form-group input:not([type="file"]),
+.form-group textarea,
+.form-group button {
+  display: block;
+  margin: auto;
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid lightgray;
+  margin-bottom: 5px; }
+.form-group input, .form-group button {
+  height: 30px; }
+.form-group textarea {
+  height: 100px; }
+.form-group [type="submit"] {
+  cursor: pointer; }
+.form-group .g-recaptcha {
+  display: table;
+  margin: 10px auto;
+  transform: scale(1.12); }
+.form-group label {
+  width: 100%; }
+
+/* For mobile phones: */
+[class*="col-"] {
+  float: left;
+  padding: 10px;
+  width: 100%; }
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table; }
+
+.col-m-1 {
+  width: 8.33%; }
+
+.col-m-2 {
+  width: 16.66%; }
+
+.col-m-3 {
+  width: 25%; }
+
+.col-m-4 {
+  width: 33.33%; }
+
+.col-m-5 {
+  width: 41.66%; }
+
+.col-m-6 {
+  width: 50%; }
+
+.col-m-7 {
+  width: 58.33%; }
+
+.col-m-8 {
+  width: 66.66%; }
+
+.col-m-9 {
+  width: 75%; }
+
+.col-m-10 {
+  width: 83.33%; }
+
+.col-m-11 {
+  width: 91.66%; }
+
+.col-m-12 {
+  width: 100%; }
+
+@media only screen and (min-device-width: 768px) {
+  /* For desktop: */
+  .col-1 {
+    width: 8.33%; }
+
+  .col-2 {
+    width: 16.66%; }
+
+  .col-3 {
+    width: 25%; }
+
+  .col-4 {
+    width: 33.33%; }
+
+  .col-5 {
+    width: 41.66%; }
+
+  .col-6 {
+    width: 50%; }
+
+  .col-7 {
+    width: 58.33%; }
+
+  .col-8 {
+    width: 66.66%; }
+
+  .col-9 {
+    width: 75%; }
+
+  .col-10 {
+    width: 83.33%; }
+
+  .col-11 {
+    width: 91.66%; }
+
+  .col-12 {
+    width: 100%; }
+
+  .body-container {
+    width: 70%;
+    margin: 30px auto; } }
 #topBack {
   flex: 0 0 100%;
   height: 100px;
@@ -465,10 +575,12 @@ div {
         font-family: sans-serif; }
 
 #mainContent {
-  margin-left: 60px;
-  width: calc(100% - 60px);
-  height: 100vh;
-  position: relative; }
+  position: fixed;
+  left: 60px;
+  right: 0;
+  padding: 10px;
+  overflow-y: scroll;
+  overflow-x: hidden; }
 
 /* ~~~ Page Media - X ~~~ */
 .imageContainer {

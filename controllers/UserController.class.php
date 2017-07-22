@@ -2,6 +2,9 @@
 class UserController {
 
     public function __construct(){
+        if(!isset($_SESSION['user_id'])){
+            header('Location:/login');
+        }
         $community = new Community;
         $url = $_SERVER['REQUEST_URI'];
         $extracted = array_filter(explode("/",parse_url($url,PHP_URL_PATH)));

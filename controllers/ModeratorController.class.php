@@ -4,10 +4,6 @@ include 'UserController.class.php';
 class ModeratorController extends UserController{
     public function __construct(){
         parent::__construct();
-        //TODO Déplacer dans User ?
-        if(!isset($_SESSION['user_id'])){
-            header('Location:/login');
-        }
         if($_SESSION['permission'] < 2){
             $_SESSION['messages']['warning'][] = "Seuls les administrateurs ont accès a cette partie du site !";
             header('Location:/'.$_SESSION['community_slug']);
@@ -23,11 +19,11 @@ class ModeratorController extends UserController{
         $v = new View('admin.albums','backend');
 
         $albums = new Album();
-        $albums = $albums->getAllBy(['user_id'=>$_SESSION['user_id']], "DESC");
+        $albums = $albums->getAllBy(['user_id'=>$_SESSION['user_id'], 'community_id'=>$_SESSION['community_id']], "DESC");
         $v->assign('albums',$albums);
 
         $pictures = new Picture();
-        $pictures = $pictures->getAllBy(['user_id'=>$_SESSION['user_id']], "DESC");
+        $pictures = $pictures->getAllBy(['user_id'=>$_SESSION['user_id'], 'community_id'=>$_SESSION['community_id']], "DESC");
         $v->assign('pictures',$pictures);
     }
 
@@ -50,13 +46,26 @@ class ModeratorController extends UserController{
     }
 
     public function getAlbum(){
+        $datas = [];
         $album = new Album();
-        echo json_encode($album->getOneBy(['id'=>$_POST['id']]));
+        $album = $album->getOneBy(['id'=>$_POST['id']]);
+        $datas['album'] = $album;
+
+        $pictures = [];
+        $picture_album = new Picture_album;
+        $picture_album = $picture_album->getAllBy(['album_id'=>$_POST['id']]);
+        foreach ($picture_album as $key => $picture) {
+            $p = new Picture();
+            $p = $p->getOneBy(['id'=>$picture['picture_id']]);
+            $pictures[$key] = $p;
+        }
+
+        $datas['pictures'] = $pictures;
+        echo json_encode($datas);
         exit;
     }
 
-    // TODO AJOUTER is_published
-    // TODO retourner un objet json
+    // TODO Retirer is_presentation
     public function editAlbum(){
         $album = new Album();
         $now = new DateTime("now");
@@ -90,6 +99,20 @@ class ModeratorController extends UserController{
         $album->deleteOneBy(['id'=>$_POST['id']]);
         echo json_encode("success");
         exit;
+    }
+
+    public function addPictureToAlbum(){
+        $picture_album = new Picture_Album('DEFAULT', $_POST['id'], $_POST['album_id']);
+        $picture_album->save();
+        echo json_encode('test');
+        exit;
+    }
+
+    public function removePictureFromAlbum(){
+        $picture_album = new Picture_Album;
+        $picture_album = $picture_album->deleteOneBy(['picture_id'=>$_POST['id']]);
+        $_SESSION['messages']['success'][] = "Image retirée de l'album";
+        GlobalController::flash('json');
     }
 
     /* ~~~~~ Picture ~~~~~*/

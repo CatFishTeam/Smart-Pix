@@ -1,17 +1,27 @@
-<form method="post" id="fileinfo" name="fileinfo">
-    <label>Choisir un fichier :</label><br>
-    <input type="file" name="file">
-    Title : <input type="text" name="title">
-    Description : <textarea name="description"></textarea>
-    <input type="submit" value="Upload" />
-</form>
+<div class='row'>
+    <div class="col-6">
+        <h2>Ajouter une photo</h2>
+        <form method="post" id="fileinfo" name="fileinfo" class="form-group">
+            <label>Choisir un fichier :</label><br>
+            <input type="file" name="file">
+            <label>Title : </label><input type="text" name="title">
+            <label>Description : </label><textarea name="description"></textarea>
+            <input type="submit" value="Upload" />
+        </form>
+    </div>
+    <div class="col-6">
+        <h2>Place restante sur votre site</h2>
+        <div class="weight" style="height: 50px; background: grey; width: 300px; border-radius: 10px;">
+            <div class="bar" data-octet="<?php isset($totalWeight) ? $totalWeight : '0' ?>" style="height: 50px; background: green; width: 0; border-radius: 10px; transition: ease 2s;"></div>
+            <div class="percent"></div>
+        </div>Il vous reste 5Go de libre
+    </div>
+</div>
 
-<div class="weight" style="height: 50px; background: grey; width: 300px; border-radius: 10px;">
-    <div class="bar" data-octet="<?php isset($totalWeight) ? $totalWeight : '0' ?>" style="height: 50px; background: green; width: 0; border-radius: 10px; transition: ease 2s;"></div>
-    <div class="percent"></div>
-</div>Il vous reste 5Go de libre
-<div id='output'>
-    <?php
+<div class="row">
+    <h2>Listing picture</h2>
+    <div id='output'>
+        <?php
         foreach($pictures as $picture): ?>
         <div class="imageContainer relative">
             <a href="/<?php echo($_SESSION['community_slug']) ?>/picture/<?php echo $picture['id'] ?>"></a>
@@ -19,17 +29,8 @@
             <img src="/public/cdn/images/thumbnails/<?php echo $picture['url'] ?>" alt="<?php echo $picture['title'] ?>">
         </div>
     <?php endforeach ?>
+    </div>
 </div>
-<div id="server-response"><!-- Json response from server --></div>
-
-<!-- <h1>Ajax Image Upload with PHP ImageMagick</h1>
-<div class="upload-wrapper">
-<div class="upload-click">Click here to Upload File</div>
-<div class="upload-image" style="display:none"><img src="images/ajax-loader.gif" width="16" height="16"></div>
-<input type="file" id="input-file-upload" style="display:none" />
-</div>
-<div id="server-response"><!-- Json response from server --></div>
-
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -98,22 +99,4 @@ $(document).on('click','.delete',function(){
       }
     });
 })
-
-//TODO voir file API !
-
-// $(".upload-click").click(function(e){
-//     $('#input-file-upload').trigger('click'); //trigger click
-// });
-//
-// if(window.File && window.FileReader && window.FileList && window.Blob){
-//     oFReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
-//     if(!rFilter.test(oFile.type))
-//         {
-//             alert('Unsupported file type!');
-//             // return false;
-//         }
-// //Do other stuff
-// }else{
-//     alert("Can't upload! Your browser does not support File API!");
-// } -->
  </script>
