@@ -1,18 +1,15 @@
 <?php
 include 'AdministratorController.class.php';
 
-class SuperAdministratorController extends AdministratorController{
+class CreatorController extends AdministratorController{
 
     public function __construct(){
-        if(!isset($_SESSION['user_id'])){
-            header('Location:/login');
-        }
+        parent::__construct();
         if($_SESSION['permission'] < 4){
             header('Location: /');
         }
     }
 
-    /* ~~~~ SUPER ADMINISTRATOR ~~~~~~ */
     //Change background / name of the site... (those kind of actions ?)
     public function settings(){
         if($_SESSION['permission'] < 4){

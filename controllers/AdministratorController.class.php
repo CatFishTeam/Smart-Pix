@@ -3,6 +3,7 @@ include 'ModeratorController.class.php';
 
 class AdministratorController extends ModeratorController{
     public function __construct(){
+        parent::__construct();
         if(!isset($_SESSION['user_id'])){
             header('Location:/login');
         }
@@ -14,6 +15,7 @@ class AdministratorController extends ModeratorController{
 
     /* ~~~~~~ Users ~~~~~~ */
     public function users(){
+        var_dump($_SESSION['permission']);
         $v = new View('admin.users','backend');
         $users = [];
         $users_id = new Community_User;
@@ -28,26 +30,28 @@ class AdministratorController extends ModeratorController{
 
     }
 
-    //TODO WTTTFFFFFFF ???
     public function userPermission(){
         if($_SESSION['permission'] < $_POST['permission']){
             $_SESSION['messages']['error'][] = "Vous n'avez pas la permission de faire ceci";
             GlobalController::flash('json');
             exit();
         }
+        unset($_SESSION['permission']);
         $user = new Community_User;
         $user = $user->populate(['user_id'=>$_POST['user_id']]);
-        echo ('<pre>');
-        var_dump($user);
         $user->setPermission($_POST['permission']);
-        var_dump($user);
         $user->save();
-
 
         $now = new DateTime("now");
         $nowStr = $now->format("Y-m-d H:i:s");
 
-        echo json_encode(array('date' => $nowStr));
+        $user = new User();
+        $user = $user->populate(['id'=>$_POST['user_id']]);
+        $user->setUpdatedAt($nowStr);
+        $user->save();
+
+        $_SESSION['messages']['success'][] = "Profil correctement modifié";
+        GlobalController::flash('json');
         exit();
     }
 

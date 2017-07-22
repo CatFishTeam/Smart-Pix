@@ -9,7 +9,6 @@
             endif;
             include 'components/infiniteScroll.php';
             ?>
-
         </div>
     </div>
 </div>
