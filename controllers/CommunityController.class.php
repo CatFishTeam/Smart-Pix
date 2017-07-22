@@ -32,6 +32,21 @@ class CommunityController{
         }
     }
 
+    public function checkUserInCommunity($user, $commu) {
+        $userInCommu = new Community_User();
+        $userInCommu = $userInCommu->populate(['user_id' => $user->getId(), 'community_id' => $commu->getId()]);
+        if (!$userInCommu) {
+            $_SESSION['messages']['error'][] = "L'utilisateur ne fait pas partie de cette communauté";
+            $v = new View("404", "frontend");
+            return false;
+        } else if ($userInCommu->getPermission() == '0') {
+            $_SESSION['messages']['error'][] = "L'utilisateur a été banni de cette communauté";
+            $v = new View("404", "frontend");
+            return "banned";
+        }
+        return true;
+    }
+
     public function index(){
         $v = new View('community.index', 'frontend');
         if (isset($_SESSION['user_id'])) {
@@ -42,18 +57,29 @@ class CommunityController{
     }
 
     public function create(){
-            $community = new Community('DEFAULT', $_SESSION['user_id'], $_POST['name'], $_POST['description']);
-            $now = new DateTime("now");
-            $nowStr = $now->format("Y-m-d H:i:s");
-            $community->setCreatedAt($nowStr);
-            $community->setUpdatedAt($nowStr);
-            $community->save();
+        $community = new Community('DEFAULT', $_SESSION['user_id'], $_POST['name'], $_POST['description']);
+        $now = new DateTime("now");
+        $nowStr = $now->format("Y-m-d H:i:s");
+        $community->setCreatedAt($nowStr);
+        $community->setUpdatedAt($nowStr);
+        $community->save();
 
-            $community_user = new Community_User('DEFAULT',$community->getDb()->lastInsertId(), $_SESSION['user_id'], 4);
-            $community_user->save();
+        $community_user = new Community_User('DEFAULT',$community->getDb()->lastInsertId(), $_SESSION['user_id'], 4);
+        $community_user->save();
 
-            $_SESSION['messages']['success'][] = "Nouvelle communauté créée !";
-            header("Location: /communities");
+        // Create related action
+        $action = new Action();
+        $action->setUserId($_SESSION['user_id']);
+        $action->setCommunityId($community->getDb()->lastInsertId());
+        $action->setTypeAction("create-community");
+        $action->setRelatedId($community->getDb()->lastInsertId());
+        $now = new DateTime("now");
+        $nowStr = $now->format("Y-m-d H:i:s");
+        $action->setCreatedAt($nowStr);
+        $action->save();
+
+        $_SESSION['messages']['success'][] = "Nouvelle communauté créée !";
+        header("Location: /communities");
     }
 
     public function home($community = null) {
@@ -89,28 +115,40 @@ class CommunityController{
                 return 0;
             }
         }
-        $userId = $user->getId();
-        $actions =  new Action();
-        $actions = $actions->getAllBy(['user_id' => $userId, 'community_id' => $commu->getId()], 'DESC');
-        $pictures = new Picture();
-        $pictures = $pictures->getAllBy(['user_id' => $userId, 'community_id' => $commu->getId()], 'DESC', 14);
-        $albums = new Album();
-        $albums = $albums->getAllBy(['user_id' => $userId, 'community_id' => $commu->getId()], 'DESC', 14);
 
-        $v = new View('community.wall', 'frontend');
-        $v->assign('community', $commu);
-        $v->assign('user', $user);
-        $v->assign('actions', $actions);
-        $v->assign('pictures', $pictures);
-        $v->assign('albums', $albums);
-        $v->assign('title', $user->getUsername());
+        if ($this->checkUserInCommunity($user, $commu)) {
+            $userId = $user->getId();
+            $actions =  new Action();
+            $actions = $actions->getAllBy(['user_id' => $userId, 'community_id' => $commu->getId()], 'DESC');
+            $pictures = new Picture();
+            $pictures = $pictures->getAllBy(['user_id' => $userId, 'community_id' => $commu->getId()], 'DESC', 14);
+            $albums = new Album();
+            $albums = $albums->getAllBy(['user_id' => $userId, 'community_id' => $commu->getId()], 'DESC', 14);
+
+            $v = new View('community.wall', 'frontend');
+            $v->assign('community', $commu);
+            $v->assign('user', $user);
+            $v->assign('actions', $actions);
+            $v->assign('pictures', $pictures);
+            $v->assign('albums', $albums);
+            $v->assign('title', $user->getUsername());
+        }
     }
 
     public function showAddAlbum($community = null) {
-        $v = new View("album.create", "frontend");
-        $v->assign('title', "Ajout d'un album");
         $commu = $this->checkCommunity($community);
-        $v->assign('community', $commu);
+        if (isset($_SESSION['user_id'])) {
+            $user = new User();
+            $user = $user->populate(['id' => $_SESSION['user_id']]);
+            if ($this->checkUserInCommunity($user, $commu)) {
+                $v = new View("album.create", "frontend");
+                $v->assign('title', "Ajout d'un album");
+                $v->assign('community', $commu);
+            }
+        } else {
+            $_SESSION['messages']['error'][] = "Vous devez être connecté";
+            $v = new View("404", "frontend");
+        }
     }
 
     public function addAlbum($community = null) {
@@ -176,10 +214,19 @@ class CommunityController{
     }
 
     public function showAddPicture($community = null) {
-        $v = new View("picture.create", "frontend");
-        $v->assign('title', "Ajout d'une image");
         $commu = $this->checkCommunity($community);
-        $v->assign('community', $commu);
+        if (isset($_SESSION['user_id'])) {
+            $user = new User();
+            $user = $user->populate(['id' => $_SESSION['user_id']]);
+            if ($this->checkUserInCommunity($user, $commu)) {
+                $v = new View("picture.create", "frontend");
+                $v->assign('title', "Ajout d'une image");
+                $v->assign('community', $commu);
+            }
+        } else {
+            $_SESSION['messages']['error'][] = "Vous devez être connecté";
+            $v = new View("404", "frontend");
+        }
     }
 
     public function addPicture($community = null) {
@@ -423,6 +470,33 @@ class CommunityController{
         } else {
             $v = new View("404", "frontend");
             $_SESSION['messages']['error'][] = "Vous devez être connecté pour éditer un album";
+        }
+    }
+
+    public function join($community = null) {
+        $commu = $this->checkCommunity($community);
+        if ($_SESSION['user_id']) {
+            $user = new User();
+            $user = $user->populate(['id' => $_SESSION['user_id']]);
+            if (!$this->checkUserInCommunity($user, $commu)) {
+                $userInCommu = new Community_User();
+                $userInCommu->setUserId($user->getId());
+                $userInCommu->setCommunityId($commu->getId());
+                $userInCommu->setPermission(1);
+                $userInCommu->save();
+                // Create related action
+                $action = new Action();
+                $action->setUserId($_SESSION['user_id']);
+                $action->setCommunityId($commu->getId());
+                $action->setTypeAction("join-community");
+                $action->setRelatedId($commu->getId());
+                $now = new DateTime("now");
+                $nowStr = $now->format("Y-m-d H:i:s");
+                $action->setCreatedAt($nowStr);
+                $action->save();
+                header("Location: /".$commu->getSlug());
+                $_SESSION['messages']['success'][] = "Vous avez rejoint cette communauté !";
+            }
         }
     }
 
