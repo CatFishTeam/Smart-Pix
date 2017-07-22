@@ -6,8 +6,12 @@
                     <img src="/public/cdn/images/avatars/<?php echo $user->getAvatar(); ?>" alt="">
                 <?php else: ?>
                     <p>Aucun avatar sélectionné</p>
+                <?php
+                endif;
+                if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $user->getId()):
+                ?>
+                <a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/profile"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
                 <?php endif; ?>
-                <a href="/profile"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
             </div>
             <div class="bio-info">
                 <p class="username"><?php echo $user->getUsername(); ?></p>
@@ -82,6 +86,20 @@
                                     $signUp = $signUp->populate(['id' => $action['related_id']]);
                                     echo $signUp->getUsername() . " a rejoint Smart-Pix. Bienvenue !";
                                     echo "<span class=\"action-date\">le ".date("d/m/Y", $action_date)." à ".date("G:i:s", $action_date)."</span>";
+                                    break;
+
+                                case "create-community":
+                                    $commu = new Community();
+                                    $commu = $commu->populate(['id' => $action['related_id']]); ?>
+                                    <?php echo $user->getUsername(); ?> a créé une nouvelle communauté : <a href="/<?php echo $commu->getSlug(); ?>"><?php echo $commu->getName(); ?></a>
+                                    <?php echo "<span class=\"action-date\">le ".date("d/m/Y", $action_date)." à ".date("G:i:s", $action_date)."</span>";
+                                    break;
+
+                                case "join-community":
+                                    $commu = new Community();
+                                    $commu = $commu->populate(['id' => $action['related_id']]); ?>
+                                    <?php echo $user->getUsername(); ?> a rejoint une communauté : <a href="/<?php echo $commu->getSlug(); ?>"><?php echo $commu->getName(); ?></a>
+                                    <?php echo "<span class=\"action-date\">le ".date("d/m/Y", $action_date)." à ".date("G:i:s", $action_date)."</span>";
                                     break;
 
                                 case "picture":

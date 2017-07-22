@@ -28,8 +28,12 @@
                 </p>
                 <h2><a href="/user-albums/<?php echo $user->getId(); ?>">Ses albums</a></h2>
                 <p class="photos-fav">
-                    <?php foreach ($albums as $album): ?>
-                        <a href="/album/<?php echo $album['id']; ?>"><img src="/public/cdn/images/<?php echo $album['thumbnail_url']; ?>" alt="<?php echo $album['title']; ?>"></a>
+                    <?php
+                    foreach ($albums as $album):
+                        $commu = new Community();
+                        $commu = $commu->populate(['id' => $album['community_id']]);
+                    ?>
+                        <a href="/<?php echo $commu->getSlug(); ?>/album/<?php echo $album['id']; ?>"><img src="/public/cdn/images/<?php echo $album['thumbnail_url']; ?>" alt="<?php echo $album['title']; ?>"></a>
                     <?php
                         endforeach;
                         if (count($albums) == 0):
@@ -41,8 +45,12 @@
                 </p>
                 <h2><a href="/user-pictures/<?php echo $user->getId(); ?>">Ses photos</a></h2>
                 <p class="photos-fav">
-                    <?php foreach ($pictures as $picture): ?>
-                        <a href="/picture/<?php echo $picture['id']; ?>"><img src="/public/cdn/images/<?php echo $picture['url']; ?>" alt="<?php echo $picture['title']; ?>"></a>
+                    <?php
+                    foreach ($pictures as $picture):
+                        $commu = new Community();
+                        $commu = $commu->populate(['id' => $picture['community_id']]);
+                    ?>
+                        <a href="/<?php echo $commu->getSlug(); ?>/picture/<?php echo $picture['id']; ?>"><img src="/public/cdn/images/<?php echo $picture['url']; ?>" alt="<?php echo $picture['title']; ?>"></a>
                     <?php
                         endforeach;
                         if (count($pictures) == 0):
@@ -73,6 +81,20 @@
                                     $signUp = $signUp->populate(['id' => $action['related_id']]);
                                     echo $signUp->getUsername() . " a rejoint Smart-Pix. Bienvenue !";
                                     echo "<span class=\"action-date\">le ".date("d/m/Y", $action_date)." à ".date("G:i:s", $action_date)."</span>";
+                                    break;
+
+                                case "create-community":
+                                    $createdCommu = new Community();
+                                    $createdCommu = $createdCommu->populate(['id' => $action['related_id']]); ?>
+                                    <?php echo $user->getUsername(); ?> a créé une nouvelle communauté : <a href="/<?php echo $createdCommu->getSlug(); ?>"><?php echo $createdCommu->getName(); ?></a>
+                                    <?php echo "<span class=\"action-date\">le ".date("d/m/Y", $action_date)." à ".date("G:i:s", $action_date)."</span>";
+                                    break;
+
+                                case "join-community":
+                                    $joinedCommu = new Community();
+                                    $joinedCommu = $joinedCommu->populate(['id' => $action['related_id']]); ?>
+                                    <?php echo $user->getUsername(); ?> a rejoint une communauté : <a href="/<?php echo $joinedCommu->getSlug(); ?>"><?php echo $joinedCommu->getName(); ?></a>
+                                    <?php echo "<span class=\"action-date\">le ".date("d/m/Y", $action_date)." à ".date("G:i:s", $action_date)."</span>";
                                     break;
 
                                 case "picture":

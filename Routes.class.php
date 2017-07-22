@@ -79,6 +79,7 @@ $router->get('/:community/add-picture',              'Community@showAddPicture')
 $router->post('/:community/add-picture',             'Community@addPicture')->with('community','communities');
 $router->get('/:community/user',                     'Community@wall')->with('community','communities');
 $router->get('/:community/user/:id',                 'Community@wall')->with('community','communities')->with('id', '[0-9]+');
+$router->get('/:community/join',                     'Community@join')->with('community','communities');
 
 $router->get('/:communitiy/admin',                  'Moderator@indexAdmin')->with('community','communities');
 
