@@ -10,8 +10,8 @@ class CommunityController{
         $name = $_POST['name'];
         $community = new Community;
         $community = $community->populate(['name' => $name]);
-        $user = new User;
-        $user = $user->populate(array('username' => $_SESSION['username']));
+        // $user = new User;
+        // $user = $user->populate(array('username' => $_SESSION['username']));
         if($community){
             echo json_encode('error');
         } else {

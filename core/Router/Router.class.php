@@ -27,12 +27,18 @@ class Router{
 
     public function run(){
         if(!isset($this->routes[$_SERVER['REQUEST_METHOD']])){
+            if(ENV == "PROD"){
+                header('Location:/404');
+            }
             throw new RouterException('La méthode n\'existe pas');
         }
         foreach($this->routes[$_SERVER['REQUEST_METHOD']] as $route){
             if($route->match($this->url)){
                 return $route->call();
             }
+        }
+        if(ENV == "PROD"){
+            header('Location:/404');
         }
         throw new RouterException('La route n\'existe pas');
     }

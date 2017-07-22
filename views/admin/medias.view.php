@@ -1,11 +1,3 @@
-<h1>On affiche : </h1>
-    <!-- TODO
-    • Editer un media
-    • Mettre en PAGE
--->
-
-• Valider les images des utilisateurs ?
-
 <form method="post" id="fileinfo" name="fileinfo">
     <label>Choisir un fichier :</label><br>
     <input type="file" name="file">

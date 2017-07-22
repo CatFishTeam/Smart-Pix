@@ -58,18 +58,27 @@ class Route{
 
             if( !file_exists($controllerPath) ){
                 Helpers::log("Le controller ".$params[0]." n'existe pas");
+                if(ENV == "PROD"){
+                    header('Location:/404');
+                }
                 throw new RouterException("Le controller ".$params[0]." n'existe pas");
             }
             include $controllerPath;
             //Est ce que l'instanciation est possible
             if( !class_exists($controller) ){
                 Helpers::log("L'instanciation de  ".$params[0]." n'est pas possible");
+                if(ENV == "PROD"){
+                    header('Location:/404');
+                }
                 throw new RouterException("L'instanciation de  ".$params[0]." n'est pas possible");
             }
             $controller = new $controller();
             //Est ce que la méthode existe à travers l'objet
             if( !method_exists($controller, $params[1]) ){
                 Helpers::log("La méthode ". $params[1]." n'éxiste pas dans ". $params[0]);
+                if(ENV == "PROD"){
+                    header('Location:/404');
+                }
                 throw new RouterException("La méthode ". $params[1]." n'éxiste pas dans ". $params[0]);
             }
             return call_user_func_array([$controller, $params[1]], $this->matches);

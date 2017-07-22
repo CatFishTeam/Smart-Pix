@@ -7,6 +7,8 @@ $router = new Router($_GET['url']);
 // //Les plus précises en premier
 
 $router->get('/',                       'Pages@index');
+$router->get('/404',                    'Pages@error');
+
 $router->get('/login',                  'Pages@login');
 $router->get('/signup',                 'Pages@signup');
 $router->get('/user',                   'Pages@wall');
@@ -99,7 +101,9 @@ $router->post('/:communitiy/admin/unpublishComment','Moderator@unpublishComment'
 $router->post('/:communitiy/admin/deleteComment',   'Moderator@deleteComment')->with('community','communities');
 
 $router->get('/:communitiy/admin/users',            'Administrator@users')->with('community','communities');
-$router->post('/:communitiy/admin/userPermission',   'Administrator@userPermission')->with('community','communities');
+$router->post('/:communitiy/admin/userPermission',  'Administrator@userPermission')->with('community','communities');
+
+$router->post('/:communitiy/admin/settings',        'Creator@settings')->with('community','communities');
 
 
 $router->run();

@@ -142,4 +142,8 @@ class PagesController{
         $v->assign('title', $user->getUsername());
     }
 
+    public function error(){
+        $v = new View('404', 'frontend');
+    }
+
 }
