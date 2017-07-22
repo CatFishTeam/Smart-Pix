@@ -450,6 +450,26 @@ label[for="uploadImg"] {
   margin: 10px auto;
   transform: scale(1.12); }
 
+.table-communities {
+  box-shadow: 0 0 15px #ddd; }
+  .table-communities tr {
+    border-bottom: 1px solid lightgray; }
+    .table-communities tr:nth-child(odd) {
+      background: #fefefe; }
+    .table-communities tr:nth-child(even) {
+      background: #f6f6f6; }
+    .table-communities tr td {
+      padding: 10px;
+      vertical-align: middle; }
+      .table-communities tr td p {
+        text-align: left; }
+      .table-communities tr td:nth-child(1) p {
+        font-size: 26px;
+        color: rgba(0, 0, 0, 0.3); }
+      .table-communities tr td:nth-child(4) p {
+        font-size: 14px;
+        color: gray; }
+
 #masonry {
   font-size: 0;
   line-height: 0;

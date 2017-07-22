@@ -3,11 +3,11 @@
         <div class="bio">
             <div class="profil-avatar">
                 <?php if (!empty($user->getAvatar())): ?>
-                    <img src="<?php echo PATH_RELATIVE; ?>public/cdn/images/avatars/<?php echo $user->getAvatar(); ?>" alt="">
+                    <img src="/public/cdn/images/avatars/<?php echo $user->getAvatar(); ?>" alt="">
                 <?php else: ?>
                     <p>Aucun avatar sélectionné</p>
                 <?php endif; ?>
-                <a href="<?php echo PATH_RELATIVE; ?>profile"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
+                <a href="/profile"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
             </div>
             <div class="bio-info">
                 <p class="username"><?php echo $user->getUsername(); ?></p>
@@ -29,7 +29,7 @@
                 <h2><a href="/user-albums/<?php echo $user->getId(); ?>">Ses albums</a></h2>
                 <p class="photos-fav">
                     <?php foreach ($albums as $album): ?>
-                        <a href="<?php echo PATH_RELATIVE; ?>album/<?php echo $album['id']; ?>"><img src="<?php echo PATH_RELATIVE; ?>public/cdn/images/<?php echo $album['thumbnail_url']; ?>" alt="<?php echo $album['title']; ?>"></a>
+                        <a href="/album/<?php echo $album['id']; ?>"><img src="/public/cdn/images/<?php echo $album['thumbnail_url']; ?>" alt="<?php echo $album['title']; ?>"></a>
                     <?php
                         endforeach;
                         if (count($albums) == 0):
@@ -42,7 +42,7 @@
                 <h2><a href="/user-pictures/<?php echo $user->getId(); ?>">Ses photos</a></h2>
                 <p class="photos-fav">
                     <?php foreach ($pictures as $picture): ?>
-                        <a href="<?php echo PATH_RELATIVE; ?>picture/<?php echo $picture['id']; ?>"><img src="<?php echo PATH_RELATIVE; ?>public/cdn/images/<?php echo $picture['url']; ?>" alt="<?php echo $picture['title']; ?>"></a>
+                        <a href="/picture/<?php echo $picture['id']; ?>"><img src="/public/cdn/images/<?php echo $picture['url']; ?>" alt="<?php echo $picture['title']; ?>"></a>
                     <?php
                         endforeach;
                         if (count($pictures) == 0):
@@ -57,18 +57,12 @@
     </div>
     <div class="col-8 col-m-12">
         <div class="timeline">
-            <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $user->getId()): ?>
-            <div class="timeline-actions">
-                <p>
-                    <a href="<?php echo PATH_RELATIVE; ?>add-picture" class="btn-timeline-actions">Ajouter une image</a>
-                    <a href="<?php echo PATH_RELATIVE; ?>add-album" class="btn-timeline-actions">Ajouter un album</a>
-                </p>
-            </div>
-            <?php endif; ?>
             <div class="timeline-story">
                 <?php
                     foreach ($actions as $action):
                         $action_date = strtotime($action['created_at']);
+                        $commu = new Community();
+                        $commu = $commu->populate(['id' => $action['community_id']]);
                 ?>
                 <div class="story">
                     <p>
@@ -84,14 +78,14 @@
                                 case "picture":
                                     $picture = new Picture();
                                     $picture = $picture->populate(['id' => $action['related_id']]);
-                                    echo $user->getUsername() . " a ajouté une nouvelle image : <a href=\"".PATH_RELATIVE."picture/".$action['related_id']."\">".$picture->getTitle()."</a>";
+                                    echo $user->getUsername() . " a ajouté une nouvelle image : <a href=\"/".$commu->getSlug()."/picture/".$action['related_id']."\">".$picture->getTitle()."</a> dans la communauté <a href=\"/".$commu->getSlug()."\">".$commu->getName()."</a>";
                                     echo "<span class=\"action-date\">le ".date("d/m/Y", $action_date)." à ".date("G:i:s", $action_date)."</span>";
                                     break;
 
                                 case "album":
                                     $album = new Album();
                                     $album = $album->populate(['id' => $action['related_id']]);
-                                    echo $user->getUsername() . " a ajouté un nouvel album : <a href=\"".PATH_RELATIVE."album/".$action['related_id']."\">".$album->getTitle()."</a>";
+                                    echo $user->getUsername() . " a ajouté un nouvel album : <a href=\"/".$commu->getSlug()."/album/".$action['related_id']."\">".$album->getTitle()."</a> dans la communauté <a href=\"/".$commu->getSlug()."\">".$commu->getName()."</a>";
                                     echo "<span class=\"action-date\">le ".date("d/m/Y", $action_date)." à ".date("G:i:s", $action_date)."</span>";
                                     break;
                                 default:

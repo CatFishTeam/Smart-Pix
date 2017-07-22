@@ -34,9 +34,11 @@ class CommunityController{
 
     public function index(){
         $v = new View('community.index', 'frontend');
-        $communities = new Community;
-        $communities = $communities->getAllBy(array('user_id'=>$_SESSION['user_id']), "DESC");
-        $v->assign('communities', $communities);
+        if (isset($_SESSION['user_id'])) {
+            $communities = new Community;
+            $communities = $communities->getAllBy(array('user_id'=>$_SESSION['user_id']), "DESC");
+            $v->assign('communities', $communities);
+        }
     }
 
     public function create(){
@@ -55,7 +57,7 @@ class CommunityController{
     }
 
     public function home($community = null) {
-        if (!empty($community) && isset($_SESSION['user_id'])) {
+        if (!empty($community)) {
             $userCommunity = new Community();
             $userCommunity = $userCommunity->populate(['slug' => $community]);
             if ($userCommunity) {
@@ -64,6 +66,7 @@ class CommunityController{
                 $v = new View('community.home', 'frontend');
                 $v->assign('community', $userCommunity);
                 $v->assign('pictures', $pictures);
+                $v->assign('title', $userCommunity->getName());
             }
         } else {
             header("Location: /communities");

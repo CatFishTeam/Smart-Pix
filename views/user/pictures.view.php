@@ -2,7 +2,7 @@
     if (isset($user) && isset($pictures)):
 ?>
 
-    <h1>Photos de <a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/user/<?php echo $user->getId(); ?>"><?php echo $user->getUsername(); ?></a></h1>
+    <h1>Photos de <a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/user/<?php echo $user->getId(); ?>"><?php echo $user->getUsername(); ?></a></h1>
 
         <div class="row">
         <?php foreach ($pictures as $picture): ?>
@@ -12,7 +12,6 @@
                 <h2><?php echo $picture['title']; ?></h2>
                 <p><?php echo $picture['description']; ?></p>
             </div>
-
         <?php endforeach; ?>
         </div>
 <?php
