@@ -21,10 +21,6 @@ class ModeratorController extends UserController{
         $albums = new Album();
         $albums = $albums->getAllBy(['user_id'=>$_SESSION['user_id'], 'community_id'=>$_SESSION['community_id']], "DESC");
         $v->assign('albums',$albums);
-
-        $pictures = new Picture();
-        $pictures = $pictures->getAllBy(['user_id'=>$_SESSION['user_id'], 'community_id'=>$_SESSION['community_id']], "DESC");
-        $v->assign('pictures',$pictures);
     }
 
     public function addAlbum(){
@@ -46,11 +42,32 @@ class ModeratorController extends UserController{
     }
 
     public function getAlbum(){
+        //Retourne les infos de l'album
         $datas = [];
         $album = new Album();
         $album = $album->getOneBy(['id'=>$_POST['id']]);
         $datas['album'] = $album;
 
+        //Retourne les photos qui ne sont pas dans l'album
+        //TODO Retourne toutes les picture :'()'
+        $picturesNotIn = new Picture;
+        $picturesNotIn = $picturesNotIn->getAllBy(['community_id'=>$_SESSION['community_id']],"DESC");
+        $picture_album = new Picture_album;
+        $picture_album = $picture_album->getAllBy(['album_id'=>$_POST['id']]);
+        foreach($picture_album as $picture){
+            // echo "\npicture album";
+            // echo "\nalbumPicture: ".$picture['picture_id'];
+            foreach($picturesNotIn as $key => $p){
+                    // echo "\nallpicture: ".$p['id'];
+                    if($picture['picture_id'] == $p['id']){
+                        unset($picturesNotIn[$key]);
+                    }
+            }
+        }
+        // var_dump((array)$picturesNotIn);
+        $datas['picturesNotIn'] = (array)$picturesNotIn;
+
+        //Retourne les photos qui sont dans l'album
         $pictures = [];
         $picture_album = new Picture_album;
         $picture_album = $picture_album->getAllBy(['album_id'=>$_POST['id']]);
@@ -59,8 +76,8 @@ class ModeratorController extends UserController{
             $p = $p->getOneBy(['id'=>$picture['picture_id']]);
             $pictures[$key] = $p;
         }
-
         $datas['pictures'] = $pictures;
+
         echo json_encode($datas);
         exit;
     }
@@ -102,9 +119,14 @@ class ModeratorController extends UserController{
     }
 
     public function addPictureToAlbum(){
-        $picture_album = new Picture_Album('DEFAULT', $_POST['id'], $_POST['album_id']);
+        $picture_album = new Picture_Album;
+        $picture_album->setPictureId($_POST['picture_id']);
+        $picture_album->setAlbumId($_POST['album_id']);
         $picture_album->save();
-        echo json_encode('test');
+
+        $picture = new Picture;
+        $picture = $picture->getOneBy(['id'=>$_POST['picture_id']]);
+        echo json_encode($picture);
         exit;
     }
 
