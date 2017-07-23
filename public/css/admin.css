@@ -550,6 +550,11 @@ div {
     width: 215px; }
     #navigator:hover span {
       visibility: visible;
+      display: inline-block;
+      overflow: hidden;
+      -ms-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      max-width: 158px;
       opacity: 1;
       transition: visibility 0.35s 0s, opacity 0.35s 0.35s linear; }
   #navigator ul {

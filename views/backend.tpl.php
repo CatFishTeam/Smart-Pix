@@ -23,7 +23,7 @@
         <noscript><strong>Attention !</strong> Ce site à besoin de Javascript pour fonctionner et il ne semble pas activé sur votre navigateur.</noscript>
         <nav id="navigator">
             <ul>
-                <li><a href="/"><img src="/image/logo.png" style="max-width: 50px;margin-top: 10px;margin-left: -10px;"/><span>Smart-Pix</span></a>
+                <li><a href="/<?php echo $_SESSION['community_slug']; ?>"><img src="/public/image/logo.png" style="max-width: 50px;margin-top: 10px;margin-left: -10px;"/><span><?php echo $_SESSION['community_name']; ?></span></a>
                 <li><a href="/<?php echo($_SESSION['community_slug']) ?>/admin"><i class="fa fa-home" aria-hidden="true"></i><span>Acceuil</span></a>
                 <li><a href="/<?php echo($_SESSION['community_slug']) ?>/admin/albums"><i class="fa fa-file-text" aria-hidden="true"></i><span>Albums</span></a>
                 <li><a href="/<?php echo($_SESSION['community_slug']) ?>/admin/medias"><i class="fa fa-file-image-o" aria-hidden="true"></i><span>Medias</span></a>

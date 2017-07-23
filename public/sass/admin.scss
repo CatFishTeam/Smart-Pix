@@ -63,7 +63,7 @@ h2{
  * 1. Add the correct display in IE.
  */
 
-figcaption,
+figcaption, 
 figure,
 main { /* 1 */
   display: block;
@@ -598,6 +598,11 @@ div{
       width: 215px;
       & span{
         visibility: visible;
+        display: inline-block;
+        overflow: hidden;
+        -ms-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        max-width: 158px;
         opacity: 1;
         transition: visibility 0.35s 0s, opacity 0.35s 0.35s linear;
       }

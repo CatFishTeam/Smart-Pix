@@ -274,6 +274,40 @@ class CommunityController{
                             $action->setCreatedAt($nowStr);
                             $action->save();
                             move_uploaded_file($_FILES['picture']['tmp_name'], "./public/cdn/images/".$picture->getUrl());
+
+                            /* Tags : */
+                            $tagExists = false;
+                            $existingTags = new Tag();
+                            $existingTags = $existingTags->getAllBy([]);
+                            $tagsArray = array();
+                            if (!empty($_POST['tags'])) {
+                                $tagsArray = explode(',', $_POST['tags']);
+                                for ($i = 0; $i < count($tagsArray); $i++) {
+                                    $tagExists = false;
+                                    $tag = new Tag();
+                                    $tagPicture = new Tag_Picture();
+                                    $tagsArray[$i] = trim($tagsArray[$i]);
+                                    $tagInDb = null;
+                                    foreach ($existingTags as $existingTag) {
+                                        if ($existingTag['title'] == $tagsArray[$i]) {
+                                            $tagExists = true;
+                                            $tagInDb = $existingTag;
+                                            break;
+                                        }
+                                    }
+                                    if (!$tagExists) {
+                                        $tag->setTitle($tagsArray[$i]);
+                                        $tag->setSlug(GlobalController::slugify($tagsArray[$i]));
+                                        $tag->save();
+                                        $tagPicture->setTagId($tag->getDb()->lastInsertId());
+                                    } else {
+                                        $tagPicture->setTagId($tagInDb['id']);
+                                    }
+                                    $tagPicture->setPictureId($picture->getDb()->lastInsertId());
+                                    $tagPicture->save();
+                                }
+                            }
+
                             header("Location: /".$commu->getSlug()."/picture/".$picture->getDb()->lastInsertId());
                             $_SESSION['messages']['success'][] = "Votre image a été ajoutée";
                         } else {
@@ -288,11 +322,10 @@ class CommunityController{
     }
 
     public function picture($community = null, $id = null) {
+        $commu = $this->checkCommunity($community);
         $v = new View('picture.index', 'frontend');
         $v->assign('id', $id);
-        $commu = $this->checkCommunity($community);
         $v->assign('community', $commu);
-
         if (empty($id)) {
             // Listing des images
             $allPictures = new Picture();
@@ -302,13 +335,23 @@ class CommunityController{
             // Affichage d'une image avec $id
             $picture = new Picture();
             $picture = $picture->populate(['id' => $id, 'community_id' => $commu->getId()]);
-            if (!empty($picture)) {
+
+            if (!$picture) {
+                $v->setView('404');
+                $_SESSION['messages']['error'][] = "L'image n'a pas été trouvée";
+                return 0;
+            }
+            if ($picture && !empty($picture)) {
                 $author = new User();
                 $author = $author->populate(['id' => $picture->getUserId()]);
                 $v->assign('author', $author);
                 $v->assign('title', $picture->getTitle());
             }
             $v->assign('picture', $picture);
+
+            $tags = new Tag_Picture();
+            $tags = $tags->getAllBy(['picture_id' => $picture->getId()]);
+            $v->assign('tagsId', $tags);
 
             $albumsId = new Picture_Album();
             $albumsId = $albumsId->getAllBy(['picture_id' => $id]);
@@ -364,7 +407,12 @@ class CommunityController{
             // Affichage d'un album avec $id
             $album = new Album();
             $album = $album->populate(['id' => $id, 'community_id' => $commu->getId()]);
-            if (!empty($album)) {
+            if (!$album) {
+                $v->setView('404');
+                $_SESSION['messages']['error'][] = "L'album n'a pas été trouvé";
+                return 0;
+            }
+            if ($album && !empty($album)) {
                 $author = new User();
                 $author = $author->populate(['id' => $album->getUserId()]);
                 $pictures = new Picture();

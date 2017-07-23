@@ -4,11 +4,24 @@
                 <!-- La photo ! -->
                 <img src="/public/cdn/images/<?php echo $picture->getUrl(); ?>" alt="">
             </div>
-            <div class="col-3 col-m-12 align-left">
+            <div class="col-3 col-m-12 align-left picture-info-panel">
                 <!-- Info photo & photographe -->
                 <h2><?php echo $picture->getTitle(); ?></h2>
                 <h3 class="italic">Par <a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/user/<?php echo $author->getId(); ?>"><?php echo $author->getUsername(); ?></a></h3>
                 <p><?php echo $picture->getDescription(); ?></p>
+                    <?php if (isset($tagsId) && !empty($tagsId)): ?>
+                        <hr>
+                        <p class="picture-tags">
+                            Tags :
+                            <?php
+                        foreach ($tagsId as $tagId):
+                            $tag = new Tag();
+                            $tag = $tag->populate(['id' => $tagId['tag_id']]);
+                    ?>
+                    <span><a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/tag/<?php echo $tag->getId(); ?>/<?php echo $tag->getSlug(); ?>"><?php echo $tag->getTitle(); ?></span></a>
+                    <?php endforeach; ?>
+                </p>
+                <?php endif; ?>
             </div>
 </div>
 <?php //var_dump($albums); ?>

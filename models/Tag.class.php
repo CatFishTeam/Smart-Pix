@@ -3,6 +3,7 @@ class Tag extends BaseSql{
 
     protected $id = -1;
     protected $title;
+    protected $slug;
 
     /**
      * Get the value of Id
@@ -51,5 +52,23 @@ class Tag extends BaseSql{
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+
 
 }

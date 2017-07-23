@@ -43,6 +43,12 @@ $config = array(
             "for" => "uploadImg",
             "text" => "<i class=\"fa fa-upload\" aria-hidden=\"true\"></i> Sélectionnez votre image"
         ],
+        "tags" => [
+            "type" => "text",
+            "placeholder" => "Tags (optionnel) : séparez vos tags par des virgules (exemple : chat, animal, maison)",
+            "value" => null,
+            "id" => "tags"
+        ],
     ]
 );
 ?>
@@ -55,3 +61,37 @@ $config = array(
         <?php include "views/modals/form.mod.php"; ?>
     </div>
 </div>
+<div class="tags-res"><p></p></div>
+<script>
+    $(document).ready(function () {
+        var tags = $('#tags');
+        var res = $('.tags-res p');
+        var array = [];
+
+        tags.css({
+            color: "transparent"
+        });
+        res.css({
+            position: "absolute",
+            top: tags.position().top,
+            left: tags.position().left + 15,
+            margin: "4px 0",
+            padding: "0 3px",
+            height: "20px",
+            lineHeight: "20px",
+            display: "inline-block",
+            borderRadius: "3px"
+        });
+
+        tags.on('input', function () {
+            res.html("");
+            array = tags.val().trim().split(",");
+
+            $.each(array, function (i, value) {
+                value = value.trim();
+                res.append("<span>"+ value +"</span>");
+            });
+        });
+
+    });
+</script>

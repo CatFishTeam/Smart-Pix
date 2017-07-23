@@ -4,21 +4,21 @@ include 'UserController.class.php';
 class ModeratorController extends UserController{
     public function __construct(){
         parent::__construct();
-        
-        $community = new Community;
-        $url = $_SERVER['REQUEST_URI'];
-        $extracted = array_filter(explode("/",parse_url($url,PHP_URL_PATH)));
-        $community = $community->populate(['slug'=>current($extracted)]);
-        $_SESSION['community_slug'] = $community->getSlug();
-        $_SESSION['community_id'] = $community->getId();
 
-        $community_user = new Community_User();
-        $community_user = $community_user->populate(['community_id'=>$community->getId(), 'user_id'=>$_SESSION['user_id']]);
-        if($community_user != false){
-            $_SESSION['permission'] = $community_user->getPermission();
-        } else {
-            $_SESSION['permission'] = 0;
-        }
+        // $community = new Community;
+        // $url = $_SERVER['REQUEST_URI'];
+        // $extracted = array_filter(explode("/",parse_url($url,PHP_URL_PATH)));
+        // $community = $community->populate(['slug'=>current($extracted)]);
+        // $_SESSION['community_slug'] = $community->getSlug();
+        // $_SESSION['community_id'] = $community->getId();
+        //
+        // $community_user = new Community_User();
+        // $community_user = $community_user->populate(['community_id'=>$community->getId(), 'user_id'=>$_SESSION['user_id']]);
+        // if($community_user != false){
+        //     $_SESSION['permission'] = $community_user->getPermission();
+        // } else {
+        //     $_SESSION['permission'] = 0;
+        // }
 
         if($_SESSION['permission'] < 2){
             $_SESSION['messages']['warning'][] = "Seuls les administrateurs ont accès a cette partie du site !";

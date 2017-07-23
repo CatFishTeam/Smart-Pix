@@ -5,6 +5,24 @@ class UserController {
         if(!isset($_SESSION['user_id'])){
             header('Location:/login');
         }
+<<<<<<< HEAD
+=======
+        $community = new Community;
+        $url = $_SERVER['REQUEST_URI'];
+        $extracted = array_filter(explode("/",parse_url($url,PHP_URL_PATH)));
+        $community = $community->populate(['slug'=>current($extracted)]);
+        $_SESSION['community_slug'] = $community->getSlug();
+        $_SESSION['community_name'] = $community->getName();
+        $_SESSION['community_id'] = $community->getId();
+
+        $community_user = new Community_User();
+        $community_user = $community_user->populate(['community_id'=>$community->getId(), 'user_id'=>$_SESSION['user_id']]);
+        if($community_user != false){
+            $_SESSION['permission'] = $community_user->getPermission();
+        } else {
+            $_SESSION['permission'] = 0;
+        }
+>>>>>>> ba83d334e1d841d6b40abc3a61c0e22cb1c1ae48
     }
 
     public function checkCommunity($community) {
