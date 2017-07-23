@@ -45,7 +45,6 @@ CREATE TABLE `album` (
   `background` varchar(150) DEFAULT '',
   `disposition` text,
   `description` text,
-  `is_presentation` tinyint(1) NOT NULL,
   `is_published` tinyint(1) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -171,19 +170,10 @@ CREATE TABLE `stat` (
 
 CREATE TABLE `tag` (
   `id` int(11) NOT NULL,
-  `title` varchar(100) NOT NULL
+  `title` varchar(100) NOT NULL,
+  `slug` varchar(100) NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `tag_album`
---
-
-CREATE TABLE `tag_album` (
-  `tag_id` int(11) NOT NULL,
-  `album_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -192,6 +182,7 @@ CREATE TABLE `tag_album` (
 --
 
 CREATE TABLE `tag_picture` (
+  `id` int(11) NOT NULL,
   `tag_id` int(11) NOT NULL,
   `picture_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -311,19 +302,14 @@ ALTER TABLE `stat`
 ALTER TABLE `tag`
   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `tag_album`
---
-ALTER TABLE `tag_album`
-  ADD PRIMARY KEY (`tag_id`,`album_id`),
-  ADD KEY `Tags_Albums_Albums` (`album_id`);
 
 --
 -- Indexes for table `tag_picture`
 --
 ALTER TABLE `tag_picture`
-  ADD PRIMARY KEY (`tag_id`,`picture_id`),
-  ADD KEY `Tags_Pictures_Pictures` (`picture_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `Tags_Pictures_Pictures` (`picture_id`),
+  ADD KEY `Tags_Pictures_Tags` (`tag_id`);
 
 --
 -- Indexes for table `template`
@@ -431,7 +417,7 @@ ALTER TABLE `comment`
 -- Constraints for table `community`
 --
 ALTER TABLE `community`
-  ADD CONSTRAINT `community_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `Communities_Users` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `picture`
@@ -455,13 +441,6 @@ ALTER TABLE `stat`
   ADD CONSTRAINT `Stats_Albums` FOREIGN KEY (`album_id`) REFERENCES `album` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `Stats_Pictures` FOREIGN KEY (`picture_id`) REFERENCES `picture` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `Stats_Users` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `tag_album`
---
-ALTER TABLE `tag_album`
-  ADD CONSTRAINT `Tags_Albums_Albums` FOREIGN KEY (`album_id`) REFERENCES `album` (`id`),
-  ADD CONSTRAINT `Tags_Albums_Tags` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`);
 
 --
 -- Constraints for table `tag_picture`

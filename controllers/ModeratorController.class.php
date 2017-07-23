@@ -4,11 +4,28 @@ include 'UserController.class.php';
 class ModeratorController extends UserController{
     public function __construct(){
         parent::__construct();
+        
+        $community = new Community;
+        $url = $_SERVER['REQUEST_URI'];
+        $extracted = array_filter(explode("/",parse_url($url,PHP_URL_PATH)));
+        $community = $community->populate(['slug'=>current($extracted)]);
+        $_SESSION['community_slug'] = $community->getSlug();
+        $_SESSION['community_id'] = $community->getId();
+
+        $community_user = new Community_User();
+        $community_user = $community_user->populate(['community_id'=>$community->getId(), 'user_id'=>$_SESSION['user_id']]);
+        if($community_user != false){
+            $_SESSION['permission'] = $community_user->getPermission();
+        } else {
+            $_SESSION['permission'] = 0;
+        }
+
         if($_SESSION['permission'] < 2){
             $_SESSION['messages']['warning'][] = "Seuls les administrateurs ont accès a cette partie du site !";
             header('Location:/'.$_SESSION['community_slug']);
         }
     }
+
 
     public function indexAdmin(){
         $v = new View('admin.index','backend');
@@ -31,7 +48,6 @@ class ModeratorController extends UserController{
         $album->setDescription("");
         $album->setUserId($_SESSION['user_id']);
         $album->setCommunityId($_SESSION['community_id']);
-        $album->setIsPresentation(0);
         $album->setIsPublished(1);
         $album->setCreatedAt($nowStr);
         $album->setUpdatedAt($nowStr);
@@ -93,11 +109,6 @@ class ModeratorController extends UserController{
         $album->setTitle($_POST['title']);
         $album->setDescription($_POST['description']);
         $album->setUserId($_SESSION['user_id']);
-        if(isset($_POST['is_presentation'])){
-            $album->setIsPresentation(1);
-        } else {
-            $album->setIsPresentation(0);
-        }
         if(isset($_POST['is_published'])){
             $album->setIsPublished(1);
         } else {

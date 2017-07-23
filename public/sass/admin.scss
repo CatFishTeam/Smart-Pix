@@ -1,5 +1,7 @@
 //Commande pour lancer sass : sass -w sass:css (dans public)
 
+@import url('https://fonts.googleapis.com/css?family=Raleway:600');
+
 /************************
  ~~~~~ Page Media - X
 ************************/
@@ -44,8 +46,13 @@ section {
  */
 
 h1 {
+  font-family: 'Raleway', sans-serif;
   font-size: 2em;
   margin: 0.67em 0;
+}
+h2{
+    font-family: 'Raleway', sans-serif;
+    margin: 5px 0;
 }
 
 /* Grouping content

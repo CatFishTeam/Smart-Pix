@@ -1,8 +1,3 @@
-<!--
-TODO
-• Message flash !!
-• IS_PUBLISHED (voir controller)
--->
 <style>
     #albums li{
         background: red;
@@ -21,7 +16,6 @@ TODO
         top: 30%;
         left: 20%;
         width: 80%;
-        background: green;
         border: 2px solid grey;
         padding: 15px;
         bottom: 0;
@@ -50,34 +44,36 @@ TODO
     }
 </style>
 <div style="margin: -10px;position: relative;top: 0;left: 0;width: 100%;height: 100vh;">
-    <div style="width: 100%; height: 10%; padding: 15px; background: mauve; border: 2px solid grey;
-    ">
-    <input type="text" />
-    <button type="button" name="ajouter" id="addPage">+</button>
-</div>
-<div style="position: absolute; width: 20%; height: 45%; background: red; border: 2px solid grey; overflow-y: auto;" id="albums">
-    <ul style="list-style: none; margin: 0; padding: 0;">
-        <?php foreach ($albums as $album): ?>
-            <li data-id="<?php echo $album['id'] ?>"><?php  echo $album['title']  ?>
+    <div style="width: 100%; height: 10%; padding: 15px; border: 2px solid grey;">
+        <h2>Ajouter un album</h2>
+        <input type="text" />
+        <button type="button" name="ajouter" id="addPage">+</button>
+    </div>
+    <div style="position: absolute; width: 20%; height: 45%; border: 2px solid grey; overflow-y: auto;" id="albums">
+        <h2>Sélectionner un album</h2>
+        <ul style="list-style: none; margin: 0; padding: 0;">
+            <?php foreach ($albums as $album): ?>
+                <li data-id="<?php echo $album['id'] ?>"><?php  echo $album['title']  ?>
             <?php endforeach ?>
         </ul>
     </div>
-    <div style="position: absolute; width: 20%; height: 45%; background: yellow; border: 2px solid grey; overflow-y: auto; top: 55%;" id="pictureNotIn">
-
-        </div>
-        <div style="position: absolute; left: 20%; width: 80%; height: 20%; background: blue; color: #fff; border: 2px solid grey; padding: 15px;">
-            <form action="/album/addalbum" type="POST">
-                <input type="hidden" name="id"/>
-                Titre de la page : <input type="text" name="title" /><br>
-                Est la page de présentation : <input type="checkbox" name="is_presentation" /><br>
-                Est publié : <input type="checkbox" name="is_published" /><br>
-                Description : <textarea name="description"></textarea>
-                <button type="button" name="editAlbum">Editer</button>
-                <button type="button" name="deleteAlbum">Supprimer</button>
-            </form>
-        </div>
-        <div id="images">
-        </div>
+    <div style="position: absolute; left: 20%; width: 80%; height: 20%; color: #fff; border: 2px solid grey; padding: 15px;">
+        <h2>Editer un album</h2>
+        <form action="/album/addalbum" type="POST">
+            <input type="hidden" name="id"/>
+            Titre de la page : <input type="text" name="title" /><br>
+            Est publié : <input type="checkbox" name="is_published" /><br>
+            Description : <textarea name="description"></textarea>
+            <button type="button" name="editAlbum">Editer</button>
+            <button type="button" name="deleteAlbum">Supprimer</button>
+        </form>
+    </div>
+    <div style="position: absolute; width: 20%; height: 45%; border: 2px solid grey; overflow-y: auto; top: 55%;" id="pictureNotIn">
+        <h2>Ajouter une photo</h2>
+    </div>
+    <div id="images">
+        <h2>Images de l'album</h2>
+    </div>
 </div>
 <script>
 $('#addPage').click(function(){
@@ -111,11 +107,6 @@ $(document).on('click','#albums li',function(){
         success: function(data){
             $('[name="id"]').val(data.album.id);
             $('[name="title"]').val(data.album.title);
-            if(data.album.is_presentation == 1){
-                $('[name="is_presentation"]').prop('checked', true);
-            } else {
-                $('[name="is_presentation"]').prop('checked', false);
-            }
             if(data.album.is_published == 1){
                 $('[name="is_published"]').prop('checked', true);
             } else {
@@ -196,7 +187,6 @@ $('[name="deleteAlbum"]').click(function(){
         success: function(data){
             $('li.active').remove();
             $('[name="title"]').val("");
-            $('[name="is_presentation"]').prop('checked', false);
             $('[name="is_published"]').prop('checked', false);
             $('[name="description"]').val("");
         }

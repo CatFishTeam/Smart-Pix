@@ -192,7 +192,6 @@ class CommunityController{
                 }
                 $album->setBackground(null);
                 $album->setDisposition(null);
-                $album->setIsPresentation(0);
                 $album->setIsPublished(1);
                 $album->setCreatedAt($nowStr);
                 $album->setUpdatedAt($nowStr);

@@ -9,12 +9,11 @@ class Album extends BaseSql{
     protected $background;
     protected $disposition;
     protected $thumbnail_url;
-    protected $is_presentation;
     protected $is_published; //0 not published 1 published 2 deleted
     protected $created_at;
     protected $updated_at;
 
-    public function __construct($id='DEFAULT', $title=null, $description=null, $background=null, $disposition=null, $thumbnail_url=null, $is_presentation=0, $is_published=0, $created_at='DEFAULT', $updated_at='DEFAULT', $user_id=1){
+    public function __construct($id='DEFAULT', $title=null, $description=null, $background=null, $disposition=null, $thumbnail_url=null, $is_published=0, $created_at='DEFAULT', $updated_at='DEFAULT', $user_id=1){
         parent::__construct();
     }
 
@@ -201,31 +200,6 @@ class Album extends BaseSql{
     public function setThumbnailUrl($ext)
     {
         $this->thumbnail_url = parent::clean($this->title).'_'.uniqid().'.'.$ext;
-    }
-
-
-    /**
-     * Get the value of Is Presentation
-     *
-     * @return mixed
-     */
-    public function getIsPresentation()
-    {
-        return $this->is_presentation;
-    }
-
-    /**
-     * Set the value of Is Presentation
-     *
-     * @param mixed is_presentation
-     *
-     * @return self
-     */
-    public function setIsPresentation($is_presentation)
-    {
-        $this->is_presentation = $is_presentation;
-
-        return $this;
     }
 
     /**
