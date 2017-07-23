@@ -47,7 +47,8 @@ $config = array(
             "type" => "text",
             "placeholder" => "Tags (optionnel) : séparez vos tags par des virgules (exemple : chat, animal, maison)",
             "value" => null,
-            "id" => "tags"
+            "id" => "tags",
+            "autocomplete" => "off"
         ],
     ]
 );
@@ -69,19 +70,24 @@ $config = array(
         var array = [];
 
         tags.css({
-            color: "transparent"
+            color: "transparent",
+            padding: "1px 0 0 21px"
         });
         res.css({
             position: "absolute",
             top: tags.position().top,
             left: tags.position().left + 15,
             margin: "4px 0",
-            padding: "0 3px",
+            fontSize: "14px",
             height: "20px",
             lineHeight: "20px",
             display: "inline-block",
             borderRadius: "3px"
         });
+
+        if (tags.val().trim() == "") {
+            res.css("display", "none");
+        }
 
         tags.on('input', function () {
             res.html("");
@@ -91,6 +97,11 @@ $config = array(
                 value = value.trim();
                 res.append("<span>"+ value +"</span>");
             });
+            if (tags.val().trim() == "") {
+                res.css("display", "none");
+            } else  {
+                res.css("display", "inline-block");
+            }
         });
 
     });

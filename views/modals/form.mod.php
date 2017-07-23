@@ -28,7 +28,11 @@
                    placeholder="<?php echo $attribute["placeholder"];?>"
                    value="<?php echo $attribute["value"];?>"
                    id="<?php echo (isset($attribute ["id"])) ? $attribute ["id"] : ""; ?>"
-                   <?php echo (isset($attribute["required"]) && $attribute["required"]) ? "required='required'" : ""?>>
+                   <?php echo (isset($attribute["required"]) && $attribute["required"]) ? "required='required'" : ""?>
+                   autocomplete="<?php echo (isset($attribute["autocomplete"])) ? $attribute["autocomplete"] : "on"?>"
+                   autocorrect="<?php echo (isset($attribute["autocorrect"])) ? $attribute["autocorrect"] : "off"?>"
+                   spellcheck="<?php echo (isset($attribute["spellcheck"])) ? $attribute["spellcheck"] : "false"?>"
+            >
         <?php
         endif;
     endforeach;

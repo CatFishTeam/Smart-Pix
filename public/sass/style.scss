@@ -66,6 +66,13 @@ table {
   border-spacing: 0;
 }
 
+*::selection {
+  background: #a8d1ff;
+}
+*::-moz-selection {
+  background: #a8d1ff;
+}
+
 /*Grid layout (12 col)*/
 
 * {
@@ -195,6 +202,7 @@ header {
       color: #333;
       vertical-align: top;
       max-width: 120px;
+      text-align: right;
       display: inline-block;
       line-height: 20px;
     }
