@@ -391,11 +391,10 @@ h3 {
 }
 
 hr {
-  margin-top: 20px;
   border: 0;
-  height: 1px;
-  background: #333;
-  background-image: linear-gradient(to right, #fff, #bbb, #fff);
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 input[type="file"][id="uploadImg"] {
@@ -534,6 +533,8 @@ label[for="uploadImg"] {
       &:nth-child(4) p {
         font-size: 14px;
         color: gray;
+        padding: 0 20px;
+        text-align: center;
       }
     }
   }
@@ -747,6 +748,14 @@ Wall (user/wall)
 
 /* User's pictures */
 
+.tags-res p span {
+  background-color: rgba(52, 73, 94, 0.2);
+  margin: 1px 3px;
+  padding: 0 3px;
+  display: inline-block;
+  border-radius: 3px;
+}
+
 .picture {
   text-align: center;
   img {
@@ -758,6 +767,29 @@ Wall (user/wall)
     outline: 3px dashed #cfcfad;
   }
 }
+
+.picture-info-panel {
+  background: #fff;
+  border: 5px solid #eee;
+  border-radius: 7px;
+  .picture-tags span a {
+    background-color: rgba(52, 73, 94, 0.1);
+    padding: 4px 8px;
+    font-size: 14px;
+    margin: 2px 0;
+    color: #333;
+    cursor: pointer;
+    display: inline-block;
+    &:visited {
+      color: #333;
+    }
+    &:hover {
+      background-color: rgba(52, 73, 94, 0.2);
+    }
+  }
+}
+
+
 
 /* Album's pictures */
 

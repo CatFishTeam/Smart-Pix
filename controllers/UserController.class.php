@@ -10,6 +10,7 @@ class UserController {
         $extracted = array_filter(explode("/",parse_url($url,PHP_URL_PATH)));
         $community = $community->populate(['slug'=>current($extracted)]);
         $_SESSION['community_slug'] = $community->getSlug();
+        $_SESSION['community_name'] = $community->getName();
         $_SESSION['community_id'] = $community->getId();
 
         $community_user = new Community_User();
