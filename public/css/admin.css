@@ -381,10 +381,15 @@ template {
 /* This is the end */
 /* ~~~ Global ~~~ */
 body {
-  margin: 0; }
+  margin: 0;
+  background-color: #353d47; }
 
 div {
   box-sizing: border-box; }
+
+h1, h2, h3, p, span, label, div, table {
+  color: #f8f8f2;
+  border-color: #000; }
 
 .relative {
   position: relative; }
@@ -543,7 +548,7 @@ div {
   position: fixed;
   width: 60px;
   height: 100%;
-  background: #353d47;
+  background: #282a36;
   top: 0;
   transition: ease all 0.35s; }
   #navigator:hover {
@@ -634,5 +639,89 @@ div {
   position: relative; }
   .weight:hover .percent {
     opacity: 1; }
+
+/* ~~~~Page Album ~~~~*/
+#pageAlbum {
+  margin: -10px;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: calc(100% + 20px);
+  height: 100vh; }
+  #pageAlbum input {
+    width: 300px;
+    height: 25px;
+    border-radius: 3px; }
+  #pageAlbum #albums {
+    position: absolute;
+    width: 35%;
+    height: 40%;
+    overflow-y: auto;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000; }
+    #pageAlbum #albums h2 {
+      margin-left: 10px; }
+    #pageAlbum #albums li {
+      background: #6272a4;
+      color: #fff;
+      cursor: pointer;
+      border-bottom: 1px solid grey;
+      padding-left: 5px;
+      margin-left: 1px; }
+      #pageAlbum #albums li.active {
+        background: #3d4d7e; }
+      #pageAlbum #albums li:hover {
+        background: #3d4d7e; }
+    #pageAlbum #albums button {
+      width: 10%;
+      height: 30px; }
+  #pageAlbum #addPage {
+    width: 100%;
+    height: 15%;
+    padding: 15px;
+    border-bottom: 1px solid #000; }
+  #pageAlbum #editAlbum {
+    position: absolute;
+    left: 35%;
+    width: 65%;
+    height: 20%;
+    color: #fff;
+    padding: 15px;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000; }
+  #pageAlbum #images {
+    position: absolute;
+    top: 35%;
+    left: 35%;
+    width: 50%;
+    padding: 15px;
+    bottom: 0; }
+    #pageAlbum #images .image {
+      width: 20%;
+      position: relative;
+      display: inline-block;
+      margin: 10px; }
+    #pageAlbum #images .image button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer; }
+    #pageAlbum #images .image img {
+      width: 100%;
+      object-fit: cover; }
+  #pageAlbum #addPicture {
+    position: absolute;
+    width: 35%;
+    height: 45%;
+    overflow-y: auto;
+    top: 55%;
+    border-right: 1px solid #000; }
+    #pageAlbum #addPicture h2 {
+      margin-left: 15px; }
+  #pageAlbum #pictureNotIn img {
+    cursor: pointer;
+    width: 100%;
+    height: 150px;
+    object-fit: cover; }
 
 /*# sourceMappingURL=admin.css.map */

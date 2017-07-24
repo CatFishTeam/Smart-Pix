@@ -15,7 +15,6 @@ class AdministratorController extends ModeratorController{
 
     /* ~~~~~~ Users ~~~~~~ */
     public function users(){
-        var_dump($_SESSION['permission']);
         $v = new View('admin.users','backend');
         $users = [];
         $users_id = new Community_User;

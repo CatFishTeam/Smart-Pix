@@ -12,9 +12,6 @@ class CreatorController extends AdministratorController{
 
     //Change background / name of the site... (those kind of actions ?)
     public function settings(){
-        if($_SESSION['permission'] < 4){
-            header('Location:/admin');
-        }
         $v = new View('admin.settings','backend');
     }
 }

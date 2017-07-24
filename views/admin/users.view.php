@@ -1,11 +1,11 @@
 <h1>On affiche : </h1>
-<br>Rang 4 : Super Utilisateurs (créateur du thread)
-<br>Rang 3 : Administrateur : peut ban des utilisateurs, changer leurs rang...
-<br>Rang 2 : Modérateur : Peut modérer les commentaires des images
-<br>Rang 1 : Simple utilisateur : peut poster
-<br>Rang 0 : Banit
-
-
+        <p>
+            <br>Rang 4 : Super Utilisateurs (créateur du thread)
+            <br>Rang 3 : Administrateur : peut ban des utilisateurs, changer leurs rang...
+            <br>Rang 2 : Modérateur : Peut modérer les commentaires des images
+            <br>Rang 1 : Simple utilisateur : peut poster
+            <br>Rang 0 : Banit
+        </p>
         <table>
             <th>Username</th>
             <th>Email</th>
@@ -51,5 +51,4 @@
                 });
             });
         </script>
-
 </ul>

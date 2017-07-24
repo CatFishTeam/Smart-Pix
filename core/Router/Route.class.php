@@ -46,9 +46,9 @@ class Route{
     }
 
     public function call(){
-        if($this->communities == true){
-            $this->matches = [reset($this->matches), end($this->matches)];
-        }
+        // if($this->communities == true){
+        //     $this->matches = [reset($this->matches), end($this->matches)];
+        // }
         if(is_string($this->callable)){
             Helpers::createLogExist();
 

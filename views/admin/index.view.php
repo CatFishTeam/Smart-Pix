@@ -1,1 +1,4 @@
-Quelle est cette page ?
+Nb photos
+Nb users
+Nb albums
+Most Used Tag

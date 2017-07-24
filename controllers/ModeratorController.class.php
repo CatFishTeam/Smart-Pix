@@ -1,6 +1,10 @@
 <?php
 include 'UserController.class.php';
 
+//TODO CLEAAAAAN THIS FREAKING SHIIIT
+//TODO Check edit album in admin !! (Integrity constraint violaiton)
+//TODO TEST 
+
 class ModeratorController extends UserController{
     public function __construct(){
         parent::__construct();
@@ -45,10 +49,10 @@ class ModeratorController extends UserController{
         $now = new DateTime("now");
         $nowStr = $now->format("Y-m-d H:i:s");
         $album->setTitle($_POST['title']);
-        $album->setDescription("");
+        $album->setDescription($_POST['description']);
         $album->setUserId($_SESSION['user_id']);
         $album->setCommunityId($_SESSION['community_id']);
-        $album->setIsPublished(1);
+        $album->setIsPublished(0);
         $album->setCreatedAt($nowStr);
         $album->setUpdatedAt($nowStr);
         $album->save();

@@ -4,14 +4,14 @@
         <form method="post" id="fileinfo" name="fileinfo" class="form-group">
             <label>Choisir un fichier :</label><br>
             <input type="file" name="file">
-            <label>Title : </label><input type="text" name="title">
-            <label>Description : </label><textarea name="description"></textarea>
+            <input type="text" name="title" placeholder="Titre de la photo">
+            <textarea name="description" placeholder="Description de la photo"></textarea>
             <input type="submit" value="Upload" />
         </form>
     </div>
-    <div class="col-6">
+    <div class="col-6" style="text-align: center;">
         <h2>Place restante sur votre site</h2>
-        <div class="weight" style="height: 50px; background: grey; width: 300px; border-radius: 10px;">
+        <div class="weight" style="height: 50px; background: grey; width: 300px; border-radius: 10px; margin: auto;">
             <div class="bar" data-octet="<?php isset($totalWeight) ? $totalWeight : '0' ?>" style="height: 50px; background: green; width: 0; border-radius: 10px; transition: ease 2s;"></div>
             <div class="percent"></div>
         </div>Il vous reste 5Go de libre
