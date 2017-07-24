@@ -2,6 +2,19 @@
 
 class PictureController {
 
+    public function checkCommunity($community) {
+        if (!empty($community)) {
+            $commu = new Community();
+            $commu = $commu->populate(['slug' => $community]);
+            if (!$commu) {
+                $_SESSION['messages']['error'][] = "La communauté n'a pas été trouvée";
+                $v = new View("404", "frontend");
+                return 0;
+            }
+            return $commu;
+        }
+    }
+
     /*
      * Ajout d'une image par un user (/picture/create)
      */
@@ -61,6 +74,15 @@ class PictureController {
             }
 
         }
+    }
+
+    public function tag($community = null, $id = null, $tagSlug = null) {
+        $v = new View("picture.tag", "frontend");
+        $commu = $this->checkCommunity($community);
+        $tag = new Tag();
+        $tag = $tag->populate(['id' => $id, 'slug' => $tagSlug]);
+        $v->assign('community', $commu);
+        $v->assign('tag', $tag);
     }
 
 }

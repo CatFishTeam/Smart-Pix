@@ -32,16 +32,20 @@ class CommunityController{
         }
     }
 
-    public function checkUserInCommunity($user, $commu) {
+    public function checkUserInCommunity($user, $commu, $noRedirect = false) {
         $userInCommu = new Community_User();
         $userInCommu = $userInCommu->populate(['user_id' => $user->getId(), 'community_id' => $commu->getId()]);
         if (!$userInCommu) {
-            $_SESSION['messages']['error'][] = "L'utilisateur ne fait pas partie de cette communauté";
-            $v = new View("404", "frontend");
+            if (!$noRedirect) {
+                $_SESSION['messages']['error'][] = "L'utilisateur ne fait pas partie de cette communauté";
+                $v = new View("404", "frontend");
+            }
             return false;
         } else if ($userInCommu->getPermission() == '0') {
-            $_SESSION['messages']['error'][] = "L'utilisateur a été banni de cette communauté";
-            $v = new View("404", "frontend");
+            if (!$noRedirect) {
+                $_SESSION['messages']['error'][] = "L'utilisateur a été banni de cette communauté";
+                $v = new View("404", "frontend");
+            }
             return "banned";
         }
         return true;
@@ -525,7 +529,7 @@ class CommunityController{
         if ($_SESSION['user_id']) {
             $user = new User();
             $user = $user->populate(['id' => $_SESSION['user_id']]);
-            if (!$this->checkUserInCommunity($user, $commu)) {
+            if (!$this->checkUserInCommunity($user, $commu, true)) {
                 $userInCommu = new Community_User();
                 $userInCommu->setUserId($user->getId());
                 $userInCommu->setCommunityId($commu->getId());

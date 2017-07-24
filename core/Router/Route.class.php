@@ -46,9 +46,28 @@ class Route{
     }
 
     public function call(){
-        // if($this->communities == true){
-        //     $this->matches = [reset($this->matches), end($this->matches)];
-        // }
+        $matches = array();
+        if($this->communities == true){
+            //$this->matches = [reset($this->matches), end($this->matches)];
+            for ($i = 0; $i < count($this->matches); $i++) {
+//                if (isset($previous)) {
+//                    if (strcmp($previous, $this->matches[$i]) !== 0 && !empty($this->matches[$i])) {
+//                        $matches[] = $this->matches[$i];
+//                    }
+//                }
+                if (!empty($this->matches[$i])) {
+                    $matches[] = $this->matches[$i];
+                }
+                if (isset($matches[$i-1]) && isset($matches[$i]) && strcmp($matches[$i-1],$matches[$i]) == 0) {
+                    unset($matches[$i]);
+                }
+//                $previous = $this->matches[$i];
+            }
+
+            $matches = array_unique($matches, SORT_REGULAR);
+            $matches = array_values($matches);
+//            var_dump($matches);
+        }
         if(is_string($this->callable)){
             Helpers::createLogExist();
 
@@ -75,17 +94,17 @@ class Route{
             $controller = new $controller();
             //Est ce que la méthode existe à travers l'objet
             if( !method_exists($controller, $params[1]) ){
-                Helpers::log("La méthode ". $params[1]." n'éxiste pas dans ". $params[0]);
+                Helpers::log("La méthode ". $params[1]." n'existe pas dans ". $params[0]);
                 if(ENV == "PROD"){
                     header('Location:/404');
                 }
-                throw new RouterException("La méthode ". $params[1]." n'éxiste pas dans ". $params[0]);
+                throw new RouterException("La méthode ". $params[1]." n'existe pas dans ". $params[0]);
             }
-            return call_user_func_array([$controller, $params[1]], $this->matches);
+            return call_user_func_array([$controller, $params[1]], $matches);
 
-            return $controller->$params[1]();
+//            return $controller->$params[1]();
         } else {
-            return call_user_func_array($this->callable, $this->matches);
+            return call_user_func_array($this->callable, $matches);
         }
     }
 

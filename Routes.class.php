@@ -70,14 +70,14 @@ $router->post('/:community/add-picture',             'Community@addPicture')->wi
 $router->get('/:community/user',                     'Community@wall')->with('community','communities');
 $router->get('/:community/user/:id',                 'Community@wall')->with('community','communities')->with('id', '[0-9]+');
 $router->get('/:community/join',                     'Community@join')->with('community','communities');
-$router->get('/:community/tag/:tag',                 'Picture@tag')->with('community', 'communities');
+$router->get('/:community/tag/:id/:tag',             'Picture@tag')->with('community', 'communities')->with('id', '[0-9]+')->with('tag', '[\w\-]+');
 
 $router->get('/:communitiy/admin',                  'Moderator@indexAdmin')->with('community','communities');
 
-$router->get('/:communitiy/admin/albums',           'Moderator@showAlbums')->with('community','communities');
-$router->post('/:communitiy/admin/addAlbum',        'Moderator@addAlbum')->with('community','communities');
-$router->post('/:communitiy/admin/getAlbum',        'Moderator@getAlbum')->with('community','communities');
-$router->post('/:communitiy/admin/editAlbum',       'Moderator@editAlbum')->with('community','communities');
+$router->get('/:communitiy/admin/albums',                      'Moderator@showAlbums')->with('community','communities');
+$router->post('/:communitiy/admin/addAlbum',                   'Moderator@addAlbum')->with('community','communities');
+$router->post('/:communitiy/admin/getAlbum',                   'Moderator@getAlbum')->with('community','communities');
+$router->post('/:communitiy/admin/editAlbum',                  'Moderator@editAlbum')->with('community','communities');
 $router->post('/:communitiy/admin/deleteAlbum',                'Moderator@deleteAlbum')->with('community','communities');
 $router->post('/:communitiy/admin/addPictureToAlbum',          'Moderator@addPictureToAlbum')->with('community','communities');
 $router->post('/:communitiy/admin/removePictureFromAlbum',     'Moderator@removePictureFromAlbum')->with('community','communities');
