@@ -15,17 +15,6 @@
             </div>
             <hr>
             <div class="bio-other">
-                <h2>Photos préférées</h2>
-                <p class="photos-fav">
-                    <img src="http://placehold.it/50x40" alt="">
-                    <img src="http://placehold.it/50x40" alt="">
-                    <img src="http://placehold.it/50x40" alt="">
-                    <img src="http://placehold.it/50x40" alt="">
-                    <img src="http://placehold.it/50x40" alt="">
-                    <img src="http://placehold.it/50x40" alt="">
-                    <img src="http://placehold.it/50x40" alt="">
-                    <span>...</span>
-                </p>
                 <h2><a href="/user-albums/<?php echo $user->getId(); ?>">Ses albums</a></h2>
                 <p class="photos-fav">
                     <?php
