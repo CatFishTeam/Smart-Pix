@@ -1,3 +1,4 @@
+TODO : Lien voir Album + Image de couverture
 <div id="pageAlbum">
     <div id="addPage">
         <h2>Ajouter un album</h2>
@@ -101,7 +102,7 @@ $(document).on('click','#pictureNotIn img',function(){
         data: {picture_id: $id, album_id: $('[name="id"]').val()},
         success: function(data){
             $this.fadeOut(function(){ $(this).remove(); });
-            $('#images').append('<div class="image"><img src="/public/cdn/images/'+data.url+'"/><button class="delete" data-id="'+data.id+'"><i class="fa fa-times" aria-hidden="true"></i></button></div>');
+            $('#pictureIn').append('<div class="image"><img src="/public/cdn/images/'+data.url+'"/><button class="delete" data-id="'+data.id+'"><i class="fa fa-times" aria-hidden="true"></i></button></div>');
         }
     })
 });

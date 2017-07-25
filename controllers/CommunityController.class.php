@@ -10,8 +10,6 @@ class CommunityController{
         $name = $_POST['name'];
         $community = new Community;
         $community = $community->populate(['name' => $name]);
-        // $user = new User;
-        // $user = $user->populate(array('username' => $_SESSION['username']));
         if($community){
             echo json_encode('error');
         } else {
@@ -92,7 +90,7 @@ class CommunityController{
             $userCommunity = $userCommunity->populate(['slug' => $community]);
             if ($userCommunity) {
                 $pictures = new Picture();
-                $pictures = $pictures->getAllBy(['community_id' => $userCommunity->getId()], 'DESC');
+                $pictures = $pictures->getAllBy(['community_id' => $userCommunity->getId()], 'DESC', 14);
                 $v = new View('community.home', 'frontend');
                 $v->assign('community', $userCommunity);
                 $v->assign('pictures', $pictures);

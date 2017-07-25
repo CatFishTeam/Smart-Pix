@@ -71,6 +71,7 @@ $router->get('/:community/user',                     'Community@wall')->with('co
 $router->get('/:community/user/:id',                 'Community@wall')->with('community','communities')->with('id', '[0-9]+');
 $router->get('/:community/join',                     'Community@join')->with('community','communities');
 $router->get('/:community/tag/:id/:tag',             'Picture@tag')->with('community', 'communities')->with('id', '[0-9]+')->with('tag', '[\w\-]+');
+$router->post('/:community/media/loadMore',       'Guest@loadMore')->with('community', 'communities');
 
 $router->get(':community/feed',                      'Guest@feed')->with('community','communities')->with('id', '[0-9]+');
 $router->get(':community/album/:id/feed',            'Guest@albumFeed')->with('community','communities')->with('id', '[0-9]+');
