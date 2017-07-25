@@ -131,7 +131,7 @@ class UserController {
                             strtolower($fileInfo["extension"]) == "gif"
                         ) {
                             $nameAvatar = "SP_".uniqid().".".strtolower($fileInfo["extension"]);
-                            move_uploaded_file($_FILES['avatar']['tmp_name'], "./public/cdn/images/avatars/".$nameAvatar);
+                            move_uploaded_file($_FILES['avatar']['tmp_name'], PATH_ABSOLUT."/public/cdn/images/avatars/".$nameAvatar);
                             $user->setAvatar($nameAvatar);
                             $_SESSION['messages']['success'][] = "Votre avatar a été ajouté";
                         } else {

@@ -187,7 +187,7 @@ class CommunityController{
                             strtolower($fileInfo["extension"]) == "gif"
                         ) {
                             $album->setThumbnailUrl($ext);
-                            move_uploaded_file($_FILES['thumbnail_url']['tmp_name'], "./public/cdn/images/" . $album->getThumbnailUrl());
+                            move_uploaded_file($_FILES['thumbnail_url']['tmp_name'], PATH_ABSOLUT."/public/cdn/images/" . $album->getThumbnailUrl());
 
                             $_SESSION['messages']['success'][] = "L'image de couverture a été ajoutée";
                         } else {
@@ -278,7 +278,7 @@ class CommunityController{
                             $action->setRelatedId($picture->getDb()->lastInsertId());
                             $action->setCreatedAt($nowStr);
                             $action->save();
-                            move_uploaded_file($_FILES['picture']['tmp_name'], "./public/cdn/images/".$picture->getUrl());
+                            move_uploaded_file($_FILES['picture']['tmp_name'], PATH_ABSOLUT."/public/cdn/images/".$picture->getUrl());
 
                             /* Tags : */
                             $tagExists = false;
@@ -585,7 +585,7 @@ class CommunityController{
                             strtolower($fileInfo["extension"]) == "gif"
                         ) {
                             $album->setThumbnailUrl($ext);
-                            move_uploaded_file($_FILES['thumbnail_url']['tmp_name'], "./public/cdn/images/" . $album->getThumbnailUrl());
+                            move_uploaded_file($_FILES['thumbnail_url']['tmp_name'], PATH_ABSOLUT."/public/cdn/images/" . $album->getThumbnailUrl());
 
                             $_SESSION['messages']['success'][] =  "L'image de couverture a été modifiée";
                         } else {

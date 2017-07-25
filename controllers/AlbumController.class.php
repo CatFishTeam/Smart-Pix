@@ -32,7 +32,7 @@ class AlbumController{
                             strtolower($fileInfo["extension"]) == "gif"
                         ) {
                             $album->setThumbnailUrl($ext);
-                            move_uploaded_file($_FILES['thumbnail_url']['tmp_name'], "./public/cdn/images/" . $album->getThumbnailUrl());
+                            move_uploaded_file($_FILES['thumbnail_url']['tmp_name'], PATH_ABSOLUT."/public/cdn/images/" . $album->getThumbnailUrl());
 
                             $_SESSION['messages']['success'][] = "L'image de couverture a été ajoutée";
                         } else {
@@ -97,7 +97,7 @@ class AlbumController{
                                 strtolower($fileInfo["extension"]) == "gif"
                             ) {
                                 $album->setThumbnailUrl($ext);
-                                move_uploaded_file($_FILES['thumbnail_url']['tmp_name'], "./public/cdn/images/" . $album->getThumbnailUrl());
+                                move_uploaded_file($_FILES['thumbnail_url']['tmp_name'], PATH_ABSOLUT."/public/cdn/images/" . $album->getThumbnailUrl());
 
                                 $_SESSION['messages']['success'][] =  "L'image de couverture a été ajoutée";
                             } else {
