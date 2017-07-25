@@ -81,8 +81,11 @@ class PictureController {
         $commu = $this->checkCommunity($community);
         $tag = new Tag();
         $tag = $tag->populate(['id' => $id, 'slug' => $tagSlug]);
+        $tagPicture = new Tag_Picture();
+        $tagPicture = $tagPicture->getAllBy(['tag_id' => $tag->getId()]);
         $v->assign('community', $commu);
         $v->assign('tag', $tag);
+        $v->assign('tagPictures', $tagPicture);
     }
 
 }

@@ -17,7 +17,21 @@
         </div>Il vous reste 5Go de libre
     </div>
 </div>
-
+<style>
+    .imageContainer{
+        display: inline-block;
+        margin: 10px;
+        overflow: hidden;
+        width: 150px;
+        height: 150px;
+        border: 2px solid green;
+    }
+    .imageContainer img{
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+    }
+</style>
 <div class="row">
     <h2>Listing picture</h2>
     <div id='output'>
@@ -26,7 +40,7 @@
         <div class="imageContainer relative">
             <a href="/<?php echo($_SESSION['community_slug']) ?>/picture/<?php echo $picture['id'] ?>"></a>
             <button class="delete" data-url="<?php echo $picture['url'] ?>"><i class="fa fa-times" aria-hidden="true"></i></button>
-            <img src="/public/cdn/images/thumbnails/<?php echo $picture['url'] ?>" alt="<?php echo $picture['title'] ?>">
+            <img src="/public/cdn/images/<?php echo $picture['url'] ?>" alt="<?php echo $picture['title'] ?>">
         </div>
     <?php endforeach ?>
     </div>

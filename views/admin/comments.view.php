@@ -25,7 +25,7 @@
     <br />• Pagination
     <br />• Mettre en avant les commentaires qui n'ont pas encore étés modérés
 
-    <table>
+    <table class="table-communities">
         <tr>
             <th>
                 Commentaire

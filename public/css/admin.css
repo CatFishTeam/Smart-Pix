@@ -1,4 +1,16 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:600");
+@font-face {
+  font-family: "Proxima Nova Regular";
+  src: url("../fonts/Proxima Nova Regular.otf") format("opentype"); }
+@font-face {
+  font-family: "Proxima Nova Light";
+  src: url("../fonts/Proxima Nova Light.otf") format("opentype"); }
+@font-face {
+  font-family: "Proxima Nova Thin";
+  src: url("../fonts/Proxima Nova Thin.otf") format("opentype"); }
+@font-face {
+  font-family: "Proxima Nova Semibold";
+  src: url("../fonts/Proxima Nova Semibold.otf") format("opentype"); }
 /************************
  ~~~~~ Page Media - X
 ************************/
@@ -414,8 +426,7 @@ h1, h2, h3, p, span, label, div, table {
       padding: 15px;
       vertical-align: middle;
       border: 1px solid transparent;
-      border-radius: 4px;
-      box-shadow: 1px 1px 10px 2px lightgrey; }
+      border-radius: 4px; }
       .flash-container .flash .flash-cell:hover {
         opacity: 1; }
   .flash-container .flash-success .flash-cell {
@@ -596,7 +607,8 @@ h1, h2, h3, p, span, label, div, table {
   right: 0;
   padding: 10px;
   overflow-y: scroll;
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  height: 100vh; }
 
 /* ~~~ Page Media - X ~~~ */
 .imageContainer {
@@ -723,5 +735,23 @@ h1, h2, h3, p, span, label, div, table {
     width: 100%;
     height: 150px;
     object-fit: cover; }
+
+/* Page Commentaires : */
+.table-communities {
+  width: 100%;
+  font-family: "Proxima Nova Regular", sans-serif; }
+  .table-communities tr {
+    border-bottom: 1px solid lightgray; }
+    .table-communities tr:nth-child(odd) {
+      background: #44475a; }
+    .table-communities tr:nth-child(even) {
+      background: #5E6174; }
+    .table-communities tr td, .table-communities tr th, .table-communities tr a {
+      text-align: center;
+      padding: 10px;
+      vertical-align: middle;
+      color: #f8f8f2; }
+    .table-communities tr td:nth-child(1) {
+      text-align: left; }
 
 /*# sourceMappingURL=admin.css.map */

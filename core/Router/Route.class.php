@@ -47,7 +47,7 @@ class Route{
 
     public function call(){
         $matches = array();
-        if($this->communities == true){
+//        if($this->communities == true){
             //$this->matches = [reset($this->matches), end($this->matches)];
             for ($i = 0; $i < count($this->matches); $i++) {
 //                if (isset($previous)) {
@@ -67,7 +67,7 @@ class Route{
             $matches = array_unique($matches, SORT_REGULAR);
             $matches = array_values($matches);
 //            var_dump($matches);
-        }
+//        }
         if(is_string($this->callable)){
             Helpers::createLogExist();
 

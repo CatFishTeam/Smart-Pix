@@ -2,6 +2,23 @@
 
 @import url('https://fonts.googleapis.com/css?family=Raleway:600');
 
+@font-face {
+  font-family: "Proxima Nova Regular";
+  src: url("../fonts/Proxima Nova Regular.otf") format("opentype");
+}
+@font-face {
+  font-family: "Proxima Nova Light";
+  src: url("../fonts/Proxima Nova Light.otf") format("opentype");
+}
+@font-face {
+  font-family: "Proxima Nova Thin";
+  src: url("../fonts/Proxima Nova Thin.otf") format("opentype");
+}
+@font-face {
+  font-family: "Proxima Nova Semibold";
+  src: url("../fonts/Proxima Nova Semibold.otf") format("opentype");
+}
+
 /************************
  ~~~~~ Page Media - X
 ************************/
@@ -486,7 +503,7 @@ h1,h2,h3,p,span,label,div,table{
       border: 1px solid transparent;
     //   border-width: 0 1px 4px 1px;
       border-radius: 4px;
-      box-shadow: 1px 1px 10px 2px lightgrey;
+      //box-shadow: 1px 1px 10px 2px lightgrey;
       &:hover{
           opacity: 1;
       }
@@ -658,6 +675,7 @@ h1,h2,h3,p,span,label,div,table{
     padding: 10px;
     overflow-y: scroll;
     overflow-x: hidden;
+    height: 100vh;
 }
 
 /* ~~~ Page Media - X ~~~ */
@@ -814,4 +832,29 @@ h1,h2,h3,p,span,label,div,table{
         height: 150px;
         object-fit: cover;
     }
+}
+
+/* Page Commentaires : */
+
+.table-communities {
+  width: 100%;
+  font-family: "Proxima Nova Regular", sans-serif;
+  tr {
+    border-bottom: 1px solid lightgray;
+    &:nth-child(odd) {
+      background: #44475a;
+    }
+    &:nth-child(even) {
+      background: #5E6174;
+    }
+    td, th, a {
+      text-align: center;
+      padding: 10px;
+      vertical-align: middle;
+      color: #f8f8f2;
+    }
+    td:nth-child(1) {
+      text-align: left;
+    }
+  }
 }
