@@ -214,22 +214,24 @@ $(document).scroll(function(e){
 
        if ($(window).scrollTop() >= ($(document).height() - $(window).height())*0.85){
             processing = true;
-            $.ajax({
-                url: '/<?php echo $_SESSION['community_slug'] ?>/media/loadMore',
-                data: {index: $('#content .containerImg img').length + content.length, type: 'photos'},
-                type: 'POST',
-                success: function(datas){
-                    $.each(datas,function(index,data){
-                        url = (data.url != null ? data.url : "");
-                        id = (data.id != null ? data.id : "");
-                        title = (data.title != null ? data.title : "");
-                        content.push(["/public/cdn/images/"+url,"<?php echo $_SESSION['community_slug'] ?>/picture/"+id,title]);
-                    });
-
-                    populatePattern();
-                    processing = false;
-                }
-            })
+            // $.ajax({
+            //     url: '/<?php echo $_SESSION['community_slug'] ?>/media/loadMore',
+            //     data: {index: $('#content .containerImg img').length + content.length, type: 'photos'},
+            //     type: 'POST',
+            //     success: function(datas){
+            //         $.each(datas,function(index,data){
+            //             url = (data.url != null ? data.url : "");
+            //             id = (data.id != null ? data.id : "");
+            //             title = (data.title != null ? data.title : "");
+            //             content.push(["/public/cdn/images/"+url,"<?php echo $_SESSION['community_slug'] ?>/picture/"+id,title]);
+            //         });
+            //
+            //         populatePattern();
+            //         processing = false;
+            //     }
+            // })
+            populatePattern();
+            processing = false;
 
        }
 });
