@@ -237,7 +237,7 @@ class Comment extends BaseSql{
     }
 
     public function isFlaged($user_id,$comment_id){
-        $flag = new Flag_comment;
+        $flag = new Flag_Comment;
         $flag = $flag->populate(['user_id'=>$user_id, 'comment_id'=>$comment_id]);
         return ($flag == false) ? false : true;
     }
