@@ -212,7 +212,7 @@ class GuestController{
         $community = $community->populate(['slug'=>$commu]);
 
         $feed  = '<?xml version="1.0" encoding="utf-8"?>';
-        $feed .= '<rss version="2.0"><chanel>';
+        $feed .= '<rss version="2.0"><channel>';
         $feed .= '<title>Feed of '.$community->getName().'</title>';
         $feed .= '<link>http://www'.SLUG.'/'.$community->getSlug().'</link>';
         $feed .= '<description>'.$community->getDescription().'</description>';
@@ -236,15 +236,15 @@ class GuestController{
         $pictures = $pictures->getAllBy(['community_id'=>$community->getId()],"DESC",50);
 
         foreach ($pictures as $picture) {
-            $feed .= '<item>';
+            $feed .= '<image>';
             $feed .= '<title>'.$picture['title'].'</title>';
-            $feed .= '<link>http://www'.SLUG.'/'.$community->getSlug().'/picture/'.$picture['id'].'</link>';
+            $feed .= '<url>http://www'.SLUG.'/'.$community->getSlug().'/picture/'.$picture['id'].'</url>';
             $feed .= '<description>'.$picture['description'].'</description>';
             $feed .= '<pubDate>'.$picture['created_at'].'</pubDate>';
-            $feed .= '</item>';
+            $feed .= '</image>';
         }
 
-        $feed .= '</chanel></rss>';
+        $feed .= '</channel></rss>';
 
         header('Content-Type: text/xml');
     	header('Expires: '.gmdate('D, d M Y H:i:s').' GMT');
@@ -266,7 +266,7 @@ class GuestController{
 
 
         $feed  = '<?xml version="1.0" encoding="utf-8"?>';
-        $feed .= '<rss version="2.0"><chanel>';
+        $feed .= '<rss version="2.0"><channel>';
         $feed .= '<title>Feed of '.$user->getUsername().' in '.$community->getName().'</title>';
         $feed .= '<link>http://www'.SLUG.'/'.$community->getSlug().'</link>';
         $feed .= '<description>'.$community->getDescription().'</description>';
@@ -284,7 +284,7 @@ class GuestController{
             $feed .= '</item>';
         }
 
-        $feed .= '</chanel></rss>';
+        $feed .= '</channel></rss>';
 
         header('Content-Type: text/xml');
     	header('Expires: '.gmdate('D, d M Y H:i:s').' GMT');
