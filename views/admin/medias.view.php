@@ -18,7 +18,21 @@
         </div>Il vous reste 5Go de libre
     </div>
 </div>
-
+<style>
+    .imageContainer{
+        display: inline-block;
+        margin: 10px;
+        overflow: hidden;
+        width: 150px;
+        height: 150px;
+        border: 2px solid green;
+    }
+    .imageContainer img{
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+    }
+</style>
 <div class="row">
     <h2>Listing picture</h2>
     <div id='output'>

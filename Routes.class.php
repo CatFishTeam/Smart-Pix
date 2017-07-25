@@ -12,7 +12,7 @@ $router->get('/404',                    'Pages@error');
 $router->get('/login',                  'Pages@login');
 $router->get('/signup',                 'Pages@signup');
 $router->get('/user',                   'Pages@wall');
-$router->get('/user/:id',               'Pages@wall');
+$router->get('/user/:id',               'Pages@wall')->with('id', '[0-9]+');
 $router->get('/user-actions',           'User@actions');
 
 $router->post('/login',                 'Guest@login');
