@@ -55,7 +55,9 @@
                 <a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/picture/<?php echo $picture['id']; ?>">
                     <img src="<?php echo "/public/cdn/images/". $picture['url']; ?>" data-id="<?php echo $picture['id']; ?>" data-title="<?php echo $picture['title']; ?>" data-description="<?php echo $picture['description']; ?>" alt="<?php echo $picture['title']; ?>">
                 </a>
+                <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $author->getId()): ?>
                 <span class="removePicture" data-id="<?php echo $picture['id']; ?>"><i class="fa fa-times" aria-hidden="true"></i></span>
+                <?php endif; ?>
                 <h2><?php echo $picture['title']; ?></h2>
                 <p><?php echo $picture['description']; ?></p>
             </div>
