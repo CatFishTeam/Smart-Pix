@@ -49,11 +49,6 @@ class PagesController{
         }
     }
 
-    /*
-     * Page d'une image (/picture/{id})
-     * Si $id non fourni => listing des images sur le site
-     */
-     //TODO Message en attente de validation
     public function picture($id = null) {
         $v = new View('picture.index', 'frontend');
         $v->assign('id', $id);

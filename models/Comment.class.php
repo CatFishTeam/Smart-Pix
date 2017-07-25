@@ -5,6 +5,7 @@ class Comment extends BaseSql{
     protected $user_id;
     protected $picture_id;
     protected $content;
+    protected $flag;
     protected $is_archived;
     protected $is_published;
     protected $created_at;
@@ -209,5 +210,36 @@ class Comment extends BaseSql{
         return $this;
     }
 
+
+
+    /**
+     * Get the value of Flag
+     *
+     * @return mixed
+     */
+    public function getFlag()
+    {
+        return $this->flag;
+    }
+
+    /**
+     * Set the value of Flag
+     *
+     * @param mixed flag
+     *
+     * @return self
+     */
+    public function setFlag($flag)
+    {
+        $this->flag = $flag;
+
+        return $this;
+    }
+
+    public function isFlaged($user_id,$comment_id){
+        $flag = new Flag_comment;
+        $flag = $flag->populate(['user_id'=>$user_id, 'comment_id'=>$comment_id]);
+        return ($flag == false) ? false : true;
+    }
 
 }

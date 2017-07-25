@@ -1,29 +1,10 @@
 <?php
 include 'UserController.class.php';
 
-//TODO CLEAAAAAN THIS FREAKING SHIIIT
-//TODO Check edit album in admin !! (Integrity constraint violaiton)
-//TODO TEST
 //TODO check community_creator give him permanent acces in construct
-
 class ModeratorController extends UserController{
     public function __construct(){
         parent::__construct();
-
-        // $community = new Community;
-        // $url = $_SERVER['REQUEST_URI'];
-        // $extracted = array_filter(explode("/",parse_url($url,PHP_URL_PATH)));
-        // $community = $community->populate(['slug'=>current($extracted)]);
-        // $_SESSION['community_slug'] = $community->getSlug();
-        // $_SESSION['community_id'] = $community->getId();
-        //
-        // $community_user = new Community_User();
-        // $community_user = $community_user->populate(['community_id'=>$community->getId(), 'user_id'=>$_SESSION['user_id']]);
-        // if($community_user != false){
-        //     $_SESSION['permission'] = $community_user->getPermission();
-        // } else {
-        //     $_SESSION['permission'] = 0;
-        // }
 
         if($_SESSION['permission'] < 2){
             $_SESSION['messages']['warning'][] = "Seuls les administrateurs ont accès a cette partie du site !";
@@ -35,6 +16,12 @@ class ModeratorController extends UserController{
     public function indexAdmin(){
         $pictures = new Picture;
         $pictures = $pictures->getAllBy(['community_id'=>$_SESSION['community_id']]);
+        $comments = 0;
+        foreach ($pictures as $picture) {
+            $c = new Comment;
+            $c = $c->getAllBy(['picture_id'=>$picture['id']]);
+            $comments += count($c);
+        }
 
         $albums = new Album;
         $albums = $albums->getAllBy(['community_id'=>$_SESSION['community_id']]);
@@ -48,10 +35,13 @@ class ModeratorController extends UserController{
             $users[] = $user;
         }
 
+
+
         $v = new View('admin.index','backend');
         $v->assign('countPictures',count($pictures));
         $v->assign('countAlbums',count($albums));
         $v->assign('countUsers',count($users));
+        $v->assign('countComments', $comments);
     }
 
     /* ~~~~ Album ~~~~*/
@@ -87,28 +77,22 @@ class ModeratorController extends UserController{
         $album = $album->getOneBy(['id'=>$_POST['id']]);
         $datas['album'] = $album;
 
-        //Retourne les photos qui ne sont pas dans l'album
-        //TODO Retourne toutes les picture :'()'
         $picturesNotIn = new Picture;
         $picturesNotIn = $picturesNotIn->getAllBy(['community_id'=>$_SESSION['community_id']],"DESC");
-        $picture_album = new Picture_album;
+        $picture_album = new Picture_Album;
         $picture_album = $picture_album->getAllBy(['album_id'=>$_POST['id']]);
         foreach($picture_album as $picture){
-            // echo "\npicture album";
-            // echo "\nalbumPicture: ".$picture['picture_id'];
             foreach($picturesNotIn as $key => $p){
-                    // echo "\nallpicture: ".$p['id'];
                     if($picture['picture_id'] == $p['id']){
                         unset($picturesNotIn[$key]);
                     }
             }
         }
-        // var_dump((array)$picturesNotIn);
         $datas['picturesNotIn'] = (array)$picturesNotIn;
 
         //Retourne les photos qui sont dans l'album
         $pictures = [];
-        $picture_album = new Picture_album;
+        $picture_album = new Picture_Album;
         $picture_album = $picture_album->getAllBy(['album_id'=>$_POST['id']]);
         foreach ($picture_album as $key => $picture) {
             $p = new Picture();
@@ -310,6 +294,9 @@ class ModeratorController extends UserController{
             foreach ($comments as $key=>$comment) {
                 $user = new User();
                 $comments[$key]['username'] =  $user->getOneBy(['id'=>$comment['user_id']])['username'];
+
+                $flags = new Flag_Comment();
+                $comments[$key]['nb_flags'] = count($flags->getAllBy(['comment_id'=>$comment['id']]));
             }
             $allComments = array_merge($allComments, $comments);
         }

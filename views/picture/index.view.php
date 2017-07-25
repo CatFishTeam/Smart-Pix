@@ -1,4 +1,12 @@
 <?php if($picture->getIsVisible() == 0): ?>
+    <style>
+        .fa-flag{
+            cursor: pointer;
+        }
+        .fa-flag:hover{
+            color: rgb(189, 16, 16);
+        }
+    </style>
 <div class="row">
 
             <div class="col-9 col-m-12 image-center">
@@ -65,6 +73,9 @@
                 $createdAt = strtotime($comment['created_at']);
                 $commentAuthor = new User();
                 $commentAuthor = $commentAuthor->populate(['id' => $comment['user_id']]);
+
+                $c = new Comment;
+                $c = $c->populate(['user_id'=>$_SESSION['user_id']])
                 ?>
 
                 <div class="comment">
@@ -76,7 +87,13 @@
                         <?php endif; ?>
                         <a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/user/<?php echo $commentAuthor->getId(); ?>"><?php echo $commentAuthor->getUsername(); ?></a>
                     </p>
-                    <p class="comment-time">le <?php echo date("d/m/Y", $createdAt); ?> à <?php echo date("G:i:s", $createdAt); ?></p>
+                    <p class="comment-time">le <?php echo date("d/m/Y", $createdAt); ?> à <?php echo date("G:i:s", $createdAt); ?>&nbsp;&nbsp;
+                        <?php if(isset($_SESSION['user_id'])): ?>
+                            <i class="fa fa-flag" data-id="<?php echo $comment['id'] ?>"
+                             <?php echo ($c->isFlaged($_SESSION['user_id'], $comment['id']))? 'style="color: red"' : ''; ?>
+                             aria-hidden="true"></i>
+                        <?php endif; ?>
+                    </p>
                     <p class="comment-content"><?php echo $comment['content']; ?></p>
                 </div>
             <?php endforeach ?>
@@ -103,3 +120,36 @@
         <p>Cette photo est actuellement en modération !</p>
     <?php endif; ?>
 </div>
+<script>
+    $('.fa-flag').click(function(){
+        $this = $(this);
+        if($this.css('color') == 'rgb(255, 0, 0)'){
+            $.ajax({
+                url: '/unFlagComment',
+                method: 'POST',
+                dataType: 'json',
+                data: {id: $this.data('id')},
+                success: function(data){
+                    $this.css('color','grey');
+                    $('body').append(data);
+                    flash();
+                }
+            });
+        } else {
+            var c = confirm('Êtes vous sur de vouloir signaler ce commentaire ?');
+            if (c = true){
+                    $.ajax({
+                        url: '/flagComment',
+                        method: 'POST',
+                        dataType: 'json',
+                        data: {id: $this.data('id')},
+                        success: function(data){
+                            $this.css('color', 'rgb(255, 0, 0)');
+                            $('body').append(data);
+                            flash();
+                        }
+                    });
+            }
+        }
+    });
+</script>

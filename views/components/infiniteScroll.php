@@ -97,17 +97,6 @@ img{
 </style>
 
 <script>
-/* TODO
-    * Ratio images
-    * Responsive
-    * Insert CSS
-    * Argument pour height et  margin
-    * DÃ©terminer les x premiers patterns
-    * Regler problÃ¨me de troue
-    * Ajouter une gif de chargement
-    * Limite pattern
-*/
-
 patterns = {
     1 : {
         "nbImg": "2",

@@ -100,6 +100,5 @@
                 });
             </script>
         </footer>
-
     </body>
 </html>

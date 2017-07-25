@@ -14,13 +14,6 @@ class User extends BaseSql{
     protected $created_at;
     protected $updated_at;
 
-
-    /*TODO
-    • Check longueur password
-    • Check email
-    • Check longueur name, etc
-    • Check if user not allready exist (email and username)
-    */
     public function __construct($id='DEFAULT',$email=null,$firstname=null,$lastname=null,$username=null,$password=null,$avatar=null,$is_archived=0,$created_at='DEFAULT',$updated_at='DEFAULT'){
         parent::__construct();
         $this->setEmail($email);

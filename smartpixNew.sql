@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 21, 2017 at 11:48 PM
+-- Generation Time: Jul 25, 2017 at 10:26 PM
 -- Server version: 5.6.35
 -- PHP Version: 7.1.1
 
@@ -24,11 +24,10 @@ CREATE TABLE `action` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `community_id` int(11) DEFAULT NULL,
-  `type_action` varchar(10) NOT NULL,
+  `type_action` varchar(30) NOT NULL,
   `related_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 -- --------------------------------------------------------
 
@@ -42,12 +41,13 @@ CREATE TABLE `album` (
   `community_id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `thumbnail_url` varchar(150) DEFAULT '',
+  `background` varchar(150) DEFAULT '',
+  `disposition` text,
   `description` text,
   `is_published` tinyint(1) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 -- --------------------------------------------------------
 
@@ -60,11 +60,11 @@ CREATE TABLE `comment` (
   `user_id` int(11) NOT NULL,
   `picture_id` int(11) NOT NULL,
   `content` text NOT NULL,
+  `flag` int(11) DEFAULT '0',
   `is_archived` tinyint(1) NOT NULL,
   `is_published` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 -- --------------------------------------------------------
 
@@ -82,9 +82,6 @@ CREATE TABLE `community` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
--- --------------------------------------------------------
-
 --
 -- Table structure for table `community_user`
 --
@@ -95,7 +92,6 @@ CREATE TABLE `community_user` (
   `user_id` int(11) NOT NULL,
   `permission` int(1) NOT NULL COMMENT '1 user 2 moderator 3 administrator 4 creator'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 -- --------------------------------------------------------
 
@@ -110,6 +106,18 @@ CREATE TABLE `email` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `sent_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `flag_comment`
+--
+
+CREATE TABLE `flag_comment` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `comment_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -132,7 +140,6 @@ CREATE TABLE `picture` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 -- --------------------------------------------------------
 
@@ -169,9 +176,8 @@ CREATE TABLE `stat` (
 CREATE TABLE `tag` (
   `id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
-  `slug` varchar(100) NOT NULL,
+  `slug` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 -- --------------------------------------------------------
 
@@ -219,7 +225,6 @@ CREATE TABLE `user` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 --
 -- Indexes for dumped tables
@@ -269,6 +274,12 @@ ALTER TABLE `email`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `flag_comment`
+--
+ALTER TABLE `flag_comment`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `picture`
 --
 ALTER TABLE `picture`
@@ -299,7 +310,6 @@ ALTER TABLE `stat`
 --
 ALTER TABLE `tag`
   ADD PRIMARY KEY (`id`);
-
 
 --
 -- Indexes for table `tag_picture`
@@ -357,6 +367,11 @@ ALTER TABLE `community_user`
 ALTER TABLE `email`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `flag_comment`
+--
+ALTER TABLE `flag_comment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `picture`
 --
 ALTER TABLE `picture`
@@ -385,7 +400,7 @@ ALTER TABLE `template`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
@@ -394,14 +409,13 @@ ALTER TABLE `user`
 -- Constraints for table `action`
 --
 ALTER TABLE `action`
-  ADD CONSTRAINT `Actions_Communities` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`),
-  ADD CONSTRAINT `Actions_Users` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `Actions_Communities` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Actions_Users` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `album`
 --
 ALTER TABLE `album`
-  ADD CONSTRAINT `Albums_Communities` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`),
   ADD CONSTRAINT `Albums_Users` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
@@ -409,7 +423,7 @@ ALTER TABLE `album`
 --
 ALTER TABLE `comment`
   ADD CONSTRAINT `Comments_Pictures` FOREIGN KEY (`picture_id`) REFERENCES `picture` (`id`),
-  ADD CONSTRAINT `Comments_Users` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `Comments_Users` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `community`

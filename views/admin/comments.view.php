@@ -1,6 +1,5 @@
 <h1>On affiche : </h1>
     <style>
-        /* TODO create global class* */
         button.delete{
             background: red;
             border-radius: 6px;
@@ -39,6 +38,9 @@
             <th>
                 Actions
             </th>
+            <th>
+                Signalement
+            </th>
         </tr>
     <?php foreach($allComments as $comment): ?>
         <tr data-id="<?php echo $comment['id'] ?>">
@@ -55,6 +57,9 @@
                 <button type="button" class="delete"><i class="fa fa-times" aria-hidden="true"></i></button>
                 <button type="button" class="publish" style="display: <?php echo $comment['is_published'] == 0  ? 'inline-block' : 'none' ?>"><i class="fa fa-eye" aria-hidden="true"></i></button>
                 <button type="button" class="unpublish" style="display: <?php echo $comment['is_published'] == 0  ? 'none' : 'inline-block' ?>"><i class="fa fa-eye-slash" aria-hidden="true"></i></i></button>
+            </td>
+            <td>
+                <?php echo $comment['nb_flags'] ?>
             </td>
         </tr>
     <?php endforeach ?>

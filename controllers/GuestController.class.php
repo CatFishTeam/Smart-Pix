@@ -64,7 +64,7 @@ class GuestController{
                         "<br><br>Votre inscription sur Smart-Pix a bien été validée !
                     <br><br>Votre identifiant : ".$username.
                         "<br>Votre mot de passe : vous seul le connaissez !
-                    <br><a href='http://smart-pix.dev/activate/".$accessToken."'>Activer votre compte</a>
+                    <br><a href='http://smart-pix.fr/activate/".$accessToken."'>Activer votre compte</a>
                     <br><br>Cordialement,<br>L'équipe Smart-Pix";
                     $mail->AddAddress($email);
 
