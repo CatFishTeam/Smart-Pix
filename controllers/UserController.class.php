@@ -31,7 +31,7 @@ class UserController {
 
         if (!empty($community)) {
             $commu = new Community();
-            $commu = $commu->populate(['slug' => $community]);
+            $commu = $commu->populate(['slug'=>$community]);
             if (!$commu) {
                 $_SESSION['messages']['error'][] = "La communauté n'a pas été trouvée";
                 $v = new View("404", "frontend");
@@ -41,8 +41,22 @@ class UserController {
         }
     }
 
+    public function flagComment(){
+        $flag = new Flag_Comment('DEFAULT', $_SESSION['user_id'], $_POST['id']);
+        $flag->save();
+
+        $_SESSION['messages']['success'][] = "Vous avez bien signalé ce commentaire";
+        GlobalController::flash('json');
+    }
+    public function unFlagComment(){
+        $flag = new Flag_Comment();
+        $flag->deleteOneBy(['user_id'=>$_SESSION['user_id'], 'comment_id'=>$_POST['id']]);
+
+        $_SESSION['messages']['success'][] = "Signalement correctement retiré";
+        GlobalController::flash('json');
+    }
+
 //TODO ADD POSSIBILITY FOR USER TO EDIT / DELET OWN COMMENT
-//TODO EDIT / Retirer photo
     /*
      * Page de profil (/user)
     */

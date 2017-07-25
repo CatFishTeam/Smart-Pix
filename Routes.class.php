@@ -14,6 +14,8 @@ $router->get('/signup',                 'Pages@signup');
 $router->get('/user',                   'Pages@wall');
 $router->get('/user/:id',               'Pages@wall')->with('id', '[0-9]+');
 $router->get('/user-actions',           'User@actions');
+$router->post('/flagComment',           'User@flagComment');
+$router->post('/unFlagComment',         'User@unFlagComment');
 
 $router->post('/login',                 'Guest@login');
 $router->post('/signup',                'Guest@signup');
