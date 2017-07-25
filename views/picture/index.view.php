@@ -98,9 +98,6 @@
             </form>
         </div>
     <?php endif; ?>
-<div class="col-12">
-    <p>Cette image n'existe pas.</p>
-</div>
 
     <?php else: ?>
         <p>Cette photo est actuellement en modération !</p>
