@@ -115,13 +115,10 @@
             </form>
         </div>
     <?php endif; ?>
-<div class="col-12">
-    <p>Cette image n'existe pas.</p>
-</div>
+
     <?php else: ?>
         <p>Cette photo est actuellement en modération !</p>
     <?php endif; ?>
-<<<<<<< HEAD
 </div>
 <script>
     $('.fa-flag').click(function(){
@@ -156,6 +153,3 @@
         }
     });
 </script>
-=======
-</div>
->>>>>>> 04ee0a9095e6efc19fb034623071a91dae25c9f0
