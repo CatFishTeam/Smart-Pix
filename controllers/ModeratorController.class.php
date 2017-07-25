@@ -79,7 +79,7 @@ class ModeratorController extends UserController{
 
         $picturesNotIn = new Picture;
         $picturesNotIn = $picturesNotIn->getAllBy(['community_id'=>$_SESSION['community_id']],"DESC");
-        $picture_album = new Picture_album;
+        $picture_album = new Picture_Album;
         $picture_album = $picture_album->getAllBy(['album_id'=>$_POST['id']]);
         foreach($picture_album as $picture){
             foreach($picturesNotIn as $key => $p){
@@ -92,7 +92,7 @@ class ModeratorController extends UserController{
 
         //Retourne les photos qui sont dans l'album
         $pictures = [];
-        $picture_album = new Picture_album;
+        $picture_album = new Picture_Album;
         $picture_album = $picture_album->getAllBy(['album_id'=>$_POST['id']]);
         foreach ($picture_album as $key => $picture) {
             $p = new Picture();
