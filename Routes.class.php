@@ -6,6 +6,8 @@ $router = new Router($_GET['url']);
 // $router->get('/posts/:id-:slug')->with('id', '[0-9]+')->with('slug', '[a-z\-0-9]+'); //Exemple avec multiple args
 // //Les plus précises en premier
 
+
+
 $router->get('/',                                               'Pages@index');
 $router->get('/404',                                            'Pages@error');
 
@@ -16,6 +18,9 @@ $router->get('/user/:id',                                       'Pages@wall')->w
 $router->get('/user-actions',                                   'User@actions');
 $router->post('/flagComment',                                   'User@flagComment');
 $router->post('/unFlagComment',                                 'User@unFlagComment');
+
+$router->get('/search',                                         'Pages@search');
+$router->post('/search',                                        'Pages@search');
 
 $router->post('/login',                                         'Guest@login');
 $router->post('/signup',                                        'Guest@signup');

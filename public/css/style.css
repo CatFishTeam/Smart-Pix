@@ -198,21 +198,6 @@ body {
   background-color: #ecf0f1;
   margin: 0; }
 
-header {
-  height: 90px;
-  line-height: 70px;
-  background: #fff; }
-  header .logo-header {
-    float: left; }
-    header .logo-header .community-header {
-      font-family: 'Proxima Nova Regular', sans-serif;
-      color: #333;
-      vertical-align: top;
-      max-width: 120px;
-      text-align: right;
-      display: inline-block;
-      line-height: 20px; }
-
 .container {
   width: 100%;
   max-width: 1200px;
@@ -279,18 +264,41 @@ header {
   }
 }*/
 /* Header */
-header input {
-  border: none;
-  width: 60%;
-  height: 30px;
-  font-size: 18px;
-  vertical-align: middle; }
-  header input:focus {
-    outline: none;
-    border-bottom: 1px solid lightgray; }
-header select {
-  border-radius: 5px; }
+header {
+  height: 90px;
+  line-height: 70px;
+  background: #fff; }
+  header .logo-header {
+    float: left; }
+    header .logo-header .community-header {
+      font-family: 'Proxima Nova Regular', sans-serif;
+      color: #333;
+      vertical-align: top;
+      max-width: 120px;
+      text-align: right;
+      display: inline-block;
+      line-height: 20px; }
+  header form {
+    width: 60%;
+    font-size: 18px;
+    display: inline-block; }
+    header form input {
+      border: none;
+      width: 100%;
+      height: 30px;
+      font-size: 18px;
+      vertical-align: middle; }
+      header form input:focus {
+        outline: none;
+        border-bottom: 1px solid lightgray; }
+    header form select {
+      border-radius: 5px; }
 
+/* Recherche : */
+@media screen and (min-device-width: 768px) {
+  .search-res div:nth-child(2) {
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray; } }
 @media screen and (max-width: 768px) {
   header input {
     font-size: 16px; } }
