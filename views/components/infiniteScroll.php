@@ -191,7 +191,6 @@ var img = [];
 <?php endforeach; ?>
 
 $(document).ready(function() {
-    console.log("3"+img);
     populatePattern(img);
     populatePattern(img);
     // populatePattern();
