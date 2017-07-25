@@ -5,6 +5,11 @@
                 <img src="/public/cdn/images/<?php echo $picture->getUrl(); ?>" alt="">
             </div>
             <div class="col-3 col-m-12 align-left picture-info-panel">
+                <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $author->getId()): ?>
+                <a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/edit-picture/<?php echo $picture->getId(); ?>" class="btn edit-picture">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+                <?php endif; ?>
                 <!-- Info photo & photographe -->
                 <h2><?php echo $picture->getTitle(); ?></h2>
                 <h3 class="italic">Par <a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/user/<?php echo $author->getId(); ?>"><?php echo $author->getUsername(); ?></a></h3>
@@ -24,7 +29,7 @@
                 <?php endif; ?>
             </div>
 </div>
-<?php //var_dump($albums); ?>
+
 <div class="row">
     <div class="col-2"></div>
     <div class="col-8">

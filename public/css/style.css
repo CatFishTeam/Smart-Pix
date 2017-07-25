@@ -668,6 +668,10 @@ Wall (user/wall)
   background: #fff;
   border: 5px solid #eee;
   border-radius: 7px; }
+  .picture-info-panel .edit-picture {
+    float: right; }
+  .picture-info-panel h2 {
+    margin-top: 0; }
   .picture-info-panel .picture-tags span a {
     background-color: rgba(52, 73, 94, 0.1);
     padding: 4px 8px;

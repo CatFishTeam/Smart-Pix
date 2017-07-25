@@ -781,6 +781,12 @@ Wall (user/wall)
   background: #fff;
   border: 5px solid #eee;
   border-radius: 7px;
+  .edit-picture {
+    float: right;
+  }
+  h2 {
+    margin-top: 0;
+  }
   .picture-tags span a {
     background-color: rgba(52, 73, 94, 0.1);
     padding: 4px 8px;
