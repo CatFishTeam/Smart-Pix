@@ -48,7 +48,7 @@ class GuestController{
                     require './vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
 
                     $mail = new PHPMailer(); // create a new object
-                    // $mail->IsSMTP(); // enable SMTP
+                    $mail->IsSMTP(); // enable SMTP
                     $mail->CharSet = 'UTF-8';
                     $mail->SMTPAuth = true; // authentication enabled
                     $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
