@@ -272,28 +272,14 @@ class GuestController{
         $feed .= '<lastBuildDate>'.date('l jS \of F Y h:i:s A').'</lastBuildDate>';
         $feed .= '<language>fr-fr</language>';
 
-        $albums = new Album;
-        $albums = $albums->getAllBy(['community_id'=>$community->getId()],"DESC",10);
+        $actions = new Action;
+        $actions = $actions->getAllBy(['community_id'=>$community->getId(), 'user_id'=>$id],"DESC",10);
 
-        foreach($albums as $album){
+        foreach($actions as $action){
             $feed .= '<item>';
-            $feed .= '<title>'.$album['title'].'</title>';
-            $feed .= '<link>http://www'.SLUG.'/'.$community->getSlug().'/album/'.$album['id'].'</link>';
-            $feed .= '<description>'.$album['description'].'</description>';
-            $feed .= '<pubDate>'.$album['created_at'].'</pubDate>';
-            $feed .= '</item>';
-        }
-
-
-        $pictures = new Picture;
-        $pictures = $pictures->getAllBy(['community_id'=>$community->getId()],"DESC",50);
-
-        foreach ($pictures as $picture) {
-            $feed .= '<item>';
-            $feed .= '<title>'.$picture['title'].'</title>';
-            $feed .= '<link>http://www'.SLUG.'/'.$community->getSlug().'/picture/'.$picture['id'].'</link>';
-            $feed .= '<description>'.$picture['description'].'</description>';
-            $feed .= '<pubDate>'.$picture['created_at'].'</pubDate>';
+            $feed .= '<title>'.$action['type_action'].'</title>';
+            $feed .= '<link>http://www'.SLUG.'/'.$community->getSlug().'/album/'.$id.'</link>';
+            $feed .= '<pubDate>'.$action['created_at'].'</pubDate>';
             $feed .= '</item>';
         }
 
