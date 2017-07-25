@@ -7,7 +7,9 @@
                 <?php else: ?>
                     <p>Aucun avatar sélectionné</p>
                 <?php endif; ?>
+                <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $user->getId()): ?>
                 <a href="/profile"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
+                <?php endif; ?>
             </div>
             <div class="bio-info">
                 <p class="username"><?php echo $user->getUsername(); ?></p>
