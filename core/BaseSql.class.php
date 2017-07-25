@@ -121,6 +121,25 @@ class BaseSql{
         }
     }
 
+    public function like($search = [], $order = null, $limit = null, $returnQuery = false){
+        if (empty($search)) {
+            $query = $this->db->prepare("SELECT * FROM ".$this->table.($order != null ? " ORDER BY created_at ".$order : " ").($limit != null ? " LIMIT ".$limit : ""));
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            foreach($search as $key => $value){
+                $where[] = $key." LIKE '%".$value."%'";
+            }
+            $query = $this->db->prepare("SELECT * FROM ".$this->table." WHERE ".implode(" OR ", $where).($order != null ? " ORDER BY created_at ".$order : "").($limit != null ? " LIMIT ".$limit : ""));
+            $query->execute($search);
+
+            if($returnQuery){
+                return $query;
+            }
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+
     //if archived = true : SET is_archived to 1
     public function deleteOneBy($search = [], $archived = false, $returnQuery = false){
 

@@ -24,7 +24,9 @@
                         </a>
                         <nav>
                             <i class="fa fa-search" aria-hidden="true"></i>
-                            <input type="text" placeholder="Recherche par photo, catégorie, artiste..."/>
+                            <form action="/search" method="post">
+                                <input type="text" name="search" placeholder="Recherche par photo, catégorie, artiste..."/>
+                            </form>
                         </nav>
                     </section>
                     <section class="col-4 col-m-12 m-center">

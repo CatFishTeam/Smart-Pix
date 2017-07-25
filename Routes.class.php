@@ -14,6 +14,8 @@ $router->get('/signup',                 'Pages@signup');
 $router->get('/user',                   'Pages@wall');
 $router->get('/user/:id',               'Pages@wall')->with('id', '[0-9]+');
 $router->get('/user-actions',           'User@actions');
+$router->get('/search',                'Pages@search');
+$router->post('/search',                'Pages@search');
 
 $router->post('/login',                 'Guest@login');
 $router->post('/signup',                'Guest@signup');
@@ -34,19 +36,9 @@ $router->post('/profile',                       'User@index');
 $router->get('/:community/profile',              'User@index')->with('community','communities');;
 $router->post('/:community/profile',             'User@index')->with('community','communities');;
 $router->post('/add-comment',                   'User@addComment');
-//$router->get('/add-album',              'Album@create');
-//$router->post('/add-album',             'Album@create');
-//$router->get('/edit-album',             'Album@edit');
-//$router->get('/edit-album/:id',         'Album@edit');
-//$router->post('/edit-album/:id',        'Album@edit');
 $router->post('/picture/remove-tag',    'Picture@removeTag');
 $router->post('/album/remove-picture',  'Album@removePicture');
 $router->post('/album/add-pictures',    'Album@addPictures');
-
-//$router->get('/add-picture',            'Picture@add');
-//$router->post('/add-picture',           'Picture@add');
-
-
 
 $router->get('/logout',                 'User@logout');
 

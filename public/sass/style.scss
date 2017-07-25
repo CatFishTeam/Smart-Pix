@@ -191,24 +191,6 @@ body {
   margin: 0;
 }
 
-header {
-  height: 90px;
-  line-height: 70px;
-  background: #fff;
-  .logo-header {
-    float: left;
-    .community-header {
-      font-family: 'Proxima Nova Regular', sans-serif;
-      color: #333;
-      vertical-align: top;
-      max-width: 120px;
-      text-align: right;
-      display: inline-block;
-      line-height: 20px;
-    }
-  }
-}
-
 .container {
   width: 100%;
   max-width: 1200px;
@@ -281,20 +263,52 @@ header {
 
 /* Header */
 
+
 header {
-  input{
-    border: none;
-    width: 60%;
-    height: 30px;
-    font-size: 18px;
-    vertical-align: middle;
-    &:focus {
-      outline: none;
-      border-bottom: 1px solid lightgray;
+  height: 90px;
+  line-height: 70px;
+  background: #fff;
+  .logo-header {
+    float: left;
+    .community-header {
+      font-family: 'Proxima Nova Regular', sans-serif;
+      color: #333;
+      vertical-align: top;
+      max-width: 120px;
+      text-align: right;
+      display: inline-block;
+      line-height: 20px;
     }
   }
-  select {
-    border-radius: 5px;
+  form {
+    width: 60%;
+    font-size: 18px;
+    display: inline-block;
+    input{
+      border: none;
+      width: 100%;
+      height: 30px;
+      font-size: 18px;
+      vertical-align: middle;
+      &:focus {
+        outline: none;
+        border-bottom: 1px solid lightgray;
+      }
+    }
+    select {
+      border-radius: 5px;
+    }
+  }
+}
+
+/* Recherche : */
+
+@media screen and (min-device-width: 768px) {
+  .search-res {
+    div:nth-child(2) {
+      border-left: 1px solid lightgray;
+      border-right: 1px solid lightgray;
+    }
   }
 }
 
@@ -827,7 +841,6 @@ Wall (user/wall)
     }
   }
 }
-
 
 /* Album's pictures */
 

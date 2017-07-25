@@ -146,4 +146,25 @@ class PagesController{
         $v = new View('404', 'frontend');
     }
 
+    public function search() {
+        if ($_POST) {
+            $v = new View("search", "frontend");
+            $search = trim(htmlspecialchars($_POST['search']));
+            $resCommu = new Community();
+            $resCommu = $resCommu->like(['name' => $search, 'description' => $search]);
+            $resPicture = new Picture();
+            $resPicture = $resPicture->like(['title' => $search, 'description' => $search]);
+            $resUser = new User();
+            $resUser = $resUser->like(['username' => $search]);
+
+            $v->assign('search', $search);
+            $v->assign('resCommu', $resCommu);
+            $v->assign('resPicture', $resPicture);
+            $v->assign('resUser', $resUser);
+        } else {
+            $v = new View("404");
+            $_SESSION['messages']['error'][] = "La recherche a rencontré une erreur";
+        }
+    }
+
 }
