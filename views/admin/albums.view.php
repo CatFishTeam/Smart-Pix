@@ -74,7 +74,7 @@ $(document).on('click','#albums li',function(){
             } else {
                 $('[name="is_published"]').prop('checked', false);
             }
-            $('[name="description"]').val(data.album.description);
+            $('#editAlbum [name="description"]').val(data.album.description);
             $('#pictureIn').empty();
             data.pictures.forEach(function(image){
                 $('#pictureIn').append('<div class="image"><img src="/public/cdn/images/'+image.url+'"/><button class="delete" data-id="'+image.id+'"><i class="fa fa-times" aria-hidden="true"></i></button><button class="cover" data-id="'+image.id+'"><i class="fa fa-picture-o" aria-hidden="true"></i></button></div>');

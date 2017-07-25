@@ -12,11 +12,6 @@
           integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
           crossorigin="anonymous"></script>
 
-        <!-- Pour afficher le css et js specific a certaines pages -->
-        <!-- TODO
-        • Set active or not
-        • Link faire toute la taille !!
-        -->
         <?php echo (isset($specificHeader) ? $specificHeader : '') ?>
     </head>
     <body>

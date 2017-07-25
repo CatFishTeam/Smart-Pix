@@ -26,7 +26,7 @@ $config = array(
 ?>
 
 <div class="row">
-    <h1>Créez votre première communauté</h1>
+    <h1>Créez votre communauté</h1>
     <div class="col-2">
 
     </div>

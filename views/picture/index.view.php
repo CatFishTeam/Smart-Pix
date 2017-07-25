@@ -8,30 +8,37 @@
         }
     </style>
 <div class="row">
-    <div class="col-9 col-m-12 image-center">
-        <!-- La photo ! -->
-        <img src="/public/cdn/images/<?php echo $picture->getUrl(); ?>" alt="">
-    </div>
-    <div class="col-3 col-m-12 align-left picture-info-panel">
-        <!-- Info photo & photographe -->
-        <h2><?php echo $picture->getTitle(); ?></h2>
-        <h3 class="italic">Par <a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/user/<?php echo $author->getId(); ?>"><?php echo $author->getUsername(); ?></a></h3>
-        <p><?php echo $picture->getDescription(); ?></p>
-            <?php if (isset($tagsId) && !empty($tagsId)): ?>
-                <hr>
-                <p class="picture-tags">
-                    Tags :
+
+            <div class="col-9 col-m-12 image-center">
+                <!-- La photo ! -->
+                <img src="/public/cdn/images/<?php echo $picture->getUrl(); ?>" alt="">
+            </div>
+            <div class="col-3 col-m-12 align-left picture-info-panel">
+                <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $author->getId()): ?>
+                <a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/edit-picture/<?php echo $picture->getId(); ?>" class="btn edit-picture">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+                <?php endif; ?>
+                <!-- Info photo & photographe -->
+                <h2><?php echo $picture->getTitle(); ?></h2>
+                <h3 class="italic">Par <a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/user/<?php echo $author->getId(); ?>"><?php echo $author->getUsername(); ?></a></h3>
+                <p><?php echo $picture->getDescription(); ?></p>
+                    <?php if (isset($tagsId) && !empty($tagsId)): ?>
+                        <hr>
+                        <p class="picture-tags">
+                            Tags :
                     <?php
-                foreach ($tagsId as $tagId):
-                    $tag = new Tag();
-                    $tag = $tag->populate(['id' => $tagId['tag_id']]);
-            ?>
-            <span><a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/tag/<?php echo $tag->getId(); ?>/<?php echo $tag->getSlug(); ?>"><?php echo $tag->getTitle(); ?></span></a>
-            <?php endforeach; ?>
-        <?php endif; ?>
-        </p>
-    </div>
+                        foreach ($tagsId as $tagId):
+                            $tag = new Tag();
+                            $tag = $tag->populate(['id' => $tagId['tag_id']]);
+                    ?>
+                    <span><a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/tag/<?php echo $tag->getId(); ?>/<?php echo $tag->getSlug(); ?>"><?php echo $tag->getTitle(); ?></span></a>
+                    <?php endforeach; ?>
+                </p>
+                <?php endif; ?>
+            </div>
 </div>
+
 <div class="row">
     <div class="col-2"></div>
     <div class="col-8">
@@ -114,6 +121,7 @@
     <?php else: ?>
         <p>Cette photo est actuellement en modération !</p>
     <?php endif; ?>
+<<<<<<< HEAD
 </div>
 <script>
     $('.fa-flag').click(function(){
@@ -148,3 +156,6 @@
         }
     });
 </script>
+=======
+</div>
+>>>>>>> 04ee0a9095e6efc19fb034623071a91dae25c9f0

@@ -664,22 +664,38 @@ Wall (user/wall)
   .picture img:hover {
     outline: 3px dashed #cfcfad; }
 
+.feed {
+  margin: 0;
+  text-align: right;
+  font-size: 12px; }
+  .feed i {
+    margin: 0 3px; }
+
 .picture-info-panel {
   background: #fff;
   border: 5px solid #eee;
   border-radius: 7px; }
-  .picture-info-panel .picture-tags span a {
-    background-color: rgba(52, 73, 94, 0.1);
-    padding: 4px 8px;
-    font-size: 14px;
-    margin: 2px 0;
-    color: #333;
-    cursor: pointer;
-    display: inline-block; }
-    .picture-info-panel .picture-tags span a:visited {
-      color: #333; }
-    .picture-info-panel .picture-tags span a:hover {
-      background-color: rgba(52, 73, 94, 0.2); }
+  .picture-info-panel .edit-picture {
+    float: right; }
+  .picture-info-panel h2 {
+    margin-top: 0; }
+
+.picture-tags span {
+  background-color: rgba(52, 73, 94, 0.1);
+  padding: 4px 8px;
+  font-size: 14px;
+  margin: 2px 0;
+  color: #333;
+  cursor: pointer;
+  display: inline-block; }
+  .picture-tags span:hover {
+    background-color: rgba(52, 73, 94, 0.2); }
+  .picture-tags span a {
+    color: #333; }
+  .picture-tags span a:visited {
+    color: #333; }
+  .picture-tags span a:hover {
+    color: #333; }
 
 /* Album's pictures */
 .pictureAlbum {

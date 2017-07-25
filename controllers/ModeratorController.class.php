@@ -1,10 +1,7 @@
 <?php
 include 'UserController.class.php';
 
-//TODO CLEAAAAAN THIS FREAKING SHIIIT
-//TODO Check edit album in admin !! (Integrity constraint violaiton)
 //TODO check community_creator give him permanent acces in construct
-
 class ModeratorController extends UserController{
     public function __construct(){
         parent::__construct();
@@ -19,6 +16,12 @@ class ModeratorController extends UserController{
     public function indexAdmin(){
         $pictures = new Picture;
         $pictures = $pictures->getAllBy(['community_id'=>$_SESSION['community_id']]);
+        $comments = 0;
+        foreach ($pictures as $picture) {
+            $c = new Comment;
+            $c = $c->getAllBy(['picture_id'=>$picture['id']]);
+            $comments += count($c);
+        }
 
         $albums = new Album;
         $albums = $albums->getAllBy(['community_id'=>$_SESSION['community_id']]);
@@ -32,10 +35,13 @@ class ModeratorController extends UserController{
             $users[] = $user;
         }
 
+
+
         $v = new View('admin.index','backend');
         $v->assign('countPictures',count($pictures));
         $v->assign('countAlbums',count($albums));
         $v->assign('countUsers',count($users));
+        $v->assign('countComments', $comments);
     }
 
     /* ~~~~ Album ~~~~*/

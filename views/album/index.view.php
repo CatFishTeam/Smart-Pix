@@ -1,7 +1,14 @@
 <div class="row">
     <?php if (isset($album) && !empty($album)): ?>
         <div class="col-12">
-            <div class="albumTitle" style="background-image: url('/public/cdn/images/<?php echo $album->getThumbnailUrl(); ?>');">
+            <div class="albumTitle"
+                 style="background-image:
+                         <?php if ($album->getThumbnailUrl() !== null && !empty($album->getThumbnailUrl())): ?>
+                         url('/public/cdn/images/<?php echo $album->getThumbnailUrl(); ?>');
+                         <?php else: ?>
+                         url('/public/image/footer_lodyas.png');
+                         <?php endif; ?>
+                         ">
                 <h2><?php echo $album->getTitle(); ?></h2>
             </div>
             <h3 class="italic">Par <a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/user/<?php echo $author->getId(); ?>"><?php echo $author->getUsername(); ?></a></h3>
@@ -48,7 +55,9 @@
                 <a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/picture/<?php echo $picture['id']; ?>">
                     <img src="<?php echo "/public/cdn/images/". $picture['url']; ?>" data-id="<?php echo $picture['id']; ?>" data-title="<?php echo $picture['title']; ?>" data-description="<?php echo $picture['description']; ?>" alt="<?php echo $picture['title']; ?>">
                 </a>
+                <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $author->getId()): ?>
                 <span class="removePicture" data-id="<?php echo $picture['id']; ?>"><i class="fa fa-times" aria-hidden="true"></i></span>
+                <?php endif; ?>
                 <h2><?php echo $picture['title']; ?></h2>
                 <p><?php echo $picture['description']; ?></p>
             </div>

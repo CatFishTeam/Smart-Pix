@@ -88,4 +88,12 @@ class PictureController {
         $v->assign('tagPictures', $tagPicture);
     }
 
+    public function removeTag() {
+        $removeTag = new Tag_Picture();
+        $removeTag->deleteOneBy(['tag_id' => $_POST['tag_id'], 'picture_id' => $_POST['picture_id']]);
+        $_SESSION['messages']['success'][] = "Le tag a bien été retiré de l'image";
+        GlobalController::flash('json');
+        exit();
+    }
+
 }

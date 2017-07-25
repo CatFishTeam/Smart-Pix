@@ -97,17 +97,6 @@ img{
 </style>
 
 <script>
-/* TODO
-    * Ratio images
-    * Responsive
-    * Insert CSS
-    * Argument pour height et  margin
-    * DÃ©terminer les x premiers patterns
-    * Regler problÃ¨me de troue
-    * Ajouter une gif de chargement
-    * Limite pattern
-*/
-
 patterns = {
     1 : {
         "nbImg": "2",
@@ -167,9 +156,8 @@ patterns = {
             3 : {"width":"30","number":"1"}
            }
     },
-    <?php endif ?>
-}
-
+    <?php endif; ?>
+};
 
 function populatePattern(){
     var rand = Math.floor((Math.random() * Object.keys(patterns).length + 1));
@@ -199,7 +187,8 @@ function populatePattern(){
 
 var img = [];
 
-<?php foreach($pictures as $picture): ?>
+<?php
+foreach($pictures as $picture): ?>
     img.push(["/public/cdn/images/<?php echo $picture['url'] ?>", "/picture/<?php echo $picture['id'] ?>","<?php echo $picture['title'] ?>"]);
 <?php endforeach; ?>
 

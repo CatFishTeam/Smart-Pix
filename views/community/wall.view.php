@@ -22,7 +22,13 @@
                 <h2><a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/user-albums/<?php echo $user->getId(); ?>">Ses albums</a></h2>
                 <p class="photos-fav">
                     <?php foreach ($albums as $album): ?>
-                        <a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/album/<?php echo $album['id']; ?>"><img src="/public/cdn/images/<?php echo $album['thumbnail_url']; ?>" alt="<?php echo $album['title']; ?>"></a>
+                        <a href="/<?php echo isset($community) ? $community->getSlug() : ""; ?>/album/<?php echo $album['id']; ?>">
+                            <?php if ($album['thumbnail_url'] !== null && !empty($album['thumbnail_url'])): ?>
+                                <img src="/public/cdn/images/<?php echo $album['thumbnail_url']; ?>" alt="<?php echo $album['title']; ?>">
+                            <?php else: ?>
+                                <img src="/public/image/footer_lodyas.png" alt="<?php echo $album['title']; ?>">
+                            <?php endif; ?>
+                        </a>
                         <?php
                     endforeach;
                     if (count($albums) == 0):
@@ -62,8 +68,9 @@
                 <?php
                 if (count($actions) < 1): ?>
                 <p class="no-action">Cet utilisateur n'a pas encore d'activités</p>
-                <?php endif;
-                foreach ($actions as $action):
+                <?php endif; ?>
+                <p class="feed"><a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/user/<?php echo $user->getId(); ?>/feed"><i class="fa fa-rss-square" aria-hidden="true"></i> Flux RSS</a></p>
+                <?php foreach ($actions as $action):
                     $action_date = strtotime($action['created_at']);
                     ?>
                     <div class="story">

@@ -1,6 +1,5 @@
 <h1>On affiche : </h1>
     <style>
-        /* TODO create global class* */
         button.delete{
             background: red;
             border-radius: 6px;
