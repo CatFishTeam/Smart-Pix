@@ -758,10 +758,15 @@ h1, h2, h3, p, span, label, div, table {
       position: relative;
       display: inline-block;
       margin: 10px; }
-    #pageAlbum #images .image button {
+    #pageAlbum #images .image .delete {
       position: absolute;
       top: 10px;
       right: 10px;
+      cursor: pointer; }
+    #pageAlbum #images .image .cover {
+      position: absolute;
+      top: 10px;
+      left: 10px;
       cursor: pointer; }
     #pageAlbum #images .image img {
       width: 100%;

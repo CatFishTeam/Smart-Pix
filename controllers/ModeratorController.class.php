@@ -171,6 +171,19 @@ class ModeratorController extends UserController{
         GlobalController::flash('json');
     }
 
+    public function setPictureAsCover(){
+        $picture = new Picture;
+        $picture = $picture->populate(['id'=>$_POST['id']]);
+
+        $album = new Album;
+        $album = $album->populate(['id'=>$_POST['album_id']]);
+        $album->setThumbnailUrl($picture->getUrl());
+        $album->save();
+
+        $_SESSION['messages']['success'][] = "Image de couverture modifié";
+        GlobalController::flash('json');
+    }
+
     /* ~~~~~ Picture ~~~~~*/
     public function medias(){
         $v = new View('admin.medias','backend');

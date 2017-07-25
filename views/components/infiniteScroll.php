@@ -180,10 +180,12 @@ function populatePattern(){
             if(img.length > 0){
                 for(i = 0; i <= value.number; i++){
                     var data = img.shift();
-                    $('.colImg:last').append('<div class="containerImg" style="height: '+100/value.number+'%"></div>');
-                    if(data[0] != undefined) $('.containerImg:last').append('<img src="'+data[0]+'"/>');
-                    if(data[2] != undefined) $('.containerImg:last').append('<div class="infoSupp">'+data[2]+'</div>');
-                    if(data[1] != undefined) $('.containerImg:last').append('<a href="<?php echo isset($community) ? '/'.$community->getSlug() : ""; ?>'+data[1]+'"></a>');
+                    if(data != undefined){
+                        $('.colImg:last').append('<div class="containerImg" style="height: '+100/value.number+'%"></div>');
+                        if(data[0] != undefined) $('.containerImg:last').append('<img src="'+data[0]+'"/>');
+                        if(data[2] != undefined) $('.containerImg:last').append('<div class="infoSupp">'+data[2]+'</div>');
+                        if(data[1] != undefined) $('.containerImg:last').append('<a href="<?php echo isset($community) ? '/'.$community->getSlug() : ""; ?>'+data[1]+'"></a>');
+                    }
                 }
             }
         });
@@ -204,7 +206,8 @@ var img = [];
 $(document).ready(function() {
     populatePattern();
     populatePattern();
-    // populatePattern();
+    populatePattern();
+    populatePattern();
 });
 
 var processing, url, id, title;
@@ -220,12 +223,12 @@ $(document).scroll(function(e){
                 data: {index: $('#content .containerImg img').length + img.length},
                 type: 'POST',
                 success: function(datas){
-                    console.log(datas)
-                    $.each(datas,function(index,data){
-                        url = (data.url != null ? data.url : "");
+                    $.each(JSON.parse(datas),function(index,data){
+                        url = (data.url != null ? '/public/cdn/images/'+data.url : "");
                         id = (data.id != null ? data.id : "");
                         title = (data.title != null ? data.title : "");
-                        img.push([url,id,title]);
+                        console.log(img);
+                        img.push([url,'/picture/'+id,title]);
                     });
 
                     populatePattern();

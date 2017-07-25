@@ -90,7 +90,7 @@ class CommunityController{
             $userCommunity = $userCommunity->populate(['slug' => $community]);
             if ($userCommunity) {
                 $pictures = new Picture();
-                $pictures = $pictures->getAllBy(['community_id' => $userCommunity->getId()], 'DESC', 14);
+                $pictures = $pictures->getAllBy(['community_id' => $userCommunity->getId()], 'DESC');
                 $v = new View('community.home', 'frontend');
                 $v->assign('community', $userCommunity);
                 $v->assign('pictures', $pictures);
@@ -174,7 +174,6 @@ class CommunityController{
                         elseif ($_FILES['thumbnail_url']['error'] != 4)
                             $_SESSION['messages']['warning'][] = "Le fichier d'image a rencontré une erreur.";
                     } else {
-                        var_dump("test");
                         $fileInfo = pathinfo($_FILES['thumbnail_url']['name']);
                         $ext = pathinfo($_FILES['thumbnail_url']['name'], PATHINFO_EXTENSION);
                         if (
@@ -418,7 +417,7 @@ class CommunityController{
                 $author = new User();
                 $author = $author->populate(['id' => $album->getUserId()]);
                 $pictures = new Picture();
-                $pictures = $pictures->getAllBy(['user_id' => $author->getId(), 'community_id' => $commu->getId()]);
+                $pictures = $pictures->getAllBy(['user_id' => $author->getId(), 'community_id' => $commu->getId(), 'is_visible'=>0]);
                 $picturesAlbum = new Picture_Album();
                 $picturesAlbum = $picturesAlbum->getAllBy(['album_id' => $id]);
 
