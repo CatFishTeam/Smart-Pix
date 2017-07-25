@@ -1,4 +1,5 @@
 <?php
+//TODO is_published !!
 class Album extends BaseSql{
 
     protected $id = -1;

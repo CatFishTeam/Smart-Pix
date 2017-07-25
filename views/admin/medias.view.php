@@ -1,3 +1,4 @@
+//TODO Little bug button ?
 <div class='row'>
     <div class="col-6">
         <h2>Ajouter une photo</h2>
@@ -23,10 +24,15 @@
     <div id='output'>
         <?php
         foreach($pictures as $picture): ?>
-        <div class="imageContainer relative">
+        <div class="imageContainer relative" style="<?php echo ($picture['is_visible'] == 0) ? 'border: 2px solid green;' : 'border: 2px solid orange; ' ?>">
             <a href="/<?php echo($_SESSION['community_slug']) ?>/picture/<?php echo $picture['id'] ?>"></a>
             <button class="delete" data-url="<?php echo $picture['url'] ?>"><i class="fa fa-times" aria-hidden="true"></i></button>
-            <img src="/public/cdn/images/thumbnails/<?php echo $picture['url'] ?>" alt="<?php echo $picture['title'] ?>">
+            <?php if($picture['is_visible'] == 0): ?>
+                <button class="unPublish" data-url="<?php echo $picture['url'] ?>"><i class="fa fa-eye" aria-hidden="true"></i></button>
+            <?php else: ?>
+                <button class="publish" data-url="<?php echo $picture['url'] ?>"><i class="fa fa-eye" aria-hidden="true"></i></button>
+            <?php endif ?>
+            <img src="/public/cdn/images/<?php echo $picture['url'] ?>" alt="<?php echo $picture['title'] ?>">
         </div>
     <?php endforeach ?>
     </div>
@@ -62,20 +68,17 @@ $(document).ready(function(){
           processData: false,  // tell jQuery not to process the data
           contentType: false,   // tell jQuery not to set contentType
           success: function(data){
-              console.log(data);
-            //   data = JSON.parse(data);
-            //   console.log(data.msg);
-            //   $('#output').prepend('<div class="imageContainer relative"><a href="/picture'+data.id+'"></a><button class="delete" data-url="'+data.img+'"><i class="fa fa-times" aria-hidden="true"></i></button><img src="/public/cdn/images/thumbnails/'+data.img+'" /></div>');
-            //   $('.loader').remove();
-            //   $('[name="file"]').val('');
-            //   $('[name="title"]').val('');
-            //   $('[name="description"]').val('');
+              data = JSON.parse(data);
+              console.log(data)
+              $('#output').prepend('<div class="imageContainer relative"><a href="/<?php echo $_SESSION['community_slug'] ?>/picture/'+data.id+'"></a><button class="delete" data-url="'+data.url+'"><i class="fa fa-times" aria-hidden="true"></i></button><button class="publish" data-url="'+data.url+'"><i class="fa fa-eye" aria-hidden="true"></i></button><img src="/public/cdn/images/'+data.url+'" /></div>');
+              $('.loader').remove();
+              $('[name="file"]').val('');
+              $('[name="title"]').val('');
+              $('[name="description"]').val('');
           },
           error: function(error){
               console.log(error);
           }
-      }).done(function(data){
-          console.log(data);
       });
 
         return false;
@@ -98,5 +101,41 @@ $(document).on('click','.delete',function(){
           });
       }
     });
+})
+$(document).on('click','.unPublish',function(){
+    var _ = $(this);
+    var url = _.data('url');
+    $.ajax({
+      url: "/<?php echo($_SESSION['community_slug']) ?>/admin/unPublishMedia",
+      type: "POST",
+      dataType: 'json',
+      data: { url: url },
+      success: function(data){
+          $('body').append(data);
+          flash();
+          _.parent().css('border','2px solid orange')
+          _.remove();
+          _.parent().append('<button class="publish" data-url="'+url+'"><i class="fa fa-eye" aria-hidden="true"></i></button>');
+      }
+    });
+})
+$(document).on('click','.publish',function(){
+    var _ = $(this);
+    var url = _.data('url');
+    $.ajax({
+      url: "/<?php echo($_SESSION['community_slug']) ?>/admin/publishMedia",
+      type: "POST",
+      dataType: 'json',
+      data: { url: url },
+      success: function(data){
+          $('body').append(data);
+          flash();
+          _.parent().css('border','2px solid green')
+          _.remove();
+          console.log(url);
+          _.parent().append('<button class="unPublish" data-url="'+url+'"><i class="fa fa-eye" aria-hidden="true"></i></button>');
+      }
+    });
+
 })
  </script>

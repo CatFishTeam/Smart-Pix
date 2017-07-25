@@ -42,8 +42,6 @@ CREATE TABLE `album` (
   `community_id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `thumbnail_url` varchar(150) DEFAULT '',
-  `background` varchar(150) DEFAULT '',
-  `disposition` text,
   `description` text,
   `is_published` tinyint(1) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,

@@ -85,6 +85,8 @@ $router->post('/:communitiy/admin/removePictureFromAlbum',     'Moderator@remove
 $router->get('/:communitiy/admin/medias',           'Moderator@medias')->with('community','communities');
 $router->post('/:communitiy/admin/uploadMedia',     'Moderator@uploadMedia')->with('community','communities');
 $router->post('/:communitiy/admin/deleteMedia',     'Moderator@deleteMedia')->with('community','communities');
+$router->post('/:communitiy/admin/unPublishMedia',  'Moderator@unPublishMedia')->with('community','communities');
+$router->post('/:communitiy/admin/publishMedia',    'Moderator@publishMedia')->with('community','communities');
 
 $router->get('/:communitiy/admin/comments',         'Moderator@comments')->with('community','communities');
 $router->post('/:communitiy/admin/publishComment',  'Moderator@publishComment')->with('community','communities');

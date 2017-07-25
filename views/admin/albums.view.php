@@ -32,6 +32,7 @@
     </div>
     <div id="images">
         <h2>Images de l'album</h2>
+        TODO Image de couverture
         <div id="pictureIn">
 
         </div>
@@ -81,7 +82,7 @@ $(document).on('click','#albums li',function(){
             $('#pictureNotIn').empty();
             Object.keys(data.picturesNotIn).map(function(objectKey, index) {
                 var image = data.picturesNotIn[objectKey];
-                $('#pictureNotIn').append('<img  data-id="'+image.id+'" style="max-width: 100%" src="/public/cdn/images/thumbnails/'+image.url+'"/>');
+                $('#pictureNotIn').append('<img  data-id="'+image.id+'" style="max-width: 100%" src="/public/cdn/images/'+image.url+'"/>');
             });
         },
         error: function(error){
