@@ -216,7 +216,7 @@ class GuestController{
         $feed .= '<title>Feed of '.$community->getName().'</title>';
         $feed .= '<link>http://www'.SLUG.'/'.$community->getSlug().'</link>';
         $feed .= '<description>'.$community->getDescription().'</description>';
-        $feed .= '<lastBuildDate>'.date('l jS \of F Y h:i:s A').'</lastBuildDate>';
+        // $feed .= '<lastBuildDate>'.date('l jS \of F Y h:i:s A').'</lastBuildDate>';
         $feed .= '<language>fr-fr</language>';
 
         $albums = new Album;
@@ -251,6 +251,7 @@ class GuestController{
     	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
     	header('Pragma: public');
 
+        $feed=preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $feed);
         echo $feed;
 
     }
@@ -290,6 +291,7 @@ class GuestController{
     	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
     	header('Pragma: public');
 
+        $feed=preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $feed);
         echo $feed;
 
     }

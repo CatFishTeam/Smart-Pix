@@ -24,7 +24,7 @@
         <form action="/album/addalbum" type="POST">
             <input type="hidden" name="id"/>
             Titre de la page : <input type="text" name="title" /><br>
-            Est publié : <input type="checkbox" name="is_published" /><br>
+            <!-- Est publié : <input type="checkbox" name="is_published" /><br> -->
             Description : <textarea name="description" placeholder="Description de l'album"></textarea><br>
             <button type="button" name="editAlbum">Editer</button>
             <button type="button" name="deleteAlbum">Supprimer</button>
