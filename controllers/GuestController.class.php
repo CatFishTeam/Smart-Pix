@@ -194,4 +194,104 @@ class GuestController{
         $v->assign('userConnected', $userConnected);
         $v->assign('title', "Connexion");
     }
+
+    public function loadMore($commu){
+        $community = new Community;
+        $community = $community->populate(['slug'=>$commu]);
+
+        $pictures = new Picture;
+        $pictures = $pictures->getAllBy(['community_id'=>$community->getId()],"DESC");
+
+        echo json_encode(array_slice($pictures, $_POST['index'], 8));
+    }
+
+    //Feeds
+    public function feed($commu){
+
+        $community = new Community;
+        $community = $community->populate(['slug'=>$commu]);
+
+        $feed  = '<?xml version="1.0" encoding="utf-8"?>';
+        $feed .= '<rss version="2.0"><chanel>';
+        $feed .= '<title>Feed of '.$community->getName().'</title>';
+        $feed .= '<link>http://www'.SLUG.'/'.$community->getSlug().'</link>';
+        $feed .= '<description>'.$community->getDescription().'</description>';
+        $feed .= '<lastBuildDate>'.date('l jS \of F Y h:i:s A').'</lastBuildDate>';
+        $feed .= '<language>fr-fr</language>';
+
+        $albums = new Album;
+        $albums = $albums->getAllBy(['community_id'=>$community->getId()],"DESC",10);
+
+        foreach($albums as $album){
+            $feed .= '<item>';
+            $feed .= '<title>'.$album['title'].'</title>';
+            $feed .= '<link>http://www'.SLUG.'/'.$community->getSlug().'/album/'.$album['id'].'</link>';
+            $feed .= '<description>'.$album['description'].'</description>';
+            $feed .= '<pubDate>'.$album['created_at'].'</pubDate>';
+            $feed .= '</item>';
+        }
+
+
+        $pictures = new Picture;
+        $pictures = $pictures->getAllBy(['community_id'=>$community->getId()],"DESC",50);
+
+        foreach ($pictures as $picture) {
+            $feed .= '<item>';
+            $feed .= '<title>'.$picture['title'].'</title>';
+            $feed .= '<link>http://www'.SLUG.'/'.$community->getSlug().'/picture/'.$picture['id'].'</link>';
+            $feed .= '<description>'.$picture['description'].'</description>';
+            $feed .= '<pubDate>'.$picture['created_at'].'</pubDate>';
+            $feed .= '</item>';
+        }
+
+        $feed .= '</chanel></rss>';
+
+        header('Content-Type: text/xml');
+    	header('Expires: '.gmdate('D, d M Y H:i:s').' GMT');
+    	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+    	header('Pragma: public');
+
+        echo $feed;
+
+    }
+
+    public function feedUser($commu, $id){
+
+        $community = new Community;
+        $community = $community->populate(['slug'=>$commu]);
+
+        $user = new User;
+        $user = $user->populate(['id'=>$id]);
+
+
+        $feed  = '<?xml version="1.0" encoding="utf-8"?>';
+        $feed .= '<rss version="2.0"><chanel>';
+        $feed .= '<title>Feed of '.$user->getUsername().' in '.$community->getName().'</title>';
+        $feed .= '<link>http://www'.SLUG.'/'.$community->getSlug().'</link>';
+        $feed .= '<description>'.$community->getDescription().'</description>';
+        $feed .= '<lastBuildDate>'.date('l jS \of F Y h:i:s A').'</lastBuildDate>';
+        $feed .= '<language>fr-fr</language>';
+
+        $actions = new Action;
+        $actions = $actions->getAllBy(['community_id'=>$community->getId(), 'user_id'=>$id],"DESC",10);
+
+        foreach($actions as $action){
+            $feed .= '<item>';
+            $feed .= '<title>'.$action['type_action'].'</title>';
+            $feed .= '<link>http://www'.SLUG.'/'.$community->getSlug().'/album/'.$id.'</link>';
+            $feed .= '<pubDate>'.$action['created_at'].'</pubDate>';
+            $feed .= '</item>';
+        }
+
+        $feed .= '</chanel></rss>';
+
+        header('Content-Type: text/xml');
+    	header('Expires: '.gmdate('D, d M Y H:i:s').' GMT');
+    	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+    	header('Pragma: public');
+
+        echo $feed;
+
+    }
+
 }

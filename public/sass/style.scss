@@ -777,6 +777,15 @@ Wall (user/wall)
   }
 }
 
+.feed {
+  margin: 0;
+  text-align: right;
+  font-size: 12px;
+  i {
+    margin: 0 3px;
+  }
+}
+
 .picture-info-panel {
   background: #fff;
   border: 5px solid #eee;
@@ -787,7 +796,10 @@ Wall (user/wall)
   h2 {
     margin-top: 0;
   }
-  .picture-tags span a {
+}
+
+.picture-tags {
+  span {
     background-color: rgba(52, 73, 94, 0.1);
     padding: 4px 8px;
     font-size: 14px;
@@ -795,15 +807,26 @@ Wall (user/wall)
     color: #333;
     cursor: pointer;
     display: inline-block;
-    &:visited {
-      color: #333;
-    }
     &:hover {
       background-color: rgba(52, 73, 94, 0.2);
     }
+    a {
+      color: #333;
+    }
+    a:visited {
+      color: #333;
+    }
+    a:hover {
+      color: #333;
+    }
+  }
+
+  &.remove-tags {
+    span {
+
+    }
   }
 }
-
 
 
 /* Album's pictures */

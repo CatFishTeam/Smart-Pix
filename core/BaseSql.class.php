@@ -5,9 +5,6 @@ class BaseSql{
     private $table;
     private $columns = [];
 
-    //TODO Save error display (log or return)
-    //TODO Problem if prepare statement in empty (case : no album yet or no picture yet ~ selectAllBy)
-
     public function __construct(){
         try {
             $this->db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=utf8", DB_USER, DB_PWD);

@@ -39,6 +39,7 @@ $router->post('/add-comment',                   'User@addComment');
 //$router->get('/edit-album',             'Album@edit');
 //$router->get('/edit-album/:id',         'Album@edit');
 //$router->post('/edit-album/:id',        'Album@edit');
+$router->post('/picture/remove-tag',    'Picture@removeTag');
 $router->post('/album/remove-picture',  'Album@removePicture');
 $router->post('/album/add-pictures',    'Album@addPictures');
 
@@ -67,11 +68,16 @@ $router->post('/:community/album/remove-picture',    'Community@removePictureFro
 $router->post('/:community/album/add-pictures',      'Community@addPicturesToAlbum')->with('community','communities');
 $router->get('/:community/add-picture',              'Community@showAddPicture')->with('community','communities');
 $router->post('/:community/add-picture',             'Community@addPicture')->with('community','communities');
-$router->get('/:community/edit-picture/:id',         'Community@editPicture')->with('community', 'communities')->with('id', '[0-9]+');
+$router->get('/:community/edit-picture/:id',         'Community@showEditPicture')->with('community', 'communities')->with('id', '[0-9]+');
+$router->post('/:community/edit-picture/:id',        'Community@editPicture')->with('community', 'communities')->with('id', '[0-9]+');
 $router->get('/:community/user',                     'Community@wall')->with('community','communities');
 $router->get('/:community/user/:id',                 'Community@wall')->with('community','communities')->with('id', '[0-9]+');
 $router->get('/:community/join',                     'Community@join')->with('community','communities');
 $router->get('/:community/tag/:id/:tag',             'Picture@tag')->with('community', 'communities')->with('id', '[0-9]+')->with('tag', '[\w\-]+');
+$router->post('/:community/media/loadMore',          'Guest@loadMore')->with('community', 'communities');
+
+$router->get(':community/feed',                      'Guest@feed')->with('community','communities')->with('id', '[0-9]+');
+$router->get(':community/user/:id/feed',             'Guest@feedUser')->with('community','communities')->with('id', '[0-9]+');
 
 $router->get('/:communitiy/admin',                  'Moderator@indexAdmin')->with('community','communities');
 
@@ -82,10 +88,13 @@ $router->post('/:communitiy/admin/editAlbum',                  'Moderator@editAl
 $router->post('/:communitiy/admin/deleteAlbum',                'Moderator@deleteAlbum')->with('community','communities');
 $router->post('/:communitiy/admin/addPictureToAlbum',          'Moderator@addPictureToAlbum')->with('community','communities');
 $router->post('/:communitiy/admin/removePictureFromAlbum',     'Moderator@removePictureFromAlbum')->with('community','communities');
+$router->post('/:communitiy/admin/setPictureAsCover',          'Moderator@setPictureAsCover')->with('community','communities');
 
 $router->get('/:communitiy/admin/medias',           'Moderator@medias')->with('community','communities');
 $router->post('/:communitiy/admin/uploadMedia',     'Moderator@uploadMedia')->with('community','communities');
 $router->post('/:communitiy/admin/deleteMedia',     'Moderator@deleteMedia')->with('community','communities');
+$router->post('/:communitiy/admin/unPublishMedia',  'Moderator@unPublishMedia')->with('community','communities');
+$router->post('/:communitiy/admin/publishMedia',    'Moderator@publishMedia')->with('community','communities');
 
 $router->get('/:communitiy/admin/comments',         'Moderator@comments')->with('community','communities');
 $router->post('/:communitiy/admin/publishComment',  'Moderator@publishComment')->with('community','communities');

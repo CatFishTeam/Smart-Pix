@@ -171,6 +171,19 @@ class ModeratorController extends UserController{
         GlobalController::flash('json');
     }
 
+    public function setPictureAsCover(){
+        $picture = new Picture;
+        $picture = $picture->populate(['id'=>$_POST['id']]);
+
+        $album = new Album;
+        $album = $album->populate(['id'=>$_POST['album_id']]);
+        $album->setThumbnailUrl($picture->getUrl());
+        $album->save();
+
+        $_SESSION['messages']['success'][] = "Image de couverture modifié";
+        GlobalController::flash('json');
+    }
+
     /* ~~~~~ Picture ~~~~~*/
     public function medias(){
         $v = new View('admin.medias','backend');
@@ -187,40 +200,31 @@ class ModeratorController extends UserController{
     }
     public function uploadMedia(){
         $upload_dir = '/public/cdn/images/';
-        $upload_thumb_dir = '/public/cdn/images/thumbnails/';
+        // $upload_thumb_dir = '/public/cdn/images/thumbnails/';
 
         //If it is Ajax Request
-        if(isset($_POST) && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+        if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
             //If File not empty
             if(!isset($_FILES['file']) || !is_uploaded_file($_FILES['file']['tmp_name'])){
-                $response = json_encode(array(
-                    'type'=>'error',
-                    'msg'=>'Le fichier image n\'a pas été fourni !'
-                ));
-                die($response);
+                $_SESSION['messages']['error'][] = "Le fichier image n'a pas été fourni !";
+                GlobalController::flash('json');
             }
 
             //Check le type de l'image
-            //TODO conversion pour thumbnail | faire test avec gif etc?
             $img_size = getimagesize($_FILES['file']['tmp_name']);
             if($img_size){
                 $img_type = $img_size['mime'];
             }else{
-                $response = json_encode(array(
-                    'type'=>'error',
-                    'msg'=>'Le fichier n\'est pas au bon format !'
-                ));
-                die($response);
+                $_SESSION['messages']['error'][] = "L'image n'est pas au bon format !";
+                GlobalController::flash('json');
             }
 
             $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
 
             //Stockage de l'image en base
-            //TODO rajouter test de sauvegarde en bdd
             $picture = new Picture();
             $now = new DateTime("now");
             $nowStr = $now->format("Y-m-d H:i:s");
-            //Il faudrait donc tous les champs ici ?
             $picture->setAlbumId(null);
             $picture->setUserId($_SESSION['user_id']);
             $picture->setCommunityId($_SESSION['community_id']);
@@ -239,38 +243,54 @@ class ModeratorController extends UserController{
             $image = new \Imagick($_FILES['file']['tmp_name']);
             $results = $image->writeImages(PATH_ABSOLUT.$upload_dir.$picture->getUrl(), true);
 
-            //On crée la miniature
-            $thumb = new \Imagick($_FILES['file']['tmp_name']);
-            $thumb->cropThumbnailImage(200, 200);
-            $thumb->writeImages(PATH_ABSOLUT.$upload_thumb_dir.$picture->getUrl(), true);
+            // //On crée la miniature
+            // $thumb = new \Imagick($_FILES['file']['tmp_name']);
+            // $thumb->cropThumbnailImage(200, 200);
+            // $thumb->writeImages(PATH_ABSOLUT.$upload_thumb_dir.$picture->getUrl(), true);
 
             if($results){
-                $response = json_encode(array(
-                    'type'=>'succes',
-                    'msg'=>'L\'image a bien été enregistrée',
-                    'img'=>$picture->getUrl()
-                ));
+                $response = json_encode(array('url'=>$picture->getUrl(),'id'=>$picture->getDb()->lastInsertId()));
+                echo $response;
             }
         }
-        return $response;
         exit();
     }
     public function deleteMedia(){
         $upload_dir = '/public/cdn/images/';
-        $upload_thumb_dir = '/public/cdn/images/thumbnails/';
+        // $upload_thumb_dir = '/public/cdn/images/thumbnails/';
 
         $picture = new Picture();
         $delete = $picture->deleteOneBy(array('url'=>$_POST['url']));
 
         //Détruit les fichiers
         unlink(PATH_ABSOLUT.$upload_dir.$_POST['url']);
-        unlink(PATH_ABSOLUT.$upload_thumb_dir.$_POST['url']);
+        // unlink(PATH_ABSOLUT.$upload_thumb_dir.$_POST['url']);
 
         if($delete){
             $_SESSION['messages']['success'][] = 'Image bien supprimée';
             GlobalController::flash('json');
             exit();
         }
+    }
+
+    public function unPublishMedia(){
+        $picture = new Picture;
+        $picture = $picture->populate(['url'=>$_POST['url']]);
+        $picture->setIsVisible(1);
+        $picture->save();
+        $_SESSION['messages']['success'][] = 'Image dépubliée';
+        GlobalController::flash('json');
+        exit();
+    }
+
+    public function publishMedia(){
+        $picture = new Picture;
+        $picture = $picture->populate(['url'=>$_POST['url']]);
+        $picture->setIsVisible(0);
+        $picture->save();
+        $_SESSION['messages']['success'][] = 'Image publiée';
+        GlobalController::flash('json');
+        exit();
     }
 
     /* ~~~~~~ Comments ~~~~~~ */

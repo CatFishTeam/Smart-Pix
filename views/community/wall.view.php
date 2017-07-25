@@ -68,8 +68,9 @@
                 <?php
                 if (count($actions) < 1): ?>
                 <p class="no-action">Cet utilisateur n'a pas encore d'activités</p>
-                <?php endif;
-                foreach ($actions as $action):
+                <?php endif; ?>
+                <p class="feed"><a href="<?php echo isset($community) ? "/".$community->getSlug() : ""; ?>/user/<?php echo $user->getId(); ?>/feed"><i class="fa fa-rss-square" aria-hidden="true"></i> Flux RSS</a></p>
+                <?php foreach ($actions as $action):
                     $action_date = strtotime($action['created_at']);
                     ?>
                     <div class="story">

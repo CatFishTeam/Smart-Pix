@@ -22,6 +22,7 @@
             Description : <textarea name="description" placeholder="Description de l'album"></textarea>
             <button type="button" name="editAlbum">Editer</button>
             <button type="button" name="deleteAlbum">Supprimer</button>
+            <button class="seeAlbum">Voir l'album</button>
         </form>
     </div>
     <div id="addPicture">
@@ -76,13 +77,14 @@ $(document).on('click','#albums li',function(){
             $('[name="description"]').val(data.album.description);
             $('#pictureIn').empty();
             data.pictures.forEach(function(image){
-                $('#pictureIn').append('<div class="image"><img src="/public/cdn/images/'+image.url+'"/><button class="delete" data-id="'+image.id+'"><i class="fa fa-times" aria-hidden="true"></i></button></div>');
+                $('#pictureIn').append('<div class="image"><img src="/public/cdn/images/'+image.url+'"/><button class="delete" data-id="'+image.id+'"><i class="fa fa-times" aria-hidden="true"></i></button><button class="cover" data-id="'+image.id+'"><i class="fa fa-picture-o" aria-hidden="true"></i></button></div>');
             });
             $('#pictureNotIn').empty();
             Object.keys(data.picturesNotIn).map(function(objectKey, index) {
                 var image = data.picturesNotIn[objectKey];
                 $('#pictureNotIn').append('<img  data-id="'+image.id+'" style="max-width: 100%" src="/public/cdn/images/'+image.url+'"/>');
             });
+            $('.seeAlbum').html('<a href="/<?php echo($_SESSION['community_slug']) ?>/album/'+data.album.id+'">Voir L\'album</a>');
         },
         error: function(error){
             console.log(error.responseText)
@@ -100,7 +102,7 @@ $(document).on('click','#pictureNotIn img',function(){
         data: {picture_id: $id, album_id: $('[name="id"]').val()},
         success: function(data){
             $this.fadeOut(function(){ $(this).remove(); });
-            $('#images').append('<div class="image"><img src="/public/cdn/images/'+data.url+'"/><button class="delete" data-id="'+data.id+'"><i class="fa fa-times" aria-hidden="true"></i></button></div>');
+            $('#pictureIn').append('<div class="image"><img src="/public/cdn/images/'+data.url+'"/><button class="delete" data-id="'+data.id+'"><i class="fa fa-times" aria-hidden="true"></i></button><button class="cover" data-id="'+data.id+'"><i class="fa fa-picture-o" aria-hidden="true"></i></button></div>');
         }
     })
 });
@@ -120,6 +122,23 @@ $(document).on('click','.delete', function(){
             $this.parents('.image').fadeOut(function(){
                 $(this).remove()
             });
+        }
+    });
+});
+$(document).on('click','.cover', function(){
+    $this = $(this);
+    $id = $(this).data('id');
+    // $('#pictureNotIn').prepend('<img  data-id="'+$id+'" style="max-width: 100%" src="'+$(this).prev().attr('src')+'"/>');
+    $.ajax({
+        url: '/<?php echo($_SESSION['community_slug']) ?>/admin/setPictureAsCover',
+        type: 'POST',
+        dataType: 'json',
+        data: {id: $id, album_id: $('[name="id"]').val()},
+        success: function(data){
+            $('body').append(data);
+            flash();
+            $this.parents('.image').css('border','1px solid orange');
+
         }
     });
 });

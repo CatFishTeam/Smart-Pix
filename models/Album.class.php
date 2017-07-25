@@ -1,4 +1,5 @@
 <?php
+//TODO is_published !!
 class Album extends BaseSql{
 
     protected $id = -1;
@@ -199,7 +200,7 @@ class Album extends BaseSql{
      */
     public function setThumbnailUrl($ext)
     {
-        $this->thumbnail_url = parent::clean($this->title).'_'.uniqid().'.'.$ext;
+        $this->thumbnail_url = $ext;
     }
 
     /**

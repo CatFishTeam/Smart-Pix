@@ -604,8 +604,9 @@ h1, h2, h3, p, span, label, div, table {
 #mainContent {
   position: fixed;
   left: 60px;
-  right: 0;
+  right: -15px;
   padding: 10px;
+  height: 100vh;
   overflow-y: scroll;
   overflow-x: hidden;
   height: 100vh; }
@@ -614,15 +615,21 @@ h1, h2, h3, p, span, label, div, table {
 .imageContainer {
   display: inline-block;
   margin: 10px;
-  overflow: hidden; }
+  overflow: hidden;
+  width: 150px;
+  height: 150px; }
   .imageContainer:hover {
     transform: scale(1.01); }
+  .imageContainer img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover; }
   .imageContainer a {
     width: 100%;
     position: absolute;
     top: 0;
     bottom: 0; }
-  .imageContainer button {
+  .imageContainer .delete {
     display: none;
     position: absolute;
     right: 5px;
@@ -630,8 +637,22 @@ h1, h2, h3, p, span, label, div, table {
     background: red;
     color: beige;
     cursor: pointer; }
-    .imageContainer button:hover {
+    .imageContainer .delete:hover {
       background: #d41131; }
+  .imageContainer .unPublish, .imageContainer .publish {
+    display: none;
+    position: absolute;
+    right: 5px;
+    top: 30px;
+    background: orange;
+    color: beige;
+    cursor: pointer; }
+    .imageContainer .unPublish:hover, .imageContainer .publish:hover {
+      background: #f57812; }
+  .imageContainer .publish {
+    background: green; }
+    .imageContainer .publish:hover {
+      background: #0c9d27; }
   .imageContainer:hover button {
     display: block; }
 
@@ -737,10 +758,15 @@ h1, h2, h3, p, span, label, div, table {
       position: relative;
       display: inline-block;
       margin: 10px; }
-    #pageAlbum #images .image button {
+    #pageAlbum #images .image .delete {
       position: absolute;
       top: 10px;
       right: 10px;
+      cursor: pointer; }
+    #pageAlbum #images .image .cover {
+      position: absolute;
+      top: 10px;
+      left: 10px;
       cursor: pointer; }
     #pageAlbum #images .image img {
       width: 100%;

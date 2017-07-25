@@ -1,5 +1,4 @@
 //Commande pour lancer sass : sass -w sass:css (dans public)
-//TODO Check Right content left: -15px Plutot que solution dans Album
 @import url('https://fonts.googleapis.com/css?family=Raleway:600');
 
 @font-face {
@@ -671,8 +670,9 @@ h1,h2,h3,p,span,label,div,table{
 #mainContent{
     position: fixed;
     left: 60px;
-    right: 0;
+    right: -15px;
     padding: 10px;
+    height: 100vh;
     overflow-y: scroll;
     overflow-x: hidden;
     height: 100vh;
@@ -681,11 +681,17 @@ h1,h2,h3,p,span,label,div,table{
 /* ~~~ Page Media - X ~~~ */
 .imageContainer {
     display: inline-block;
-    // width: 20%;
     margin: 10px;
     overflow: hidden;
+    width: 150px;
+    height: 150px;
     &:hover{
         transform: scale(1.01);
+    }
+    img{
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
     }
     a{
       width: 100%;
@@ -693,7 +699,7 @@ h1,h2,h3,p,span,label,div,table{
       top: 0;
       bottom: 0;
     }
-    button{
+    .delete{
       display: none;
       position: absolute;
       right: 5px;
@@ -704,7 +710,25 @@ h1,h2,h3,p,span,label,div,table{
       &:hover{
             background: #d41131;
       }
+      }
+      .unPublish, .publish{
+        display: none;
+        position: absolute;
+        right: 5px;
+        top: 30px;
+        background: orange;
+        color: beige;
+        cursor: pointer;
+        &:hover{
+              background: rgb(245, 120, 18);
+        }
     }
+        .publish{
+            background: green;
+            &:hover{
+                  background: rgb(12, 157, 39);
+            }
+        }
     &:hover button{
       display: block;
     }
@@ -831,10 +855,16 @@ h1,h2,h3,p,span,label,div,table{
             margin: 10px;
         }
 
-        .image button{
+        .image .delete{
             position: absolute;
             top: 10px;
             right: 10px;
+            cursor: pointer;
+        }
+        .image .cover{
+            position: absolute;
+            top: 10px;
+            left: 10px;
             cursor: pointer;
         }
 

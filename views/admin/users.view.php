@@ -13,7 +13,7 @@
             <th>Last Update</th>
         <?php foreach ($users as $user): ?>
             <tr data-id="<?php echo $user['id'] ?>">
-                <td><?php echo $user['username'] ?></td>
+                <td><a href="/<?php echo $_SESSION['community_slug'] ?>/user/<?php echo $user['id'] ?>"><?php echo $user['username'] ?></a></td>
                 <td><a href="mailto:<?php echo $user['email'] ?>"><?php echo $user['email'] ?></a></td>
                 <td>
                     <select name="permission">

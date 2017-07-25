@@ -10,8 +10,6 @@ class CommunityController{
         $name = $_POST['name'];
         $community = new Community;
         $community = $community->populate(['name' => $name]);
-        // $user = new User;
-        // $user = $user->populate(array('username' => $_SESSION['username']));
         if($community){
             echo json_encode('error');
         } else {
@@ -176,7 +174,6 @@ class CommunityController{
                         elseif ($_FILES['thumbnail_url']['error'] != 4)
                             $_SESSION['messages']['warning'][] = "Le fichier d'image a rencontré une erreur.";
                     } else {
-                        var_dump("test");
                         $fileInfo = pathinfo($_FILES['thumbnail_url']['name']);
                         $ext = pathinfo($_FILES['thumbnail_url']['name'], PATHINFO_EXTENSION);
                         if (
@@ -420,7 +417,7 @@ class CommunityController{
                 $author = new User();
                 $author = $author->populate(['id' => $album->getUserId()]);
                 $pictures = new Picture();
-                $pictures = $pictures->getAllBy(['user_id' => $author->getId(), 'community_id' => $commu->getId()]);
+                $pictures = $pictures->getAllBy(['user_id' => $author->getId(), 'community_id' => $commu->getId(), 'is_visible'=>0]);
                 $picturesAlbum = new Picture_Album();
                 $picturesAlbum = $picturesAlbum->getAllBy(['album_id' => $id]);
 
@@ -449,6 +446,89 @@ class CommunityController{
             $v->assign('user', $user);
             $v->assign('albums', $albums);
             $v->assign('title', "Album de ".$user->getUsername());
+        }
+    }
+
+    public function showEditPicture($community = null, $id = null) {
+        $commu = $this->checkCommunity($community);
+        if (empty($id)) {
+            $v = new View("404", "frontend");
+            $_SESSION['messages']['error'][] = "L'album n'a pas été retrouvé";
+        } else {
+            $picture = new Picture();
+            $picture = $picture->populate(['id' => $id]);
+            $tagPicture = new Tag_Picture();
+            $tagPicture = $tagPicture->getAllBy(['picture_id' => $picture->getId()]);
+
+            $v = new View('picture.edit', 'frontend');
+            if (!empty($picture)) {
+                $v->assign('picture', $picture);
+                $v->assign('community', $commu);
+                $v->assign('tagPicture', $tagPicture);
+            }
+        }
+    }
+
+    public function editPicture($community = null, $id = null) {
+        $commu = $this->checkCommunity($community);
+        // Envoi du formulaire :
+        if ($_POST && isset($_SESSION['user_id'])) {
+            $title = htmlspecialchars(trim($_POST['title']));
+            $description = htmlspecialchars(trim($_POST['description']));
+            $picture = new Picture();
+            $picture = $picture->populate(['id' => $id]);
+            if (!$picture) {
+                $_SESSION['messages']['error'][] = "L'image n'a pas été trouvée";
+                $v = new View("404", "frontend");
+                return 0;
+            }
+            if (!empty($title) && !empty($description)) {
+                $picture->setTitle($title);
+                $picture->setDescription($description);
+            }
+            $now = new DateTime("now");
+            $nowStr = $now->format("Y-m-d H:i:s");
+            $picture->setUpdatedAt($nowStr);
+            $picture->save();
+
+            /* Tags : */
+            $tagExists = false;
+            $existingTags = new Tag();
+            $existingTags = $existingTags->getAllBy([]);
+            $tagsArray = array();
+            if (!empty($_POST['tags'])) {
+                $tagsArray = explode(',', $_POST['tags']);
+                for ($i = 0; $i < count($tagsArray); $i++) {
+                    $tagExists = false;
+                    $tag = new Tag();
+                    $tagPicture = new Tag_Picture();
+                    $tagsArray[$i] = trim($tagsArray[$i]);
+                    $tagInDb = null;
+                    foreach ($existingTags as $existingTag) {
+                        if ($existingTag['title'] == $tagsArray[$i]) {
+                            $tagExists = true;
+                            $tagInDb = $existingTag;
+                            break;
+                        }
+                    }
+                    if (!$tagExists) {
+                        $tag->setTitle($tagsArray[$i]);
+                        $tag->setSlug(GlobalController::slugify($tagsArray[$i]));
+                        $tag->save();
+                        $tagPicture->setTagId($tag->getDb()->lastInsertId());
+                    } else {
+                        $tagPicture->setTagId($tagInDb['id']);
+                    }
+                    var_dump($tagPicture);
+                    $tagPicture->setPictureId($picture->getId());
+                    $tagPicture->save();
+                }
+            }
+            header("Location: /".$commu->getSlug()."/picture/".$picture->getId());
+            $_SESSION['messages']['success'][] = "Votre image a été mise à jour";
+        } else {
+            $v = new View("404", "frontend");
+            $_SESSION['messages']['error'][] = "Vous devez être connecté pour éditer une image";
         }
     }
 

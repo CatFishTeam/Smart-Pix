@@ -108,59 +108,69 @@ img{
     * Limite pattern
 */
 
+patterns = {
+    1 : {
+        "nbImg": "2",
+        "pattern": {
+            1 : {"width":"50", "number":"1"},
+            2 : {"width":"50", "number":"1"}
+        }
+    },
+    2 : {
+        "nbImg": "3",
+        "pattern": {
+            1 : {"width":"35", "number":"2"},
+            2 : {"width":"65", "number":"1"}
+        }
 
- patterns = {
-     1 : {
-         "nbImg": "2",
-         "pattern": {
-             1 : {"width":"50", "number":"1"},
-             2 : {"width":"50", "number":"1"}
-         }
-     },
-     2 : {
-         "nbImg": "3",
-         "pattern": {
-             1 : {"width":"33.33","number":"1"},
-             2 : {"width":"33.33","number":"1"},
-             3 : {"width":"33.33","number":"1"}
-         }
-     },
-     3 : {
-         "nbImg": "3",
-         "pattern": {
-             1 : {"width":"35", "number":"2"},
-             2 : {"width":"65", "number":"1"}
-         }
+    },
+    3 : {
+        "nbImg": "3",
+        "pattern": {
+            1 : {"width":"65", "number":"1"},
+            2 : {"width":"35", "number":"2"}
+        }
 
-     },
-     4 : {
-         "nbImg": "4",
-         "pattern": {
-             1 : {"width":"55","number":"1"},
-             2 : {"width":"15","number":"2"},
-             3 : {"width":"30","number":"1"}
-         }
-     },
-     5 : {
-         "nbImg": "5",
-         "pattern": {
-             1 : {"width":"25", "number":"2"},
-             2 : {"width":"45", "number":"1"},
-             3 : {"width":"30", "number":"3"}
-         }
-     },
-     6 : {
-         "nbImg": "5",
-         "pattern" : {
-             1 : {"width":"25","number":"2"},
-             2 : {"width":"45","number":"2"},
-             3 : {"width":"30","number":"1"}
-            }
-     }
- }
+    },
+    <?php
+       if(!GlobalController::isMobile()):
+    ?>
+    4 : {
+        "nbImg": "3",
+        "pattern": {
+            1 : {"width":"33.33","number":"1"},
+            2 : {"width":"33.33","number":"1"},
+            3 : {"width":"33.33","number":"1"}
+        }
+    },
+    5 : {
+        "nbImg": "4",
+        "pattern": {
+            1 : {"width":"55","number":"1"},
+            2 : {"width":"15","number":"2"},
+            3 : {"width":"30","number":"1"}
+        }
+    },
+    6 : {
+        "nbImg": "5",
+        "pattern": {
+            1 : {"width":"25", "number":"2"},
+            2 : {"width":"45", "number":"1"},
+            3 : {"width":"30", "number":"3"}
+        }
+    },
+    7 : {
+        "nbImg": "5",
+        "pattern" : {
+            1 : {"width":"25","number":"2"},
+            2 : {"width":"45","number":"2"},
+            3 : {"width":"30","number":"1"}
+           }
+    },
+    <?php endif; ?>
+};
 
-
-function populatePattern(img){
+function populatePattern(){
     var rand = Math.floor((Math.random() * Object.keys(patterns).length + 1));
     if(rand != $('.rowImg:last').data('index')){
         $('#content').append('<div class="rowImg" data-index="'+rand+'" data-nbimg="'+patterns[rand].nbImg+'"></div>');
@@ -169,10 +179,12 @@ function populatePattern(img){
             if(img.length > 0){
                 for(i = 0; i <= value.number; i++){
                     var data = img.shift();
-                    $('.colImg:last').append('<div class="containerImg" style="height: '+100/value.number+'%"></div>');
-                    if(data[0] != undefined) $('.containerImg:last').append('<img src="'+data[0]+'"/>');
-                    if(data[2] != undefined) $('.containerImg:last').append('<div class="infoSupp">'+data[2]+'</div>');
-                    if(data[1] != undefined) $('.containerImg:last').append('<a href="<?php echo isset($community) ? '/'.$community->getSlug() : ""; ?>'+data[1]+'"></a>');
+                    if(data != undefined){
+                        $('.colImg:last').append('<div class="containerImg" style="height: '+100/value.number+'%"></div>');
+                        if(data[0] != undefined) $('.containerImg:last').append('<img src="'+data[0]+'"/>');
+                        if(data[2] != undefined) $('.containerImg:last').append('<div class="infoSupp">'+data[2]+'</div>');
+                        if(data[1] != undefined) $('.containerImg:last').append('<a href="<?php echo isset($community) ? '/'.$community->getSlug() : ""; ?>'+data[1]+'"></a>');
+                    }
                 }
             }
         });
@@ -186,49 +198,45 @@ function populatePattern(img){
 
 var img = [];
 
-<?php foreach($pictures as $picture): ?>
+<?php
+foreach($pictures as $picture): ?>
     img.push(["/public/cdn/images/<?php echo $picture['url'] ?>", "/picture/<?php echo $picture['id'] ?>","<?php echo $picture['title'] ?>"]);
 <?php endforeach; ?>
 
 $(document).ready(function() {
-    console.log("3"+img);
-    populatePattern(img);
-    populatePattern(img);
-    // populatePattern();
-    // populatePattern();
-    // populatePattern();
+    populatePattern();
+    populatePattern();
+    populatePattern();
+    populatePattern();
 });
-//
-// var processing, fullsize_url, id, title;
-// $(document).scroll(function(e){
-//
-//        if (processing)
-//            return false;
-//
-//        if ($(window).scrollTop() >= ($(document).height() - $(window).height())*0.85){
-//             processing = true;
-//             // $.ajax({
-//             //     url: '/media/loadMore',
-//             //     data: {index: $('.containerImg img').length + img.length},
-//             //     type: 'POST',
-//             //     success: function(datas){
-//             //         $.each(datas,function(index,data){
-//             //             fullsize_url = (data.fullsize_url != null ? data.fullsize_url : "");
-//             //             type = (data.type == "0" ? 'video' : 'photo');
-//             //             id = (data.id != null ? data.id : "");
-//             //             username = (data.username != null ? data.username : "");
-//             //             countryCode = (data.countryCode != null ? data.countryCode : "");
-//             //             title = (data.title != null ? data.title : "");
-//             //             hits = (data.hits != null ? data.hits : "");
-//             //             avg_rating = (data.avg_rating != null ? data.avg_rating : "");
-//             //             console.log(data);
-//             //             img.push([fullsize_url,type+"/"+id,title,username,countryCode,hits,avg_rating]);
-//             //         });
-//             //         populatePattern();
-//             //         processing = false;
-//             //     }
-//             // })
-//        }
-// });
+
+var processing, url, id, title;
+$(document).scroll(function(e){
+
+       if (processing)
+           return false;
+
+       if ($(window).scrollTop() >= ($(document).height() - $(window).height())*0.85){
+            processing = true;
+            $.ajax({
+                url: '/<?php echo $_SESSION['community_slug'] ?>/media/loadMore',
+                data: {index: $('#content .containerImg img').length + img.length},
+                type: 'POST',
+                success: function(datas){
+                    $.each(JSON.parse(datas),function(index,data){
+                        url = (data.url != null ? '/public/cdn/images/'+data.url : "");
+                        id = (data.id != null ? data.id : "");
+                        title = (data.title != null ? data.title : "");
+                        console.log(img);
+                        img.push([url,'/picture/'+id,title]);
+                    });
+
+                    populatePattern();
+                    processing = false;
+                }
+            })
+
+       }
+});
 </script>
 <div id="content" class="massonry"></div>
