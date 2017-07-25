@@ -640,6 +640,30 @@ h1, h2, h3, p, span, label, div, table {
   .weight:hover .percent {
     opacity: 1; }
 
+/*~~~~Page Index ~~~~*/
+.statsIndex {
+  border: 1px solid #fff;
+  border-radius: 10px;
+  text-align: center;
+  margin: 10px;
+  transition: background-color 0.5s ease;
+  position: relative; }
+  .statsIndex:hover {
+    color: #000;
+    background-color: #282a36; }
+  .statsIndex a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer; }
+  .statsIndex p:nth-child(3) {
+    font-size: 30px; }
+  .statsIndex p:nth-child(4) {
+    font-size: 30px;
+    font-family: 'Raleway', sans-serif; }
+
 /* ~~~~Page Album ~~~~*/
 #pageAlbum {
   margin: -10px;
