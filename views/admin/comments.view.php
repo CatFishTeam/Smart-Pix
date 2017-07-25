@@ -1,4 +1,4 @@
-<h1>On affiche : </h1>
+<h2>Commentaire de la communauté :</h2>
     <style>
         button.delete{
             background: red;
@@ -19,10 +19,6 @@
             font-size: 20px;
         }
     </style>
-
-    TODO :
-    <br />• Pagination
-    <br />• Mettre en avant les commentaires qui n'ont pas encore étés modérés
 
     <table class="table-communities">
         <tr>

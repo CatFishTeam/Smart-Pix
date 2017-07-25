@@ -1,9 +1,15 @@
 <div id="pageAlbum">
     <div id="addPage">
         <h2>Ajouter un album</h2>
-        <input name="title" type="text" placeholder="Nom de l'album"/>
-        <textarea name="description" placeholder="Description de l'album"></textarea>
-        <button type="button" name="ajouter">+</button>
+        <div class="row">
+            <div class="col-6">
+                <input name="title" type="text" placeholder="Nom de l'album"/><br>
+                <button type="button" name="ajouter">Ajouter l'album</button>
+            </div>
+            <div class="col-6">
+                <textarea name="description" placeholder="Description de l'album" class="form-group"></textarea>
+            </div>
+        </div>
     </div>
     <div id="albums">
         <h2>Sélectionner un album</h2>
@@ -19,7 +25,7 @@
             <input type="hidden" name="id"/>
             Titre de la page : <input type="text" name="title" /><br>
             Est publié : <input type="checkbox" name="is_published" /><br>
-            Description : <textarea name="description" placeholder="Description de l'album"></textarea>
+            Description : <textarea name="description" placeholder="Description de l'album"></textarea><br>
             <button type="button" name="editAlbum">Editer</button>
             <button type="button" name="deleteAlbum">Supprimer</button>
             <button class="seeAlbum">Voir l'album</button>

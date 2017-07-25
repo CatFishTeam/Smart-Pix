@@ -169,6 +169,11 @@ patterns = {
     <?php endif; ?>
 };
 
+var content = [];
+<?php foreach($pictures as $picture): ?>
+    content.push(["/public/cdn/images/<?php echo $picture['url'] ?>", "<?php echo $_SESSION['community_slug'] ?>/picture/<?php echo $picture['id'] ?>","<?php echo $picture['title'] ?>"]);
+<?php endforeach; ?>
+
 function populatePattern(){
     var rand = Math.floor((Math.random() * Object.keys(patterns).length + 1));
     if(rand != $('#content .rowImg:last').data('index')){
@@ -192,12 +197,6 @@ function populatePattern(){
         populatePattern();
     }
 }
-
-var content = [];
-<?php foreach($pictures as $picture): ?>
-    content.push(["/public/cdn/images/<?php echo $picture['url'] ?>", "<?php echo $_SESSION['community_slug'] ?>/picture/<?php echo $picture['id'] ?>","<?php echo $picture['title'] ?>"]);
-<?php endforeach; ?>
-
 
 $(document).ready(function() {
     populatePattern();

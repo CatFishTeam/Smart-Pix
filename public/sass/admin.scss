@@ -788,10 +788,11 @@ h1,h2,h3,p,span,label,div,table{
     left: 0;
     width: calc(100% + 20px);
     height: 100vh;
-    input{
+    input,textarea{
         width: 300px;
         height: 25px;
         border-radius: 3px;
+        padding-left: 3px;
     }
     #albums{
         position: absolute;

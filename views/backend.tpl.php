@@ -24,10 +24,7 @@
                 <li><a href="/<?php echo($_SESSION['community_slug']) ?>/admin/medias"><i class="fa fa-picture-o" aria-hidden="true"></i><span>Medias</span></a>
                 <li><a href="/<?php echo($_SESSION['community_slug']) ?>/admin/comments"><i class="fa fa-commenting" aria-hidden="true"></i><span>Commentaires</span></a>
                 <?php if($_SESSION['permission'] > 2): ?>
-                <li><a href="/<?php echo($_SESSION['community_slug']) ?>/admin/users"><i class="fa fa-users" aria-hidden="true"></i><span>Utilisateurs</span></a>
-                <?php endif ?>
-                <?php if($_SESSION['permission'] > 3): ?>
-                <li><a href="/<?php echo($_SESSION['community_slug']) ?>/admin/settings"><i class="fa fa-cogs" aria-hidden="true"></i><span>Reglages</span></a>
+                <li><a href="/<?php echo($_SESSION['community_slug']) ?>/admin/users"><i class="fa fa-users" aria-hidden="true"></i><span>Membres</span></a>
                 <?php endif ?>
             </ul>
         </nav>

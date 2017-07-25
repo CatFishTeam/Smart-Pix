@@ -1,4 +1,3 @@
-//TODO Little bug button ?
 <div class='row'>
     <div class="col-6">
         <h2>Ajouter une photo</h2>
@@ -7,11 +6,11 @@
             <input type="file" name="file">
             <input type="text" name="title" placeholder="Titre de la photo">
             <textarea name="description" placeholder="Description de la photo"></textarea>
-            <input type="submit" value="Upload" />
+            <input type="submit" value="Ajouter" />
         </form>
     </div>
     <div class="col-6" style="text-align: center;">
-        <h2>Place restante sur votre site</h2>
+        <h2>Place restante sur votre communauté</h2>
         <div class="weight" style="height: 50px; background: grey; width: 300px; border-radius: 10px; margin: auto;">
             <div class="bar" data-octet="<?php isset($totalWeight) ? $totalWeight : '0' ?>" style="height: 50px; background: green; width: 0; border-radius: 10px; transition: ease 2s;"></div>
             <div class="percent"></div>
@@ -128,8 +127,8 @@ $(document).on('click','.unPublish',function(){
           $('body').append(data);
           flash();
           _.parent().css('border','2px solid orange')
-          _.remove();
           _.parent().append('<button class="publish" data-url="'+url+'"><i class="fa fa-eye" aria-hidden="true"></i></button>');
+          _.remove();
       }
     });
 })
@@ -145,9 +144,8 @@ $(document).on('click','.publish',function(){
           $('body').append(data);
           flash();
           _.parent().css('border','2px solid green')
-          _.remove();
-          console.log(url);
           _.parent().append('<button class="unPublish" data-url="'+url+'"><i class="fa fa-eye" aria-hidden="true"></i></button>');
+          _.remove();
       }
     });
 
