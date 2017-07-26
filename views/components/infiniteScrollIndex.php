@@ -77,27 +77,7 @@ img{
     white-space: nowrap;
     overflow: hidden;
     transition: ease 1s all;
-}
-.infoSuppBot{
-    opacity: 0;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background: #000;
-    width: 100%;
-    color: #fff;
-    height: 35px;
-    padding: 5px;
-    font-size: 20px;
-    font-family: "Open Sans", sans-serif;
-    font-style: italic;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    transition: ease 1s all;
-}
-.infoSuppBot span{
-    float: right;
+    line-height: 25px;
 }
 .containerImg:nth-child(2) .infoSuppBot{
     bottom: 6px;
@@ -171,7 +151,7 @@ patterns = {
 
 var content = [];
 <?php foreach($pictures as $picture): ?>
-    content.push(["/public/cdn/images/<?php echo $picture['url'] ?>", "<?php echo $picture['community_slug'] ?>/picture/<?php echo $picture['id'] ?>","<?php echo $picture['title'] ?>"]);
+    content.push(["/public/cdn/images/<?php echo $picture['url'] ?>", "<?php echo $picture['community_slug'] ?>/picture/<?php echo $picture['id'] ?>","<?php echo $picture['title'] ?>","<?php echo $picture['community_name'] ?>"]);
 <?php endforeach; ?>
 
 function populatePattern(){
@@ -185,7 +165,7 @@ function populatePattern(){
                     var data = content.shift();
                     $('#content .colImg:last').append('<div class="containerImg" style="height: '+100/value.number+'%"></div>');
                     if(data[0] != undefined) $('#content .containerImg:last').append('<img src="'+data[0]+'"/>');
-                    if(data[2] != undefined) $('#content .containerImg:last').append('<div class="infoSupp">'+data[2]+'</div>');
+                    if(data[2] != undefined) $('#content .containerImg:last').append('<div class="infoSupp">'+data[2]+'<br />'+data[3]+'</div>');
                     if(data[1] != undefined) $('#content .containerImg:last').append('<a href="'+data[1]+'"></a>');
                 }
             }

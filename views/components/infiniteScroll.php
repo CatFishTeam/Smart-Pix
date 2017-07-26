@@ -68,7 +68,7 @@ img{
     background: #000;
     width: 100%;
     color: #fff;
-    height: 63px;
+    height: 30px;
     padding: 5px;
     font-size: 20px;
     font-family: "Open Sans", sans-serif;
@@ -77,27 +77,6 @@ img{
     white-space: nowrap;
     overflow: hidden;
     transition: ease 1s all;
-}
-.infoSuppBot{
-    opacity: 0;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background: #000;
-    width: 100%;
-    color: #fff;
-    height: 35px;
-    padding: 5px;
-    font-size: 20px;
-    font-family: "Open Sans", sans-serif;
-    font-style: italic;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    transition: ease 1s all;
-}
-.infoSuppBot span{
-    float: right;
 }
 .containerImg:nth-child(2) .infoSuppBot{
     bottom: 6px;

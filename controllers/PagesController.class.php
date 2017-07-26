@@ -10,6 +10,7 @@ class PagesController{
             $community = new Community;
             $community = $community->getOneBy(['id'=>$pictures[$i]['community_id']]);
             $pictures[$i]['community_slug'] = $community['slug'];
+            $pictures[$i]['community_name'] = $community['name'];
         }
 
         $communities = new Community();
