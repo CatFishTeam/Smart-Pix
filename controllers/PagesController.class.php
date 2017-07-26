@@ -12,7 +12,7 @@ class PagesController{
             $pictures[$i]['community_slug'] = $community['slug'];
             $pictures[$i]['community_name'] = $community['name'];
         }
-
+        shuffle($pictures);
         $communities = new Community();
         $communities = $communities->getAllBy([], 'DESC',3);
         $users = new User();
