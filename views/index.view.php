@@ -7,7 +7,6 @@
                 <p><a href="/login">Connectez-vous</a> pour voir ou créer vos communautés.</p>
             <?php
             endif;
-//            include 'components/infiniteScroll.php';
             ?>
             <h2 class="align-left">Dernières communautés</h2>
             <table class="table-communities">
@@ -37,4 +36,6 @@
             </table>
         </div>
     </div>
+    <hr />
+    <?php include 'components/infiniteScrollIndex.php'; ?>
 </div>

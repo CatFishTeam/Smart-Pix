@@ -238,7 +238,7 @@ class GuestController{
         foreach ($pictures as $picture) {
             $feed .= '<image>';
             $feed .= '<title>'.$picture['title'].'</title>';
-            $feed .= '<url>http://www'.SLUG.'/'.$community->getSlug().'/picture/'.$picture['id'].'</url>';
+            $feed .= '<url>http://www.'.SLUG.'/'.$community->getSlug().'/picture/'.$picture['id'].'</url>';
             $feed .= '<description>'.$picture['description'].'</description>';
             $feed .= '<pubDate>'.$picture['created_at'].'</pubDate>';
             $feed .= '</image>';
@@ -268,7 +268,7 @@ class GuestController{
         $feed  = '<?xml version="1.0" encoding="utf-8"?>';
         $feed .= '<rss version="2.0"><channel>';
         $feed .= '<title>Feed of '.$user->getUsername().' in '.$community->getName().'</title>';
-        $feed .= '<link>http://www'.SLUG.'/'.$community->getSlug().'</link>';
+        $feed .= '<link>http://www.'.SLUG.'/'.$community->getSlug().'</link>';
         $feed .= '<description>'.$community->getDescription().'</description>';
         $feed .= '<lastBuildDate>'.date('l jS \of F Y h:i:s A').'</lastBuildDate>';
         $feed .= '<language>fr-fr</language>';
@@ -292,7 +292,7 @@ class GuestController{
     	header('Pragma: public');
 
         $feed=preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $feed);
-        echo utf8_encode($feed);
+        echo $feed;
 
     }
 

@@ -5,8 +5,15 @@ class PagesController{
         $v = new View();
         $pictures = new Picture();
         $pictures = $pictures->getAllBy([], 'DESC');
+
+        for($i = 0; $i < count($pictures); $i++){
+            $community = new Community;
+            $community = $community->getOneBy(['id'=>$pictures[$i]['community_id']]);
+            $pictures[$i]['community_slug'] = $community['slug'];
+        }
+
         $communities = new Community();
-        $communities = $communities->getAllBy([], 'DESC');
+        $communities = $communities->getAllBy([], 'DESC',3);
         $users = new User();
         $users = $users->getAllBy([]);
         $v->assign('pictures', $pictures);
