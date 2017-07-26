@@ -252,7 +252,7 @@ class GuestController{
     	header('Pragma: public');
 
         $feed=preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $feed);
-        echo $feed;
+        echo utf8_encode($feed);
 
     }
 
@@ -292,7 +292,7 @@ class GuestController{
     	header('Pragma: public');
 
         $feed=preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $feed);
-        echo $feed;
+        echo utf8_encode($feed);
 
     }
 
